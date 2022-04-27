@@ -8,7 +8,7 @@ from flask_wtf import FlaskForm
 from wtforms import Form,StringField,PasswordField,BooleanField,SubmitField,IntegerRangeField
 from wtforms.validators import DataRequired,Length,email_validator,email,Email
 from flask_wtf.file import FileField,FileRequired,FileAllowed
-import os, uuid, random, sys,click,pandas,pickle,threading
+import os, random, sys,click,pandas,pickle,threading
 from PIL import Image
 from concurrent.futures import ThreadPoolExecutor
 
@@ -24,7 +24,7 @@ app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 app.secret_key = os.getenv('SECRET_KEY', 'hello world')
 Thread_Pool = ThreadPoolExecutor()
-Process_Pool = ProcessPoolExecutor()
+
 
 # 邮件smtp相关配置
 manager = Manager(app)
@@ -46,36 +46,38 @@ def send_email(user_email, content=u'这是一条从民航行程推荐网站发�
     mail.send(msg)
 
 
-@app.before_request
+@app.before_first_request
 def login_primary_verification():
+    pass
+
+@app.route('/login',methods=['GET','POST'])
+def login():
+    response = make_response(render_template('login'))
+    if request.method == 'POST':
+        pass
+        session.permanent = True
+    return response
+
+@app.route('/register',methods=['GET','POST'])
+def register():
+    return 'register'
+
+# index函数为航班推荐主页面
+@app.route('/',methods=['GET','POST'])
+def index():
     user_id = session.get("user_id")
     login_status = session.get('login_status')
     if login_status and user_id:
         g.login_status = True
         g.user_id = user_id
-        url_for(main)
+        response = make_response(render_template('index.html'))
+        return response
     else:
-        url_for(index)
-
-@app.route('/login',methods=['GET','POST'])
-def index():
-    response = make_response(render_template('ind1ex.html'))
-    if request.method == 'POST':
-        pass
-    return response
-
-@app.route('/register',methods=['GET','POST'])
-def register():
-    pass
-
-
-@app.route('/',methods=['GET','POST'])
-def main():
-    response = make_response(render_template(''))
-    return response
+        return redirect(url_for('login'))
 
 
 if __name__ == '__main__':
+    Process_Pool = ProcessPoolExecutor()
     print('服务器开始运行')
     app.run(debug=True, port=80, host='127.0.0.1')
     print('服务器关闭')
