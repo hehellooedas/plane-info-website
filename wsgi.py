@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, flash, url_for, redirect,make_response,session,Response,jsonify
+from concurrent.futures import ThreadPoolExecutor,ProcessPoolExecutor
+from flask import Flask, render_template, request, flash, url_for, redirect,make_response,session,Response,g
 from flask_cors import CORS
 from flask_mail import Mail, Message
 from flask_script import Manager
@@ -7,8 +8,9 @@ from flask_wtf import FlaskForm
 from wtforms import Form,StringField,PasswordField,BooleanField,SubmitField,IntegerRangeField
 from wtforms.validators import DataRequired,Length,email_validator,email,Email
 from flask_wtf.file import FileField,FileRequired,FileAllowed
-import os, uuid, random, sys,click,pandas,pickle
+import os, uuid, random, sys,click,pandas,pickle,threading
 from PIL import Image
+from concurrent.futures import ThreadPoolExecutor
 
 app = Flask(__name__)
 # 设置内置环境变量
@@ -21,6 +23,8 @@ app.config['MAX_CONTENT_LENGTH'] = 200 * 1024 * 1024 #最大上传200MB的文件
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 app.secret_key = os.getenv('SECRET_KEY', 'hello world')
+Thread_Pool = ThreadPoolExecutor()
+Process_Pool = ProcessPoolExecutor()
 
 # 邮件smtp相关配置
 manager = Manager(app)
@@ -42,9 +46,32 @@ def send_email(user_email, content=u'这是一条从民航行程推荐网站发�
     mail.send(msg)
 
 
-@app.route('/',methods=['GET','POST'])
+@app.before_request
+def login_primary_verification():
+    user_id = session.get("user_id")
+    login_status = session.get('login_status')
+    if login_status and user_id:
+        g.login_status = True
+        g.user_id = user_id
+        url_for(main)
+    else:
+        url_for(index)
+
+@app.route('/login',methods=['GET','POST'])
 def index():
-    response = make_response(render_template('index.html'))
+    response = make_response(render_template('ind1ex.html'))
+    if request.method == 'POST':
+        pass
+    return response
+
+@app.route('/register',methods=['GET','POST'])
+def register():
+    pass
+
+
+@app.route('/',methods=['GET','POST'])
+def main():
+    response = make_response(render_template(''))
     return response
 
 
