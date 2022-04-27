@@ -46,13 +46,10 @@ def send_email(user_email, content=u'这是一条从民航行程推荐网站发�
     mail.send(msg)
 
 
-@app.before_first_request
-def login_primary_verification():
-    pass
 
 @app.route('/login',methods=['GET','POST'])
 def login():
-    response = make_response(render_template('login'))
+    response = make_response(render_template('index.html'))
     if request.method == 'POST':
         pass
         session.permanent = True
