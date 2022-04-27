@@ -1,3 +1,122 @@
-.test {
-    background-color: aliceblue;
+*{
+    margin: 0px;
+    padding: 0px;
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+a:hover{
+    color: brown;
+}
+.ban{
+    margin: 0px auto;
+    width: 1200px;
+}
+.header{
+    background-color: aqua;
+    height: 150px;
+}
+.search{
+    position: relative;
+    background-color: red;
+    height: 100px;
+}
+.search-address{
+    position: absolute;
+    left: 0px;
+    background-color: beige;
+    height:80px;
+    width: 400px;
+}
+.address-1{
+    position: absolute;
+    top: 20px;
+    width: 100px;
+}
+.address-2{
+    position: absolute;
+    top: 20px;
+    width: 100px;
+    left: 200px;
+}
+.search-time{
+    left: 500px;
+    position: absolute;
+    width: 400px;
+    height: 80px;
+    background-color: aquamarine;
+}
+.time-1{
+    position: absolute;
+    top: 20px;
+    width: 100px;
+}
+.time-2{
+    position: absolute;
+    top: 20px;
+    width: 100px;
+    left: 200px;
+}
+.search-child{
+    position: absolute;
+    right: 0px;
+    width: 200px;
+    height: 80px;
+    background-color: blueviolet;
+}
+.date{
+    background-color: aquamarine;
+    height: 120px;
+}
+.show{
+    position: relative;
+    background-color: blueviolet;
+    height: 800px;
+}
+.show-nav{
+    position: absolute;
+    top:0px;
+    height: 150px;
+    width: 1200px;
+    background-color: bisque;
+}
+.show-nav-span{
+    position: absolute;
+    top: 0px;
+    height: 50px;
+    left: 0px;
+    width:600px;
+    background-color: blueviolet;
+}
+.show-nav-info{
+    position: absolute;
+    bottom: 0px;
+    height: 100px;
+    width: 1200px;
+    background-color:beige;
+}
+/* 两个ui li 的元素一起控制了 */
+.show-nav-info > ul >li{
+  float: left;
+  padding: 30px 20px;
+}
+.show-nav-info > ul >li >select{
+   width: 90px;
+   height: 40px;
+}
+.show-nav-sort{
+    position:absolute;
+    right: 0px;
+}
+
+.show-body{
+    position: absolute;
+    bottom: 0px;
+    background-color: azure;
+    width: 1200px;
+    height:650px ;
 }
