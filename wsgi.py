@@ -59,11 +59,13 @@ def register(email, password):
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+
     return render_template('login.html')
 
 @csrf.exempt
 @app.route('/login_ajax',methods=['GET','POST'])
 def login_ajax():
+    flash(u'您的账户并未注册，请检查邮件是否填写正确！')
     if request.method == 'POST':
         email = escape(request.form.get('email'))
         Verification_status = request.form.get('status')
@@ -77,7 +79,6 @@ def login_ajax():
             else:
                 flash(u'您的账户并未注册，请检查邮件是否填写正确！')
         else:
-            print('发送邮件成功，等待前端验证码验证')
             content = f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
             Thread_Pool.submit(send_email, args=(app, email, '民航推荐网站注册',content))
             return jsonify(Verification_Code)

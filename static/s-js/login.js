@@ -40,7 +40,7 @@ var information;
 	$.ajax({
 		type: "POST",
 		url:'/login_ajax',
-		data:{'email':email1.value,'status':'True'},
+		data:{'email':email1.value,'statu s':'True'},
 		dataType:'json',
 		async: false,
 	});
