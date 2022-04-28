@@ -28,13 +28,6 @@
            <input type="button" class="send-btn" value="发送">
             </span>
         </div>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    {{ message }}
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
         <button type="button" id="login-btn">登录</button>
         <a class="" href={{url_for('register')}}><h6>还没有账户？前往注册</h6></a>
        </form>
