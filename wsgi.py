@@ -59,8 +59,7 @@ def register(email, password):
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    response = make_response(render_template('login.html'))
-    return response
+    return render_template('login.html')
 
 @app.route('/login_ajax',methods=['GET','POST'])
 def login_ajax():
