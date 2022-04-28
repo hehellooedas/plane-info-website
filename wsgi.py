@@ -98,6 +98,11 @@ def register():
     response = make_response(render_template('register.html'))
     return response
 
+@csrf.exempt
+@app.route('/register_ajax',methods=['GET','POST'])
+def register_ajax():
+    pass
+
 
 # index函数为航班推荐主页面
 @app.route('/', methods=['GET', 'POST'])
