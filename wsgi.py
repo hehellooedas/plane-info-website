@@ -65,12 +65,10 @@ def login():
 @csrf.exempt
 @app.route('/login_ajax',methods=['GET','POST'])
 def login_ajax():
-    flash(u'您的账户并未注册，请检查邮件是否填写正确！')
     if request.method == 'POST':
         email = escape(request.form.get('email'))
         Verification_status = request.form.get('status')
         Verification_Code = Function.create_string()
-        print(email,Verification_status)
         if email and Verification_status!='False':
             if Function.exist_account(email):
                 session['login_status'] = True

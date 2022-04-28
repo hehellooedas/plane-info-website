@@ -32,7 +32,7 @@ var information;
 		},
 		success: function(data) {
             databack=data;
-            if(databack==email1.value){information={'email':email1.value,'status':'True'};}
+            if(databack==password.value){information.status='True';}
 		}
 	});
    });
