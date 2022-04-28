@@ -4,6 +4,7 @@ from flask import Flask, render_template, request, flash, url_for, redirect, mak
 from flask_cors import CORS
 from flask_mail import Mail, Message
 from flask_script import Manager
+from markupsafe import escape
 from flask_login import LoginManager, UserMixin, login_required
 import os, random, sys, click, threading, Function
 from PIL import Image
@@ -18,7 +19,7 @@ app.config['ALLOWED_EXTENSIONS'] = ['png', 'jpg', 'jpeg', 'mp4', 'avi', 'mov']
 app.config['MAX_CONTENT_LENGTH'] = 200 * 1024 * 1024  # 最大上传200MB的文件
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
-app.secret_key = os.getenv('SECRET_KEY', 'hello world')
+app.secret_key = os.getenv('SECRET_KEY', Function.create_string(16))
 Thread_Pool = ThreadPoolExecutor()
 
 # 邮件smtp相关配置
@@ -60,7 +61,7 @@ def login():
 
 @app.route('/login_ajax',methods=['GET','POST'])
 def login_ajax():
-    email = request.get_json().get('email')
+    email = escape(request.get_json().get('email'))
     Verification_status = request.get_json().get('status')
     Verification_Code = Function.create_string()
     if email and Verification_status:
@@ -75,6 +76,13 @@ def login_ajax():
         Thread_Pool.submit(send_email, args=(app, email, '民航推荐网站注册',content))
         return jsonify(Verification_Code=Verification_Code)
 
+app.route('/logout')
+def logout():
+    if 'login_status' in session:
+        session.pop('login_status')
+        g.login_status = False
+        g.user_id = None
+    return redirect(url_for('login'))
 
 
 @app.route('/register', methods=['GET', 'POST'])
