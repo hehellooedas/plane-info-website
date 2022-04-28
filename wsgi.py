@@ -4,9 +4,8 @@ from flask_cors import CORS
 from flask_mail import Mail, Message
 from flask_script import Manager
 from flask_login import LoginManager,UserMixin,login_required
-import os, random, sys,click,pandas,pickle,threading,random
+import os, random, sys,click,threading,Function
 from PIL import Image
-from concurrent.futures import ThreadPoolExecutor
 
 app = Flask(__name__)
 # 设置内置环境变量
@@ -53,7 +52,7 @@ def register(email,password):
 
 @app.route('/login',methods=['GET','POST'])
 def login():
-    response = make_response(render_template('index.html'))
+    response = make_response(render_template('login.html'))
     if request.method == 'POST':
         pass
         session.permanent = True
@@ -62,7 +61,8 @@ def login():
 
 @app.route('/register',methods=['GET','POST'])
 def register():
-    return 'register'
+    response = make_response(render_template('register.html'))
+    return response
 
 
 # index函数为航班推荐主页面
