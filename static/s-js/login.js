@@ -37,7 +37,7 @@ var information;
 	});
    });
     login1btn.addEventListener('click',function(){
-    if('123456'==password.value){information.status='True';}
+    if(databack==password.value){information.status='True';}
     else {alert('验证码输入错误，请重新输入');}
 	$.ajax({
 		type: "POST",
