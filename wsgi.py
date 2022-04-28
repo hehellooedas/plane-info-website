@@ -4,11 +4,7 @@ from flask_cors import CORS
 from flask_mail import Mail, Message
 from flask_script import Manager
 from flask_login import LoginManager,UserMixin,login_required
-from flask_wtf import FlaskForm
-from wtforms import Form,StringField,PasswordField,BooleanField,SubmitField,IntegerRangeField
-from wtforms.validators import DataRequired,Length,email_validator,email,Email
-from flask_wtf.file import FileField,FileRequired,FileAllowed
-import os, random, sys,click,pandas,pickle,threading
+import os, random, sys,click,pandas,pickle,threading,random
 from PIL import Image
 from concurrent.futures import ThreadPoolExecutor
 
@@ -38,14 +34,22 @@ app.config.update(dict(
     MAIL_DEFAULT_SENDER=('April Zhao', '928309386@qq.com')#默认的发信人
 ))
 mail = Mail(app)
+
 # 邮件发送函数
-def send_email(user_email, content=u'这是一条从民航行程推荐网站发来的邮件'):
-    respect = [user_email]
-    msg = Message('EmailTest', sender="928309386@qq.com", recipients=respect)
-    msg.body = content
-    mail.send(msg)
+def send_email(app,user_email,subject='EmailTest',content=u'这是一条从民航行程推荐网站发来的邮件(收到请勿回复!)'):
+    with app.app_context():
+        respect = [user_email]
+        msg = Message(
+            subject=subject,
+            sender="928309386@qq.com",
+            recipients=respect
+        )
+        msg.body = content
+        mail.send(msg)
 
 
+def register(email,password):
+    pass
 
 @app.route('/login',methods=['GET','POST'])
 def login():
@@ -55,9 +59,11 @@ def login():
         session.permanent = True
     return response
 
+
 @app.route('/register',methods=['GET','POST'])
 def register():
     return 'register'
+
 
 # index函数为航班推荐主页面
 @app.route('/',methods=['GET','POST'])
