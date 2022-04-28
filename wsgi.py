@@ -4,12 +4,14 @@ from flask import Flask, render_template, request, flash, url_for, redirect, mak
 from flask_cors import CORS
 from flask_mail import Mail, Message
 from flask_script import Manager
+from flask_seasurf import SeaSurf
 from markupsafe import escape
 from flask_login import LoginManager, UserMixin, login_required
 import os, random, sys, click, threading, Function
 from PIL import Image
 
 app = Flask(__name__)
+csrf = SeaSurf(app)
 # 设置内置环境变量
 CORS(app, supports_credentials=True)
 os.environ['FLASK_APP'] = 'main'
@@ -46,6 +48,7 @@ def send_email(app, emails, subject='EmailTest', content=u'这是一条从民航
         )
         msg.body = content + '\n收到请勿回复！若您从未注册民航推荐网，请无视这封邮件，注意不要泄露个人信息！'
         mail.send(msg)
+        return True
 
 
 def register(email, password):
