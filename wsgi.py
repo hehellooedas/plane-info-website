@@ -69,18 +69,19 @@ def login_ajax():
         email = escape(request.form.get('email'))
         Verification_status = request.form.get('status')
         Verification_Code = Function.create_string()
-        if email and Verification_status!='False':
-            if Function.exist_account(email):
+        if email and Function.exist_account(email):
+            content = f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
+            Thread_Pool.submit(send_email, args=(app, email, '民航推荐网站注册', content))
+            string = u'邮件已发送，请注意查收！'
+            if Verification_status == 'True':
                 session['login_status'] = True
                 session['user_id'] = email
                 session.permanent = True
-            else:
-                flash(u'您的账户并未注册，请检查邮件是否填写正确！')
+                return redirect(url_for(index))
         else:
-            content = f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
-            Thread_Pool.submit(send_email, args=(app, email, '民航推荐网站注册',content))
-            return jsonify(Verification_Code)
-    return render_template('login.html')
+            string = u'您的账户并未注册，请检查邮件是否填写正确！'
+        return jsonify(Verification_Code,string)
+
 
 app.route('/logout')
 def logout():

@@ -31,12 +31,14 @@ var information;
 			alert("Connection error");
 		},
 		success: function(data) {
-            databack=data;
-            if(databack==password.value){information.status='True';}
+            databack=data[0];
+            alert(data[1]);
 		}
 	});
    });
     login1btn.addEventListener('click',function(){
+    if('123456'==password.value){information.status='True';}
+    else {alert('验证码输入错误，请重新输入');}
 	$.ajax({
 		type: "POST",
 		url:'/login_ajax',
