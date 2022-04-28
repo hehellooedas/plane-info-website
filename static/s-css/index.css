@@ -22,7 +22,6 @@ a:hover{
 }
 .search{
     position: relative;
-    background-color: red;
     height: 100px;
 }
 .search-address{
@@ -32,12 +31,12 @@ a:hover{
     height:80px;
     width: 400px;
 }
-.address-1{
+.address-start{
     position: absolute;
     top: 20px;
     width: 100px;
 }
-.address-2{
+.address-end{
     position: absolute;
     top: 20px;
     width: 100px;
@@ -50,12 +49,12 @@ a:hover{
     height: 80px;
     background-color: aquamarine;
 }
-.time-1{
+.time-start{
     position: absolute;
     top: 20px;
     width: 100px;
 }
-.time-2{
+.time-end{
     position: absolute;
     top: 20px;
     width: 100px;
@@ -89,8 +88,14 @@ a:hover{
     top: 0px;
     height: 50px;
     left: 0px;
-    width:600px;
-    background-color: blueviolet;
+}
+.show-nav .show-nav-span button{
+      float: left;
+      width:300px;
+      border:1px solid aliceblue;
+      background-color: burlywood;
+      height: 49px;
+      border-radius: 1px;
 }
 .show-nav-info{
     position: absolute;

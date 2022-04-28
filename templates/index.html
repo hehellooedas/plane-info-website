@@ -1,26 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../static/index.css">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="Author">
+    <meta name="viewport" content="width=device-width,initid-scale=1.0,user-scalable">
+    <title>民航推荐网站</title>
+    <link rel="stylesheet" href="..\static\s-css\index.css">
+    <script src="..\static\s-js\index.js"></script>
 </head>
 <body>
     <div class="header ban">logo</div>
+    <!-- 选择出发地 时间 -->
     <div class="search ban">
         <div class="search-address">
-            <div class="address-1"><span>出发点&nbsp&nbsp</span>
-                <input type="text"></div>
-             <div class="address-2"><span>目的地&nbsp&nbsp</span>
-                <input type="text"></div>
+            <div class="address-start"><span>出发点&nbsp&nbsp</span>
+                <input type="text">
+                </div>
+             <div class="address-end"><span>目的地&nbsp&nbsp</span>
+                <input type="text">
+                </div>
         </div>
         <div class="search-time">
-            <div class="time-1"><span>出发时间&nbsp&nbsp</span>
+                <div class="time-start"><span>出发时间&nbsp&nbsp</span>
                 <input type="text"></div>
-                <div  class="time-2"><span>抵达时间&nbsp&nbsp</span>
-                    <input type="text"></div>
+                <div  class="time-end"><span>抵达时间&nbsp&nbsp</span>
+                <input type="text"></div>
         </div>
         <div class="search-child">
             <span>是否携带孩子:</span>
@@ -28,7 +36,9 @@
             <input type="radio" name="name">不带
         </div>
     </div>
+   <!-- 展示近期时间的航班 -->
     <div class="date ban">3</div>
+    <!-- 选择去程和返程的航班 -->
     <div class="show ban">
          <div class="show-nav">4
             <span class="show-nav-span">
@@ -65,6 +75,7 @@
                </ul>
             </form>
         </div>
+        <!-- 选择完成时航班的展示 -->
          <div class="show-body">5
              <ul>
                  <li></li>

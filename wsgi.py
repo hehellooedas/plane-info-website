@@ -4,10 +4,6 @@ from flask_cors import CORS
 from flask_mail import Mail, Message
 from flask_script import Manager
 from flask_login import LoginManager,UserMixin,login_required
-from flask_wtf import FlaskForm
-from wtforms import Form,StringField,PasswordField,BooleanField,SubmitField,IntegerRangeField
-from wtforms.validators import DataRequired,Length,email_validator,email,Email
-from flask_wtf.file import FileField,FileRequired,FileAllowed
 import os, random, sys,click,pandas,pickle,threading
 from PIL import Image
 from concurrent.futures import ThreadPoolExecutor
@@ -46,13 +42,10 @@ def send_email(user_email, content=u'这是一条从民航行程推荐网站发�
     mail.send(msg)
 
 
-@app.before_first_request
-def login_primary_verification():
-    pass
 
 @app.route('/login',methods=['GET','POST'])
 def login():
-    response = make_response(render_template('login'))
+    response = make_response(render_template('index.html'))
     if request.method == 'POST':
         pass
         session.permanent = True

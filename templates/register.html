@@ -2,9 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册</title>
+    <link rel="stylesheet" href="..\static\s-css\register.css">
+    <script src="..\static\s-js\jquery.min.js"></script>
 </head>
 <body>
-
+    <div class="register">
+        <form class="form-sign" action="" method="post" target="">
+        <h3>用户注册</h3>
+        <div class="">
+            <span>
+            <input name="username" type="text" id="username" placeholder="邮箱"/>
+            </span>
+        </div>
+        <br />
+        <div class="">
+            <span>
+                <input name="password" type="password" id="password" placeholder="验证码"/>
+                <input type="button" class="send-btn" value="发送">
+            </span>
+        </div>
+        <input type="submit" value="注册">
+      </form>
+    </div>
 </body>
+<script src="..\static\s-js\register.js"></script>
 </html>
