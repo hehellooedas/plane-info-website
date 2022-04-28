@@ -8,7 +8,7 @@ from flask_seasurf import SeaSurf
 from markupsafe import escape
 from flask_login import LoginManager, UserMixin, login_required
 import os, random, sys, click, threading, Function
-from PIL import Image
+
 
 app = Flask(__name__)
 csrf = SeaSurf(app)
@@ -61,22 +61,27 @@ def register(email, password):
 def login():
     return render_template('login.html')
 
+@csrf.exempt
 @app.route('/login_ajax',methods=['GET','POST'])
 def login_ajax():
-    email = escape(request.get_json().get('email'))
-    Verification_status = request.get_json().get('status')
-    Verification_Code = Function.create_string()
-    if email and Verification_status:
-        if Function.exist_account(email):
-            session['login_status'] = True
-            session['user_id'] = email
-            session.permanent = True
+    if request.method == 'POST':
+        email = escape(request.form.get('email'))
+        Verification_status = request.form.get('status')
+        Verification_Code = Function.create_string()
+        print(email,Verification_status)
+        if email and Verification_status!='False':
+            if Function.exist_account(email):
+                session['login_status'] = True
+                session['user_id'] = email
+                session.permanent = True
+            else:
+                flash(u'您的账户并未注册，请检查邮件是否填写正确！')
         else:
-            flash(u'您的账户并未注册，请检查邮件是否填写正确！')
-    else:
-        content = f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
-        Thread_Pool.submit(send_email, args=(app, email, '民航推荐网站注册',content))
-        return jsonify(Verification_Code=Verification_Code)
+            print('发送邮件成功，等待前端验证码验证')
+            content = f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
+            Thread_Pool.submit(send_email, args=(app, email, '民航推荐网站注册',content))
+            return jsonify(Verification_Code)
+    return render_template('login.html')
 
 app.route('/logout')
 def logout():
