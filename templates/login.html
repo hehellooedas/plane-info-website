@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,27 +10,30 @@
     <script src="..\static\s-js\jquery.min.js"></script>
 </head>
 <style>
-    
 </style>
+
 <body>
     <div class="app">
-        <form  id="form-login" action="" method="post" target="">
-        <h3>用户登录</h3>
-        <div class="">
-            <span>
-            <input name="username" type="text" id="username" placeholder="邮箱"/>
-            </span>
-        </div>
-        <br />
-        <div class="">
-            <span>
-                <input name="password" type="password" id="password" placeholder="验证码"/>
-           <input type="button" class="send-btn" value="发送">
-            </span>
-        </div>
-        <button type="button" id="login-btn">登录</button>
-        <a class="" href="..\templates\register.html"><h6>还没有账户？前往注册</h6></a>
-       </form>
+        <form id="form-login" action="" method="post" target="">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+            <h3>用户登录</h3>
+            <div class="">
+                <span>
+                    <input name="email" type="text" id="username" placeholder="邮箱" />
+                </span>
+            </div>
+            <br />
+            <div class="">
+                <span>
+                    <input name="password" type="password" id="password" placeholder="验证码" />
+                    <input type="button" class="send-btn" value="发送">
+                </span>
+            </div>
+            <button type="button" id="login-btn">登录</button>
+            <a class="" href="..\templates\register.html">
+                <h6>还没有账户？前往注册</h6>
+            </a>
+        </form>
     </div>
 </body>
 <script src="..\static\s-js\login.js"></script>

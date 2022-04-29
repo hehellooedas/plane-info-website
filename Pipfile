@@ -8,6 +8,7 @@ flask = "*"
 pandas = "*"
 flask_mail = "*"
 flask_script = "*"
+MarkupSafe = "2.0.1"
 
 
 [dev-packages]
