@@ -7,8 +7,6 @@ var time = 60;
 var information;
 var info=document.getElementsByClassName('info')[0];
 var codefail=document.getElementsByClassName('codefail')[0];
-codefail.innerText='验证码输入错误，请重新输入'
-info.innerText='年后'
 sendbtn.addEventListener('click', function () {
 	sendbtn.value = "等待" + time + "s";
 	sendbtn.className = ".send-btn2";

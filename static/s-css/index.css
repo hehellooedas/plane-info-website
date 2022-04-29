@@ -12,6 +12,11 @@ a{
 a:hover{
     color: brown;
 }
+body{
+        background-image: url(../s-other/);
+        background-size: cover;
+        background-repeat: repeat;
+}
 .ban{
     margin: 0px auto;
     width: 1200px;
@@ -19,6 +24,9 @@ a:hover{
 .header{
     background-color: aqua;
     height: 150px;
+    background-image: url(../s-other/);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 .search{
     position: relative;

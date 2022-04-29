@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,11 +8,6 @@
     <link rel="stylesheet" href="..\static\s-css\login.css">
     <script src="..\static\s-js\jquery.min.js"></script>
 </head>
-<style>
-    body{
-        background-image: url("web\static\s-other\logo.jpg");
-    }
-</style>
 <body>
     <div class="app">
         <form id="form-login" action="" method="post" target="">
@@ -22,7 +16,7 @@
                 <span>
                     <input name="email" type="text" id="username" placeholder="邮箱" />
                 </span>
-                <p class="info"></p>
+                <p class="info">&nbsp</p>
                 <!-- 未注册消息闪现 -->
             </div>
             <br />
@@ -31,7 +25,7 @@
                     <input name="password" type="password" id="password" placeholder="验证码" />
                     <input type="button" class="send-btn" value="发送">
                 </span>
-                <p class="codefail"></p>
+                <p class="codefail">&nbsp</p>
                 <!-- 验证码错误消息闪现 -->
             </div>
             <button type="button" id="login-btn">登录</button>
