@@ -2,16 +2,36 @@
     margin: 0%;
     padding: 0%;
 }
+body{
+    background-image: url(../s-other/737.jpg);
+    background-size: cover;
+    background-repeat:no-repeat;
+}
 .app{
-    padding-top: 200px;
+    position: relative;
+     margin: auto;
      width: 500px;
      height: 500px;
-     margin:  auto; 
+}
+#form-login{
+    position: absolute;
+    bottom: 0px;
+    left: 150px;
+}
+#username{
+    
 }
 .send-btn{
-  
+  color: black;
+
 }
 .send-btn2{
     pointer-events: none;
-    background-color: red;
+    background-color: brown;
+}
+.info{
+    color: red;
+}
+.codefail{
+    color: red;
 }

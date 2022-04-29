@@ -2,17 +2,32 @@
     margin: 0%;
     padding: 0%;
 }
-
+body{
+    background-image: url(../s-other/737.jpg);
+    background-size: cover;
+    background-repeat:no-repeat;
+}
 .register{
-    padding-top: 200px;
+    position: relative;
+    margin: auto;
     width: 500px;
     height: 500px;
-     margin:auto; 
+}
+.form-sign{
+    position: absolute;
+    bottom: 0px;
+    left: 150px;
 }
 .send-btn{
-  
+  color: black;
 }
 .send-btn2{
     pointer-events: none;
     background-color: red;
+}
+.codefail{
+    color: red;
+}
+.codefail2{
+    color:green;
 }

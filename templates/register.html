@@ -11,20 +11,23 @@
 <body>
     <div class="register">
         <form class="form-sign" action="" method="post" target="">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
         <h3>用户注册</h3>
         <div class="">
             <span>
-            <input name="username" type="text" id="username" placeholder="邮箱"/>
+            <input name="username" type="email" id="username" placeholder="邮箱"/>
             </span>
         </div>
         <br />
         <div class="">
             <span>
-                <input name="password" type="password" id="password" placeholder="验证码"/>
+                <input name="password" type="text" id="password" placeholder="验证码"/>
                 <input type="button" class="send-btn" value="发送">
             </span>
+            <p class="codefail">&nbsp</p>
+            <!-- 注册状态消息 -->
         </div>
-        <input type="submit" value="注册">
+        <input type="button" value="注册" id="reg">
       </form>
     </div>
 </body>

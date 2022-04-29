@@ -24,6 +24,7 @@ app.jinja_env.lstrip_blocks = True
 app.secret_key = os.getenv('SECRET_KEY', Function.create_string(16))
 Thread_Pool = ThreadPoolExecutor()
 
+
 # 邮件smtp相关配置
 manager = Manager(app)
 app.config.update(dict(
@@ -36,6 +37,8 @@ app.config.update(dict(
     MAIL_DEFAULT_SENDER=('April Zhao', '928309386@qq.com')  # 默认的发信人
 ))
 mail = Mail(app)
+
+emails_db = Function.emails_db('./files/emails.xlsx')
 
 
 # 邮件发送函数
@@ -69,7 +72,7 @@ def login_ajax():
         email = escape(request.form.get('email'))
         Verification_status = request.form.get('status')
         Verification_Code = Function.create_string()
-        if email and Function.exist_account(email):
+        if email and emails_db.exist_account(email):
             content = f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
             Thread_Pool.submit(send_email, args=(app, email, '民航推荐网站注册', content))
             string = u'邮件已发送，请注意查收！'
@@ -103,10 +106,28 @@ def register():
     response = make_response(render_template('register.html'))
     return response
 
+
 @csrf.exempt
 @app.route('/register_ajax',methods=['GET','POST'])
 def register_ajax():
-    pass
+    if request.method == 'POST':
+        email = escape(request.form.get('email'))
+        Verification_status = request.form.get('status')
+        Verification_Code = Function.create_string()
+        if email and emails_db.exist_account(email):
+            string = u'该账户已经存在，请重新填写邮箱地址！'
+        if email and not emails_db.exist_account(email):
+            content = f'【民航】动态密码{Verification_Code}，您正在注册民航官网，验证码五分钟内有效。'
+            Thread_Pool.submit(send_email, args=(app, email, '民航推荐网站注册', content))
+            string = u'邮件已经发送，请注意查收！'
+            if Verification_status == 'True':
+                emails_db.add_account(email)
+                return redirect(url_for(login))
+        dic = {
+            'Code': Verification_Code,
+            'string': string
+        }
+        return jsonify(dic)
 
 
 # index函数为航班推荐主页面
