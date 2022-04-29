@@ -75,12 +75,18 @@ def login_ajax():
             string = u'邮件已发送，请注意查收！'
             if Verification_status == 'True':
                 session['login_status'] = True
-                session['user_id'] = email
+                session['email'] = email
+                g.login_status = True
+                g.email = email
                 session.permanent = True
                 return redirect(url_for(index))
         else:
             string = u'您的账户并未注册，请检查邮件是否填写正确！'
-        return jsonify(Verification_Code,string)
+        dic = {
+            'Code':Verification_Code,
+            'string':string
+        }
+        return jsonify(dic)
 
 
 app.route('/logout')

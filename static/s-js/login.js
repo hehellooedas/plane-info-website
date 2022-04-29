@@ -31,8 +31,8 @@ var information;
 			alert("Connection error");
 		},
 		success: function(data) {
-            databack=data[0];
-            alert(data[1]);
+            databack=data['Code'];
+            //alert(data['string']);
 		}
 	});
    });
