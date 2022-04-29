@@ -15,3 +15,9 @@
     pointer-events: none;
     background-color: brown;
 }
+.info{
+    color: red;
+}
+.codefail{
+    color: red;
+}

@@ -10,17 +10,20 @@
     <script src="..\static\s-js\jquery.min.js"></script>
 </head>
 <style>
+    body{
+        background-image: url("web\static\s-other\logo.jpg");
+    }
 </style>
-
 <body>
     <div class="app">
         <form id="form-login" action="" method="post" target="">
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
             <h3>用户登录</h3>
             <div class="">
                 <span>
                     <input name="email" type="text" id="username" placeholder="邮箱" />
                 </span>
+                <p class="info"></p>
+                <!-- 未注册消息闪现 -->
             </div>
             <br />
             <div class="">
@@ -28,11 +31,16 @@
                     <input name="password" type="password" id="password" placeholder="验证码" />
                     <input type="button" class="send-btn" value="发送">
                 </span>
+                <p class="codefail"></p>
+                <!-- 验证码错误消息闪现 -->
             </div>
             <button type="button" id="login-btn">登录</button>
             <a class="" href="..\templates\register.html">
                 <h6>还没有账户？前往注册</h6>
             </a>
+            <!-- <a class="" href={{url_for('register')}}>
+                <h6>还没有账户？前往注册</h6>
+            </a> -->
         </form>
     </div>
 </body>
