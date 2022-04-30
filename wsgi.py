@@ -1,4 +1,3 @@
-import json
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 from flask import Flask, render_template, request, flash, url_for, redirect, make_response, session, Response, g,jsonify
 from flask_cors import CORS
@@ -96,8 +95,9 @@ app.route('/logout')
 def logout():
     if 'login_status' in session:
         session.pop('login_status')
+        session.pop('email')
         g.login_status = False
-        g.user_id = None
+        g.email = None
     return redirect(url_for('login'))
 
 
