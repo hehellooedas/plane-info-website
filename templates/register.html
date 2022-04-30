@@ -4,32 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>注册</title>
+    <title>登录</title>
+    <link rel="shortcut icon" href="../static/s-other/logo.ico" />
     <link rel="stylesheet" href="..\static\s-css\register.css">
     <script src="..\static\s-js\jquery.min.js"></script>
 </head>
 <body>
-    <div class="register">
-        <form class="form-sign" action="" method="post" target="">
+    <div class="app">
+        <div class="login-wrapper">
             <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-        <h3>用户注册</h3>
-        <div class="">
-            <span>
-            <input name="username" type="email" id="username" placeholder="邮箱"/>
-            </span>
-        </div>
-        <br />
-        <div class="">
-            <span>
-                <input name="password" type="text" id="password" placeholder="验证码"/>
+            <!-- 这里没改 -->
+            <div class="login">用户注册</div>
+            <div class="form-wrapper">
+                <input name="email" type="email" id="username" placeholder="邮箱" />
+                <input name="password" type="text" id="password" placeholder="验证码" />
                 <input type="button" class="send-btn" value="发送">
-            </span>
-            <p class="codefail">&nbsp</p>
-            <!-- 注册状态消息 -->
+                <button type="button" id="reg">注册</button>
+                <p class="codefail">&nbsp</p>
+                <!-- 注册成功和验证码错误消息闪现 -->
+            </div>
         </div>
-        <input type="button" value="注册" id="reg">
-      </form>
     </div>
 </body>
-<script src="..\static\s-js\register.js"></script>
+<script src="..\static\s-js\login.js"></script>
 </html>
