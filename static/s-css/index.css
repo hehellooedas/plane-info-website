@@ -2,6 +2,20 @@
     margin: 0px;
     padding: 0px;
 }
+body{
+ 
+}
+@font-face {
+    font-family: 'icomoon';
+    src:  url('../fonts/icomoon.eot?rnkauu');
+    src:  url('../fonts/icomoon.eot?rnkauu#iefix') format('embedded-opentype'),
+      url('../fonts/icomoon.ttf?rnkauu') format('truetype'),
+      url('../fonts/icomoon.woff?rnkauu') format('woff'),
+      url('../fonts/icomoon.svg?rnkauu#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+  }
 li{
     list-style: none;
 }
@@ -22,66 +36,141 @@ body{
     width: 1200px;
 }
 .header{
-    background-color: aqua;
+    position: relative;
+    font-family:'icomoon';
+    color: brown;
     height: 150px;
-    background-image: url(../s-other/);
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-color: cadetblue;
+}
+.logo{
+    line-height: 150px;
+}
+.title{
+    color: black;
+    position: absolute;
+    top: 35%;
+    left:30%;
 }
 .search{
     position: relative;
     height: 100px;
+   background-color: azure;
+}
+.input{
+    border: none;
+    height: 50px;
+    font-style: bold;
 }
 .search-address{
+    font-family: 'icomoon';
     position: absolute;
-    left: 0px;
-    background-color: beige;
+    left: 0px;    
     height:80px;
     width: 400px;
 }
+.address-start > span{
+    opacity: 0.3;
+    font-weight: 700;
+}
 .address-start{
+    border: 2px solid black;
     position: absolute;
     top: 20px;
-    width: 100px;
+    width: 155px;
+    height: 78px; 
+}
+.ico{
+    position: absolute;
+    left: 150px;
+    top:40px;
+    font-family: 'icomoon';
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    line-height: 50px;
 }
 .address-end{
+    border: 2px solid black;
     position: absolute;
     top: 20px;
-    width: 100px;
+    width: 155px;
+    height: 78px;
     left: 200px;
+}
+.address-end > span{
+    opacity: 0.3;
+    font-weight: 700;
 }
 .search-time{
-    left: 500px;
     position: absolute;
+    left: 500px;
     width: 400px;
     height: 80px;
-    background-color: aquamarine;
+}
+.time-start > span{
+    opacity: 0.3;
+    font-weight: 700;
 }
 .time-start{
+    border: 2px solid black;
     position: absolute;
     top: 20px;
-    width: 100px;
+    width: 155px;
+    height: 78px;
+}
+.time-end > span{
+    opacity: 0.3;
+    font-weight: 700;
 }
 .time-end{
+    border: 2px solid black;
     position: absolute;
     top: 20px;
-    width: 100px;
+    width: 155px;
+    height: 78px;
     left: 200px;
 }
-.search-child{
+.ico2{
     position: absolute;
-    right: 0px;
+    left:650px;
+    top:40px;
+    font-family:'icomoon';
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    line-height: 50px;
+}
+.chazhao{
+    position: absolute;
+    right: 50px;
+    bottom: 10px;
     width: 200px;
-    height: 80px;
-    background-color: blueviolet;
+    height: 50px;
+}
+.btn{
+    font-family: 'icomoon';
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color:aqua;
+    border-radius: 15px 15px 15px 15px;
 }
 .date{
     background-color: aquamarine;
     height: 120px;
 }
+.date > a {
+    width: 100%;
+    height: 100%;
+}
+.date > a > img{
+    width: 100%;
+    height: 100%;
+}
 .show{
     position: relative;
-    background-color: blueviolet;
     height: 800px;
 }
 .show-nav{
@@ -89,7 +178,6 @@ body{
     top:0px;
     height: 150px;
     width: 1200px;
-    background-color: bisque;
 }
 .show-nav-span{
     position: absolute;
@@ -99,9 +187,10 @@ body{
 }
 .show-nav .show-nav-span button{
       float: left;
+      font-family: 'icomoon';
       width:300px;
       border:1px solid aliceblue;
-      background-color: burlywood;
+      color: burlywood;
       height: 49px;
       border-radius: 1px;
 }
@@ -110,7 +199,7 @@ body{
     bottom: 0px;
     height: 100px;
     width: 1200px;
-    background-color:beige;
+   background-color: aliceblue;
 }
 /* 两个ui li 的元素一起控制了 */
 .show-nav-info > ul >li{
@@ -127,9 +216,10 @@ body{
 }
 
 .show-body{
+    border: 1px solid red;
     position: absolute;
     bottom: 0px;
-    background-color: azure;
+   
     width: 1200px;
     height:650px ;
 }

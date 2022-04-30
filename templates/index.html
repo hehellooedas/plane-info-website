@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -9,85 +10,104 @@
     <meta name="author" content="Author">
     <meta name="viewport" content="width=device-width,initid-scale=1.0,user-scalable">
     <title>民航推荐网站</title>
+    <link rel="shortcut icon" href="../static/s-other/logo.ico" />
     <link rel="stylesheet" href="..\static\s-css\index.css">
     <script src="..\static\s-js\index.js"></script>
 </head>
 <body>
-    <div class="header ban"></div>
-    <!-- 选择出发地 时间 -->
-    <div class="search ban">
-        <div class="search-address">
-            <div class="address-start"><span>出发点&nbsp&nbsp</span>
-                <input type="text">
-                </div>
-             <div class="address-end"><span>目的地&nbsp&nbsp</span>
-                <input type="text">
-                </div>
-        </div>
-        <div class="search-time">
-                <div class="time-start"><span>出发时间&nbsp&nbsp</span>
-                <input type="text"></div>
-                <div  class="time-end"><span>抵达时间&nbsp&nbsp</span>
-                <input type="text"></div>
-        </div>
-        <div class="search-child">
-            <span>是否携带孩子:</span>
-            <input type="radio" name="name">带
-            <input type="radio" name="name">不带
+    <div class="header ban">
+        <h1 class="logo">&nbsp&nbsp&nbsp中国民航</h1>
+        <div class="title">
+            <h1>欢迎使用中国民航旅行航班推荐系统！</h1>
         </div>
     </div>
-   <!-- 展示近期时间的航班 -->
-    <div class="date ban">3</div>
+    <!-- 选择出发地 时间 -->
+    <div class="search ban">
+        <p class="ico"></p>
+        <div class="search-address">
+            <div class="address-start"><span>出发点&nbsp&nbsp</span>
+                <input type="text" class="input">
+            </div>
+            <div class="address-end"><span>目的地&nbsp&nbsp</span>
+                <input type="text" class="input">
+            </div>
+        </div>
+        <p class="ico2"></p>
+        <div class="search-time">
+            <div class="time-start"><span>出发时间&nbsp&nbsp</span>
+                <input type="datetime-local" class="input">
+            </div>
+            <div class="time-end"><span>抵达时间&nbsp&nbsp</span>
+                <input type="datetime-local" class="input">
+             
+            </div>
+        </div>
+        <div class="chazhao">
+            <button class="btn"><h2>&nbsp搜索</h2></button>
+        </div>
+    </div>
+    <!-- 展示近期时间的航班 -->
+    <div class="date ban"><a href="#"><img src="../static/s-other/adv.png" alt=""></a></div>
     <!-- 选择去程和返程的航班 -->
     <div class="show ban">
-         <div class="show-nav">4
+        <div class="show-nav">4
             <span class="show-nav-span">
-                <button>去</button>
-                <button>回</button>
+                <button><h2>&nbsp选择去程的航班</h2></button>
+                <button><h2>&nbsp选择返程的航班</h2></button>
             </span>
             <form class="show-nav-info">
                 <ul>
                     <li>
-                       <select name="aaa" id="" >
-                           <option value="" selected="selected">东方航空</option>
-                       </select>
+                        <select name="aaa" id="">
+                            <option value="" selected="selected">东方航空</option>
+                            <option value="">九元航空</option>
+                            <option value="">南方航空</option>
+                            <option value="">中国国航</option>
+                            <option value="">厦门航空</option>
+                            <option value="">深圳航空</option>
+                            <option value="">吉祥航空</option>
+                        </select>
                     </li>
                     <li>
-                      <select name="" id="" >
-                          <option value="" selected="selected">8:00-10:00</option>
-                      </select>
+                        <select name="" id="">
+                            <option value="" selected="selected">06:00-12:00</option>
+                            <option value="" >12:00-18:00</option>
+                            <option value="" >18:00-24:00</option>
+                        </select>
                     </li>
                     <li>
-                      <select name="" id="">
-                          <option value="" selected="selected">C舱</option>
-                      </select>
+                        <select name="" id="">
+                            <option value="" selected="selected">经济舱</option>
+                            <option value="">公务/头等舱</option>
+                        </select>
                     </li>
                     <li>
-                      <select name="" id="">
-                          <option value="" selected="selected">A-11</option>
-                      </select>
+                        <select name="" id="">
+                            <option value="" selected="selected">A-11</option>
+                        </select>
                     </li>
                 </ul>
-               <ul class="show-nav-sort">
-                   <li><a href="#">低价优先</a></li>
-                   <li><a href="#">时间优先</a></li>
-                   <li><a href="#">准点率优先</a></li>
-               </ul>
+                <ul class="show-nav-sort">
+                    <li><a href="#">低价优先</a></li>
+                    <li><a href="#">时间优先</a></li>
+                    <li><a href="#">准点率优先</a></li>
+                </ul>
             </form>
         </div>
         <!-- 选择完成时航班的展示 -->
-         <div class="show-body">5
-             <ul>
-                 <li></li>
-                 <li></li>
-                 <li></li>
-                 <li></li>
-                 <li></li>
-                 <li></li>
-                 <li></li>
-                 <li></li>
-             </ul>
-         </div>
+        <div class="show-body">5
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
     </div>
 </body>
+
 </html>

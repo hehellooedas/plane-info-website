@@ -5,35 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>民航网</title>
+    <link rel="shortcut icon" href="../static/s-other/logo.ico" />
     <link rel="stylesheet" href="..\static\s-css\login.css">
     <script src="..\static\s-js\jquery.min.js"></script>
 </head>
 <body>
     <div class="app">
-        <form id="form-login" action="" method="post" target="">
+        <div class="login-wrapper">
             <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-            <h3>用户登录</h3>
-            <div class="">
-                <span>
-                    <input name="email" type="email" id="username" placeholder="邮箱" />
-                </span>
+            <!-- 这里没改 -->
+            <div class="login">用户登录</div>
+            <div class="form-wrapper">
+                <input name="email" type="email" id="username" placeholder="邮箱" />
                 <p class="info">&nbsp</p>
                 <!-- 未注册消息闪现 -->
-            </div>
-            <br />
-            <div class="">
-                <span>
-                    <input name="password" type="text" id="password" placeholder="验证码" />
-                    <input type="button" class="send-btn" value="发送">
-                </span>
+                <input name="password" type="text" id="password" placeholder="验证码" />
+                <input type="button" class="send-btn" value="发送">
+                <button type="button" id="login-btn">登录</button>
                 <p class="codefail">&nbsp</p>
                 <!-- 验证码错误消息闪现 -->
             </div>
-            <button type="button" id="login-btn">登录</button>
-            <a class="" href={{url_for('register')}}>
-                <h6>还没有账户？前往注册</h6>
-            </a>
-        </form>
+            <div class="zhuce">
+                <!-- 这里也没动 -->
+                <a class="" href={{url_for('register')}}>
+                    <h4>还没有账户？前往注册</h4>
+                </a>
+            </div>
+        </div>
     </div>
 </body>
 <script src="..\static\s-js\login.js"></script>
