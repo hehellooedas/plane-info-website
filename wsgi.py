@@ -1,5 +1,5 @@
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
-from flask import Flask, render_template, request, flash, url_for, redirect, make_response, session, Response, g,jsonify
+from flask import Flask, render_template, request, url_for, redirect, make_response, session, Response, g,jsonify
 from flask_cors import CORS
 from flask_mail import Mail, Message
 from flask_script import Manager
