@@ -13,7 +13,7 @@ app = Flask(__name__)
 csrf = SeaSurf(app)
 # 设置内置环境变量
 CORS(app, supports_credentials=True)
-os.environ['FLASK_APP'] = 'main'
+os.environ['FLASK_APP'] = 'wsgi'
 os.environ['FLASK_ENV'] = 'development'
 app.config['WTF_I18N_ENABLED'] = False
 app.config['ALLOWED_EXTENSIONS'] = ['png', 'jpg', 'jpeg', 'mp4', 'avi', 'mov']
@@ -27,12 +27,12 @@ Thread_Pool = ThreadPoolExecutor()
 # 邮件smtp相关配置
 manager = Manager(app)
 app.config.update(dict(
-    DEBUG=True,
+    DEBUG=False,
     MAIL_SERVER='smtp.qq.com',  # 用于发送邮件的SMTP服务
     MAIL_PORT=465,  # 发信端口
     MAIL_USE_SSL=True,  # 是否使用SSL
     MAIL_USERNAME='928309386@qq.com',  # 发信服务器的用户名
-    MAIL_PASSWORD='zzdhxdgourtabdgb',  # 发信服务器的密码
+    MAIL_PASSWORD='uhnufypshcmhbejf',  # 发信服务器的密码
     MAIL_DEFAULT_SENDER=('April Zhao', '928309386@qq.com')  # 默认的发信人
 ))
 mail = Mail(app)
@@ -53,42 +53,46 @@ def send_email(app, emails, subject='EmailTest', content=u'这是一条从民航
         return True
 
 
-def register(email, password):
-    pass
-
 
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-
     return render_template('login.html')
 
 @csrf.exempt
-@app.route('/login_ajax',methods=['GET','POST'])
+@app.route('/login_ajax1',methods=['GET','POST'])
 def login_ajax():
     if request.method == 'POST':
         email = escape(request.form.get('email'))
-        Verification_status = request.form.get('status')
         Verification_Code = Function.create_string()
         if email and emails_db.exist_account(email):
             content = f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
-            Thread_Pool.submit(send_email, args=(app, email, '民航推荐网站注册', content))
+            send_email(app, [email], '民航推荐网站登录', content)
             string = u'邮件已发送，请注意查收！'
-            if Verification_status == 'True':
-                session['login_status'] = True
-                session['email'] = email
-                g.login_status = True
-                g.email = email
-                session.permanent = True
-                return redirect(url_for(index))
         else:
             string = u'您的账户并未注册，请检查邮件是否填写正确！'
         dic = {
-            'Code':Verification_Code,
-            'string':string
+        'Code':Verification_Code,
+        'string':string
         }
         return jsonify(dic)
+        #t = threading.Thread(target=send_email,args=(app, [email], '民航推荐网站登录', content))
+        #t.start()
+
+
+@csrf.exempt
+@app.route('/login_ajax2',methods=['GET','POST'])
+def login_ajax2():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        session['login_status'] = True
+        session['email'] = email
+        g.login_status = True
+        g.email = email
+        session.permanent = True
+        return url_for('index')
+
 
 
 app.route('/logout')
@@ -101,43 +105,52 @@ def logout():
     return redirect(url_for('login'))
 
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    response = make_response(render_template('register.html'))
-    return response
 
 
 @csrf.exempt
-@app.route('/register_ajax',methods=['GET','POST'])
-def register_ajax():
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    return render_template('register.html')
+
+@csrf.exempt
+@app.route('/register_ajax1', methods=['GET', 'POST'])
+def register_ajax1():
     if request.method == 'POST':
         email = escape(request.form.get('email'))
-        Verification_status = request.form.get('status')
         Verification_Code = Function.create_string()
-        if email and emails_db.exist_account(email):
-            string = u'该账户已经存在，请重新填写邮箱地址！'
-        if email and not emails_db.exist_account(email):
-            content = f'【民航】动态密码{Verification_Code}，您正在注册民航官网，验证码五分钟内有效。'
-            Thread_Pool.submit(send_email, args=(app, email, '民航推荐网站注册', content))
-            string = u'邮件已经发送，请注意查收！'
-            if Verification_status == 'True':
-                emails_db.add_account(email)
-                return redirect(url_for(login))
+        string = 'hello'
+        if email:
+            if emails_db.exist_account(email):
+                string = u'您的账户已经注册，请检查邮件是否填写正确！'
+            else:
+                content = f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
+                send_email(app, [email], '民航推荐网站登录', content)
+                string = u'邮件已发送，请注意查收！'
         dic = {
             'Code': Verification_Code,
             'string': string
         }
         return jsonify(dic)
 
+@csrf.exempt
+@app.route('/register_ajax2', methods=['GET', 'POST'])
+def register_ajax2():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        emails_db.add_account(email)
+        return url_for('login')
+
+
+
 
 # index函数为航班推荐主页面
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    user_id = session.get("user_id")
+    email = session.get("email")
     login_status = session.get('login_status')
-    if login_status and user_id:
+    if login_status and email:
         g.login_status = True
-        g.user_id = user_id
+        g.user_id = email
         response = make_response(render_template('index.html'))
         return response
     else:
