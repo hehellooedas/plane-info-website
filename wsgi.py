@@ -5,8 +5,7 @@ from flask_mail import Mail, Message
 from flask_script import Manager
 from flask_seasurf import SeaSurf
 from markupsafe import escape
-from flask_login import LoginManager, UserMixin, login_required
-import os, random, sys, click, threading, Function
+import os, random, sys, click, threading, multiprocessing,Function
 
 
 app = Flask(__name__)
@@ -37,7 +36,7 @@ app.config.update(dict(
 ))
 mail = Mail(app)
 
-emails_db = Function.emails_db('./files/emails.xlsx')
+emails_db = Function.emails_db('./files/emails.pickle')
 
 
 # 邮件发送函数
@@ -68,7 +67,9 @@ def login_ajax():
         Verification_Code = Function.create_string()
         if email and emails_db.exist_account(email):
             content = f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
-            send_email(app, [email], '民航推荐网站登录', content)
+            #send_email(app, [email], '民航推荐网站登录', content)
+            t = threading.Thread(target=send_email,args=(app, [email], '民航推荐网站登录', content))
+            t.start()
             string = u'邮件已发送，请注意查收！'
         else:
             string = u'您的账户并未注册，请检查邮件是否填写正确！'
@@ -124,7 +125,8 @@ def register_ajax1():
                 string = u'您的账户已经注册，请检查邮件是否填写正确！'
             else:
                 content = f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
-                send_email(app, [email], '民航推荐网站登录', content)
+                t = threading.Thread(target=send_email,args=(app, [email], '民航推荐网站注册', content))
+                t.start()
                 string = u'邮件已发送，请注意查收！'
         dic = {
             'Code': Verification_Code,
