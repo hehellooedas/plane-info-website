@@ -150,12 +150,16 @@ body{
     height: 50px;
 }
 .btn{
+    cursor: pointer;
     font-family: 'icomoon';
     width: 100%;
     height: 100%;
     border: none;
     background-color:aqua;
     border-radius: 15px 15px 15px 15px;
+}
+.btn:hover{
+    background-color: burlywood;
 }
 .date{
     background-color: aquamarine;
@@ -193,6 +197,16 @@ body{
       color: burlywood;
       height: 49px;
       border-radius: 1px;
+      cursor: pointer;
+}
+.show-nav .show-nav-span button:hover{
+    background-color: darkgrey;
+}
+.nav0{
+   display: block;
+}
+.nav2{
+    display: none;
 }
 .show-nav-info{
     position: absolute;
@@ -214,12 +228,25 @@ body{
     position:absolute;
     right: 0px;
 }
-
-.show-body{
+.show-body0{
+    display: block;
     border: 1px solid red;
     position: absolute;
     bottom: 0px;
-   
     width: 1200px;
     height:650px ;
+}
+.show-body2{
+    display: none;
+    border: 1px solid red;
+    position: absolute;
+    bottom: 0px;
+    width: 1200px;
+    height:650px ;
+}
+.info0 > li{
+    color: aqua;
+}
+.info2 > li{
+    color: aqua;
 }

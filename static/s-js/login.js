@@ -9,24 +9,23 @@ var info=document.getElementsByClassName('info')[0];
 var codefail=document.getElementsByClassName('codefail')[0];
 sendbtn.addEventListener('click', function () {
 	sendbtn.value = "等待" + time + "s";
-	sendbtn.className = ".send-btn2";
+	sendbtn.className = "send-btn2";
 	var ss = setInterval(function () {
 		time--;
-		sendbtn.className = "send-btn2";
 		sendbtn.value = "等待" + time + "s";
 		if (time === 0) {
 			time = 60;
 			sendbtn.value = "发送";
-			sendbtn.className = ".send-btn";
+			sendbtn.className = "send-btn3";
 			clearInterval(ss);
 		}
 	}, 1000);
-	information = { 'email': email1.value, 'status': 'False' };
+	information = { 'email': email1.value};
 })
 sendbtn.addEventListener('click', function () {
 	$.ajax({
 		type: "POST",
-		url: '/login_ajax',
+		url: '/login_ajax1',
 		data: information,
 		dataType: 'json',
 		async: false,
@@ -40,13 +39,19 @@ sendbtn.addEventListener('click', function () {
 	});
 });
 login1btn.addEventListener('click', function () {
-	if (databack == password.value) { information.status = 'True'; }
-	else { codefail.innerText='验证码输入错误，请重新输入' }
+	if (databack == password.value) {
 	$.ajax({
 		type: "POST",
-		url: '/login_ajax',
+		url: '/login_ajax2',
 		data: information,
-		dataType: 'json',
 		async: false,
+		error: function (request) {
+			alert("Connection error");
+		},
+		success: function (data) {
+			location.href = data;
+		}
 	});
+	}
+	else { codefail.innerText='验证码输入错误，请重新输入'; }
 });

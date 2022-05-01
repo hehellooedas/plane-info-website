@@ -1,5 +1,4 @@
 import pandas,pickle,threading,multiprocessing,os,random
-from concurrent.futures import ThreadPoolExecutor,ProcessPoolExecutor
 
 
 def create_string(n=6):
@@ -9,25 +8,28 @@ class emails_db:
     def __init__(self,path):
         self.path = path
 
-    def exist_account(self,account):
-        emails = pandas.read_excel(self.path,header=1)
-        return False
+    def exist_account(self,account): # 查
+        emails = pandas.read_pickle(self.path)
+        return [account] in emails.values
 
-    def add_account(self,account):
-        emails = pandas.read_excel(self.path, header=1)
+    def add_account(self,account): # 增
+        emails = pandas.read_pickle(self.path)
+        a = pandas.DataFrame({'email':account},index=[0])
+        pandas.concat([emails,a],axis=0,ignore_index=True).to_excel(self.path,index=False)
 
+    def __str__(self):
+        emails = pandas.read_pickle(self.path)
+        return (emails)
+
+class planes:
+    def __init__(self,path):
+        self.path = path
 
 
 
 
 
 if __name__ == '__main__':
-    #df = pandas.DataFrame({'email':['928309386@qq.com']})
-    #df.to_excel('./files/emails.xlsx')
-    emails = pandas.read_excel('./files/emails.xlsx')
-    print(emails.head())
-    emails.loc[0] = ['928309386@qq.com']
-    #emails.to_excel('./files/emails.xlsx')
-    #d = {'email':'928309386@qq.com'}
-    #s = pandas.Series(d)
+    a = pandas.read_pickle('./files/emails.pickle')
+    print(a)
 
