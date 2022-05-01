@@ -5,7 +5,7 @@ from flask_mail import Mail, Message
 from flask_script import Manager
 from flask_seasurf import SeaSurf
 from markupsafe import escape
-import os, random, sys, click, threading, multiprocessing,Function
+import os, sys, click, threading, multiprocessing,Function
 
 
 app = Flask(__name__)

@@ -21,6 +21,7 @@ class emails_db:
         emails = pandas.read_pickle(self.path)
         return (emails)
 
+
 class planes:
     def __init__(self,path):
         self.path = path
