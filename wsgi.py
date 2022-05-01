@@ -5,7 +5,7 @@ from flask_mail import Mail, Message
 from flask_script import Manager
 from flask_seasurf import SeaSurf
 from markupsafe import escape
-import os, sys, click, threading, multiprocessing,Function
+import os,click,threading,multiprocessing,Function
 
 
 app = Flask(__name__)
@@ -37,7 +37,7 @@ app.config.update(dict(
 mail = Mail(app)
 
 emails_db = Function.emails_db('./files/emails.pickle')
-
+planes_db = Function.planes_db('./files/planes.pickle')
 
 # 邮件发送函数
 def send_email(app, emails, subject='EmailTest', content=u'这是一条从民航行程推荐网站发来的邮件(收到请勿回复!)'):

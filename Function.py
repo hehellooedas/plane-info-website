@@ -8,6 +8,14 @@ class emails_db:
     def __init__(self,path):
         self.path = path
 
+    def xlsx_to_pickle(self):
+        xlsx = pandas.read_excel(self.path)
+        xlsx.to_pickle('./files/emails.pickle')
+
+    def pickle_to_xlsx(self):
+        pickle = pandas.read_pickle(self.path)
+        pickle.to_xlsx('./files/emails.xlsx')
+
     def exist_account(self,account): # 查
         emails = pandas.read_pickle(self.path)
         return [account] in emails.values
@@ -22,15 +30,31 @@ class emails_db:
         return (emails)
 
 
-class planes:
+
+class planes_db:
     def __init__(self,path):
         self.path = path
+
+    def xlsx_to_pickle(self):
+        xlsx = pandas.read_excel(self.path)
+        xlsx.to_pickle('./files/planes.pickle')
+
+    def pickle_to_xlsx(self):
+        pickle = pandas.read_pickle(self.path)
+        pickle.to_xlsx('./files/planes.xlsx')
+
+    def change_planes(self,n):
+        pass
+
+    def select_planes(self):
+        pass
+
 
 
 
 
 
 if __name__ == '__main__':
-    a = pandas.read_pickle('./files/emails.pickle')
-    print(a)
+    a = pandas.read_excel('./files/planes.xlsx')
+    a.to_pickle('./files/planes.pickle')
 
