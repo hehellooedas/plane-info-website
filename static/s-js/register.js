@@ -5,7 +5,7 @@ var sendbtn = document.getElementsByClassName('send-btn')[0];
 var databack;
 var time = 60;
 var information;
-var info=document.getElementsByClassName('info')[0];这个去掉
+var info=document.getElementsByClassName('info')[0];
 var codefail=document.getElementsByClassName('codefail')[0];
 sendbtn.addEventListener('click', function () {
 	sendbtn.value = "等待" + time + "s";
@@ -21,15 +21,15 @@ sendbtn.addEventListener('click', function () {
 			clearInterval(ss);
 		}
 	}, 1000);
-	information = { 'email': email1.value};
+	information = {'email': email1.value};
 })
 sendbtn.addEventListener('click', function () {
 	$.ajax({
 		type: "POST",
 		url: '/register_ajax1',
 		data: information,
-		dataType: 'json',
 		async: false,
+		datatype:'json',
 		error: function (request) {
 			alert("Connection error");
 		},
