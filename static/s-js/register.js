@@ -9,15 +9,14 @@ var info=document.getElementsByClassName('info')[0];
 var codefail=document.getElementsByClassName('codefail')[0];
 sendbtn.addEventListener('click', function () {
 	sendbtn.value = "等待" + time + "s";
-	sendbtn.className = ".send-btn2";
+	sendbtn.className = "send-btn2";
 	var ss = setInterval(function () {
 		time--;
-		sendbtn.className = "send-btn2";
 		sendbtn.value = "等待" + time + "s";
 		if (time === 0) {
 			time = 60;
+			sendbtn.className = "send-btn3";
 			sendbtn.value = "发送";
-			sendbtn.className = ".send-btn";
 			clearInterval(ss);
 		}
 	}, 1000);
@@ -43,7 +42,7 @@ sendbtn.addEventListener('click', function () {
 reg.addEventListener('click', function () {
 	if (databack == password.value) 
 	{
-	  codefail.className='.codefail2';
+	  codefail.className='codefail2';
 	  codefail.innerText='注册成功';
     }
 	else { codefail.innerText='验证码输入错误，请重新输入' }
@@ -56,7 +55,9 @@ reg.addEventListener('click', function () {
 			alert("Connection error");
 		},
 		success: function (data) {
-			location.href = data;
+			setTimeout(function(){
+             location.href=data;//等一秒在跳转吧
+			},1000);
 		}
 	});
 });
