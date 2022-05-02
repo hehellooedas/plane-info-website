@@ -64,6 +64,7 @@
             </span>
             <div class="nav0">
                 <form class="show-nav-info">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
                     <ul>
                         <li>
                             <select name="aaa" id="" onchange="reqsecond()">
