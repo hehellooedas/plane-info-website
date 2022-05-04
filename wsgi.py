@@ -159,9 +159,24 @@ def index_ajax():
         pass
 
 
-@app.route('setllement',methods=['GET','POST'])
+@app.route('/setllement',methods=['GET','POST'])
 def settlement():
-    pass
+    email = session.get("email")
+    login_status = session.get('login_status')
+    if login_status and email:
+        response = make_response(render_template('settlement.html'))
+        return response
+    else:
+        return redirect(url_for('login'))
+
+@csrf.exempt
+@app.route('settlement_ajax',methods=['GET','POST'])
+def settlement_ajax():
+    if request.method == 'POST':
+        email = session.get("email")
+        pass
+
+
 
 if __name__ == '__main__':
     Process_Pool = ProcessPoolExecutor()
