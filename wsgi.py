@@ -78,8 +78,7 @@ def login_ajax():
         'string':string
         }
         return jsonify(dic)
-        #t = threading.Thread(target=send_email,args=(app, [email], '民航推荐网站登录', content))
-        #t.start()
+
 
 
 @csrf.exempt
@@ -89,8 +88,6 @@ def login_ajax2():
         email = request.form.get('email')
         session['login_status'] = True
         session['email'] = email
-        g.login_status = True
-        g.email = email
         session.permanent = True
         return url_for('index')
 
@@ -101,8 +98,6 @@ def logout():
     if 'login_status' in session:
         session.pop('login_status')
         session.pop('email')
-        g.login_status = False
-        g.email = None
     return redirect(url_for('login'))
 
 
@@ -151,8 +146,6 @@ def index():
     email = session.get("email")
     login_status = session.get('login_status')
     if login_status and email:
-        g.login_status = True
-        g.user_id = email
         response = make_response(render_template('index.html'))
         return response
     else:
@@ -162,5 +155,5 @@ def index():
 if __name__ == '__main__':
     Process_Pool = ProcessPoolExecutor()
     print('服务器开始运行')
-    app.run(debug=True, port=80, host='127.0.0.1')
+    app.run(debug=False, port=80, host='127.0.0.1')
     print('服务器关闭')

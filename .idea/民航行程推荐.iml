@@ -7,6 +7,6 @@
     <orderEntry type="jdk" jdkName="Python 3.8" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="视频网站" />
-    <orderEntry type="module" module-name="pythonProject2" />
+    <orderEntry type="module" module-name="航班信息获取" />
   </component>
 </module>
