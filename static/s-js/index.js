@@ -1,3 +1,4 @@
+var csrf_token = $("csrf-token").val();
 var gobtn = document.getElementById('gobtn');
 var backbtn = document.getElementById('backbtn');
 var navf = document.getElementsByClassName('nav0')[0];
@@ -30,8 +31,9 @@ var out;
 //搜索触发的接口
 function reqfirst() {
     $.ajax({
+        headers: {"X-CSRFToken", csrf_token},
         type: 'post',
-        url: '',
+        url: '/index_ajax',
         data: '',
         dataType: 'json',
         async: false,
@@ -52,8 +54,9 @@ function reqfirst() {
 //事件我已绑定好
 function reqsecond(){
     $.ajax({
+        headers: {"X-CSRFToken", csrf_token},
         type: 'post',
-        url: '',
+        url: '/index_ajax',
         data: '',
         dataType: 'json',
         async: false,

@@ -152,6 +152,17 @@ def index():
         return redirect(url_for('login'))
 
 
+@csrf.exempt
+@app.route('/index_ajax',methods=['GET','POST'])
+def index_ajax():
+    if request.method == 'POST':
+        pass
+
+
+@app.route('setllement',methods=['GET','POST'])
+def settlement():
+    pass
+
 if __name__ == '__main__':
     Process_Pool = ProcessPoolExecutor()
     print('服务器开始运行')
