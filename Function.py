@@ -5,8 +5,8 @@ def create_string(n=6):
     return ''.join(random.sample('abcdefghijklmnopqrstuvwxyz0123456789', n))
 
 class emails_db:
-    def __init__(self,path):
-        self.path = path
+    def __init__(self):
+        self.path = './files/emails.pickle'
 
     def xlsx_to_pickle(self):
         xlsx = pandas.read_excel(self.path)
@@ -33,7 +33,7 @@ class emails_db:
 
 class planes_db:
     def __init__(self,path):
-        self.path = path
+        self.path = './files/citys' + path + '.xlsx'
 
     def xlsx_to_pickle(self):
         xlsx = pandas.read_excel(self.path)
@@ -53,8 +53,4 @@ class planes_db:
 
 
 
-
-if __name__ == '__main__':
-    a = pandas.read_excel('./files/planes.xlsx')
-    a.to_pickle('./files/planes.pickle')
 

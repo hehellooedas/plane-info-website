@@ -14,9 +14,6 @@ csrf = SeaSurf(app)
 CORS(app, supports_credentials=True)
 os.environ['FLASK_APP'] = 'wsgi'
 os.environ['FLASK_ENV'] = 'development'
-app.config['WTF_I18N_ENABLED'] = False
-app.config['ALLOWED_EXTENSIONS'] = ['png', 'jpg', 'jpeg', 'mp4', 'avi', 'mov']
-app.config['MAX_CONTENT_LENGTH'] = 200 * 1024 * 1024  # 最大上传200MB的文件
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 app.secret_key = os.getenv('SECRET_KEY', Function.create_string(16))
@@ -36,8 +33,7 @@ app.config.update(dict(
 ))
 mail = Mail(app)
 
-emails_db = Function.emails_db('./files/emails.pickle')
-planes_db = Function.planes_db('./files/planes.pickle')
+emails_db = Function.emails_db()
 
 # 邮件发送函数
 def send_email(app, emails, subject='EmailTest', content=u'这是一条从民航行程推荐网站发来的邮件(收到请勿回复!)'):
@@ -57,6 +53,7 @@ def send_email(app, emails, subject='EmailTest', content=u'这是一条从民航
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    print(url_for('index'))
     return render_template('login.html')
 
 @csrf.exempt
@@ -146,8 +143,7 @@ def index():
     email = session.get("email")
     login_status = session.get('login_status')
     if login_status and email:
-        response = make_response(render_template('index.html'))
-        return response
+        return render_template('index.html')
     else:
         return redirect(url_for('login'))
 
@@ -164,13 +160,12 @@ def settlement():
     email = session.get("email")
     login_status = session.get('login_status')
     if login_status and email:
-        response = make_response(render_template('settlement.html'))
-        return response
+        return render_template('settlement.html')
     else:
         return redirect(url_for('login'))
 
 @csrf.exempt
-@app.route('settlement_ajax',methods=['GET','POST'])
+@app.route('/settlement_ajax',methods=['GET','POST'])
 def settlement_ajax():
     if request.method == 'POST':
         email = session.get("email")
