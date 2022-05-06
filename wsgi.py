@@ -1,12 +1,12 @@
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
-from flask import Flask, render_template, request, url_for, redirect, make_response, session, Response, g,jsonify
+from flask import Flask, render_template, request, url_for, redirect, make_response, session, Response, g, jsonify
 from flask_cors import CORS
 from flask_mail import Mail, Message
 from flask_script import Manager
 from flask_seasurf import SeaSurf
+from flask_apscheduler import APScheduler
 from markupsafe import escape
-import os,click,threading,multiprocessing,Function
-
+import os, click, threading, multiprocessing, Function
 
 app = Flask(__name__)
 csrf = SeaSurf(app)
@@ -18,7 +18,6 @@ app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 app.secret_key = os.getenv('SECRET_KEY', Function.create_string(16))
 Thread_Pool = ThreadPoolExecutor()
-
 
 # 邮件smtp相关配置
 manager = Manager(app)
@@ -35,6 +34,7 @@ mail = Mail(app)
 
 emails_db = Function.emails_db()
 
+
 # 邮件发送函数
 def send_email(app, emails, subject='EmailTest', content=u'这是一条从民航行程推荐网站发来的邮件(收到请勿回复!)'):
     with app.app_context():
@@ -48,38 +48,47 @@ def send_email(app, emails, subject='EmailTest', content=u'这是一条从民航
         return True
 
 
+# 航班数据更新函数
+def planes_Update_Function():
+    print('ok')
 
+
+@app.errorhandler(404)
+def encounter_404(error):
+    return '<p>很抱歉，民航推荐网站出现了404错误，错误原因: <br> %s</p>' % error
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    print(url_for('index'))
+    if 'login_status' in session and 'email' in session:
+        session.pop('login_status')
+        session.pop('email')
     return render_template('login.html')
 
+
 @csrf.exempt
-@app.route('/login_ajax1',methods=['GET','POST'])
+@app.route('/login_ajax1', methods=['GET', 'POST'])
 def login_ajax():
     if request.method == 'POST':
         email = escape(request.form.get('email'))
         Verification_Code = Function.create_string()
         if email and emails_db.exist_account(email):
             content = f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
-            #send_email(app, [email], '民航推荐网站登录', content)
-            t = threading.Thread(target=send_email,args=(app, [email], '民航推荐网站登录', content))
+            # send_email(app, [email], '民航推荐网站登录', content)
+            t = threading.Thread(target=send_email, args=(app, [email], '民航推荐网站登录', content))
             t.start()
             string = u'邮件已发送，请注意查收！'
         else:
             string = u'您的账户并未注册，请检查邮件是否填写正确！'
         dic = {
-        'Code':Verification_Code,
-        'string':string
+            'Code': Verification_Code,
+            'string': string
         }
         return jsonify(dic)
 
 
-
 @csrf.exempt
-@app.route('/login_ajax2',methods=['GET','POST'])
+@app.route('/login_ajax2', methods=['GET', 'POST'])
 def login_ajax2():
     if request.method == 'POST':
         email = request.form.get('email')
@@ -89,21 +98,21 @@ def login_ajax2():
         return url_for('index')
 
 
-
-app.route('/logout')
+@app.route('/logout', methods=['GET', 'POST'])
 def logout():
     if 'login_status' in session:
         session.pop('login_status')
         session.pop('email')
-    return redirect(url_for('login'))
-
-
+        return redirect(url_for('login'))
+    else:
+        return None
 
 
 @csrf.exempt
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     return render_template('register.html')
+
 
 @csrf.exempt
 @app.route('/register_ajax1', methods=['GET', 'POST'])
@@ -117,7 +126,7 @@ def register_ajax1():
                 string = u'您的账户已经注册，请检查邮件是否填写正确！'
             else:
                 content = f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
-                t = threading.Thread(target=send_email,args=(app, [email], '民航推荐网站注册', content))
+                t = threading.Thread(target=send_email, args=(app, [email], '民航推荐网站注册', content))
                 t.start()
                 string = u'邮件已发送，请注意查收！'
         dic = {
@@ -125,6 +134,7 @@ def register_ajax1():
             'string': string
         }
         return jsonify(dic)
+
 
 @csrf.exempt
 @app.route('/register_ajax2', methods=['GET', 'POST'])
@@ -135,27 +145,25 @@ def register_ajax2():
         return url_for('login')
 
 
-
-
 # index函数为航班推荐主页面
 @app.route('/', methods=['GET', 'POST'])
 def index():
     email = session.get("email")
     login_status = session.get('login_status')
     if login_status and email:
-        return render_template('index.html')
+        return render_template('index.html', email=email)
     else:
         return redirect(url_for('login'))
 
 
 @csrf.exempt
-@app.route('/index_ajax',methods=['GET','POST'])
+@app.route('/index_ajax', methods=['GET', 'POST'])
 def index_ajax():
     if request.method == 'POST':
         pass
 
 
-@app.route('/setllement',methods=['GET','POST'])
+@app.route('/setllement', methods=['GET', 'POST'])
 def settlement():
     email = session.get("email")
     login_status = session.get('login_status')
@@ -164,17 +172,27 @@ def settlement():
     else:
         return redirect(url_for('login'))
 
+
 @csrf.exempt
-@app.route('/settlement_ajax',methods=['GET','POST'])
+@app.route('/settlement_ajax', methods=['GET', 'POST'])
 def settlement_ajax():
     if request.method == 'POST':
         email = session.get("email")
         pass
 
 
+def planes_update(Func,time):
+    scheduler = APScheduler()
+    scheduler.init_app(app)
+    #定时任务的格式
+    scheduler.add_job(func=Func, trigger='interval', hours=time, id='planes_update')
+    scheduler.start()
+
+planes_update(planes_Update_Function,6)
+
 
 if __name__ == '__main__':
     Process_Pool = ProcessPoolExecutor()
     print('服务器开始运行')
-    app.run(debug=False, port=80, host='127.0.0.1')
+    app.run(debug=True, port=80, host='127.0.0.1')
     print('服务器关闭')

@@ -33,7 +33,7 @@ class emails_db:
 
 class planes_db:
     def __init__(self,path):
-        self.path = './files/citys' + path + '.xlsx'
+        self.path = './files/citys/' + path + '.xlsx'
 
     def xlsx_to_pickle(self):
         xlsx = pandas.read_excel(self.path)
@@ -43,8 +43,6 @@ class planes_db:
         pickle = pandas.read_pickle(self.path)
         pickle.to_xlsx('./files/planes.xlsx')
 
-    def change_planes(self,n):
-        pass
 
     def select_planes(self):
         pass
