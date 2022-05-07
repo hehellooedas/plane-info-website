@@ -4,6 +4,11 @@ import pandas,pickle,threading,multiprocessing,os,random
 def create_string(n=6):
     return ''.join(random.sample('abcdefghijklmnopqrstuvwxyz0123456789', n))
 
+# 航班数据更新函数
+def planes_Update_Function():
+    print('ok')
+
+
 class emails_db:
     def __init__(self):
         self.path = './files/emails.pickle'
@@ -23,7 +28,7 @@ class emails_db:
     def add_account(self,account): # 增
         emails = pandas.read_pickle(self.path)
         a = pandas.DataFrame({'email':account},index=[0])
-        pandas.concat([emails,a],axis=0,ignore_index=True).to_excel(self.path,index=False)
+        pandas.concat([emails,a],axis=0,ignore_index=True).to_pickle(self.path)
 
     def __str__(self):
         emails = pandas.read_pickle(self.path)

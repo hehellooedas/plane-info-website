@@ -1,12 +1,13 @@
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
-from flask import Flask, render_template, request, url_for, redirect, make_response, session, Response, g, jsonify
+from flask import Flask, render_template, request, url_for, redirect, make_response, session, g, jsonify
 from flask_cors import CORS
 from flask_mail import Mail, Message
-from flask_script import Manager
 from flask_seasurf import SeaSurf
 from flask_apscheduler import APScheduler
+from flask_avatars import Avatars
 from markupsafe import escape
-import os, click, threading, multiprocessing, Function
+import os, click, threading, multiprocessing, Function,asyncio
+
 
 app = Flask(__name__)
 csrf = SeaSurf(app)
@@ -17,10 +18,11 @@ os.environ['FLASK_ENV'] = 'development'
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 app.secret_key = os.getenv('SECRET_KEY', Function.create_string(16))
+avatars = Avatars(app)
 Thread_Pool = ThreadPoolExecutor()
 
+
 # 邮件smtp相关配置
-manager = Manager(app)
 app.config.update(dict(
     DEBUG=False,
     MAIL_SERVER='smtp.qq.com',  # 用于发送邮件的SMTP服务
@@ -48,17 +50,14 @@ def send_email(app, emails, subject='EmailTest', content=u'这是一条从民航
         return True
 
 
-# 航班数据更新函数
-def planes_Update_Function():
-    print('ok')
-
 
 @app.errorhandler(404)
 def encounter_404(error):
     return '<p>很抱歉，民航推荐网站出现了404错误，错误原因: <br> %s</p>' % error
 
 
-@app.route('/login', methods=['GET', 'POST'])
+
+@app.get('/login')
 def login():
     if 'login_status' in session and 'email' in session:
         session.pop('login_status')
@@ -98,18 +97,10 @@ def login_ajax2():
         return url_for('index')
 
 
-@app.route('/logout', methods=['GET', 'POST'])
-def logout():
-    if 'login_status' in session:
-        session.pop('login_status')
-        session.pop('email')
-        return redirect(url_for('login'))
-    else:
-        return None
 
 
 @csrf.exempt
-@app.route('/register', methods=['GET', 'POST'])
+@app.get('/register')
 def register():
     return render_template('register.html')
 
@@ -146,7 +137,7 @@ def register_ajax2():
 
 
 # index函数为航班推荐主页面
-@app.route('/', methods=['GET', 'POST'])
+@app.get('/')
 def index():
     email = session.get("email")
     login_status = session.get('login_status')
@@ -187,8 +178,7 @@ def planes_update(Func,time):
     #定时任务的格式
     scheduler.add_job(func=Func, trigger='interval', hours=time, id='planes_update')
     scheduler.start()
-
-planes_update(planes_Update_Function,6)
+planes_update(Function.planes_Update_Function,6)
 
 
 if __name__ == '__main__':
