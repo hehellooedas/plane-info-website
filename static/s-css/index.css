@@ -61,6 +61,16 @@ body{
     height: 50px;
     font-style: bold;
 }
+#abc{
+    border: none;
+    height: 50px;
+    font-style: bold;
+}
+#lll{
+    border: none;
+    height: 50px;
+    font-style: bold;
+}
 .search-address{
     font-family: 'icomoon';
     position: absolute;
@@ -249,4 +259,17 @@ body{
 }
 .info2 > li{
     color: aqua;
+}
+.city{
+    display: none;
+}
+.city2{
+    display: block;
+}
+.info2 > li{
+   height: 145px;
+   
+}
+.finfo{
+
 }
