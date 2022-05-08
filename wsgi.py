@@ -154,12 +154,15 @@ def index_ajax():
         pass
 
 
-@app.route('/setllement', methods=['GET', 'POST'])
+@app.route('/settlement', methods=['GET', 'POST'])
 def settlement():
     email = session.get("email")
     login_status = session.get('login_status')
-    if login_status and email:
+    settlement = session.get('settlement')
+    if email and login_status and settlement:
         return render_template('settlement.html')
+    elif email and login_status:
+        return redirect(url_for('index'))
     else:
         return redirect(url_for('login'))
 
@@ -184,5 +187,5 @@ planes_update(Function.planes_Update_Function,6)
 if __name__ == '__main__':
     Process_Pool = ProcessPoolExecutor()
     print('服务器开始运行')
-    app.run(debug=True, port=80, host='127.0.0.1')
+    app.run(debug=False, port=80, host='127.0.0.1')
     print('服务器关闭')
