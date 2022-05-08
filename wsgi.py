@@ -7,6 +7,7 @@ from flask_apscheduler import APScheduler
 from flask_avatars import Avatars
 from user_agents import parse
 from markupsafe import escape
+from flask_caching import Cache
 import os, click, threading, multiprocessing, Function,asyncio
 
 
@@ -20,6 +21,7 @@ app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 app.secret_key = os.getenv('SECRET_KEY', Function.create_string(16))
 avatars = Avatars(app)
+cache = Cache(app,config={'CACHE_TYPE':'simple'})
 Thread_Pool = ThreadPoolExecutor()
 
 
@@ -60,17 +62,23 @@ def encounter_404(error):
 def encounter_403(error):
     return f'<h3>很抱歉，您被识别为爬虫程序，如检测错误，请刷新浏览器，很抱歉给您带来了不便,请您谅解！<br>{error}</h3>'
 
+@app.template_filter
+def judge_Systen():
+    return request.cookies.get('system') == 'phone'
 
+
+@csrf.exempt
 @app.get('/login')
+@cache.cached(timeout=300,query_string=True)
 def login():
     response = make_response(render_template('login.html'))
     agent = parse(request.user_agent.string)
     if agent.is_bot:
         abort(403)
     elif agent.is_mobile:
-        response.set_cookie(key='phone',value='True')
+        response.set_cookie(key='system',value='phone')
     else:
-        response.set_cookie(key='phone', value='False')
+        response.set_cookie(key='system', value='pc')
     if 'login_status' in session and 'email' in session:
         session.pop('login_status')
         session.pop('email')
@@ -106,6 +114,7 @@ def login_ajax2():
         session['login_status'] = True
         session['email'] = email
         session.permanent = True
+        cache.clear()
         return url_for('index')
 
 
@@ -113,6 +122,7 @@ def login_ajax2():
 
 @csrf.exempt
 @app.get('/register')
+@cache.cached(timeout=300,query_string=True)
 def register():
     return render_template('register.html')
 
@@ -145,6 +155,7 @@ def register_ajax2():
     if request.method == 'POST':
         email = request.form.get('email')
         emails_db.add_account(email)
+        cache.clear()
         return url_for('login')
 
 
@@ -154,7 +165,6 @@ def index():
     email = session.get("email")
     login_status = session.get('login_status')
     if login_status and email:
-        print(request.host_url+url_for('login'))
         return render_template('index.html', email=email,exit_url=request.host_url+url_for('login'))
     else:
         return redirect(url_for('login'))
@@ -167,7 +177,7 @@ def index_ajax():
         pass
 
 
-@app.route('/settlement', methods=['GET', 'POST'])
+@app.get('/settlement')
 def settlement():
     email = session.get("email")
     login_status = session.get('login_status')
