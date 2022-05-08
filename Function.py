@@ -9,6 +9,7 @@ def planes_Update_Function():
     print('ok')
 
 
+
 class emails_db:
     def __init__(self):
         self.path = './files/emails.pickle'
@@ -46,7 +47,7 @@ class planes_db:
 
     def pickle_to_xlsx(self):
         pickle = pandas.read_pickle(self.path)
-        pickle.to_xlsx('./files/planes.xlsx')
+        pickle.to_xlsx('./files/planes.xlsx',index=False)
 
 
     def select_planes(self):
