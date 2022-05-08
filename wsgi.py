@@ -154,6 +154,7 @@ def index():
     email = session.get("email")
     login_status = session.get('login_status')
     if login_status and email:
+        print(request.host_url+url_for('login'))
         return render_template('index.html', email=email,exit_url=request.host_url+url_for('login'))
     else:
         return redirect(url_for('login'))

@@ -19,7 +19,7 @@
     <div id="information">
         <img src="{{ avatars.default() }}">
         <h1>{{ email }}</h1>
-        <a href="{{ exit_url }}"></a>
+        <button id="exit">退出登录</button>
     </div>
     <div id="in_city" style="display: none"></div>
     <!-- 组件 -->
@@ -258,6 +258,10 @@ pay.addEventListener('click',function(){
 </script>
 <script type="text/javascript">
     var app = angular.module('app',["wui.date"]);
+    var exit = document.getElementById('exit');
+    exit.onclick = function(){
+        location.href = {{ exit_url }};
+    };
 </script>
 <script src="../static/s-js/index.js"></script>
 </html>
