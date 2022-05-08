@@ -1,10 +1,11 @@
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
-from flask import Flask, render_template, request, url_for, redirect, make_response, session, g, jsonify
+from flask import Flask, render_template, request, url_for, redirect, make_response, session, g, jsonify,abort
 from flask_cors import CORS
 from flask_mail import Mail, Message
 from flask_seasurf import SeaSurf
 from flask_apscheduler import APScheduler
 from flask_avatars import Avatars
+from user_agents import parse
 from markupsafe import escape
 import os, click, threading, multiprocessing, Function,asyncio
 
@@ -55,14 +56,25 @@ def send_email(app, emails, subject='EmailTest', content=u'这是一条从民航
 def encounter_404(error):
     return render_template('error.html',error=error)
 
+@app.errorhandler(403)
+def encounter_403(error):
+    return f'<h2>很抱歉，您被识别为爬虫程序，如检测错误，请刷新浏览器，很抱歉给您带来了不便,请您谅解！<br>{error}</h3>'
 
 
 @app.get('/login')
 def login():
+    response = make_response(render_template('login.html'))
+    agent = parse(request.user_agent.string)
+    if agent.is_bot:
+        abort(403)
+    elif agent.is_mobile:
+        response.set_cookie(key='phone',value='True')
+    else:
+        response.set_cookie(key='phone', value='False')
     if 'login_status' in session and 'email' in session:
         session.pop('login_status')
         session.pop('email')
-    return render_template('login.html')
+    return response
 
 
 @csrf.exempt
@@ -187,5 +199,5 @@ planes_update(Function.planes_Update_Function,6)
 if __name__ == '__main__':
     Process_Pool = ProcessPoolExecutor()
     print('服务器开始运行')
-    app.run(debug=False, port=80, host='127.0.0.1')
+    app.run(debug=False, port=80, host='0.0.0.0')
     print('服务器关闭')

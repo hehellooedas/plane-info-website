@@ -1,8 +1,11 @@
 import pandas,pickle,threading,multiprocessing,os,random
 
 
+
 def create_string(n=6):
     return ''.join(random.sample('abcdefghijklmnopqrstuvwxyz0123456789', n))
+
+
 
 # 航班数据更新函数
 def planes_Update_Function():
