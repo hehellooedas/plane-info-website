@@ -3,6 +3,11 @@ import pandas,pickle,threading,multiprocessing,os,random
 
 
 def create_string(n=6):
+    """
+    Generate random string
+    :param n:int
+    :return:a random string
+    """
     return ''.join(random.sample('abcdefghijklmnopqrstuvwxyz0123456789', n))
 
 

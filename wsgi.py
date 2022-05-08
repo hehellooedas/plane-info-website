@@ -58,7 +58,7 @@ def encounter_404(error):
 
 @app.errorhandler(403)
 def encounter_403(error):
-    return f'<h2>很抱歉，您被识别为爬虫程序，如检测错误，请刷新浏览器，很抱歉给您带来了不便,请您谅解！<br>{error}</h3>'
+    return f'<h3>很抱歉，您被识别为爬虫程序，如检测错误，请刷新浏览器，很抱歉给您带来了不便,请您谅解！<br>{error}</h3>'
 
 
 @app.get('/login')
@@ -154,7 +154,7 @@ def index():
     email = session.get("email")
     login_status = session.get('login_status')
     if login_status and email:
-        return render_template('index.html', email=email)
+        return render_template('index.html', email=email,exit_url=request.host_url+url_for('login'))
     else:
         return redirect(url_for('login'))
 
