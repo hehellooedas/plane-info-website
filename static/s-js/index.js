@@ -1,26 +1,4 @@
-var csrf_token = $("csrf-token").val();
-var gobtn = document.getElementById('gobtn');
-var backbtn = document.getElementById('backbtn');
-var navf = document.getElementsByClassName('nav0')[0];
-var navs = document.getElementsByClassName('nav2')[0];
-var showbodyf = document.getElementsByClassName('show-body0')[0];
-var showbodys = document.getElementsByClassName('show-body2')[0];
-gobtn.addEventListener('click', function () {
-    navf.className = "nav0";
-    navs.className = "nav2";
-    gobtn.style.backgroundColor = 'red';
-    backbtn.style.backgroundColor = '';
-    showbodys.className = 'show-body2';
-    showbodyf.className = 'show-body0';
-});
-backbtn.addEventListener('click', function () {
-    navs.className = "nav0";
-    navf.className = "nav2";
-    backbtn.style.backgroundColor = 'red';
-    gobtn.style.backgroundColor = '';
-    showbodys.className = 'show-body0';
-    showbodyf.className = 'show-body2';
-});
+
 var infofirst=document.getElementById('info0');
 var infosecond=document.getElementById('info2');
 var arr=[];
