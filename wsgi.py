@@ -53,7 +53,7 @@ def send_email(app, emails, subject='EmailTest', content=u'这是一条从民航
 
 @app.errorhandler(404)
 def encounter_404(error):
-    return '<p>很抱歉，民航推荐网站出现了404错误，错误原因: <br> %s</p>' % error
+    return render_template('error.html',error=error)
 
 
 
