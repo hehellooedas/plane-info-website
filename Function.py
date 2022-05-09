@@ -14,7 +14,15 @@ def create_string(n=6):
 
 # 航班数据更新函数
 def planes_Update_Function():
-    print('ok')
+    if os.path.exists('./files/tasks.pickle') and os.path.getsize('./files/tasks.pickle') != 0:
+        with open('./files/tasks.pickle','rb+') as f:
+            tasks = pickle.load(f)
+            for i in tasks:
+                city,index,numbers = i
+                information = pandas.read_pickle(f'./files/citys/{city}.pickle')
+                information.loc[index]
+                pandas.to_pickle(f'./files/citys/{city}.pickle')
+            f.truncate()
 
 
 
@@ -46,20 +54,21 @@ class emails_db:
 
 
 class planes_db:
-    def __init__(self,path):
-        self.path = './files/citys/' + path + '.xlsx'
+    def __init__(self,city):
+        self.city = city
+        self.path = './files/citys/' + city + '.pickle'
 
     def xlsx_to_pickle(self):
         xlsx = pandas.read_excel(self.path)
-        xlsx.to_pickle('./files/planes.pickle')
+        xlsx.to_pickle(f'./files/citys/{self.city}.pickle')
 
     def pickle_to_xlsx(self):
         pickle = pandas.read_pickle(self.path)
-        pickle.to_xlsx('./files/planes.xlsx',index=False)
+        pickle.to_xlsx(f'./files/citys/{self.city}.xlsx',index=False)
 
 
-    def select_planes(self):
-        pass
+    def select_planes(self,bcity,adata,bdata):
+        city_excel = pandas.read_pickle(self.path)
 
 
 

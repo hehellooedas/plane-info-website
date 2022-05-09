@@ -67,7 +67,6 @@ def judge_Systen():
     return request.cookies.get('system') == 'phone'
 
 
-@csrf.exempt
 @app.get('/login')
 @cache.cached(timeout=300,query_string=True)
 def login():
@@ -174,6 +173,11 @@ def index():
 @app.route('/index_ajax', methods=['GET', 'POST'])
 def index_ajax():
     if request.method == 'POST':
+        acity = request.form.get('acity')
+        bcity = request.form.get('bcity')
+        adate = request.form.get('adate')
+        bdata = request.form.get('bdate')
+        Function.planes_db(acity)
         pass
 
 
@@ -196,15 +200,22 @@ def settlement_ajax():
     if request.method == 'POST':
         email = session.get("email")
         pass
+        if os.path.exists('./files/tasks.pickle'):
+            if os.path.getsize('./files/tasks.pickle'):
+                with open('./files/tasks.pickle','ab+') as f:
+                    pass
+            else:
+                with open('./files/tasks.pickle', 'ab+') as f:
+                    pass
 
 
-def planes_update(Func,time):
+def planes_update(Func,time=6):
     scheduler = APScheduler()
     scheduler.init_app(app)
     #定时任务的格式
     scheduler.add_job(func=Func, trigger='interval', hours=time, id='planes_update')
     scheduler.start()
-planes_update(Function.planes_Update_Function,6)
+planes_update(Function.planes_Update_Function)
 
 
 if __name__ == '__main__':
