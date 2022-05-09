@@ -11,6 +11,7 @@ from flask_caching import Cache
 import os, click, threading, multiprocessing, Function,asyncio
 
 
+
 app = Flask(__name__)
 csrf = SeaSurf(app)
 # 设置内置环境变量
@@ -175,10 +176,11 @@ def index_ajax():
     if request.method == 'POST':
         acity = request.form.get('acity')
         bcity = request.form.get('bcity')
-        adate = request.form.get('adate')
-        bdata = request.form.get('bdate')
-        Function.planes_db(acity)
-        pass
+        date = request.form.get('date')
+        plane_db = Function.planes_db(acity)
+        a = Process_Pool.submit(plane_db.select_planes,args=(bcity,date))
+        result = a.result()
+        return result
 
 
 @app.get('/settlement')
@@ -198,15 +200,13 @@ def settlement():
 @app.route('/settlement_ajax', methods=['GET', 'POST'])
 def settlement_ajax():
     if request.method == 'POST':
-        email = session.get("email")
-        pass
-        if os.path.exists('./files/tasks.pickle'):
-            if os.path.getsize('./files/tasks.pickle'):
-                with open('./files/tasks.pickle','ab+') as f:
-                    pass
-            else:
-                with open('./files/tasks.pickle', 'ab+') as f:
-                    pass
+        index = request.form.get('index')
+        city = request.form.get('city')
+        numbers = request.form.get('numbers')
+        emails = request.form.get('emails')
+        Function.set_task([index,city,numbers])
+        content = f'【民航行程信息】您的行程已成功出票'
+        t = threading.Thread(target=send_email,args=(app,emails,'购票通知'))
 
 
 def planes_update(Func,time=6):
@@ -219,7 +219,7 @@ planes_update(Function.planes_Update_Function)
 
 
 if __name__ == '__main__':
-    Process_Pool = ProcessPoolExecutor()
+    Process_Pool = ProcessPoolExecutor(max_workers=5)
     print('服务器开始运行')
     app.run(debug=False, port=80, host='0.0.0.0')
     print('服务器关闭')
