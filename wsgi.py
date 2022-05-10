@@ -42,7 +42,7 @@ emails_db = Function.emails_db()
 
 
 # 邮件发送函数
-def send_email(app, emails, subject='EmailTest', content=u'这是一条从民航行程推荐网站发来的邮件(收到请勿回复!)'):
+def send_email(app, emails, subject='EmailTest', content=u'这是一条从民航行程推荐网站发来的邮件(收到请勿回复!)',html=None):
     with app.app_context():
         msg = Message(
             subject=subject,
@@ -50,6 +50,7 @@ def send_email(app, emails, subject='EmailTest', content=u'这是一条从民航
             recipients=emails
         )
         msg.body = content + '\n收到请勿回复！若您从未注册民航推荐网，请无视这封邮件，注意不要泄露个人信息！'
+        msg.html = html
         mail.send(msg)
         return True
 

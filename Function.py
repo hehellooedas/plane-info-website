@@ -116,5 +116,3 @@ class planes_db:
 
 
 
-
-
