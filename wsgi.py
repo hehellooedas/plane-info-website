@@ -8,7 +8,7 @@ from flask_avatars import Avatars
 from user_agents import parse
 from markupsafe import escape
 from flask_caching import Cache
-import os, threading, Function,asyncio,json,datetime,time
+import os, threading, Function,asyncio,json,datetime,time,copy
 
 
 
@@ -177,9 +177,24 @@ def index_ajax1():
         acity = request.form.get('acity')
         bcity = request.form.get('bcity')
         date = request.form.get('date')
+        g.acity = acity
         plane_db = Function.planes_db(acity)
-        a = Process_Pool.submit(plane_db.select_planes,(bcity,date))
-        return json.dumps(a.result())
+        a = Process_Pool.submit(plane_db.select_planes,(bcity,date))#搜索
+        result = a.result()
+        if result is None:
+            return jsonify({'string':'很抱歉，暂时没有符合要求的机票'})
+        elif len(result) == 1:
+            g.table = result
+            return jsonify({
+                'common':result
+            })
+        else:
+            g.table = result
+            b = Process_Pool.submit(plane_db.sort_planes,result)#排序
+            cost_sort,time_sort = b.result()
+            return jsonify({
+                'common':result,'cost_sort':cost_sort,'time_sort':time_sort
+            })
 
 
 @csrf.exempt
@@ -187,25 +202,10 @@ def index_ajax1():
 def index_ajax2():
     if request.method == 'POST':
         index = request.form.get('index')#索引
-        acity = request.form.get('acity')#出发城市
-        adate = request.form.get('daate')#到达城市
-        bcity = request.form.get('bcity')#出发日期
-        bdate = request.form.get('bdate')#到达日期
-        cabin = request.form.get('cabin')#舱室选择
-        company = request.form.get('company')#航空公司
-        flight_number = request.form.get('flight_number')#航班号
-        numbers = request.form.get('numbers')#几个人
-        emails = json.loads(request.form.get('emails'))#每个人的邮箱地址
-        g.index = index
-        g.acity = acity
-        g.bcity = bcity
-        g.adate = adate
-        g.bdate = bdate
-        g.numbers = numbers
-        g.emails = emails
-        g.company = company
-        g.flight_number = flight_number
+        acity = g.get('acity')
+        cabin = request.form.get('cabin')
         g.cabin = cabin
+        g.index = index
         return redirect(url_for('settlement'))
 
 
@@ -229,15 +229,19 @@ def settlement():
 def settlement_ajax():
     if request.method == 'POST':
         index = g.get('index')
-        acity = g.get('acity')
-        bcity = g.get('bcity')
-        adate = g.get('adate')
-        bdate = g.get('bdate')
-        company = g.get('company')
+        table = g.get('table')
         cabin = g.get('cabin')
-        flight_number = g.get('flight_number')
         numbers = g.get('numbers')
         emails = g.get('emails')
+        table = g.get('table')
+        for i in table:
+            if i[0]==index:
+                company = i[1]
+                flight_number = i[3]
+                acity = i[8]
+                bcity = i[9]
+                adate = i[5]
+                bdate = i[6]
         Function.set_task([index,acity,numbers])
         t = threading.Thread(target=Function.set_task,args=([acity,index,numbers],))
         t.start()

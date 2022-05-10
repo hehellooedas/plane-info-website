@@ -1,4 +1,4 @@
-import pandas,pickle,threading,multiprocessing,os,random,time
+import pandas,pickle,threading,multiprocessing,os,random,time,copy
 
 def get_date(date_time):
     return date_time.split(' ')[0]
@@ -107,11 +107,33 @@ class planes_db:
             a = city_excel.query("到达城市==@bcity") #第一轮（城市）筛选后
             b = [i.split(' ')[0] for i in a['出发时间'].values]
             index = [i for i in range(len(b)) if b[i] == date] #第二轮（时间）筛选后,index为符合条件的索引
+            if not index:
+                return
             for i in index:
                 temp = a.values[i].tolist()
                 temp.insert(0, i)
                 result.append(temp)
             return result
+
+    def sort_planes(self,result):
+        for i in range(len(result) - 1):
+            for j in range(1, len(result)):
+                if result[i][8] > result[j][8]:
+                    temp = result[i]
+                    result[i] = result[j]
+                    result[j] = temp
+        cost_sort = copy.deepcopy(result)
+        t = [i[4].split(' ')[1].split(':')[0:2] for i in result]
+        for i in t:
+            i[0] = int(i[0])
+            i[1] = int(i[1])
+        for i in range(len(result) - 1):
+            for j in range(1, len(result)):
+                if t[i][0] > t[j][0] or (t[i][0] == t[j][0] and t[i][1] > t[j][1]):
+                    temp = result[i]
+                    result[i] = result[j]
+                    result[j] = temp
+        return (cost_sort,result)
 
 
 
