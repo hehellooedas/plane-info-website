@@ -10,6 +10,11 @@ var time=document.getElementsByClassName('input')[0];
 //上面不用管，这是写的去程和返程的转换
 //封装ajax；
 //搜索触发的接口
+var app = angular.module('app',["wui.date"]);
+var exit = document.getElementById('exit');
+exit.onclick = function(){
+    location.href = {{ exit_url }};
+};
 function reqfirst() {
     $.ajax({
         headers: {"X-CSRFToken", csrf_token},

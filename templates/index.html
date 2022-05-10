@@ -16,11 +16,11 @@
 		
 </head>
 <body>
-    <div id="information">
+    <!-- <div id="information">
         <img src="{{ avatars.default() }}">
         <h1>{{ email }}</h1>
         <button id="exit">退出登录</button>
-    </div>
+    </div> -->
     <div id="in_city" style="display: none"></div>
     <!-- 组件 -->
     <div class="header ban">
@@ -46,7 +46,7 @@
             <div class="time-start"><span>出发时间&nbsp&nbsp</span>
                 <input type="date" class="input">
             </div>
-            <div class="time-end"><span>抵达时间&nbsp&nbsp</span>
+            <div class="time-end"><span>返回时间&nbsp&nbsp</span>
                 <input type="date" class="input">
             </div>
         </div>
@@ -75,7 +75,8 @@
                     <ul>
                         <li>
                             <select name="aaa" id="" onchange="reqsecond(this.value)">
-                                <option value="" selected="selected">东方航空</option>
+                                <option value="" selected="selected">航空公司</option>
+                                <option value="">东方航空</option>
                                 <option value="">九元航空</option>
                                 <option value="">南方航空</option>
                                 <option value="">中国国航</option>
@@ -86,35 +87,29 @@
                         </li>
                         <li>
                             <select name="" id="" onchange="reqsecond(this.value)">
-                                <option value="" selected="selected">06:00-12:00</option>
+                                <option value="" selected="selected">时间段</option>
+                                <option value="">06:00-12:00</option>
                                 <option value="">12:00-18:00</option>
                                 <option value="">18:00-24:00</option>
                             </select>
                         </li>
                         <li>
                             <select name="" id="" onchange="reqsecond(this.value)">
-                                <option value="" selected="selected">经济舱</option>
+                                <option value="" selected="selected">舱位</option>
+                                <option value="">公务舱</option>
                                 <option value="">公务/头等舱</option>
                             </select>
                         </li>
-                        <li>
-                            <select name="" id="" onchange="reqsecond(this.value)">
-                                <option value="" selected="selected">A-11</option>
-                            </select>
-                        </li>
-                        <li>
-                            <input type="button" class="chaxun" value="查询按钮">
-                            <!-- 查询按钮 -->
-                        </li>
-                        <li>
-                            <input type="button" class="pay" value="结算">
-                            <!-- 查询按钮 -->
-                        </li>
+                       
+                      
+                        <li><button class="but">低价优先</button></li>
+                        <li><button class="but">时间优先</button></li>   
                     </ul>
                     <ul class="show-nav-sort">
-                        <li><a href="#">低价优先</a></li>
-                        <li><a href="#">时间优先</a></li>
-                        <li><a href="#">准点率优先</a></li>
+                        <li>
+                            <input type="button" class="pay" value="￥结算">
+                            <!-- 查询按钮 -->
+                        </li> 
                     </ul>
                 </form>
             </div>
@@ -125,7 +120,8 @@
                     <ul>
                         <li>
                             <select name="aaa" id="" onchange="reqsecond(this.value)">
-                                <option value="" selected="selected">东方航空</option>
+                                <option value="" selected="selected">航空公司</option>
+                                <option value="">东方航空</option>
                                 <option value="">九元航空</option>
                                 <option value="">南方航空</option>
                                 <option value="">中国国航</option>
@@ -136,35 +132,27 @@
                         </li>
                         <li>
                             <select name="" id="" onchange="reqsecond(this.value)">
-                                <option value="" selected="selected">06:00-12:00</option>
+                                <option value="" selected="selected">时间段</option>
+                                <option value="">06:00-12:00</option>
                                 <option value="">12:00-18:00</option>
                                 <option value="">18:00-24:00</option>
                             </select>
                         </li>
                         <li>
                             <select name="" id="" onchange="reqsecond(this.value)">
-                                <option value="" selected="selected" >经济舱</option>
+                                <option value="" selected="selected">舱位</option>
+                                <option value="">公务舱</option>
                                 <option value="">公务/头等舱</option>
                             </select>
-                        </li>
-                        <li>
-                            <select name="" id="" onchange="reqsecond(this.value)">
-                                <option value="" selected="selected">A-11</option>
-                            </select>
-                        </li>
-                        <li>
-                            <input type="button" class="chaxun" value="查询按钮">
-                            <!-- 查询按钮 -->
-                        </li>
-                        <li>
-                            <input type="button" class="pay" value="结算">
-                            <!-- 查询按钮 -->
-                        </li>
+                        </li>                       
+                        <li><button class="but">低价优先</button></li>
+                        <li><button class="but">时间优先</button></li>   
                     </ul>
                     <ul class="show-nav-sort">
-                        <li><a href="#">低价优先</a></li>
-                        <li><a href="#">时间优先</a></li>
-                        <li><a href="#">准点率优先</a></li>
+                        <li>
+                            <input type="button" class="pay" value="￥结算">
+                            <!-- 查询按钮 -->
+                        </li>                
                     </ul>
                 </form>
             </div>
@@ -191,6 +179,24 @@
                 <li></li>
                 <li></li>
             </ul>
+        </div>
+    </div>
+    <div id="foot"> 
+         <p class="name">中国民航为你提供实时举报服务</p>
+         <div class="wen">
+               <p>Copyright©1999-2022, ctrip.com. All rights reserved. | ICP证：沪B2-20050130 | 沪ICP备08023580号-3</p>
+               <p>沪公网备31010502002731号丨互联网药品信息服务资格证丨（沪）网械平台备字[2022]第00001号丨旅游度假资质</p>
+               <p>违法和不良信息举报电话021-22500846丨全国旅游投诉热线12345丨上海市旅游网站落实诚信建设主体责任承诺书</p>
+         </div>
+        <div class="first">
+            <a href="http://www.cecpsp.org.cn/index.credit?action=certDetail&amp;id=40288084605466f1016057ea4cb20021" class="honour1" target="_blank" rel="nofollow"><img src="../static/s-other/dj.png" alt=""></a>
+            <a href="http://scjgj.sh.gov.cn/" title="工商亮照标识" class="honour2" target="_blank" rel="nofollow"><img src="../static/s-other/sh.png" alt=""></a>
+            <a href="http://www.zx110.org/" class="honour4" target="_blank" rel="nofollow" title="征信网"><img src="../static/s-other/zx.png" alt=""></a>
+            <a href="http://www.shjbzx.cn/" class="honour5" target="_blank" rel="nofollow" title="上海市互联网违法与违规信息举报中心"><img src="../static/s-other/l.png" alt=""></a>
+            <a href="https://ss.knet.cn/verifyseal.dll?sn=e12061531010025926306977" class="honour6" target="_blank" rel="nofollow" title="可信网站"><img src="../static/s-other/z.png" alt=""></a>
+            <a href="http://www.creditchina.gov.cn/" class="honour10" title="信用中国" target="_blank" rel="nofollow"><img src="../static/s-other/xin.png" alt=""></a>
+            <a href="https://im-synthesize.ctrip.com/complaints/rights/AppealCreate" class="honour11" title="消费维权联络点" target="_blank" rel="nofollow"><img src="../static/s-other/jubao.png" alt=""></a>
+            <a class="honour100" title="适老化及无障碍标识" rel="nofollow"><img src="../static/s-other/wang.png" alt=""></a>
         </div>
     </div>
 </body>
@@ -232,7 +238,7 @@ var showbodys = document.getElementsByClassName('show-body2')[0];
 gobtn.addEventListener('click', function () {
     navf.className = "nav0";
     navs.className = "nav2";
-    gobtn.style.backgroundColor = 'red';
+    gobtn.style.backgroundColor = 'black';
     backbtn.style.backgroundColor = '';
     showbodys.className = 'show-body2';
     showbodyf.className = 'show-body0';
@@ -240,12 +246,12 @@ gobtn.addEventListener('click', function () {
 backbtn.addEventListener('click', function () {
     navs.className = "nav0";
     navf.className = "nav2";
-    backbtn.style.backgroundColor = 'red';
+    backbtn.style.backgroundColor = 'black';
     gobtn.style.backgroundColor = '';
     showbodys.className = 'show-body0';
     showbodyf.className = 'show-body2';
 });
-var btn=document.getElementsByClassName('chaxun')[0];
+var btn=document.getElementsByClassName('btn')[0];
 btn.addEventListener('click',function(){
     location.href='./wait.html';
     //这个路径你改成后端
@@ -255,13 +261,6 @@ pay.addEventListener('click',function(){
     location.href='./settlement.html';
     //这个路径你改成后端
 })
-</script>
-<script type="text/javascript">
-    var app = angular.module('app',["wui.date"]);
-    var exit = document.getElementById('exit');
-    exit.onclick = function(){
-        location.href = {{ exit_url }};
-    };
 </script>
 <script src="../static/s-js/index.js"></script>
 </html>

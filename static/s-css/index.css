@@ -2,9 +2,6 @@
     margin: 0px;
     padding: 0px;
 }
-body{
- 
-}
 @font-face {
     font-family: 'icomoon';
     src:  url('../fonts/icomoon.eot?rnkauu');
@@ -54,7 +51,7 @@ body{
 .search{
     position: relative;
     height: 100px;
-   background-color: azure;
+   
 }
 .input{
     border: none;
@@ -167,9 +164,14 @@ body{
     border: none;
     background-color:aqua;
     border-radius: 15px 15px 15px 15px;
+    box-shadow: 0 3px #999;
 }
 .btn:hover{
     background-color: burlywood;
+}
+.btn:active {
+  box-shadow: 0 1px #666;
+  transform: translateY(4px);
 }
 .date{
     background-color: aquamarine;
@@ -268,8 +270,68 @@ body{
 }
 .info2 > li{
    height: 145px;
-   
 }
-.finfo{
-
+#foot{
+    position: relative;
+   background-color: #999;
+    width: 100%;
+    height: 200px;
 }
+.name{
+    position: absolute;
+    left: 40%;
+    font-size: large;
+}
+.first a{
+    display: inline-block;
+    width: 90px;
+    height: 35px;
+    border: 1px solid #999;
+}
+.first a img{
+    width: 100%;
+    height: 100%;
+}
+.first{
+    position: absolute;
+    bottom: 40px;
+    left: 350px;
+    padding-left: 10px;
+}
+.wen{
+    position: absolute;
+    top: 30px;
+    width: 100%;
+    height: 100px;
+    text-align: center;
+}
+.pay{
+    cursor: pointer;
+    width: 150px;
+    height: 40px;
+    border: none;
+    color: gold;
+    font-size: large;
+    background-color:darkslategray;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 3px #999;
+}
+.pay:active {
+    box-shadow: 0 1px #666;
+    transform: translateY(4px);
+  }
+.but{
+    cursor: pointer;
+    width: 100px;
+    height: 40px;
+    border: none;
+    background-color: cornflowerblue;
+    font-style: italic;
+    font-size: 18px;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 3px #999;
+}
+.but:active {
+    box-shadow: 0 1px #666;
+    transform: translateY(4px);
+  }

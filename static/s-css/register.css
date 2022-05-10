@@ -35,7 +35,7 @@
         #username{
             display: block;
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             border: 0;
             padding: 10px;
             border-bottom: 1px solid rgb(128, 125, 125);
@@ -45,6 +45,7 @@
         #password{
             display: block;
             width: 100%;
+            margin-top: 10px;
             margin-bottom: 20px;
             border: 0;
             padding: 10px;
@@ -61,9 +62,15 @@
             border-radius: 3px;
             background-image: linear-gradient(to right, #a6c1ee, #fbc2eb);
             color: black;
+            border: none;
             outline: none;
         }
+
         #reg:hover{
+            color: cornflowerblue;
+            font-size: 14px;
+        }
+        #reg:active{
             background-image: linear-gradient(to right, #fbc2eb,#a6c1ee);
         }
         .send-btn{
@@ -100,14 +107,14 @@
             background-color: cornflowerblue;
         }
         .info{
-             color: red;
-             font-size: large;
+            color: goldenrod;
+            font-size:12px;
         }
         .codefail{
-            color: red;
-            font-size: large;
+            color: goldenrod;
+            font-size: 13px;
         }
         .codefail2{
             color: burlywood;
-            font-size: large;
+            font-size: 13px;
         }
