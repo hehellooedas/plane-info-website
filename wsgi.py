@@ -20,7 +20,7 @@ os.environ['FLASK_APP'] = 'wsgi'
 os.environ['FLASK_ENV'] = 'development'
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
-app.secret_key = os.getenv('SECRET_KEY', Function.create_string(16))
+app.secret_key = os.getenv('SECRET_KEY', Function.create_String(16))
 avatars = Avatars(app)
 cache = Cache(app,config={'CACHE_TYPE':'simple'})
 Thread_Pool = ThreadPoolExecutor()
@@ -91,7 +91,7 @@ def login():
 def login_ajax():
     if request.method == 'POST':
         email = escape(request.form.get('email'))
-        Verification_Code = Function.create_string()
+        Verification_Code = Function.create_String()
         if email and emails_db.exist_account(email):
             content = f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
             t = threading.Thread(target=send_email, args=(app, [email], '民航推荐网站登录', content))
@@ -132,7 +132,7 @@ def register():
 def register_ajax1():
     if request.method == 'POST':
         email = escape(request.form.get('email'))
-        Verification_Code = Function.create_string()
+        Verification_Code = Function.create_String()
         string = 'hello'
         if email:
             if emails_db.exist_account(email):

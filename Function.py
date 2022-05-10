@@ -18,7 +18,7 @@ def get_Szm(city):
     return table.get(city)
 
 
-def create_string(n=6):
+def create_String(n=6):
     """
     Generate random string
     :param n:int
@@ -61,10 +61,6 @@ class emails_db:
     def __init__(self):
         self.path = './files/emails.pickle'
 
-    def xlsx_to_pickle(self):
-        xlsx = pandas.read_excel(self.path)
-        xlsx.to_pickle('./files/emails.pickle')
-
     def pickle_to_xlsx(self):
         pickle = pandas.read_pickle(self.path)
         pickle.to_xlsx('./files/emails.xlsx')
@@ -89,9 +85,6 @@ class planes_db:
         self.city = city
         self.path = './files/citys/' + city + '.pickle'
 
-    def xlsx_to_pickle(self):
-        xlsx = pandas.read_excel(self.path)
-        xlsx.to_pickle(f'./files/citys/{self.city}.pickle')
 
     def pickle_to_xlsx(self):
         pickle = pandas.read_pickle(self.path)
