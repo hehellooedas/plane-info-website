@@ -8,9 +8,6 @@ from flask_avatars import Avatars
 from user_agents import parse
 from markupsafe import escape
 from flask_caching import Cache
-<<<<<<< HEAD
-import os,threading, multiprocessing, Function,asyncio
-=======
 import os, threading, Function
 
 >>>>>>> master
