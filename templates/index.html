@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -13,9 +14,16 @@
     <link rel="stylesheet" href="..\static\s-css\index.css">
     <script src="..\static\s-js\jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" media="all" href="../static/s-css/tyle.css">
-		
 </head>
+
 <body>
+    <div class="jingbao">
+        <h1>紧急通报</h1>
+        <p>
+            携程旅行网提供的各类航班相关的信息，包括但不限于舱位价格、餐食、起降准点率等，来源于中国航信、全国各大机场、航空公司及相关部门公布数据。由于这些信息可能随时变化，以及网络传输问题，携程提供的此类信息可能并非最新或存在误差，因此仅供旅客作为一般参考，任何公司或个人不能将此作为携程做出任何承诺或做出任何保证的依据。
+        </p>
+        <button class="cha">X</button>
+    </div>
     <!-- <div id="information">
         <img src="{{ avatars.default() }}">
         <h1>{{ email }}</h1>
@@ -34,14 +42,16 @@
     <div class="search ban">
         <p class="ico"></p>
         <div class="search-address">
+            <div class="selcet"><input type="radio" name="hi" id="dan">单程<input type="radio" name="hi"
+                    id="shuang">往返<input type="radio" name="hi" id="duo">多程</div>
             <div class="address-start"><span>出发点&nbsp&nbsp</span>
                 <input type="text" id="abc">
             </div>
-               <div class="address-end"><span>目的地&nbsp&nbsp</span>
+            <div class="address-end"><span>目的地&nbsp&nbsp</span>
                 <input type="text" id="lll">
             </div>
         </div>
-        <p class="ico2"></p>
+        <!-- <p class="ico2"></p> -->
         <div class="search-time">
             <div class="time-start"><span>出发时间&nbsp&nbsp</span>
                 <input type="date" class="input">
@@ -68,6 +78,10 @@
                 <button id="backbtn">
                     <h2>&nbsp选择返程的航班</h2>
                 </button>
+            </span>
+            <span class="show-nav-span2">
+                <button>选择航班</button>
+                <button class="tixing">购买须知</button>
             </span>
             <div class="nav0">
                 <form class="show-nav-info">
@@ -100,16 +114,16 @@
                                 <option value="">公务/头等舱</option>
                             </select>
                         </li>
-                       
-                      
+
+
                         <li><button class="but">低价优先</button></li>
-                        <li><button class="but">时间优先</button></li>   
+                        <li><button class="but">时间优先</button></li>
                     </ul>
                     <ul class="show-nav-sort">
                         <li>
                             <input type="button" class="pay" value="￥结算">
                             <!-- 查询按钮 -->
-                        </li> 
+                        </li>
                     </ul>
                 </form>
             </div>
@@ -144,15 +158,15 @@
                                 <option value="">公务舱</option>
                                 <option value="">公务/头等舱</option>
                             </select>
-                        </li>                       
+                        </li>
                         <li><button class="but">低价优先</button></li>
-                        <li><button class="but">时间优先</button></li>   
+                        <li><button class="but">时间优先</button></li>
                     </ul>
                     <ul class="show-nav-sort">
                         <li>
                             <input type="button" class="pay" value="￥结算">
                             <!-- 查询按钮 -->
-                        </li>                
+                        </li>
                     </ul>
                 </form>
             </div>
@@ -181,86 +195,94 @@
             </ul>
         </div>
     </div>
-    <div id="foot"> 
-         <p class="name">中国民航为你提供实时举报服务</p>
-         <div class="wen">
-               <p>Copyright©1999-2022, ctrip.com. All rights reserved. | ICP证：沪B2-20050130 | 沪ICP备08023580号-3</p>
-               <p>沪公网备31010502002731号丨互联网药品信息服务资格证丨（沪）网械平台备字[2022]第00001号丨旅游度假资质</p>
-               <p>违法和不良信息举报电话021-22500846丨全国旅游投诉热线12345丨上海市旅游网站落实诚信建设主体责任承诺书</p>
-         </div>
+    <div id="foot">
+        <p class="name">中国民航为你提供实时举报服务</p>
+        <div class="wen">
+            <p>Copyright©1999-2022, ctrip.com. All rights reserved. | ICP证：沪B2-20050130 | 沪ICP备08023580号-3</p>
+            <p>沪公网备31010502002731号丨互联网药品信息服务资格证丨（沪）网械平台备字[2022]第00001号丨旅游度假资质</p>
+            <p>违法和不良信息举报电话021-22500846丨全国旅游投诉热线12345丨上海市旅游网站落实诚信建设主体责任承诺书</p>
+        </div>
         <div class="first">
-            <a href="http://www.cecpsp.org.cn/index.credit?action=certDetail&amp;id=40288084605466f1016057ea4cb20021" class="honour1" target="_blank" rel="nofollow"><img src="../static/s-other/dj.png" alt=""></a>
-            <a href="http://scjgj.sh.gov.cn/" title="工商亮照标识" class="honour2" target="_blank" rel="nofollow"><img src="../static/s-other/sh.png" alt=""></a>
-            <a href="http://www.zx110.org/" class="honour4" target="_blank" rel="nofollow" title="征信网"><img src="../static/s-other/zx.png" alt=""></a>
-            <a href="http://www.shjbzx.cn/" class="honour5" target="_blank" rel="nofollow" title="上海市互联网违法与违规信息举报中心"><img src="../static/s-other/l.png" alt=""></a>
-            <a href="https://ss.knet.cn/verifyseal.dll?sn=e12061531010025926306977" class="honour6" target="_blank" rel="nofollow" title="可信网站"><img src="../static/s-other/z.png" alt=""></a>
-            <a href="http://www.creditchina.gov.cn/" class="honour10" title="信用中国" target="_blank" rel="nofollow"><img src="../static/s-other/xin.png" alt=""></a>
-            <a href="https://im-synthesize.ctrip.com/complaints/rights/AppealCreate" class="honour11" title="消费维权联络点" target="_blank" rel="nofollow"><img src="../static/s-other/jubao.png" alt=""></a>
+            <a href="http://www.cecpsp.org.cn/index.credit?action=certDetail&amp;id=40288084605466f1016057ea4cb20021"
+                class="honour1" target="_blank" rel="nofollow"><img src="../static/s-other/dj.png" alt=""></a>
+            <a href="http://scjgj.sh.gov.cn/" title="工商亮照标识" class="honour2" target="_blank" rel="nofollow"><img
+                    src="../static/s-other/sh.png" alt=""></a>
+            <a href="http://www.zx110.org/" class="honour4" target="_blank" rel="nofollow" title="征信网"><img
+                    src="../static/s-other/zx.png" alt=""></a>
+            <a href="http://www.shjbzx.cn/" class="honour5" target="_blank" rel="nofollow"
+                title="上海市互联网违法与违规信息举报中心"><img src="../static/s-other/l.png" alt=""></a>
+            <a href="https://ss.knet.cn/verifyseal.dll?sn=e12061531010025926306977" class="honour6" target="_blank"
+                rel="nofollow" title="可信网站"><img src="../static/s-other/z.png" alt=""></a>
+            <a href="http://www.creditchina.gov.cn/" class="honour10" title="信用中国" target="_blank" rel="nofollow"><img
+                    src="../static/s-other/xin.png" alt=""></a>
+            <a href="https://im-synthesize.ctrip.com/complaints/rights/AppealCreate" class="honour11" title="消费维权联络点"
+                target="_blank" rel="nofollow"><img src="../static/s-other/jubao.png" alt=""></a>
             <a class="honour100" title="适老化及无障碍标识" rel="nofollow"><img src="../static/s-other/wang.png" alt=""></a>
         </div>
     </div>
 </body>
-	<script type="text/javascript" src="../static/s-js/cityTemplate.js"></script>
-	<script type="text/javascript">
-	    var cityA = $(".city_a_le1 a"); //城市
-	    var pla = $("#abc");  //出发地
-	    var dest = $("#lll");  //目的地
-	    // 默认值
-	    inCity.width = "345";  //城市选择框  宽
-	    inCity.height = "auto";  //城市选择框  高
-	    inCity.id = "#in_city";  //城市选择框  父级ID
-	    inCity.Children = '.city_a_le1';  //城市名box
-	    // 初始化 城市HTML模板
-	    $(inCity.id).prepend(inCity._template.join(''));
-	    inCity.Hot(cityA);
-	    
-	    //城市 导航
-	    var apay = $(".screen a");
+<script type="text/javascript" src="../static/s-js/cityTemplate.js"></script>
+<script type="text/javascript">
+    var cityA = $(".city_a_le1 a"); //城市
+    var pla = $("#abc");  //出发地
+    var dest = $("#lll");  //目的地
+    // 默认值
+    inCity.width = "345";  //城市选择框  宽
+    inCity.height = "auto";  //城市选择框  高
+    inCity.id = "#in_city";  //城市选择框  父级ID
+    inCity.Children = '.city_a_le1';  //城市名box
+    // 初始化 城市HTML模板
+    $(inCity.id).prepend(inCity._template.join(''));
+    inCity.Hot(cityA);
 
-	    var placeThis; //当前选择标签
-	    apay.click(function(obj){  //城市导航
-	        inCity.payment($(this));
-	    })
+    //城市 导航
+    var apay = $(".screen a");
 
-	    inCity.place(pla); //出发地
-	    inCity.destination(dest);  //目的地
-	    inCity.cityClick(cityA); //显示赋值城市
-	</script>
-    <!-- input组件 -->
+    var placeThis; //当前选择标签
+    apay.click(function (obj) {  //城市导航
+        inCity.payment($(this));
+    })
+
+    inCity.place(pla); //出发地
+    inCity.destination(dest);  //目的地
+    inCity.cityClick(cityA); //显示赋值城市
+</script>
+<!-- input组件 -->
 <script>
     var csrf_token = $("csrf-token").val();
-var gobtn = document.getElementById('gobtn');
-var backbtn = document.getElementById('backbtn');
-var navf = document.getElementsByClassName('nav0')[0];
-var navs = document.getElementsByClassName('nav2')[0];
-var showbodyf = document.getElementsByClassName('show-body0')[0];
-var showbodys = document.getElementsByClassName('show-body2')[0];
-gobtn.addEventListener('click', function () {
-    navf.className = "nav0";
-    navs.className = "nav2";
-    gobtn.style.backgroundColor = 'black';
-    backbtn.style.backgroundColor = '';
-    showbodys.className = 'show-body2';
-    showbodyf.className = 'show-body0';
-});
-backbtn.addEventListener('click', function () {
-    navs.className = "nav0";
-    navf.className = "nav2";
-    backbtn.style.backgroundColor = 'black';
-    gobtn.style.backgroundColor = '';
-    showbodys.className = 'show-body0';
-    showbodyf.className = 'show-body2';
-});
-var btn=document.getElementsByClassName('btn')[0];
-btn.addEventListener('click',function(){
-    location.href='./wait.html';
-    //这个路径你改成后端
-})
-var pay=document.getElementsByClassName('pay')[0];
-pay.addEventListener('click',function(){
-    location.href='./settlement.html';
-    //这个路径你改成后端
-})
+    var gobtn = document.getElementById('gobtn');
+    var backbtn = document.getElementById('backbtn');
+    var navf = document.getElementsByClassName('nav0')[0];
+    var navs = document.getElementsByClassName('nav2')[0];
+    var showbodyf = document.getElementsByClassName('show-body0')[0];
+    var showbodys = document.getElementsByClassName('show-body2')[0];
+    gobtn.addEventListener('click', function () {
+        navf.className = "nav0";
+        navs.className = "nav2";
+        gobtn.style.backgroundColor = 'black';
+        backbtn.style.backgroundColor = '';
+        showbodys.className = 'show-body2';
+        showbodyf.className = 'show-body0';
+    });
+    backbtn.addEventListener('click', function () {
+        navs.className = "nav0";
+        navf.className = "nav2";
+        backbtn.style.backgroundColor = 'black';
+        gobtn.style.backgroundColor = '';
+        showbodys.className = 'show-body0';
+        showbodyf.className = 'show-body2';
+    });
+    var btn = document.getElementsByClassName('btn')[0];
+    btn.addEventListener('click', function () {
+        location.href = './wait.html';
+        //这个路径你改成后端
+    })
+    var pay = document.getElementsByClassName('pay')[0];
+    pay.addEventListener('click', function () {
+        location.href = './settlement.html';
+        //这个路径你改成后端
+    })
 </script>
 <script src="../static/s-js/index.js"></script>
+
 </html>
