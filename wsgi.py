@@ -87,35 +87,33 @@ def login():
 
 
 @csrf.exempt
-@app.route('/login_ajax1', methods=['GET','POST'])
+@app.post('/login_ajax1')
 def login_ajax():
-    if request.method == 'POST':
-        email = escape(request.form.get('email'))
-        Verification_Code = Function.create_String()
-        if email and emails_db.exist_account(email):
-            content = f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
-            t = threading.Thread(target=send_email, args=(app, [email], '民航推荐网站登录', content))
-            t.start()
-            string = u'邮件已发送，请注意查收！'
-        else:
-            string = u'您的账户并未注册，请检查邮件是否填写正确！'
-        dic = {
-            'Code': Verification_Code,
-            'string': string
-        }
-        return jsonify(dic)
+    email = escape(request.form.get('email'))
+    Verification_Code = Function.create_String()
+    if email and emails_db.exist_account(email):
+        content = f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
+        t = threading.Thread(target=send_email, args=(app, [email], '民航推荐网站登录', content))
+        t.start()
+        string = u'邮件已发送，请注意查收！'
+    else:
+        string = u'您的账户并未注册，请检查邮件是否填写正确！'
+    dic = {
+        'Code': Verification_Code,
+        'string': string
+    }
+    return jsonify(dic)
 
 
 @csrf.exempt
-@app.route('/login_ajax2', methods=['POST'])
+@app.post('/login_ajax2')
 def login_ajax2():
-    if request.method == 'POST':
-        email = request.form.get('email')
-        session['login_status'] = True
-        session['email'] = email
-        session.permanent = True
-        cache.clear()
-        return url_for('index')
+    email = request.form.get('email')
+    session['login_status'] = True
+    session['email'] = email
+    session.permanent = True
+    cache.clear()
+    return url_for('index')
 
 
 
@@ -149,13 +147,12 @@ def register_ajax1():
 
 
 @csrf.exempt
-@app.route('/register_ajax2', methods=['POST'])
+@app.post('/register_ajax2')
 def register_ajax2():
-    if request.method == 'POST':
-        email = request.form.get('email')
-        emails_db.add_account(email)
-        cache.clear()
-        return url_for('login')
+    email = request.form.get('email')
+    emails_db.add_account(email)
+    cache.clear()
+    return url_for('login')
 
 
 # index函数为航班推荐主页面
@@ -206,8 +203,10 @@ def index_ajax2():
     b = Thread_Pool.submit(a_plane_db.select_planes,(acity,bdate))
     a_result,b_result = a.result(),b.result()
     a_len,b_len = len(a_result),len(b_result)
-    if a_result is None or b_result is None or a_result == [] or b_result == []:
-        return jsonify({'string':'很抱歉，暂时没有符合要求的机票'})
+    if a_result is None or a_result == []:
+        return jsonify({'string': f'很抱歉，暂时没有从{acity}到{bcity}符合您要求的机票'})
+    elif b_result is None or b_result == []:
+        return jsonify({'string': f'很抱歉，暂时没有从{bcity}到{acity}符合您要求的机票'})
     elif a_len==1 and b_len==1:
         return {'a_common':a_result,'b_common':b_result}
     elif a_len==1 and b_len>1:
@@ -251,29 +250,28 @@ def settlement():
 
 
 @csrf.exempt
-@app.route('/settlement_ajax1', methods=['POST'])#单程结算
+@app.post('/settlement_ajax1')#单程结算
 def settlement_ajax1():
-    if request.method == 'POST':
-        table = request.form.get('table')
-        index,company,flight_number,acity,bcity,adate,bdate = table[0],table[1],table[2],table[6],table[7],table[4],table[5]
-        numbers = request.form.get('numbers')
-        emails = request.form.get('emails')
-        Function.set_task([index,acity,numbers])
-        t = threading.Thread(target=Function.set_task,args=([acity,index,numbers],))
+    table = request.form.get('table')
+    index,company,flight_number,acity,bcity,adate,bdate = table[0],table[1],table[2],table[6],table[7],table[4],table[5]
+    numbers = request.form.get('numbers')
+    emails = request.form.get('emails')
+    Function.set_task([index,acity,numbers])
+    t = threading.Thread(target=Function.set_task,args=([acity,index,numbers],))
+    t.start()
+    content = Function.get_content(company,flight_number,acity,bcity,adate,bdate)
+    more = f'。详细信息请访问{request.host_url}'
+    if len(emails) == 1:
+        t = threading.Thread(target=send_email,args=(app,emails,'购票通知',content+emails[0]+more))
         t.start()
-        content = Function.get_content(company,flight_number,acity,bcity,adate,bdate)
-        more = f'。详细信息请访问{request.host_url}'
-        if len(emails) == 1:
-            t = threading.Thread(target=send_email,args=(app,emails,'购票通知',content+emails[0]+more))
-            t.start()
-        else:
-            tasks = [
-                (app,[email],'购票信息',content+email+more)
-                for email in emails
-            ]
-            with ThreadPoolExecutor() as pool:
-                pool.map(send_email,tasks)
-        return redirect(url_for('success'))
+    else:
+        tasks = [
+            (app,[email],'购票信息',content+email+more)
+            for email in emails
+        ]
+        with ThreadPoolExecutor() as pool:
+            pool.map(send_email,tasks)
+    return redirect(url_for('success'))
 
 @csrf.exempt
 @app.route('/settlement_ajax2', methods=['POST'])#单程结算
