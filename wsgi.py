@@ -171,42 +171,71 @@ def index():
 
 
 @csrf.exempt
-@app.route('/index_ajax1', methods=['POST'])
+@app.post('/index_ajax1')
 def index_ajax1():
     if request.method == 'POST':
         acity = request.form.get('acity')
         bcity = request.form.get('bcity')
         date = request.form.get('date')
-        g.acity = acity
         plane_db = Function.planes_db(acity)
-        a = Process_Pool.submit(plane_db.select_planes,(bcity,date))#搜索
+        a = Thread_Pool.submit(plane_db.select_planes,(bcity,date))#搜索
         result = a.result()
-        if result is None:
+        if result is None or result == []:
             return jsonify({'string':'很抱歉，暂时没有符合要求的机票'})
         elif len(result) == 1:
-            g.table = result
-            return jsonify({
+            return {
                 'common':result
-            })
+            }
         else:
-            g.table = result
             b = Process_Pool.submit(plane_db.sort_planes,result)#排序
             cost_sort,time_sort = b.result()
-            return jsonify({
+            return {
                 'common':result,'cost_sort':cost_sort,'time_sort':time_sort
-            })
+            }
 
 
 @csrf.exempt
-@app.route('/index_ajax2', methods=['POST'])
+@app.post('index_ajax2')
 def index_ajax2():
     if request.method == 'POST':
-        index = request.form.get('index')#索引
-        acity = g.get('acity')
-        cabin = request.form.get('cabin')
-        g.cabin = cabin
-        g.index = index
-        return redirect(url_for('settlement'))
+        acity = request.form.get('acity')
+        bcity = request.form.get('bcity')
+        adate = request.form.get('adate')
+        bdate = request.form.get('bdate')
+        a_plane_db = Function.planes_db(acity)
+        b_plane_db = Function.planes_db(acity)
+        a = Thread_Pool.submit(a_plane_db.select_planes,(bcity,adate))
+        b = Thread_Pool.submit(a_plane_db.select_planes,(acity,bdate))
+        a_result,b_result = a.result(),b.result()
+        a_len,b_len = len(a_result),len(b_result)
+        if a_result is None or b_result is None or a_result == [] or b_result == []:
+            return jsonify({'string':'很抱歉，暂时没有符合要求的机票'})
+        elif a_len==1 and b_len==1:
+            return {'a_common':a_result,'b_common':b_result}
+        elif a_len==1 and b_len>1:
+            b = Process_Pool.submit(b_plane_db.sort_planes,b_result)
+            b_cost_sort,b_time_sort = b.result()
+            return {'a_common':a_result,'b_common':b_result,'b_cost_sort':b_cost_sort,'b_time_sort':b_time_sort}
+        elif b_len==1 and a_len>1:
+            a = Process_Pool.submit(a_plane_db.sort_planes,a_result)
+            a_cost_sort,a_time_sort = a.result()
+            return {'a_common':a_result,'a_cost_sort':a_cost_sort,'a_time_sort':a_time_sort,'b_comon':b_result}
+        else:
+            a = Process_Pool.submit(a_plane_db.sort_planes, a_result)
+            b = Process_Pool.submit(b_plane_db.sort_planes, b_result)
+            a_cost_sort, a_time_sort = a.result()
+            b_cost_sort, b_time_sort = b.result()
+            return {'a_common':a_result,'a_cost_sort':a_cost_sort,'a_time_sort':a_time_sort,
+                    'b_common':b_result,'b_cost_sort':b_cost_sort,'b_time_sort':b_time_sort
+                }
+
+@csrf.exempt
+@app.post('index_ajax3')
+def index_ajax3():
+    if request.method == 'POST':
+        nums = request.form.get('nums')
+        ...
+
 
 
 
@@ -225,8 +254,8 @@ def settlement():
 
 
 @csrf.exempt
-@app.route('/settlement_ajax', methods=['POST'])
-def settlement_ajax():
+@app.route('/settlement_ajax1', methods=['POST'])
+def settlement_ajax1():
     if request.method == 'POST':
         index = g.get('index')
         table = g.get('table')
