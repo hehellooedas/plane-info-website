@@ -10,7 +10,6 @@ from markupsafe import escape
 from flask_caching import Cache
 import os, threading, Function
 
->>>>>>> master
 
 
 app = Flask(__name__)
