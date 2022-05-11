@@ -8,7 +8,7 @@ from flask_avatars import Avatars
 from user_agents import parse
 from markupsafe import escape
 from flask_caching import Cache
-import os, click, threading, multiprocessing, Function,asyncio
+import os,threading, multiprocessing, Function,asyncio
 
 
 app = Flask(__name__)
