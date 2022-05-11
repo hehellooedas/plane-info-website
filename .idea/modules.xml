@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/民航行程推荐.iml" filepath="$PROJECT_DIR$/.idea/民航行程推荐.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../航班信息获取/.idea/航班信息获取.iml" filepath="$PROJECT_DIR$/../航班信息获取/.idea/航班信息获取.iml" />
     </modules>
   </component>
 </project>
