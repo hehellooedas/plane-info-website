@@ -87,7 +87,7 @@ def login():
 
 
 @csrf.exempt
-@app.route('/login_ajax1', methods=['GET', 'POST'])
+@app.route('/login_ajax1', methods=['POST'])
 def login_ajax():
     if request.method == 'POST':
         email = escape(request.form.get('email'))
@@ -107,7 +107,7 @@ def login_ajax():
 
 
 @csrf.exempt
-@app.route('/login_ajax2', methods=['GET', 'POST'])
+@app.route('/login_ajax2', methods=['POST'])
 def login_ajax2():
     if request.method == 'POST':
         email = request.form.get('email')
@@ -128,7 +128,7 @@ def register():
 
 
 @csrf.exempt
-@app.route('/register_ajax1', methods=['GET', 'POST'])
+@app.route('/register_ajax1', methods=['POST'])
 def register_ajax1():
     if request.method == 'POST':
         email = escape(request.form.get('email'))
@@ -150,7 +150,7 @@ def register_ajax1():
 
 
 @csrf.exempt
-@app.route('/register_ajax2', methods=['GET', 'POST'])
+@app.route('/register_ajax2', methods=['POST'])
 def register_ajax2():
     if request.method == 'POST':
         email = request.form.get('email')
@@ -171,7 +171,7 @@ def index():
 
 
 @csrf.exempt
-@app.route('/index_ajax1', methods=['GET', 'POST'])
+@app.route('/index_ajax1', methods=['POST'])
 def index_ajax1():
     if request.method == 'POST':
         acity = request.form.get('acity')
@@ -198,7 +198,7 @@ def index_ajax1():
 
 
 @csrf.exempt
-@app.route('/index_ajax2', methods=['GET', 'POST'])
+@app.route('/index_ajax2', methods=['POST'])
 def index_ajax2():
     if request.method == 'POST':
         index = request.form.get('index')#索引
@@ -225,7 +225,7 @@ def settlement():
 
 
 @csrf.exempt
-@app.route('/settlement_ajax', methods=['GET', 'POST'])
+@app.route('/settlement_ajax', methods=['POST'])
 def settlement_ajax():
     if request.method == 'POST':
         index = g.get('index')
