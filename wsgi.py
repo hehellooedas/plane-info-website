@@ -87,7 +87,7 @@ def login():
 
 
 @csrf.exempt
-@app.route('/login_ajax1', methods=['POST'])
+@app.route('/login_ajax1', methods=['GET','POST'])
 def login_ajax():
     if request.method == 'POST':
         email = escape(request.form.get('email'))
@@ -128,25 +128,24 @@ def register():
 
 
 @csrf.exempt
-@app.route('/register_ajax1', methods=['POST'])
+@app.post('/register_ajax1')
 def register_ajax1():
-    if request.method == 'POST':
-        email = escape(request.form.get('email'))
-        Verification_Code = Function.create_String()
-        string = 'hello'
-        if email:
-            if emails_db.exist_account(email):
-                string = u'您的账户已经注册，请检查邮件是否填写正确！'
-            else:
-                content = f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
-                t = threading.Thread(target=send_email, args=(app, [email], '民航推荐网站注册', content))
-                t.start()
-                string = u'邮件已发送，请注意查收！'
-        dic = {
-            'Code': Verification_Code,
-            'string': string
-        }
-        return jsonify(dic)
+    email = escape(request.form.get('email'))
+    Verification_Code = Function.create_String()
+    string = 'hello'
+    if email:
+        if emails_db.exist_account(email):
+            string = u'您的账户已经注册，请检查邮件是否填写正确！'
+        else:
+            content = f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
+            t = threading.Thread(target=send_email, args=(app, [email], '民航推荐网站注册', content))
+            t.start()
+            string = u'邮件已发送，请注意查收！'
+    dic = {
+        'Code': Verification_Code,
+        'string': string
+    }
+    return jsonify(dic)
 
 
 @csrf.exempt
@@ -173,68 +172,66 @@ def index():
 @csrf.exempt
 @app.post('/index_ajax1')#单程
 def index_ajax1():
-    if request.method == 'POST':
-        acity = request.form.get('acity')
-        bcity = request.form.get('bcity')
-        date = request.form.get('date')
-        plane_db = Function.planes_db(acity)
-        a = Thread_Pool.submit(plane_db.select_planes,(bcity,date))#搜索
-        result = a.result()
-        if result is None or result == []:
-            return jsonify({'string':'很抱歉，暂时没有符合要求的机票'})
-        elif len(result) == 1:
-            return {
-                'common':result
-            }
-        else:
-            b = Process_Pool.submit(plane_db.sort_planes,result)#排序
-            cost_sort,time_sort = b.result()
-            return {
-                'common':result,'cost_sort':cost_sort,'time_sort':time_sort
-            }
+    acity = request.form.get('acity')
+    bcity = request.form.get('bcity')
+    date = request.form.get('date')
+    plane_db = Function.planes_db(acity)
+    a = Thread_Pool.submit(plane_db.select_planes,(bcity,date))#搜索
+    result = a.result()
+    if result is None or result == []:
+        return jsonify({'string':'很抱歉，暂时没有符合要求的机票'})
+    elif len(result) == 1:
+        return {
+            'common':result
+        }
+    else:
+        b = Process_Pool.submit(plane_db.sort_planes,result)#排序
+        cost_sort,time_sort = b.result()
+        #result为搜索后的结构，cost_sort为按价格排序后的结果,time_sort为按时间排序后的结果
+        return {
+            'common':result,'cost_sort':cost_sort,'time_sort':time_sort
+        }
 
 
 @csrf.exempt
 @app.post('/index_ajax2')#往返
 def index_ajax2():
-    if request.method == 'POST':
-        acity = request.form.get('acity')
-        bcity = request.form.get('bcity')
-        adate = request.form.get('adate')
-        bdate = request.form.get('bdate')
-        a_plane_db = Function.planes_db(acity)
-        b_plane_db = Function.planes_db(acity)
-        a = Thread_Pool.submit(a_plane_db.select_planes,(bcity,adate))
-        b = Thread_Pool.submit(a_plane_db.select_planes,(acity,bdate))
-        a_result,b_result = a.result(),b.result()
-        a_len,b_len = len(a_result),len(b_result)
-        if a_result is None or b_result is None or a_result == [] or b_result == []:
-            return jsonify({'string':'很抱歉，暂时没有符合要求的机票'})
-        elif a_len==1 and b_len==1:
-            return {'a_common':a_result,'b_common':b_result}
-        elif a_len==1 and b_len>1:
-            b = Process_Pool.submit(b_plane_db.sort_planes,b_result)
-            b_cost_sort,b_time_sort = b.result()
-            return {'a_common':a_result,'b_common':b_result,'b_cost_sort':b_cost_sort,'b_time_sort':b_time_sort}
-        elif b_len==1 and a_len>1:
-            a = Process_Pool.submit(a_plane_db.sort_planes,a_result)
-            a_cost_sort,a_time_sort = a.result()
-            return {'a_common':a_result,'a_cost_sort':a_cost_sort,'a_time_sort':a_time_sort,'b_comon':b_result}
-        else:
-            a = Process_Pool.submit(a_plane_db.sort_planes, a_result)
-            b = Process_Pool.submit(b_plane_db.sort_planes, b_result)
-            a_cost_sort, a_time_sort = a.result()
-            b_cost_sort, b_time_sort = b.result()
-            return {'a_common':a_result,'a_cost_sort':a_cost_sort,'a_time_sort':a_time_sort,
-                    'b_common':b_result,'b_cost_sort':b_cost_sort,'b_time_sort':b_time_sort
-                }
+    acity = request.form.get('acity')
+    bcity = request.form.get('bcity')
+    adate = request.form.get('adate')
+    bdate = request.form.get('bdate')
+    a_plane_db = Function.planes_db(acity)
+    b_plane_db = Function.planes_db(bcity)
+    a = Thread_Pool.submit(a_plane_db.select_planes,(bcity,adate))
+    b = Thread_Pool.submit(a_plane_db.select_planes,(acity,bdate))
+    a_result,b_result = a.result(),b.result()
+    a_len,b_len = len(a_result),len(b_result)
+    if a_result is None or b_result is None or a_result == [] or b_result == []:
+        return jsonify({'string':'很抱歉，暂时没有符合要求的机票'})
+    elif a_len==1 and b_len==1:
+        return {'a_common':a_result,'b_common':b_result}
+    elif a_len==1 and b_len>1:
+        b = Process_Pool.submit(b_plane_db.sort_planes,b_result)
+        b_cost_sort,b_time_sort = b.result()
+        return {'a_common':a_result,'b_common':b_result,'b_cost_sort':b_cost_sort,'b_time_sort':b_time_sort}
+    elif b_len==1 and a_len>1:
+        a = Process_Pool.submit(a_plane_db.sort_planes,a_result)
+        a_cost_sort,a_time_sort = a.result()
+        return {'a_common':a_result,'a_cost_sort':a_cost_sort,'a_time_sort':a_time_sort,'b_comon':b_result}
+    else:
+        a = Process_Pool.submit(a_plane_db.sort_planes, a_result)
+        b = Process_Pool.submit(b_plane_db.sort_planes, b_result)
+        a_cost_sort, a_time_sort = a.result()
+        b_cost_sort, b_time_sort = b.result()
+        return {'a_common':a_result,'a_cost_sort':a_cost_sort,'a_time_sort':a_time_sort,
+                'b_common':b_result,'b_cost_sort':b_cost_sort,'b_time_sort':b_time_sort
+            }
 
 @csrf.exempt
 @app.post('/index_ajax3')#多程
 def index_ajax3():
-    if request.method == 'POST':
-        nums = request.form.get('nums')
-        ...
+    nums = request.form.get('nums')
+    ...
 
 
 
@@ -294,8 +291,7 @@ def success():
 
 
 def planes_update(Func,time=6):
-    scheduler = APScheduler()
-    scheduler.init_app(app)
+    scheduler = APScheduler(app)
     #定时任务的格式
     scheduler.add_job(func=Func, trigger='interval', hours=time, id='planes_update')
     scheduler.start()

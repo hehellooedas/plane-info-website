@@ -58,7 +58,7 @@ def planes_Update_Function():
                 information = pandas.read_pickle(f'./files/citys/{city}.pickle')
                 information['余座'].values[index] -= numbers
                 pandas.to_pickle(f'./files/citys/{city}.pickle')
-            f.truncate()
+            f.truncate()#完成所有task之后，清空这个pickle文件
 
 
 
@@ -119,7 +119,7 @@ class planes_db:
                     temp = result[i]
                     result[i] = result[j]
                     result[j] = temp
-        cost_sort = copy.deepcopy(result)
+        cost_sort = copy.deepcopy(result)#申请一段内存单独存储排序后的结果
         t = [i[4].split(' ')[1].split(':')[0:2] for i in result]
         for i in t:
             i[0] = int(i[0])
