@@ -131,6 +131,15 @@ body{
     font-weight: 700;
 }
 .time-end{
+    visibility: hidden;
+    border: 2px solid black;
+    position: absolute;
+    top: 20px;
+    width: 155px;
+    height: 78px;
+    left: 200px;
+}
+.time-end2{
     border: 2px solid black;
     position: absolute;
     top: 20px;
@@ -196,6 +205,18 @@ body{
     width: 1200px;
 }
 .show-nav-span{
+    z-index: 1;
+    position: absolute;
+    top: 0px;
+    height: 50px;
+    left: 0px;
+}
+.showl{
+    visibility: hidden;
+}
+
+.show-nav-span2{
+    z-index: 2;
     position: absolute;
     top: 0px;
     height: 50px;
@@ -210,6 +231,20 @@ body{
       height: 49px;
       border-radius: 1px;
       cursor: pointer;
+}
+.show-nav .show-nav-span2 button{
+    float: left;
+    width:300px;
+    border:1px solid aliceblue;
+    color: black;
+    font-size: large;
+    height: 49px;
+    border-radius: 1px;
+    cursor: pointer;
+    background-color: cadetblue;
+}
+.show-nav .show-nav-span2 button:active{
+    background-color: azure;
 }
 .show-nav .show-nav-span button:hover{
     background-color: darkgrey;
@@ -335,3 +370,36 @@ body{
     box-shadow: 0 1px #666;
     transform: translateY(4px);
   }
+.jingbao{
+    position: absolute;
+    display: none;
+    z-index: 1000;
+    left: 30%;
+    top:10%;
+    width: 500px;
+    height: 500px;
+    text-align: center;
+    color: blue;
+    background-color: #999;
+}
+.jingbao2{
+    position: absolute;
+    display: block;
+    z-index: 1000;
+    left: 30%;
+    top:10%;
+    width: 500px;
+    height: 500px;
+    text-align: center;
+    color: blue;
+    background-color: #999;
+}
+.cha{
+    position: absolute;
+    right:0px;
+    width: 20px;
+    height: 20px;
+    background-color: #666;
+    color: red;
+    top: 0px;
+}
