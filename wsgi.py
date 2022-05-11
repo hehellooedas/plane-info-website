@@ -8,7 +8,12 @@ from flask_avatars import Avatars
 from user_agents import parse
 from markupsafe import escape
 from flask_caching import Cache
+<<<<<<< HEAD
 import os,threading, multiprocessing, Function,asyncio
+=======
+import os, threading, Function
+
+>>>>>>> master
 
 
 app = Flask(__name__)
@@ -19,7 +24,7 @@ os.environ['FLASK_APP'] = 'wsgi'
 os.environ['FLASK_ENV'] = 'development'
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
-app.secret_key = os.getenv('SECRET_KEY', Function.create_string(16))
+app.secret_key = os.getenv('SECRET_KEY', Function.create_String(16))
 avatars = Avatars(app)
 cache = Cache(app,config={'CACHE_TYPE':'simple'})
 Thread_Pool = ThreadPoolExecutor()
@@ -41,7 +46,7 @@ emails_db = Function.emails_db()
 
 
 # 邮件发送函数
-def send_email(app, emails, subject='EmailTest', content=u'这是一条从民航行程推荐网站发来的邮件(收到请勿回复!)'):
+def send_email(app, emails, subject='EmailTest', content=u'这是一条从民航行程推荐网站发来的邮件(收到请勿回复!)',html=None):
     with app.app_context():
         msg = Message(
             subject=subject,
@@ -49,6 +54,7 @@ def send_email(app, emails, subject='EmailTest', content=u'这是一条从民航
             recipients=emails
         )
         msg.body = content + '\n收到请勿回复！若您从未注册民航推荐网，请无视这封邮件，注意不要泄露个人信息！'
+        msg.html = html
         mail.send(msg)
         return True
 
@@ -85,14 +91,13 @@ def login():
 
 
 @csrf.exempt
-@app.route('/login_ajax1', methods=['GET', 'POST'])
+@app.route('/login_ajax1', methods=['POST'])
 def login_ajax():
     if request.method == 'POST':
         email = escape(request.form.get('email'))
-        Verification_Code = Function.create_string()
+        Verification_Code = Function.create_String()
         if email and emails_db.exist_account(email):
             content = f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
-            # send_email(app, [email], '民航推荐网站登录', content)
             t = threading.Thread(target=send_email, args=(app, [email], '民航推荐网站登录', content))
             t.start()
             string = u'邮件已发送，请注意查收！'
@@ -106,7 +111,7 @@ def login_ajax():
 
 
 @csrf.exempt
-@app.route('/login_ajax2', methods=['GET', 'POST'])
+@app.route('/login_ajax2', methods=['POST'])
 def login_ajax2():
     if request.method == 'POST':
         email = request.form.get('email')
@@ -127,11 +132,11 @@ def register():
 
 
 @csrf.exempt
-@app.route('/register_ajax1', methods=['GET', 'POST'])
+@app.route('/register_ajax1', methods=['POST'])
 def register_ajax1():
     if request.method == 'POST':
         email = escape(request.form.get('email'))
-        Verification_Code = Function.create_string()
+        Verification_Code = Function.create_String()
         string = 'hello'
         if email:
             if emails_db.exist_account(email):
@@ -149,7 +154,7 @@ def register_ajax1():
 
 
 @csrf.exempt
-@app.route('/register_ajax2', methods=['GET', 'POST'])
+@app.route('/register_ajax2', methods=['POST'])
 def register_ajax2():
     if request.method == 'POST':
         email = request.form.get('email')
@@ -170,15 +175,44 @@ def index():
 
 
 @csrf.exempt
-@app.route('/index_ajax', methods=['GET', 'POST'])
-def index_ajax():
+@app.route('/index_ajax1', methods=['POST'])
+def index_ajax1():
     if request.method == 'POST':
         acity = request.form.get('acity')
         bcity = request.form.get('bcity')
-        adate = request.form.get('adate')
-        bdata = request.form.get('bdate')
-        Function.planes_db(acity)
-        pass
+        date = request.form.get('date')
+        g.acity = acity
+        plane_db = Function.planes_db(acity)
+        a = Process_Pool.submit(plane_db.select_planes,(bcity,date))#搜索
+        result = a.result()
+        if result is None:
+            return jsonify({'string':'很抱歉，暂时没有符合要求的机票'})
+        elif len(result) == 1:
+            g.table = result
+            return jsonify({
+                'common':result
+            })
+        else:
+            g.table = result
+            b = Process_Pool.submit(plane_db.sort_planes,result)#排序
+            cost_sort,time_sort = b.result()
+            return jsonify({
+                'common':result,'cost_sort':cost_sort,'time_sort':time_sort
+            })
+
+
+@csrf.exempt
+@app.route('/index_ajax2', methods=['POST'])
+def index_ajax2():
+    if request.method == 'POST':
+        index = request.form.get('index')#索引
+        acity = g.get('acity')
+        cabin = request.form.get('cabin')
+        g.cabin = cabin
+        g.index = index
+        return redirect(url_for('settlement'))
+
+
 
 
 @app.get('/settlement')
@@ -195,18 +229,47 @@ def settlement():
 
 
 @csrf.exempt
-@app.route('/settlement_ajax', methods=['GET', 'POST'])
+@app.route('/settlement_ajax', methods=['POST'])
 def settlement_ajax():
     if request.method == 'POST':
-        email = session.get("email")
-        pass
-        if os.path.exists('./files/tasks.pickle'):
-            if os.path.getsize('./files/tasks.pickle'):
-                with open('./files/tasks.pickle','ab+') as f:
-                    pass
-            else:
-                with open('./files/tasks.pickle', 'ab+') as f:
-                    pass
+        index = g.get('index')
+        table = g.get('table')
+        cabin = g.get('cabin')
+        numbers = g.get('numbers')
+        emails = g.get('emails')
+        table = g.get('table')
+        for i in table:
+            if i[0]==index:
+                company = i[1]
+                flight_number = i[3]
+                acity = i[8]
+                bcity = i[9]
+                adate = i[5]
+                bdate = i[6]
+        Function.set_task([index,acity,numbers])
+        t = threading.Thread(target=Function.set_task,args=([acity,index,numbers],))
+        t.start()
+        content = f'【民航行程信息】您的机票已于{Function.get_Time()}支付成功。{Function.get_date(adate)} {company} {flight_number}航班' \
+                  f'{cabin},{acity}（{Function.get_Szm(acity)}） {Function.get_time(adate)} - {bcity}（{Function.get_Szm(bcity)}）' \
+                  f'{Function.get_time(bdate)}。\n航班将于起飞前45分钟截止办理乘机手续，为避免耽误您的行程，请您预留足够的时间办理乘机手续' \
+                  f'并提前20分钟抵达登机口。乘机人'
+        more = f'。详细信息请访问{request.host_url}'
+        if len(emails) == 1:
+            t = threading.Thread(target=send_email,args=(app,emails,'购票通知',content+emails[0]+more))
+            t.start()
+        else:
+            tasks = [
+                (app,[email],'购票信息',content+email+more)
+                for email in emails
+            ]
+            with ThreadPoolExecutor() as pool:
+                pool.map(send_email,tasks)
+        return redirect(url_for('success'))
+
+
+@app.get('/success')
+def success():
+    return render_template('success.html')
 
 
 def planes_update(Func,time=6):
@@ -215,11 +278,11 @@ def planes_update(Func,time=6):
     #定时任务的格式
     scheduler.add_job(func=Func, trigger='interval', hours=time, id='planes_update')
     scheduler.start()
-planes_update(Function.planes_Update_Function)
+planes_update(Function.planes_Update_Function,4)
 
 
 if __name__ == '__main__':
-    Process_Pool = ProcessPoolExecutor()
+    Process_Pool = ProcessPoolExecutor(max_workers=5)
     print('服务器开始运行')
     app.run(debug=False, port=80, host='0.0.0.0')
     print('服务器关闭')
