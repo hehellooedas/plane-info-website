@@ -171,7 +171,7 @@ def index():
 
 
 @csrf.exempt
-@app.post('/index_ajax1')
+@app.post('/index_ajax1')#单程
 def index_ajax1():
     if request.method == 'POST':
         acity = request.form.get('acity')
@@ -195,7 +195,7 @@ def index_ajax1():
 
 
 @csrf.exempt
-@app.post('index_ajax2')
+@app.post('/index_ajax2')#往返
 def index_ajax2():
     if request.method == 'POST':
         acity = request.form.get('acity')
@@ -230,7 +230,7 @@ def index_ajax2():
                 }
 
 @csrf.exempt
-@app.post('index_ajax3')
+@app.post('/index_ajax3')#多程
 def index_ajax3():
     if request.method == 'POST':
         nums = request.form.get('nums')
@@ -240,7 +240,7 @@ def index_ajax3():
 
 
 
-@app.get('/settlement')
+@app.get('/settlement')#结算
 def settlement():
     email = session.get("email")
     login_status = session.get('login_status')
@@ -254,30 +254,17 @@ def settlement():
 
 
 @csrf.exempt
-@app.route('/settlement_ajax1', methods=['POST'])
+@app.route('/settlement_ajax1', methods=['POST'])#单程结算
 def settlement_ajax1():
     if request.method == 'POST':
-        index = g.get('index')
-        table = g.get('table')
-        cabin = g.get('cabin')
-        numbers = g.get('numbers')
-        emails = g.get('emails')
-        table = g.get('table')
-        for i in table:
-            if i[0]==index:
-                company = i[1]
-                flight_number = i[3]
-                acity = i[8]
-                bcity = i[9]
-                adate = i[5]
-                bdate = i[6]
+        table = request.form.get('table')
+        index,company,flight_number,acity,bcity,adate,bdate = table[0],table[1],table[2],table[6],table[7],table[4],table[5]
+        numbers = request.form.get('numbers')
+        emails = request.form.get('emails')
         Function.set_task([index,acity,numbers])
         t = threading.Thread(target=Function.set_task,args=([acity,index,numbers],))
         t.start()
-        content = f'【民航行程信息】您的机票已于{Function.get_Time()}支付成功。{Function.get_date(adate)} {company} {flight_number}航班' \
-                  f'{cabin},{acity}（{Function.get_Szm(acity)}） {Function.get_time(adate)} - {bcity}（{Function.get_Szm(bcity)}）' \
-                  f'{Function.get_time(bdate)}。\n航班将于起飞前45分钟截止办理乘机手续，为避免耽误您的行程，请您预留足够的时间办理乘机手续' \
-                  f'并提前20分钟抵达登机口。乘机人'
+        content = Function.get_content(company,flight_number,acity,bcity,adate,bdate)
         more = f'。详细信息请访问{request.host_url}'
         if len(emails) == 1:
             t = threading.Thread(target=send_email,args=(app,emails,'购票通知',content+emails[0]+more))
@@ -290,6 +277,15 @@ def settlement_ajax1():
             with ThreadPoolExecutor() as pool:
                 pool.map(send_email,tasks)
         return redirect(url_for('success'))
+
+@csrf.exempt
+@app.route('/settlement_ajax2', methods=['POST'])#单程结算
+def settlement_ajax2():
+    pass
+    form = request.form
+    table1,table2 = form.get('table1'),form.get('table2')
+    index1,index2 = form.get('index1'),form.get('index2')
+    ...
 
 
 @app.get('/success')

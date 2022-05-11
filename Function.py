@@ -17,6 +17,11 @@ def get_Szm(city):
     }
     return table.get(city)
 
+def get_content(company,flight_number,acity,bcity,adate,bdate):
+    return f'【民航行程信息】您的机票已于{get_Time()}支付成功。{get_date(adate)} {company} {flight_number}航班' \
+           f'经济舱,{acity}（{get_Szm(acity)}） {get_time(adate)} - {bcity}（{get_Szm(bcity)}）' \
+           f'{get_time(bdate)}。\n航班将于起飞前45分钟截止办理乘机手续，为避免耽误您的行程，请您预留足够的时间办理乘机手续' \
+           f'并提前20分钟抵达登机口。乘机人'
 
 def create_String(n=6):
     """
