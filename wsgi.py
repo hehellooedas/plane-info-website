@@ -188,13 +188,12 @@ def index():
 @csrf.exempt
 @app.post('/index_ajax1')  # 单程
 def index_ajax1():
-    acity = request.form.get('acity')
-    bcity = request.form.get('bcity')
-    date = request.form.get('date')
+    form = request.form
+    acity,bcity,date = form.get('acity'),form.get('bcity'),form.get('date')
     a = Thread_Pool.submit(Function.sort_planes, (acity,bcity, date))  # 搜索
     result = a.result()
     if not result:
-        logging.warning('在数据库更新的时候试图对数据进行读写')
+        logging.warning('在数据库更新的时候试图访问数据')
         return jsonify({'string': '很抱歉，服务器正在更新中，请稍后再尝试！'})
     if result is None or result == []:
         return jsonify({'string': '很抱歉，暂时没有符合要求的机票'})
@@ -220,7 +219,7 @@ def index_ajax2():
     b = Thread_Pool.submit(Function.sort_planes, (bcity,acity, bdate))
     a_result, b_result = a.result(), b.result()
     if a_result is False or b_result is False:
-        logging.warning('在数据库更新的时候试图对数据进行读写')
+        logging.warning('在数据库更新的时候试图访问数据')
         return jsonify({'string': '很抱歉，服务器正在更新中，请稍后再尝试！'})
     a_len, b_len = len(a_result), len(b_result)
     if a_result is None or a_result == []:
