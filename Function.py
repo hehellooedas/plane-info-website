@@ -1,8 +1,6 @@
-import pandas, pickle, threading, multiprocessing, os, random, time, copy
+import pandas, pickle, os, random, time, copy
 
 
-def hello():
-    print('hello')
 
 def get_date(date_time):
     return date_time.split(' ')[0]

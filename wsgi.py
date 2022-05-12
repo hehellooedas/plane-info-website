@@ -10,16 +10,22 @@ from flask_avatars import Avatars
 from user_agents import parse
 from markupsafe import escape
 from flask_caching import Cache
-from logging.handlers import RotatingFileHandler
+from logging.handlers import TimedRotatingFileHandler
 import os, threading,logging,Function
 
 
-logging.basicConfig(level=logging.DEBUG)
-file_log_handler = RotatingFileHandler('./files/flask.log', encoding='UTF-8', maxBytes=1024 * 1024 * 10, backupCount=100)
-file_log_handler.setFormatter(logging.Formatter("%(levelname)s %(asctime)s [%(filename)s]: %(lineno)s - %(funcName)s - %(message)s"))
+#日志处理
+logging.basicConfig()
+file_log_handler = TimedRotatingFileHandler(filename='./files/logs/flask.log',encoding='UTF-8',delay=True,backupCount=10,interval=4,when='D')
+file_log_handler.setFormatter(logging.Formatter("[%(levelname)s] - %(message)s"))
+file_log_handler.setLevel(logging.WARNING)
+logging.getLogger().addHandler(file_log_handler)
+
+
 app = Flask(__name__)
-csrf = SeaSurf(app)
-scheduler = APScheduler()
+csrf = SeaSurf(app)#csrf防护
+scheduler = APScheduler()#定时任务
+scheduler.init_app(app)
 scheduler.api_enabled = True
 interval = IntervalTrigger(
     hours=6,  # 六小时更新一次数据库
@@ -27,7 +33,8 @@ interval = IntervalTrigger(
     end_date='2023-5-31 08:00:00',
     timezone='Asia/Shanghai'
 )
-scheduler.init_app(app)
+
+
 # 设置内置环境变量
 CORS(app, supports_credentials=True)
 os.environ['FLASK_APP'] = 'wsgi'
@@ -107,7 +114,7 @@ def login_ajax():
     Verification_Code = Function.create_String()
     if email and emails_db.exist_account(email):
         content = f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
-        t = threading.Thread(target=send_email, args=(app, [email], '民航推荐网站登录', content))
+        t = threading.Thread(target=send_email, args=(app, [email], '民航推荐网站登录', content),name='login_thread')
         t.start()
         string = u'邮件已发送，请注意查收！'
     else:
@@ -148,7 +155,7 @@ def register_ajax1():
             string = u'您的账户已经注册，请检查邮件是否填写正确！'
         else:
             content = f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
-            t = threading.Thread(target=send_email, args=(app, [email], '民航推荐网站注册', content))
+            t = threading.Thread(target=send_email, args=(app, [email], '民航推荐网站注册', content),name='register_thread')
             t.start()
             string = u'邮件已发送，请注意查收！'
     dic = {
@@ -187,6 +194,7 @@ def index_ajax1():
     a = Thread_Pool.submit(Function.sort_planes, (acity,bcity, date))  # 搜索
     result = a.result()
     if not result:
+        logging.warning('在数据库更新的时候试图对数据进行读写')
         return jsonify({'string': '很抱歉，服务器正在更新中，请稍后再尝试！'})
     if result is None or result == []:
         return jsonify({'string': '很抱歉，暂时没有符合要求的机票'})
@@ -212,6 +220,7 @@ def index_ajax2():
     b = Thread_Pool.submit(Function.sort_planes, (bcity,acity, bdate))
     a_result, b_result = a.result(), b.result()
     if a_result is False or b_result is False:
+        logging.warning('在数据库更新的时候试图对数据进行读写')
         return jsonify({'string': '很抱歉，服务器正在更新中，请稍后再尝试！'})
     a_len, b_len = len(a_result), len(b_result)
     if a_result is None or a_result == []:
@@ -303,7 +312,7 @@ def settlement_ajax1():
     content = Function.get_content(company, flight_number, acity, bcity, adate, bdate)
     more = f'。详细信息请访问{request.host_url}'
     if len(emails) == 1:
-        t = threading.Thread(target=send_email, args=(app, emails, '购票通知', content + emails[0] + more))
+        t = threading.Thread(target=send_email, args=(app, emails, '购票通知', content + emails[0] + more),name='settlement_thread')
         t.start()
     else:
         tasks = [
@@ -334,9 +343,14 @@ def success():
 def plane_update():
     Function.planes_Update_Function()
 
+@scheduler.task(trigger='interval',days=2,name='delete_log',id='delete_log')
+def delete_log():
+    os.remove('./files/flask.log')
+
 def my_listener(event):
     if event.exception:
         print("任务出错了,调度器已终止执行！")
+        logging.error("任务出错了,调度器已终止执行")
         scheduler.shutdown()
 scheduler.add_listener(my_listener, mask=EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
 
