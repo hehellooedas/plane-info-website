@@ -22,11 +22,11 @@ aaa.addEventListener('mouseup',function(){
 function reqfirst() {
    if(st==1){
     $.ajax({
-        // headers: {"X-CSRFToken", csrf_token},
+       //headers: {"X-CSRFToken", csrf_token},
         type: 'post',
         url: '/index_ajax1',
-        data: {"acity":aaa.value,"bcity":lll.value,"adata":time.value},
-        // dataType: 'json',
+        data: {"acity":aaa.value,"bcity":lll.value,"adate":time.value},
+        dataType: 'json',
         async: false,
         error: function (request) {
             alert('cuowu');

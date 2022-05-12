@@ -214,6 +214,7 @@ def index_ajax1():
 @app.post('/index_ajax2')  # 往返
 def index_ajax2():
     form = request.form
+    print(form)
     acity, bcity, adate, bdate = form.get('acity'), form.get('bcity'), form.get('adate'), form.get('bdate')
     a = Thread_Pool.submit(Function.sort_planes, (acity,bcity, adate))
     b = Thread_Pool.submit(Function.sort_planes, (bcity,acity, bdate))
