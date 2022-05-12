@@ -1,4 +1,5 @@
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
+from apscheduler.events import EVENT_JOB_EXECUTED, EVENT_JOB_ERROR
 from flask import Flask, render_template, request, url_for, redirect, make_response, session, g, jsonify, abort
 from flask_cors import CORS
 from flask_mail import Mail, Message
@@ -315,14 +316,18 @@ def success():
     return render_template('success.html')
 
 
-@scheduler.task(trigger=interval, name='plane_update')
+@scheduler.task(trigger=interval, name='plane_update',id='plane_update')
 def plane_update():
     Function.planes_Update_Function()
 
+def my_listener(event):
+    if event.exception:
+        print("任务出错了")
+scheduler.add_listener(my_listener, mask=EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
 
 if __name__ == '__main__':
     Process_Pool = ProcessPoolExecutor(max_workers=5)
-    print('服务器开始运行')
     scheduler.start()
+    print('服务器开始运行')
     app.run(debug=False, port=80, host='0.0.0.0')
     print('服务器关闭')
