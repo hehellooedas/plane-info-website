@@ -19,10 +19,9 @@ aaa.addEventListener('mouseup',function(){
     console.log(aaa.value)
 })
 function reqfirst() {
-    alert('hello');
    if(st==1){
+   alert('hello');
     $.ajax({
-       //headers: {"X-CSRFToken", csrf_token},
         type: 'post',
         url: '/index_ajax1',
         data: {"acity":aaa.value,"bcity":lll.value,"adate":time.value},

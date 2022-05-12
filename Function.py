@@ -1,6 +1,8 @@
 import pandas, pickle, os, random, time, copy
 
 
+def delete_log_byhand():
+    os.remove('./files/flask.log')
 
 def get_date(date_time):
     return date_time.split(' ')[0]
@@ -148,5 +150,6 @@ class planes_db:
         pickle = pandas.read_pickle(self.path)
         pickle.to_xlsx(f'./files/citys/{self.city}.xlsx', index=False)
 
-
+if __name__ == '__main__':
+    pass
 

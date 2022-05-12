@@ -77,12 +77,12 @@ def send_email(app, emails, subject='EmailTest', content=u'这是一条从民航
 
 @app.errorhandler(404)
 def encounter_404(error):
-    return render_template('error.html', error=error)
+    return render_template('error.html')
 
 
 @app.errorhandler(403)
 def encounter_403(error):
-    return f'<h3>很抱歉，您被识别为爬虫程序，如检测错误，请刷新浏览器，很抱歉给您带来了不便,请您谅解！<br>{error}</h3>'
+    return f'<h3>很抱歉，您被识别为爬虫程序，如检测错误，请刷新浏览器，很抱歉给您带来了不便,请您谅解！<br></br>{error}</h3>'
 
 
 @app.template_filter
@@ -108,7 +108,7 @@ def login():
 
 
 @csrf.exempt
-@app.post('/login_ajax1')
+@app.route('/login_ajax1',methods=['GET','POST'])
 def login_ajax():
     email = escape(request.form.get('email'))
     Verification_Code = Function.create_String()
@@ -175,12 +175,13 @@ def register_ajax2():
 
 
 # index函数为航班推荐主页面
+@csrf.exempt
 @app.get('/')
 def index():
     email = session.get("email")
     login_status = session.get('login_status')
     if login_status and email:
-        return render_template('index.html', email=email, exit_url=request.host_url + url_for('login'))
+        return render_template('index.html')
     else:
         return redirect(url_for('login'))
 
@@ -189,21 +190,22 @@ def index():
 @app.post('/index_ajax1')  # 单程
 def index_ajax1():
     form = request.form
-    acity,bcity,date = form.get('acity'),form.get('bcity'),form.get('date')
-    a = Thread_Pool.submit(Function.sort_planes, (acity,bcity, date))  # 搜索
+    acity,bcity,date = form.get('acity'),form.get('bcity'),form.get('adate')
+    a = Thread_Pool.submit(Function.select_planes, (acity,bcity, date))  # 搜索
     result = a.result()
-    if not result:
+    if result is False:
         logging.warning('在数据库更新的时候试图访问数据')
         return jsonify({'string': '很抱歉，服务器正在更新中，请稍后再尝试！'})
     if result is None or result == []:
         return jsonify({'string': '很抱歉，暂时没有符合要求的机票'})
     elif len(result) == 1:
         return {
-            'common': result
+            'common': result,'cost_sort':result,'time_sort':result
         }
     else:
-        b = Process_Pool.submit(Function.sort_planes, result)  # 排序
+        b = Thread_Pool.submit(Function.sort_planes, result)  # 排序
         cost_sort, time_sort = b.result()
+        print(cost_sort)
         # result为搜索后的结构，cost_sort为按价格排序后的结果,time_sort为按时间排序后的结果
         return {
             'common': result, 'cost_sort': cost_sort, 'time_sort': time_sort
@@ -216,8 +218,8 @@ def index_ajax2():
     form = request.form
     print(form)
     acity, bcity, adate, bdate = form.get('acity'), form.get('bcity'), form.get('adate'), form.get('bdate')
-    a = Thread_Pool.submit(Function.sort_planes, (acity,bcity, adate))
-    b = Thread_Pool.submit(Function.sort_planes, (bcity,acity, bdate))
+    a = Thread_Pool.submit(Function.select_planes, (acity,bcity, adate))
+    b = Thread_Pool.submit(Function.select_planes, (bcity,acity, bdate))
     a_result, b_result = a.result(), b.result()
     if a_result is False or b_result is False:
         logging.warning('在数据库更新的时候试图访问数据')
@@ -233,22 +235,22 @@ def index_ajax2():
             'b_common': b_result, 'b_cost_sort': b_result, 'b_time_sort': b_result
         })
     elif a_len == 1 and b_len > 1:
-        b = Process_Pool.submit(Function.sort_planes, b_result)
+        b = Thread_Pool.submit(Function.sort_planes, b_result)
         b_cost_sort, b_time_sort = b.result()
         return jsonify({
             'a_common': a_result, 'a_cost_sort': a_result, 'a_time_sort': a_result,
             'b_common': b_result, 'b_cost_sort': b_cost_sort, 'b_time_sort': b_time_sort
         })
     elif b_len == 1 and a_len > 1:
-        a = Process_Pool.submit(Function.sort_planes, a_result)
+        a = Thread_Pool.submit(Function.sort_planes, a_result)
         a_cost_sort, a_time_sort = a.result()
         return jsonify({
             'a_common': a_result, 'a_cost_sort': a_cost_sort, 'a_time_sort': a_time_sort,
             'b_common': b_result, 'b_cost_sort': b_result, 'b_time_sort': b_result
         })
     else:
-        a = Process_Pool.submit(Function.sort_planes, a_result)
-        b = Process_Pool.submit(Function.sort_planes, b_result)
+        a = Thread_Pool.submit(Function.sort_planes, a_result)
+        b = Thread_Pool.submit(Function.sort_planes, b_result)
         a_cost_sort, a_time_sort = a.result()
         b_cost_sort, b_time_sort = b.result()
         return jsonify({

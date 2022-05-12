@@ -1,0 +1,30 @@
+[ERROR] - Exception on /static/s-other/ [GET]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 515, in <lambda>
+    view_func=lambda **kw: self_ref().send_static_file(**kw),  # type: ignore # noqa: B950
+  File "D:\Python3.10.4\lib\site-packages\flask\scaffold.py", line 328, in send_static_file
+    return send_from_directory(
+  File "D:\Python3.10.4\lib\site-packages\flask\helpers.py", line 675, in send_from_directory
+    return werkzeug.utils.send_from_directory(  # type: ignore
+  File "D:\Python3.10.4\lib\site-packages\werkzeug\utils.py", line 586, in send_from_directory
+    raise NotFound()
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1384, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1324, in handle_http_exception
+    return self.ensure_sync(handler)(e)
+TypeError: encounter_404() takes 0 positional arguments but 1 was given
