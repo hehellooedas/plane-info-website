@@ -32,6 +32,7 @@ inCity.destination = function (e){
         return false;
     })
 }
+
 /* 城市HTML模板 */
 inCity._template = [
     '<h1>请选择城市</h1>',

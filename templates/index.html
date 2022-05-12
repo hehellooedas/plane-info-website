@@ -45,7 +45,7 @@
             <div class="selcet"><input type="radio" name="hi" id="dan">单程<input type="radio" name="hi"
                     id="shuang">往返<input type="radio" name="hi" id="duo">多程</div>
             <div class="address-start"><span>出发点&nbsp&nbsp</span>
-                <input type="text" id="abc">
+                <input type="text" id="abc" value="">
             </div>
             <div class="address-end"><span>目的地&nbsp&nbsp</span>
                 <input type="text" id="lll">
@@ -88,7 +88,7 @@
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
                     <ul>
                         <li>
-                            <select name="aaa" id="" onchange="reqsecond(this.value)">
+                            <select name="aaa" id="" onchange="reqsecond(this.options[this.options.selectedIndex].value)">
                                 <option value="" selected="selected">航空公司</option>
                                 <option value="">东方航空</option>
                                 <option value="">九元航空</option>
@@ -100,7 +100,7 @@
                             </select>
                         </li>
                         <li>
-                            <select name="" id="" onchange="reqsecond(this.value)">
+                            <select name="" id="" onchange="reqsecond2(this.value)">
                                 <option value="" selected="selected">时间段</option>
                                 <option value="">06:00-12:00</option>
                                 <option value="">12:00-18:00</option>
@@ -108,9 +108,9 @@
                             </select>
                         </li>
                         <li>
-                            <select name="" id="" onchange="reqsecond(this.value)">
+                            <select name="" id="" onchange="reqsecond3(this.value)">
                                 <option value="" selected="selected">舱位</option>
-                                <option value="">公务舱</option>
+                                <option value="">经济舱</option>
                                 <option value="">公务/头等舱</option>
                             </select>
                         </li>
@@ -155,7 +155,7 @@
                         <li>
                             <select name="" id="" onchange="reqsecond(this.value)">
                                 <option value="" selected="selected">舱位</option>
-                                <option value="">公务舱</option>
+                                <option value="">经济舱</option>
                                 <option value="">公务/头等舱</option>
                             </select>
                         </li>
@@ -172,10 +172,30 @@
             </div>
         </div>
         <!-- 选择完成时航班的展示 -->
-        <div class="show-body0">5
-            <ul id="info0">
-                <li>航班信息</li>
-            </ul>
+        <div class="show-body0">            
+            <div class="xinxi">
+                <div class="gou">
+                    <input type="radio" name="a" class="radio">
+                </div>
+                    <div class="tab">                           
+                        <table border="1px">
+                            <tr class="tr1"><td>航空公司</td>
+                            <td>航班</td>
+                            <td>机型</td>
+                            <td>出发时间</td>
+                            <td>抵达时间</td>
+                            <td>价格</td>
+                            <td>余票</td></tr>
+                            <tr class="tr2"><td>厦门航空</td>
+                                <td>MF8083</td>
+                                <td>波音737</td>
+                                <td>2022-12-21 07:45:00</td>
+                                <td>2022-12-21 09:50:00</td>
+                                <td>1480.0</td>
+                                <td>400</td></tr>
+                        </table>
+                    </div>
+            </div>
         </div>
         <div class="show-body2">4
             <ul class="info2">
@@ -284,5 +304,4 @@
     })
 </script>
 <script src="../static/s-js/index.js"></script>
-
 </html>

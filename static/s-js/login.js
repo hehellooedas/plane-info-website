@@ -55,3 +55,6 @@ login1btn.addEventListener('click', function () {
 	}
 	else { codefail.innerText='验证码输入错误，请重新输入'; }
 });
+var str='';
+str+=" "+"  "+'s';
+console.log(str);
