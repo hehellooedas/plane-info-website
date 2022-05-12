@@ -1,6 +1,9 @@
 import pandas, pickle, threading, multiprocessing, os, random, time, copy
 
 
+def hello():
+    print('hello')
+
 def get_date(date_time):
     return date_time.split(' ')[0]
 
@@ -66,6 +69,27 @@ def planes_Update_Function():
             f.truncate()  # 完成所有task之后，清空这个pickle文件
 
 
+def sort_planes(result: list) -> tuple:
+    for i in range(len(result) - 1):
+        for j in range(1, len(result)):
+            if result[i][8] > result[j][8]:
+                temp = result[i]
+                result[i] = result[j]
+                result[j] = temp
+    cost_sort = copy.deepcopy(result)  # 申请一段内存单独存储排序后的结果
+    t = [i[4].split(' ')[1].split(':')[0:2] for i in result]
+    for i in t:
+        i[0] = int(i[0])
+        i[1] = int(i[1])
+    for i in range(len(result) - 1):
+        for j in range(1, len(result)):
+            if t[i][0] > t[j][0] or (t[i][0] == t[j][0] and t[i][1] > t[j][1]):
+                temp = result[i]
+                result[i] = result[j]
+                result[j] = temp
+    return (cost_sort, result)
+
+
 class emails_db:
     def __init__(self):
         self.path = './files/emails.pickle'
@@ -113,22 +137,3 @@ class planes_db:
                 result.append(temp)
         return result
 
-    def sort_planes(self, result: list) -> tuple:
-        for i in range(len(result) - 1):
-            for j in range(1, len(result)):
-                if result[i][8] > result[j][8]:
-                    temp = result[i]
-                    result[i] = result[j]
-                    result[j] = temp
-        cost_sort = copy.deepcopy(result)  # 申请一段内存单独存储排序后的结果
-        t = [i[4].split(' ')[1].split(':')[0:2] for i in result]
-        for i in t:
-            i[0] = int(i[0])
-            i[1] = int(i[1])
-        for i in range(len(result) - 1):
-            for j in range(1, len(result)):
-                if t[i][0] > t[j][0] or (t[i][0] == t[j][0] and t[i][1] > t[j][1]):
-                    temp = result[i]
-                    result[i] = result[j]
-                    result[j] = temp
-        return (cost_sort, result)
