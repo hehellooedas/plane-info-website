@@ -10,9 +10,13 @@ from flask_avatars import Avatars
 from user_agents import parse
 from markupsafe import escape
 from flask_caching import Cache
-import os, threading, Function
+from logging.handlers import RotatingFileHandler
+import os, threading,logging,Function
 
 
+logging.basicConfig(level=logging.DEBUG)
+file_log_handler = RotatingFileHandler('./files/flask.log', encoding='UTF-8', maxBytes=1024 * 1024 * 10, backupCount=100)
+file_log_handler.setFormatter(logging.Formatter("%(levelname)s %(asctime)s [%(filename)s]: %(lineno)s - %(funcName)s - %(message)s"))
 app = Flask(__name__)
 csrf = SeaSurf(app)
 scheduler = APScheduler()
@@ -180,9 +184,10 @@ def index_ajax1():
     acity = request.form.get('acity')
     bcity = request.form.get('bcity')
     date = request.form.get('date')
-    plane_db = Function.planes_db(acity)
-    a = Thread_Pool.submit(plane_db.select_planes, (bcity, date))  # 搜索
+    a = Thread_Pool.submit(Function.sort_planes, (acity,bcity, date))  # 搜索
     result = a.result()
+    if not result:
+        return jsonify({'string': '很抱歉，服务器正在更新中，请稍后再尝试！'})
     if result is None or result == []:
         return jsonify({'string': '很抱歉，暂时没有符合要求的机票'})
     elif len(result) == 1:
@@ -203,11 +208,11 @@ def index_ajax1():
 def index_ajax2():
     form = request.form
     acity, bcity, adate, bdate = form.get('acity'), form.get('bcity'), form.get('adate'), form.get('bdate')
-    a_plane_db = Function.planes_db(acity)
-    b_plane_db = Function.planes_db(bcity)
-    a = Thread_Pool.submit(a_plane_db.select_planes, (bcity, adate))
-    b = Thread_Pool.submit(b_plane_db.select_planes, (acity, bdate))
+    a = Thread_Pool.submit(Function.sort_planes, (acity,bcity, adate))
+    b = Thread_Pool.submit(Function.sort_planes, (bcity,acity, bdate))
     a_result, b_result = a.result(), b.result()
+    if a_result is False or b_result is False:
+        return jsonify({'string': '很抱歉，服务器正在更新中，请稍后再尝试！'})
     a_len, b_len = len(a_result), len(b_result)
     if a_result is None or a_result == []:
         return jsonify({'string': f'很抱歉，暂时没有从{acity}到{bcity}符合您要求的机票'})
@@ -246,20 +251,29 @@ def index_ajax2():
 @csrf.exempt
 @app.post('/index_ajax3')  # 多程
 def index_ajax3():
-    form = request.form
-    informations = form.get('informations')
-    all_result = []
-    for i in range(len(informations)):
-        acity = informations[i][6]
-        bcity = informations[i][7]
-        date = informations[i][4]
-        plane_db = Function.planes_db(acity)
-        select = Thread_Pool.submit(plane_db.select_planes, (bcity, date))  # 搜索
-        result = select.result()
-        if result is not None and result != []:
-            all_result.append(result)
-    for i in informations:
-        ...
+    informations = request.form.get('informations')
+    select_tasks = [
+        (information[0],information[1],information[2])
+        for information in informations
+    ]
+    results = []
+    with ThreadPoolExecutor() as pool:
+        futures = [pool.submit(Function.select_planes,task) for task in select_tasks]
+        for future in futures:
+            results.append(future.result())
+    if False in results:
+        jsonify({'string': '很抱歉，服务器正在更新中，请稍后再尝试！'})
+    for result in results:
+        if result is None or result == []:
+            return jsonify({'string': f'很抱歉，暂时没有能够满足您所有行程的机票'})
+    for i in range(len(results)-1):
+        if results[i][6] != select_tasks[i][0] or results[i][7] != select_tasks[i][1]:
+            for j in range(i+1,len(results)):
+                if results[j][6] == select_tasks[i][0] or results[j][7] == select_tasks[i][1]:
+                    temp = results[j]
+                    results[j] = results[i]
+                    results[i] = temp
+
 
 
 @app.get('/settlement')  # 结算
@@ -322,7 +336,8 @@ def plane_update():
 
 def my_listener(event):
     if event.exception:
-        print("任务出错了")
+        print("任务出错了,调度器已终止执行！")
+        scheduler.shutdown()
 scheduler.add_listener(my_listener, mask=EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-import pandas, pickle, threading, multiprocessing, os, random, time, copy,fcntl
+import pandas, pickle, threading, multiprocessing, os, random, time, copy
 
 
 def hello():
@@ -56,6 +56,7 @@ def set_task(arr: list):
             pickle.dump(arr, f)
 
 
+
 # 航班数据更新函数
 def planes_Update_Function():
     if os.path.exists('./files/tasks.pickle') and os.path.getsize('./files/tasks.pickle') != 0:
@@ -90,6 +91,32 @@ def sort_planes(result: list) -> tuple:
     return (cost_sort, result)
 
 
+def select_planes(info: tuple) -> list | None | bool:
+    """
+    :param info:出发城市，到达城市，出发日期
+    :return: 正常情况下返回搜索到的结果，没搜索到返回None，数据库在更新返回False
+    """
+    acity,bcity, date = info
+    result = []
+    try:
+        city_excel = pandas.read_pickle('./files/citys/' + acity + '.pickle')
+    except:
+        return False
+    a = city_excel.query("到达城市==@bcity")  # 第一轮（城市）筛选后
+    b = [i.split(' ')[0] for i in a['出发时间'].values]
+    index = [i for i in range(len(b)) if b[i] == date]  # 第二轮（时间）筛选后,index为符合条件的索引
+    if not index:
+        return
+    for i in index:
+        temp = a.values[i].tolist()
+        if temp[-1] > 0:
+            temp.insert(0, i)
+            result.append(temp)
+    return result
+
+
+
+
 class emails_db:
     def __init__(self):
         self.path = './files/emails.pickle'
@@ -112,6 +139,8 @@ class emails_db:
         return (emails)
 
 
+
+
 class planes_db:
     def __init__(self, city):
         self.city = city
@@ -121,19 +150,5 @@ class planes_db:
         pickle = pandas.read_pickle(self.path)
         pickle.to_xlsx(f'./files/citys/{self.city}.xlsx', index=False)
 
-    def select_planes(self, info: tuple) -> list | None:
-        bcity, date = info
-        result = []
-        city_excel = pandas.read_pickle(self.path)
-        a = city_excel.query("到达城市==@bcity")  # 第一轮（城市）筛选后
-        b = [i.split(' ')[0] for i in a['出发时间'].values]
-        index = [i for i in range(len(b)) if b[i] == date]  # 第二轮（时间）筛选后,index为符合条件的索引
-        if not index:
-            return
-        for i in index:
-            temp = a.values[i].tolist()
-            if temp[-1] > 0:
-                temp.insert(0, i)
-                result.append(temp)
-        return result
+
 
