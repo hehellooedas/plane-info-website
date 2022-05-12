@@ -403,3 +403,37 @@ body{
     color: red;
     top: 0px;
 }
+.xinxi{
+    width:100%;
+    height: 100px;
+    background-color: azure;
+}
+.gou{   
+    position: relative;
+    float: right;
+    height: 100px;
+    width: 5%;
+}
+.radio{
+    position: absolute;
+    left: 20px;
+    top: 40px;
+     height: 30px;
+     width: 30px;
+}
+.tr1 td{
+    text-align: center;
+}
+.tr2 td{
+    text-align: center;
+}
+.tab{
+    float: right;
+    height: 100px;
+    width: 95%;
+}
+table{
+    width: 100%;
+    height: 100%;
+
+}
