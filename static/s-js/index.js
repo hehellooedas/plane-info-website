@@ -18,8 +18,8 @@ var time=document.getElementsByClassName('input')[0];
 aaa.addEventListener('mouseup',function(){
     console.log(aaa.value)
 })
-
 function reqfirst() {
+    alert('hello');
    if(st==1){
     $.ajax({
        //headers: {"X-CSRFToken", csrf_token},
