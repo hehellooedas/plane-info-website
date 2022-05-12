@@ -11,20 +11,19 @@ from user_agents import parse
 from markupsafe import escape
 from flask_caching import Cache
 from logging.handlers import TimedRotatingFileHandler
-import os, threading,logging,Function
+import os, threading, logging, Function
 
-
-#日志处理
+# 日志处理
 logging.basicConfig()
-file_log_handler = TimedRotatingFileHandler(filename='./files/logs/flask.log',encoding='UTF-8',delay=True,backupCount=10,interval=4,when='D')
+file_log_handler = TimedRotatingFileHandler(filename='./files/logs/flask.log', encoding='UTF-8', delay=True,
+                                            backupCount=10, interval=4, when='D')
 file_log_handler.setFormatter(logging.Formatter("[%(levelname)s] - %(message)s"))
 file_log_handler.setLevel(logging.WARNING)
 logging.getLogger().addHandler(file_log_handler)
 
-
 app = Flask(__name__)
-csrf = SeaSurf(app)#csrf防护
-scheduler = APScheduler()#定时任务
+csrf = SeaSurf(app)  # csrf防护
+scheduler = APScheduler()  # 定时任务
 scheduler.init_app(app)
 scheduler.api_enabled = True
 interval = IntervalTrigger(
@@ -34,7 +33,6 @@ interval = IntervalTrigger(
     timezone='Asia/Shanghai'
 )
 
-
 # 设置内置环境变量
 CORS(app, supports_credentials=True)
 os.environ['FLASK_APP'] = 'wsgi'
@@ -43,8 +41,8 @@ app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 app.secret_key = os.getenv('SECRET_KEY', Function.create_String(16))
 avatars = Avatars(app)
-cache = Cache(app, config={'CACHE_TYPE': 'simple'})
-Thread_Pool = ThreadPoolExecutor()
+cache = Cache(app, config={'CACHE_TYPE': 'simple'})#页面缓存
+Thread_Pool = ThreadPoolExecutor()#线程池
 
 # 邮件smtp相关配置
 app.config.update(dict(
@@ -62,7 +60,8 @@ emails_db = Function.emails_db()
 
 
 # 邮件发送函数
-def send_email(app, emails, subject='EmailTest', content=u'这是一条从民航行程推荐网站发来的邮件(收到请勿回复!)', html=None):
+def send_email(info: tuple):
+    app, emails, subject, content = info
     with app.app_context():
         msg = Message(
             subject=subject,
@@ -70,9 +69,7 @@ def send_email(app, emails, subject='EmailTest', content=u'这是一条从民航
             recipients=emails
         )
         msg.body = content + '\n收到请勿回复！若您从未注册民航推荐网，请无视这封邮件，注意不要泄露个人信息！'
-        msg.html = html
         mail.send(msg)
-        return True
 
 
 @app.errorhandler(404)
@@ -108,14 +105,15 @@ def login():
 
 
 @csrf.exempt
-@app.route('/login_ajax1',methods=['GET','POST'])
+@app.route('/login_ajax1', methods=['GET', 'POST'])
 def login_ajax():
     email = escape(request.form.get('email'))
     Verification_Code = Function.create_String()
     if email and emails_db.exist_account(email):
-        content = f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
-        t = threading.Thread(target=send_email, args=(app, [email], '民航推荐网站登录', content),name='login_thread')
-        t.start()
+        Thread_Pool.submit(send_email, (
+            app, [email], '民航推荐网站登录',
+            f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
+        ))
         string = u'邮件已发送，请注意查收！'
     else:
         string = u'您的账户并未注册，请检查邮件是否填写正确！'
@@ -154,9 +152,10 @@ def register_ajax1():
         if emails_db.exist_account(email):
             string = u'您的账户已经注册，请检查邮件是否填写正确！'
         else:
-            content = f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
-            t = threading.Thread(target=send_email, args=(app, [email], '民航推荐网站注册', content),name='register_thread')
-            t.start()
+            Thread_Pool.submit(send_email, (
+                app, [email], '民航推荐网站注册',
+                f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
+            ))
             string = u'邮件已发送，请注意查收！'
     dic = {
         'Code': Verification_Code,
@@ -190,8 +189,8 @@ def index():
 @app.post('/index_ajax1')  # 单程
 def index_ajax1():
     form = request.form
-    acity,bcity,date = form.get('acity'),form.get('bcity'),form.get('adate')
-    a = Thread_Pool.submit(Function.select_planes, (acity,bcity, date))  # 搜索
+    acity, bcity, date = form.get('acity'), form.get('bcity'), form.get('adate')
+    a = Thread_Pool.submit(Function.select_planes, (acity, bcity, date))  # 搜索
     result = a.result()
     if result is False:
         logging.warning('在数据库更新的时候试图访问数据')
@@ -200,7 +199,7 @@ def index_ajax1():
         return jsonify({'string': '很抱歉，暂时没有符合要求的机票'})
     elif len(result) == 1:
         return {
-            'common': result,'cost_sort':result,'time_sort':result
+            'common': result, 'cost_sort': result, 'time_sort': result
         }
     else:
         b = Thread_Pool.submit(Function.sort_planes, result)  # 排序
@@ -218,8 +217,8 @@ def index_ajax2():
     form = request.form
     print(form)
     acity, bcity, adate, bdate = form.get('acity'), form.get('bcity'), form.get('adate'), form.get('bdate')
-    a = Thread_Pool.submit(Function.select_planes, (acity,bcity, adate))
-    b = Thread_Pool.submit(Function.select_planes, (bcity,acity, bdate))
+    a = Thread_Pool.submit(Function.select_planes, (acity, bcity, adate))
+    b = Thread_Pool.submit(Function.select_planes, (bcity, acity, bdate))
     a_result, b_result = a.result(), b.result()
     if a_result is False or b_result is False:
         logging.warning('在数据库更新的时候试图访问数据')
@@ -264,12 +263,12 @@ def index_ajax2():
 def index_ajax3():
     informations = request.form.get('informations')
     select_tasks = [
-        (information[0],information[1],information[2])
+        (information[0], information[1], information[2])
         for information in informations
     ]
     results = []
     with ThreadPoolExecutor() as pool:
-        futures = [pool.submit(Function.select_planes,task) for task in select_tasks]
+        futures = [pool.submit(Function.select_planes, task) for task in select_tasks]
         for future in futures:
             results.append(future.result())
     if False in results:
@@ -277,14 +276,13 @@ def index_ajax3():
     for result in results:
         if result is None or result == []:
             return jsonify({'string': f'很抱歉，暂时没有能够满足您所有行程的机票'})
-    for i in range(len(results)-1):
+    for i in range(len(results) - 1):
         if results[i][6] != select_tasks[i][0] or results[i][7] != select_tasks[i][1]:
-            for j in range(i+1,len(results)):
+            for j in range(i + 1, len(results)):
                 if results[j][6] == select_tasks[i][0] or results[j][7] == select_tasks[i][1]:
                     temp = results[j]
                     results[j] = results[i]
                     results[i] = temp
-
 
 
 @app.get('/settlement')  # 结算
@@ -314,7 +312,8 @@ def settlement_ajax1():
     content = Function.get_content(company, flight_number, acity, bcity, adate, bdate)
     more = f'。详细信息请访问{request.host_url}'
     if len(emails) == 1:
-        t = threading.Thread(target=send_email, args=(app, emails, '购票通知', content + emails[0] + more),name='settlement_thread')
+        t = threading.Thread(target=send_email, args=(app, emails, '购票通知', content + emails[0] + more),
+                             name='settlement_thread')
         t.start()
     else:
         tasks = [
@@ -341,23 +340,27 @@ def success():
     return render_template('success.html')
 
 
-@scheduler.task(trigger=interval, name='plane_update',id='plane_update')
+@scheduler.task(trigger=interval, name='plane_update', id='plane_update')
 def plane_update():
     Function.planes_Update_Function()
 
-@scheduler.task(trigger='interval',days=2,name='delete_log',id='delete_log')
+
+@scheduler.task(trigger='interval', days=2, name='delete_log', id='delete_log')
 def delete_log():
     os.remove('./files/flask.log')
+
 
 def my_listener(event):
     if event.exception:
         print("任务出错了,调度器已终止执行！")
         logging.error("任务出错了,调度器已终止执行")
         scheduler.shutdown()
+
+
 scheduler.add_listener(my_listener, mask=EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
 
 if __name__ == '__main__':
-    Process_Pool = ProcessPoolExecutor(max_workers=5)
+    Process_Pool = ProcessPoolExecutor()#进程池
     scheduler.start()
     print('服务器开始运行')
     app.run(debug=False, port=80, host='0.0.0.0')
