@@ -205,12 +205,13 @@ def index_ajax1():
             'common': result, 'cost_sort': result, 'time_sort': result
         }
     else:
-        b = Thread_Pool.submit(Function.sort_planes, result)  # 排序
-        cost_sort, time_sort = b.result()
-        print(cost_sort)
+        b = Thread_Pool.submit(Function.sort_planes_cost, result)  # 排序
+        c = Thread_Pool.submit(Function.sort_planes_time,result)
+        economy_class,First_class = b.result()
+        go_sort,arrival_sort = c.result()
         # result为搜索后的结构，cost_sort为按价格排序后的结果,time_sort为按时间排序后的结果
         return {
-            'common': result, 'cost_sort': cost_sort, 'time_sort': time_sort
+            'common': result,'economy_class':economy_class,'First_class':First_class,'go_sort':go_sort,'arrival_sort':arrival_sort
         }
 
 
@@ -233,31 +234,39 @@ def index_ajax2():
         return jsonify({'string': f'很抱歉，暂时没有从{bcity}到{acity}符合您要求的机票'})
     elif a_len == 1 and b_len == 1:
         return jsonify({
-            'a_common': a_result, 'a_cost_sort': a_result, 'a_time_sort': a_result,
-            'b_common': b_result, 'b_cost_sort': b_result, 'b_time_sort': b_result
+            'a_common': a_result,'a_economy_class':a_result,'a_First_class':a_result,'a_go_sort':a_result,'a_arrival_sort':a_result,
+            'b_common': b_result, 'b_economy_class':b_result,'b_First_class':b_result,'b_go_sort':b_result,'b_arrival_sort':b_result
         })
     elif a_len == 1 and b_len > 1:
-        b = Thread_Pool.submit(Function.sort_planes, b_result)
-        b_cost_sort, b_time_sort = b.result()
+        a = Thread_Pool.submit(Function.sort_planes_cost,b_result)
+        b = Thread_Pool.submit(Function.sort_planes_time,b_result)
+        b_economy_class,b_First_class = a.result()
+        b_go_sort,b_arrival_sort = b.result()
         return jsonify({
-            'a_common': a_result, 'a_cost_sort': a_result, 'a_time_sort': a_result,
-            'b_common': b_result, 'b_cost_sort': b_cost_sort, 'b_time_sort': b_time_sort
+            'a_common': a_result, 'a_economy_class':a_result,'a_First_class':a_result,'a_go_sort':a_result,'a_arrival_sort':a_result,
+            'b_common': b_result, 'b_economy_class':b_economy_class,'b_First_class':b_First_class,'b_go_sort':b_go_sort,'b_arrival_sort':b_arrival_sort
         })
     elif b_len == 1 and a_len > 1:
-        a = Thread_Pool.submit(Function.sort_planes, a_result)
-        a_cost_sort, a_time_sort = a.result()
+        a = Thread_Pool.submit(Function.sort_planes_cost, a_result)
+        b = Thread_Pool.submit(Function.sort_planes_time, a_result)
+        a_economy_class,a_First_class = a.result()
+        a_go_sort,a_arrival_sort = b.result()
         return jsonify({
-            'a_common': a_result, 'a_cost_sort': a_cost_sort, 'a_time_sort': a_time_sort,
-            'b_common': b_result, 'b_cost_sort': b_result, 'b_time_sort': b_result
+            'a_common': a_result,'a_economy_class':a_economy_class,'a_First_class':a_First_class,'a_go_sort':a_go_sort,'a_arrival_sort':a_arrival_sort,
+            'b_common': b_result, 'b_economy_class':b_result,'b_First_class':b_result,'b_go_sort':b_result,'b_arrival_sort':b_result
         })
     else:
-        a = Thread_Pool.submit(Function.sort_planes, a_result)
-        b = Thread_Pool.submit(Function.sort_planes, b_result)
-        a_cost_sort, a_time_sort = a.result()
-        b_cost_sort, b_time_sort = b.result()
+        a = Thread_Pool.submit(Function.sort_planes_cost,a_result)
+        b = Thread_Pool.submit(Function.sort_planes_cost,b_result)
+        c = Thread_Pool.submit(Function.sort_planes_time,a_result)
+        d = Thread_Pool.submit(Function.sort_planes_time,b_result)
+        a_economy_class, a_First_class = a.result()
+        a_go_sort, a_arrival_sort = c.result()
+        b_economy_class, b_First_class = b.result()
+        b_go_sort, b_arrival_sort = d.result()
         return jsonify({
-            'a_common': a_result, 'a_cost_sort': a_cost_sort, 'a_time_sort': a_time_sort,
-            'b_common': b_result, 'b_cost_sort': b_cost_sort, 'b_time_sort': b_time_sort
+            'a_common': a_result, 'a_economy_class':a_economy_class,'a_First_class':a_First_class,'a_go_sort':a_go_sort,'a_arrival_sort':a_arrival_sort,
+            'b_common': b_result, 'b_economy_class':b_economy_class,'b_First_class':b_First_class,'b_go_sort':b_go_sort,'b_arrival_sort':b_arrival_sort
         })
 
 
