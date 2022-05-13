@@ -171,7 +171,7 @@ def register_ajax1():
 @app.post('/register_ajax2')
 def register_ajax2():
     email = request.form.get('email')
-    emails_db.add_account(email)
+    Thread_Pool.submit(emails_db.add_account,email)
     cache.clear()
     return url_for('login')
 

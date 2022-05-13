@@ -1,4 +1,4 @@
-import pandas, pickle, os, random, time, copy
+import pandas, pickle, os, random, time, copy,numpy,numba,threading
 
 
 def delete_log_byhand():
@@ -67,7 +67,7 @@ def planes_Update_Function():
                 information = pandas.read_pickle(f'./files/citys/{city}.pickle')
                 information['余座'].values[index] -= numbers
                 pandas.to_pickle(f'./files/citys/{city}.pickle')
-            f.truncate()  # 完成所有task之后，清空这个pickle文件
+            f.truncate()  # 完成所有task之后，清空这个写有任务的pickle文件
 
 
 
@@ -129,11 +129,9 @@ def select_planes(info: tuple) -> list | None | bool:
     index = [i for i in range(len(b)) if b[i] == date]  # 第二轮（时间）筛选后,index为符合条件的索引
     if not index:
         return
-    for i in index:
-        temp = a.values[i].tolist()
-        if temp[-1] > 0:
-            temp.insert(0, i)
-            result.append(temp)
+    z = a.loc[index].values
+    for i in range(len(z)):
+        result.append(numpy.insert(z[i], 0, index[i],axis=0).tolist())
     return result
 
 
@@ -152,9 +150,15 @@ class emails_db:
         return [account] in emails.values
 
     def add_account(self, account: str):  # 增
-        emails = pandas.read_pickle(self.path)
-        a = pandas.DataFrame({'email': account}, index=[0])
-        pandas.concat([emails, a], axis=0, ignore_index=True).to_pickle(self.path)
+        lock = threading.Lock()
+        with lock:
+            try:
+                emails = pandas.read_pickle(self.path)
+            except:
+                time.sleep(2)
+                emails = pandas.read_pickle(self.path)
+            a = pandas.DataFrame({'email': account}, index=[0])
+            pandas.concat([emails, a], axis=0, ignore_index=True).to_pickle(self.path)
 
     def __str__(self):
         emails = pandas.read_pickle(self.path)
@@ -162,15 +166,6 @@ class emails_db:
 
 
 
-
-class planes_db:
-    def __init__(self, city):
-        self.city = city
-        self.path = './files/citys/' + city + '.pickle'
-
-    def pickle_to_xlsx(self):
-        pickle = pandas.read_pickle(self.path)
-        pickle.to_xlsx(f'./files/citys/{self.city}.xlsx', index=False)
 
 if __name__ == '__main__':
     pass
