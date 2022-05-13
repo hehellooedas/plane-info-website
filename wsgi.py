@@ -5,18 +5,19 @@ from flask_cors import CORS
 from flask_mail import Mail, Message
 from flask_seasurf import SeaSurf
 from flask_apscheduler import APScheduler
-from apscheduler.triggers.interval import IntervalTrigger
 from flask_avatars import Avatars
+from flask_caching import Cache
+from apscheduler.triggers.interval import IntervalTrigger
 from user_agents import parse
 from markupsafe import escape
-from flask_caching import Cache
 from logging.handlers import TimedRotatingFileHandler
 import os, threading, logging, Function
 
 # 日志处理
 logging.basicConfig()
-file_log_handler = TimedRotatingFileHandler(filename='./files/logs/flask.log', encoding='UTF-8', delay=True,
-                                            backupCount=10, interval=4, when='D')
+file_log_handler = TimedRotatingFileHandler(
+filename='./files/logs/flask.log', encoding='UTF-8', delay=True,backupCount=10, interval=10, when='D'
+)
 file_log_handler.setFormatter(logging.Formatter("[%(levelname)s] - %(message)s"))
 file_log_handler.setLevel(logging.WARNING)
 logging.getLogger().addHandler(file_log_handler)
@@ -56,6 +57,7 @@ app.config.update(dict(
 ))
 mail = Mail(app)
 
+#存储emails的数据库类
 emails_db = Function.emails_db()
 
 
@@ -69,7 +71,10 @@ def send_email(info: tuple):
             recipients=emails
         )
         msg.body = content + '\n收到请勿回复！若您从未注册民航推荐网，请无视这封邮件，注意不要泄露个人信息！'
-        mail.send(msg)
+        try:
+            mail.send(msg)
+        except:
+            logging.error('邮件发送失败！')
 
 
 @app.errorhandler(404)
@@ -105,7 +110,7 @@ def login():
 
 
 @csrf.exempt
-@app.route('/login_ajax1', methods=['GET', 'POST'])
+@app.post('/login_ajax1')
 def login_ajax():
     email = escape(request.form.get('email'))
     Verification_Code = Function.create_String()
@@ -117,11 +122,10 @@ def login_ajax():
         string = u'邮件已发送，请注意查收！'
     else:
         string = u'您的账户并未注册，请检查邮件是否填写正确！'
-    dic = {
+    return jsonify({
         'Code': Verification_Code,
         'string': string
-    }
-    return jsonify(dic)
+    })
 
 
 @csrf.exempt
@@ -157,11 +161,10 @@ def register_ajax1():
                 f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
             ))
             string = u'邮件已发送，请注意查收！'
-    dic = {
+    return jsonify({
         'Code': Verification_Code,
         'string': string
-    }
-    return jsonify(dic)
+    })
 
 
 @csrf.exempt
@@ -302,8 +305,8 @@ def settlement():
 @app.post('/settlement_ajax1')  # 单程结算
 def settlement_ajax1():
     table = request.form.get('table')
-    index, company, flight_number, acity, bcity, adate, bdate = table[0], table[1], table[2], table[6], table[7], table[
-        4], table[5]
+    index, company, flight_number, acity, bcity, adate, bdate = \
+    table[0], table[1], table[2], table[6], table[7], table[4], table[5]
     numbers = request.form.get('numbers')
     emails = request.form.get('emails')
     Function.set_task([index, acity, numbers])
@@ -345,7 +348,7 @@ def plane_update():
     Function.planes_Update_Function()
 
 
-@scheduler.task(trigger='interval', days=2, name='delete_log', id='delete_log')
+@scheduler.task(trigger='interval', days=4, name='delete_log', id='delete_log')
 def delete_log():
     os.remove('./files/flask.log')
 
