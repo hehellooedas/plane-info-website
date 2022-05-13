@@ -48,6 +48,30 @@ body{
     top: 35%;
     left:30%;
 }
+.ifa{
+    position: fixed;
+    z-index: 100000;
+    display: none;
+    top: 20px;
+    left: 450px;
+    width: 650px;
+    height: 650px;
+}
+.ifa2{
+    position: fixed;
+    z-index: 100000;
+   display: block;
+    top: 20px;
+    left: 450px;
+    width: 650px;
+    height: 650px;
+}
+.cover{
+    background: #000; position: absolute; left: 0px; top: 0px; width: 100%; filter: alpha(opacity=30); opacity: 0.3; display: none; z-index: 1000;
+}
+.cover2{
+    background: #000; position: absolute; left: 0px; top: 0px; width: 100%; filter: alpha(opacity=30); opacity: 0.3; display: block; z-index: 1000;
+}
 .search{
     position: relative;
     height: 100px;
@@ -58,15 +82,19 @@ body{
     height: 50px;
     font-style: bold;
 }
-#abc{
+#citySelect{
     border: none;
     height: 50px;
     font-style: bold;
+    background:url('../s-other/city.png') no-repeat ;
+    background-position: 120px 20px;
 }
-#lll{
+#citySelect1{
     border: none;
     height: 50px;
     font-style: bold;
+    background:url('../s-other/city.png') no-repeat ;
+    background-position: 120px 20px;
 }
 .search-address{
     font-family: 'icomoon';
@@ -196,7 +224,6 @@ body{
 }
 .show{
     position: relative;
-    height: 800px;
 }
 .show-nav{
     position: absolute;
@@ -205,18 +232,14 @@ body{
     width: 1200px;
 }
 .show-nav-span{
-    z-index: 1;
+    z-index: 0;
     position: absolute;
     top: 0px;
     height: 50px;
     left: 0px;
 }
-.showl{
-    visibility: hidden;
-}
-
 .show-nav-span2{
-    z-index: 2;
+    z-index: 1;
     position: absolute;
     top: 0px;
     height: 50px;
@@ -242,6 +265,17 @@ body{
     border-radius: 1px;
     cursor: pointer;
     background-color: cadetblue;
+}
+.show-nav .show-nav-span2 .tixing{
+    float: left;
+    width:300px;
+    border:1px solid aliceblue;
+    color: black;
+    font-size: large;
+    height: 49px;
+    border-radius: 1px;
+    cursor: pointer;
+    background-color: bisque;
 }
 .show-nav .show-nav-span2 button:active{
     background-color: azure;
@@ -275,22 +309,22 @@ body{
     position:absolute;
     right: 0px;
 }
+.kuang{
+    width: 100%;
+    height: 150px;
+}
 .show-body0{
     display: block;
-    border: 1px solid red;
-    position: absolute;
-    bottom: 0px;
+
     width: 1200px;
-    height:650px ;
 }
+
 .show-body2{
     display: none;
-    border: 1px solid red;
-    position: absolute;
-    bottom: 0px;
+
     width: 1200px;
-    height:650px ;
 }
+
 .info0 > li{
     color: aqua;
 }
@@ -307,10 +341,15 @@ body{
    height: 145px;
 }
 #foot{
-    position: relative;
-   background-color: #999;
+    margin-bottom: 0px;
+    background-color: #999;
     width: 100%;
     height: 200px;
+}
+.foot2{
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 .name{
     position: absolute;
@@ -330,7 +369,7 @@ body{
 .first{
     position: absolute;
     bottom: 40px;
-    left: 350px;
+    left: 365px;
     padding-left: 10px;
 }
 .wen{
@@ -351,11 +390,37 @@ body{
     border-radius: 10px 10px 10px 10px;
     box-shadow: 0 3px #999;
 }
+.pay2{
+    cursor: pointer;
+    width: 150px;
+    height: 40px;
+    border: none;
+    color: gold;
+    font-size: large;
+    background-color:darkslategray;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 3px #999;
+}
 .pay:active {
     box-shadow: 0 1px #666;
     transform: translateY(4px);
   }
+.pay2:active {
+    box-shadow: 0 1px #666;
+    transform: translateY(4px);
+  }
 .but{
+    cursor: pointer;
+    width: 100px;
+    height: 40px;
+    border: none;
+    background-color: cornflowerblue;
+    font-style: italic;
+    font-size: 18px;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 3px #999;
+}
+.but2{
     cursor: pointer;
     width: 100px;
     height: 40px;
@@ -379,47 +444,58 @@ body{
     width: 500px;
     height: 500px;
     text-align: center;
-    color: blue;
-    background-color: #999;
+    color: black;
+    background-color: aliceblue;
+}
+.jingbao2 h1{
+    margin-left: 35%;
+    overflow: hidden;
+    left: 40%;
+    width: 150px;
+    height: 50px;
+    border-radius: 15px;
 }
 .jingbao2{
     position: absolute;
     display: block;
-    z-index: 1000;
-    left: 30%;
+    z-index: 100000;
+    left: 35%;
     top:10%;
     width: 500px;
     height: 500px;
-    text-align: center;
-    color: blue;
-    background-color: #999;
+    border-radius: 10px;
+    color: black;
+    background-color: azure;
+}
+.jingbao2 p{
+    font-size: large;
+    padding-left: 3px;
+    width: 100%;
+    margin-top: 10px;
 }
 .cha{
+    cursor: pointer;
     position: absolute;
-    right:0px;
-    width: 20px;
-    height: 20px;
-    background-color: #666;
-    color: red;
-    top: 0px;
+    bottom: 40px;
+    left: 100px;
+    width: 300px;
+    height: 40px;
+    background-color: cadetblue;
+    color: black;
+}
+.cha:active{
+    background-color: aliceblue;
 }
 .xinxi{
     width:100%;
     height: 100px;
     background-color: azure;
 }
-.gou{   
-    position: relative;
-    float: right;
-    height: 100px;
-    width: 5%;
-}
 .radio{
-    position: absolute;
-    left: 20px;
-    top: 40px;
-     height: 30px;
-     width: 30px;
+    float: right;
+    margin-right: 5px;
+     height: 20px;
+     width: 20px;
 }
 .tr1 td{
     text-align: center;
@@ -430,10 +506,14 @@ body{
 .tab{
     float: right;
     height: 100px;
-    width: 95%;
+    width: 100%;
 }
 table{
     width: 100%;
     height: 100%;
 
+}
+.tiaojian{
+    color: black;
+    font-size: large;
 }

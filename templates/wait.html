@@ -102,13 +102,7 @@
     <script>
     var photo=document.getElementsByClassName('photo')[0];
     var sss;
-    var time=0;
     setInterval(function(){
-        time+=0.1;
-        if(time>10){
-           history.go(-1);
-        }
-        //计算时间
     sss=photo.offsetLeft;
     sss+=10;
     if(sss>530)

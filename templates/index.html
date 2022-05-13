@@ -11,44 +11,50 @@
     <meta name="viewport" content="width=device-width,initid-scale=1.0,user-scalable">
     <title>民航推荐网站</title>
     <link rel="shortcut icon" href="../static/s-other/logo.ico" />
-    <link rel="stylesheet" href="..\static\s-css\index.css">
-    <script src="..\static\s-js\jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" media="all" href="../static/s-css/tyle.css">
+    <link rel="stylesheet" href="../static/s-css/index.css">
+    <link rel="stylesheet" href="../static/s-css/city.css">
+    <script src="../static/s-js/jquery.min.js"></script>
 </head>
 
 <body>
+    <!-- 遮罩层 -->
+    <div class="cover">
+
+    </div>
+    <iframe src="../templates/wait.html" frameborder="0" name="hello" scrolling="no" class="ifa"></iframe>
     <div class="jingbao">
-        <h1>紧急通报</h1>
-        <p>
-            携程旅行网提供的各类航班相关的信息，包括但不限于舱位价格、餐食、起降准点率等，来源于中国航信、全国各大机场、航空公司及相关部门公布数据。由于这些信息可能随时变化，以及网络传输问题，携程提供的此类信息可能并非最新或存在误差，因此仅供旅客作为一般参考，任何公司或个人不能将此作为携程做出任何承诺或做出任何保证的依据。
-        </p>
-        <button class="cha">X</button>
+        <h1>购买须知</h1>
+
+        <p>1.每段航班均需缴纳机建和燃油税</p>
+        <p>2.建议购买同一航空公司的中转联程机票，便于确认机票，及发生航班延误时保障权益</p>
+        <p> 3.因天气、航空公司、铁路部门及突发事件等原因，可能影响乘客登机或乘车。请确认换乘距离和中转时间，以便确定合适的航班、车次</p>
+        <p>4.因航空公司、铁路方面原因或不可抗力原因，影响乘客行程所产生的损失，属于携程旅行网免责范畴之内。请及时关注天气及路况信息</p>
+        <p> 5.如发生航班延误，您有权索要延误证明以便于与航空公司协商处理</p>
+
+        <button class="cha">我知道了</button>
     </div>
     <!-- <div id="information">
         <img src="{{ avatars.default() }}">
         <h1>{{ email }}</h1>
         <button id="exit">退出登录</button>
     </div> -->
-    <div id="in_city" style="display: none"></div>
-    <!-- 组件 -->
     <div class="header ban">
         <h1 class="logo">&nbsp&nbsp&nbsp中国民航</h1>
         <div class="title">
             <h1>欢迎使用中国民航旅行航班推荐系统！</h1>
         </div>
-
     </div>
     <!-- 选择出发地 时间 -->
     <div class="search ban">
         <p class="ico"></p>
         <div class="search-address">
-            <div class="selcet"><input type="radio" name="hi" id="dan">单程<input type="radio" name="hi"
+            <div class="selcet"><input type="radio" name="hi" id="dan" checked="checked">单程<input type="radio" name="hi"
                     id="shuang">往返<input type="radio" name="hi" id="duo">多程</div>
             <div class="address-start"><span>出发点&nbsp&nbsp</span>
-                <input type="text" id="abc" value="">
+                <input type="text" id="citySelect" value="城市名">
             </div>
             <div class="address-end"><span>目的地&nbsp&nbsp</span>
-                <input type="text" id="lll">
+                <input type="text" id="citySelect1" value="城市名">
             </div>
         </div>
         <!-- <p class="ico2"></p> -->
@@ -70,153 +76,147 @@
     <div class="date ban"><a href="#"><img src="../static/s-other/adv.png" alt=""></a></div>
     <!-- 选择去程和返程的航班 -->
     <div class="show ban">
-        <div class="show-nav">4
-            <span class="show-nav-span">
-                <button id="gobtn">
-                    <h2>&nbsp选择去程的航班</h2>
-                </button>
-                <button id="backbtn">
-                    <h2>&nbsp选择返程的航班</h2>
-                </button>
-            </span>
-            <span class="show-nav-span2">
-                <button>选择航班</button>
-                <button class="tixing">购买须知</button>
-            </span>
-            <div class="nav0">
-                <form class="show-nav-info">
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-                    <ul>
-                        <li>
-                            <select name="aaa" id="" onchange="reqsecond(this.options[this.options.selectedIndex].value)">
-                                <option value="" selected="selected">航空公司</option>
-                                <option value="">东方航空</option>
-                                <option value="">九元航空</option>
-                                <option value="">南方航空</option>
-                                <option value="">中国国航</option>
-                                <option value="">厦门航空</option>
-                                <option value="">深圳航空</option>
-                                <option value="">吉祥航空</option>
-                            </select>
-                        </li>
-                        <li>
-                            <select name="" id="" onchange="reqsecond2(this.value)">
-                                <option value="" selected="selected">时间段</option>
-                                <option value="">06:00-12:00</option>
-                                <option value="">12:00-18:00</option>
-                                <option value="">18:00-24:00</option>
-                            </select>
-                        </li>
-                        <li>
-                            <select name="" id="" onchange="reqsecond3(this.value)">
-                                <option value="" selected="selected">舱位</option>
-                                <option value="">经济舱</option>
-                                <option value="">公务/头等舱</option>
-                            </select>
-                        </li>
-
-
-                        <li><button class="but">低价优先</button></li>
-                        <li><button class="but">时间优先</button></li>
-                    </ul>
-                    <ul class="show-nav-sort">
-                        <li>
-                            <input type="button" class="pay" value="￥结算">
-                            <!-- 查询按钮 -->
-                        </li>
-                    </ul>
-                </form>
-            </div>
-            <div class="nav2">
-                <!-- 2 -->
-                <form class="show-nav-info">
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-                    <ul>
-                        <li>
-                            <select name="aaa" id="" onchange="reqsecond(this.value)">
-                                <option value="" selected="selected">航空公司</option>
-                                <option value="">东方航空</option>
-                                <option value="">九元航空</option>
-                                <option value="">南方航空</option>
-                                <option value="">中国国航</option>
-                                <option value="">厦门航空</option>
-                                <option value="">深圳航空</option>
-                                <option value="">吉祥航空</option>
-                            </select>
-                        </li>
-                        <li>
-                            <select name="" id="" onchange="reqsecond(this.value)">
-                                <option value="" selected="selected">时间段</option>
-                                <option value="">06:00-12:00</option>
-                                <option value="">12:00-18:00</option>
-                                <option value="">18:00-24:00</option>
-                            </select>
-                        </li>
-                        <li>
-                            <select name="" id="" onchange="reqsecond(this.value)">
-                                <option value="" selected="selected">舱位</option>
-                                <option value="">经济舱</option>
-                                <option value="">公务/头等舱</option>
-                            </select>
-                        </li>
-                        <li><button class="but">低价优先</button></li>
-                        <li><button class="but">时间优先</button></li>
-                    </ul>
-                    <ul class="show-nav-sort">
-                        <li>
-                            <input type="button" class="pay" value="￥结算">
-                            <!-- 查询按钮 -->
-                        </li>
-                    </ul>
-                </form>
+        <div class="kuang">
+            <div class="show-nav">
+                <span class="show-nav-span">
+                    <button id="gobtn">
+                        <h2>&nbsp选择去程的航班</h2>
+                    </button>
+                    <button id="backbtn">
+                        <h2>&nbsp选择返程的航班</h2>
+                    </button>
+                </span>
+                <span class="show-nav-span2">
+                    <button>选择航班</button>
+                    <button class="tixing">购买须知</button>
+                </span>
+                <div class="nav0">
+                    <form class="show-nav-info">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                        <ul>
+                            <li class="tiaojian">
+                                优先条件：
+                            </li>
+                            <li>
+                                <input type="button" value="起飞时间" class="but">
+                            </li>
+                            <li>
+                                <input type="button" value="抵达时间" class="but">
+                            </li>
+                            <li> <input type="button" value="公务舱低价" class="but"></li>
+                            <li><input type="button" value="经济舱低价" class="but"></li>
+                        </ul>
+                        <ul class="show-nav-sort">
+                            <li>
+                                <input type="button" class="pay" value="￥结算">
+                                <!-- 查询按钮 -->
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                <div class="nav2">
+                    <!-- 2 -->
+                    <form class="show-nav-info">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                        <ul>
+                            <li class="tiaojian">
+                                优先条件：
+                            </li>
+                            <li>
+                                <input type="button" value="起飞时间" class="but2">
+                            </li>
+                            <li>
+                                <input type="button" value="抵达时间" class="but2">
+                            </li>
+                            <li> <input type="button" value="公务舱低价" class="but2"></li>
+                            <li><input type="button" value="经济舱低价" class="but2"></li>
+                        </ul>
+                        <ul class="show-nav-sort">
+                            <li>
+                                <input type="button" class="pay2" value="￥结算">
+                                <!-- 查询按钮 -->
+                            </li>
+                        </ul>
+                    </form>
+                </div>
             </div>
         </div>
         <!-- 选择完成时航班的展示 -->
-        <div class="show-body0">            
+        <div class="show-body0">
             <div class="xinxi">
-                <div class="gou">
+                <!-- <div class="gou">
                     <input type="radio" name="a" class="radio">
-                </div>
-                    <div class="tab">                           
-                        <table border="1px">
-                            <tr class="tr1"><td>航空公司</td>
+                </div> -->
+                <div class="tab">
+                    <table border="1px">
+                        <tr class="tr1">
+                            <td>航空公司</td>
                             <td>航班</td>
                             <td>机型</td>
                             <td>出发时间</td>
                             <td>抵达时间</td>
-                            <td>价格</td>
-                            <td>余票</td></tr>
-                            <tr class="tr2"><td>厦门航空</td>
-                                <td>MF8083</td>
-                                <td>波音737</td>
-                                <td>2022-12-21 07:45:00</td>
-                                <td>2022-12-21 09:50:00</td>
-                                <td>1480.0</td>
-                                <td>400</td></tr>
-                        </table>
-                    </div>
+                            <td>余票</td>
+                            <td>公务舱</td>
+                            <td>经济舱</td>
+                        </tr>
+                        <tr class="tr2">
+                            <td>厦门航空</td>
+                            <td>MF8083</td>
+                            <td>波音737</td>
+                            <td>2022-12-21 07:45:00</td>
+                            <td>2022-12-21 09:50:00</td>
+                            <td>400</td>
+                            <td>4100
+                                <input type="radio" name="a" class="radio">
+                            </td>
+                            <td>2100
+                                <input type="radio" name="a" class="radio">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="xinxi">
+                <!-- <div class="gou">
+                    <input type="radio" name="a" class="radio">
+                </div> -->
+                <div class="tab">
+                    <table border="1px">
+                        <tr class="tr1">
+                            <td>航空公司</td>
+                            <td>航班</td>
+                            <td>机型</td>
+                            <td>出发时间</td>
+                            <td>抵达时间</td>
+                            <td>余票</td>
+                            <td>公务舱</td>
+                            <td>经济舱</td>
+                        </tr>
+                        <tr class="tr2">
+                            <td>厦门航空</td>
+                            <td>MF8083</td>
+                            <td>波音737</td>
+                            <td>2022-12-21 07:45:00</td>
+                            <td>2022-12-21 09:50:00</td>
+                            <td>400</td>
+                            <td>4100
+                                <input type="radio" name="a" class="radio">
+                            </td>
+                            <td>2100
+                                <input type="radio" name="a" class="radio">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
-        <div class="show-body2">4
-            <ul class="info2">
-                <li>
-                    <div class="hangban"></div>
-                    <div class="finfo"></div>
-                    <div class="photo"></div>
-                    <div class="finfo2"></div>
-                </li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
+        <div class="show-body2">
+            4
         </div>
     </div>
     <div id="foot">
-        <p class="name">中国民航为你提供实时举报服务</p>
+        <div class="foot2">
+            <p class="name">中国民航为你提供实时举报服务</p>
         <div class="wen">
             <p>Copyright©1999-2022, ctrip.com. All rights reserved. | ICP证：沪B2-20050130 | 沪ICP备08023580号-3</p>
             <p>沪公网备31010502002731号丨互联网药品信息服务资格证丨（沪）网械平台备字[2022]第00001号丨旅游度假资质</p>
@@ -233,41 +233,15 @@
                 title="上海市互联网违法与违规信息举报中心"><img src="../static/s-other/l.png" alt=""></a>
             <a href="https://ss.knet.cn/verifyseal.dll?sn=e12061531010025926306977" class="honour6" target="_blank"
                 rel="nofollow" title="可信网站"><img src="../static/s-other/z.png" alt=""></a>
-            <a href="http://www.creditchina.gov.cn/" class="honour10" title="信用中国" target="_blank" rel="nofollow"><img
-                    src="../static/s-other/xin.png" alt=""></a>
-            <a href="https://im-synthesize.ctrip.com/complaints/rights/AppealCreate" class="honour11" title="消费维权联络点"
-                target="_blank" rel="nofollow"><img src="../static/s-other/jubao.png" alt=""></a>
+            <a href="http://www.creditchina.gov.cn/" class="honour10" title="信用中国" target="_blank"
+                rel="nofollow"><img src="../static/s-other/xin.png" alt=""></a>
+            <a href="https://im-synthesize.ctrip.com/complaints/rights/AppealCreate" class="honour11"
+                title="消费维权联络点" target="_blank" rel="nofollow"><img src="../static/s-other/jubao.png" alt=""></a>
             <a class="honour100" title="适老化及无障碍标识" rel="nofollow"><img src="../static/s-other/wang.png" alt=""></a>
+        </div>
         </div>
     </div>
 </body>
-<script type="text/javascript" src="../static/s-js/cityTemplate.js"></script>
-<script type="text/javascript">
-    var cityA = $(".city_a_le1 a"); //城市
-    var pla = $("#abc");  //出发地
-    var dest = $("#lll");  //目的地
-    // 默认值
-    inCity.width = "345";  //城市选择框  宽
-    inCity.height = "auto";  //城市选择框  高
-    inCity.id = "#in_city";  //城市选择框  父级ID
-    inCity.Children = '.city_a_le1';  //城市名box
-    // 初始化 城市HTML模板
-    $(inCity.id).prepend(inCity._template.join(''));
-    inCity.Hot(cityA);
-
-    //城市 导航
-    var apay = $(".screen a");
-
-    var placeThis; //当前选择标签
-    apay.click(function (obj) {  //城市导航
-        inCity.payment($(this));
-    })
-
-    inCity.place(pla); //出发地
-    inCity.destination(dest);  //目的地
-    inCity.cityClick(cityA); //显示赋值城市
-</script>
-<!-- input组件 -->
 <script>
     var csrf_token = $("csrf-token").val();
     var gobtn = document.getElementById('gobtn');
@@ -276,6 +250,9 @@
     var navs = document.getElementsByClassName('nav2')[0];
     var showbodyf = document.getElementsByClassName('show-body0')[0];
     var showbodys = document.getElementsByClassName('show-body2')[0];
+    var ifa = document.getElementsByClassName('ifa')[0];
+    var btn = document.getElementsByClassName('btn')[0];
+    var pay = document.getElementsByClassName('pay')[0];
     gobtn.addEventListener('click', function () {
         navf.className = "nav0";
         navs.className = "nav2";
@@ -292,16 +269,21 @@
         showbodys.className = 'show-body0';
         showbodyf.className = 'show-body2';
     });
-    var btn = document.getElementsByClassName('btn')[0];
     btn.addEventListener('click', function () {
-        location.href = './wait.html';
-        //这个路径你改成后端
+        cover.style.height = document.body.clientHeight + 'px';
+        cover.className = 'cover2';
+        ifa.className = 'ifa2';
+        setTimeout(function () {
+            cover.className = 'cover';
+            ifa.className = 'ifa';
+            //计算时间
+        }, 5000);
     })
-    var pay = document.getElementsByClassName('pay')[0];
     pay.addEventListener('click', function () {
         location.href = './settlement.html';
         //这个路径你改成后端
     })
 </script>
+<script src="../static/s-js/city.js"></script>
 <script src="../static/s-js/index.js"></script>
 </html>
