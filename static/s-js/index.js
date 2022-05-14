@@ -52,13 +52,13 @@ function reqfirst() {
                 if (data['string'] === "2") {
                     arr = data['common'];
                     arr = JSON.parse(arr);
-                    arr2 = eval(data['go_sort']);
+                    arr2 = data['go_sort'];
                     arr2 = JSON.parse(arr2);
-                    arr3 = eval(data['arrival_sort']);
+                    arr3 = data['arrival_sort'];
                     arr3 = JSON.parse(arr3);
-                    arr4 = eval(data['First_class']);
+                    arr4 = data['First_class'];
                     arr4 = JSON.parse(arr4);
-                    add5 = eval(data['economy_class']);
+                    arr5 = data['economy_class'];
                     arr5 = JSON.parse(arr5);
                     for (let i = 0; i < arr.length; i++) {
                         out += "<div" + " " + "class=" + "xinxi" + ">" +

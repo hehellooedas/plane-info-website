@@ -210,10 +210,11 @@ def index_ajax1():
         c = Thread_Pool.submit(Function.sort_planes_time,result)
         economy_class,First_class = b.result()
         go_sort,arrival_sort = c.result()
+        print(arrival_sort)
         return jsonify({
             'string':'2','common': json.dumps(result,ensure_ascii=False),
             'economy_class':json.dumps(economy_class.tolist(),ensure_ascii=False),
-            'First_class':json.dumps(First_class.tolist()),
+            'First_class':json.dumps(First_class.tolist(),ensure_ascii=False),
             'go_sort':go_sort,
             'arrival_sort':arrival_sort
         })
