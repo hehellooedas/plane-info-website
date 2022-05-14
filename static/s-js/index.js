@@ -6,7 +6,13 @@ var arr2 = [];
 var arr3 = [];
 var arr4 = [];
 var arr5 = [];
+var brr = [];
+var brr2 = [];
+var brr3 = [];
+var brr4 = [];
+var brr5 = [];
 var out = "";
+var out2="";
 var st = 1;
 var acity = document.getElementById('citySelect');
 var bcity = document.getElementById('citySelect1');
@@ -34,7 +40,7 @@ function reqfirst() {
             },
             success: function (data) {
                 if (data['string'] === "0") {
-                    showbodyf.innerHTML ="<span>"+"服务器正在在更新"+"<p>"+"<img"+" "+"src="+"../static/s-other/1(1).png"+">"+"</span>";
+                    showbodyf.innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
                     arr = [];
                     arr2 = [];
                     arr3 = [];
@@ -42,7 +48,7 @@ function reqfirst() {
                     arr5 = [];
                 }
                 if (data['string'] === "1") {
-                    showbodyf.innerHTML ="<span>"+"没有航班了呦"+"<p>"+"<img"+" "+"src="+"../static/s-other/1(1).png"+">"+"</span>";
+                    showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
                     arr = [];
                     arr2 = [];
                     arr3 = [];
@@ -101,7 +107,100 @@ function reqfirst() {
                 alert('cuowu');
             },
             success: function (data) {
-                 
+                if (data['string'] === "0") {
+                    showbodyf.innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+                    arr = [];
+                    arr2 = [];
+                    arr3 = [];
+                    arr4 = [];
+                    arr5 = [];
+                    brr = [];
+                    brr2 = [];
+                    brr3 = [];
+                    brr4 = [];
+                    brr5 = [];
+                }
+                if (data['string'] === "1") {
+                    showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+                    arr = [];
+                    arr2 = [];
+                    arr3 = [];
+                    arr4 = [];
+                    arr5 = [];
+                    brr = [];
+                    brr2 = [];
+                    brr3 = [];
+                    brr4 = [];
+                    brr5 = [];
+                }
+                if (data['string'] === "2") {
+                    arr = data['a_common'];
+                    arr = JSON.parse(arr);
+                    arr2 = data['a_go_sort'];
+                    arr2 = JSON.parse(arr2);
+                    arr3 = data['a_arrival_sort'];
+                    arr3 = JSON.parse(arr3);
+                    arr4 = data['a_First_class'];
+                    arr4 = JSON.parse(arr4);
+                    arr5 = data['a_economy_class'];
+                    arr5 = JSON.parse(arr5);
+                    brr = data['b_common'];
+                    brr = JSON.parse(arr);
+                    brr2 = data['b_go_sort'];
+                    brr2 = JSON.parse(arr2);
+                    brr3 = data['b_arrival_sort'];
+                    brr3 = JSON.parse(arr3);
+                    brr4 = data['b_First_class'];
+                    brr4 = JSON.parse(arr4);
+                    brr5 = data['b_economy_class'];
+                    brr5 = JSON.parse(arr5);
+                    for (let i = 0; i < arr.length; i++) {
+                        out += "<div" + " " + "class=" + "xinxi" + ">" +
+                            "<div" + " " + "class=" + "tab" + ">" +
+                            "<table" + " " + "border=" + "1px" + ">" +
+                            "<tr" + " " + "class=" + "tr1" + ">" + "<td" + ">航空公司</td>" +
+                            "<td>航班</td>" +
+                            "<td>机型</td>" +
+                            "<td>出发时间</td>" +
+                            "<td>抵达时间</td>" +
+                            "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
+                            "<tr" + " " + "class=" + "tr2" + "><td>" + arr[i][1] + "</td>" +
+                            "<td>" + arr[i][2] + "</td>" +
+                            "<td>" + arr[i][3] + "</td>" +
+                            "<td>" + arr[i][4] + "</td>" +
+                            "<td>" + arr[i][5] + "</td>" +
+                            "<td>" + arr[i][10] + "</td>" +
+                            "<td>" + arr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                            "<td>" + arr[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                            "</table>" +
+                            "</div>" +
+                            "</div>"
+                    }
+                    for (let i = 0; i < arr.length; i++) {
+                        out2 += "<div" + " " + "class=" + "xinxi" + ">" +
+                            "<div" + " " + "class=" + "tab" + ">" +
+                            "<table" + " " + "border=" + "1px" + ">" +
+                            "<tr" + " " + "class=" + "tr1" + ">" + "<td" + ">航空公司</td>" +
+                            "<td>航班</td>" +
+                            "<td>机型</td>" +
+                            "<td>出发时间</td>" +
+                            "<td>抵达时间</td>" +
+                            "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
+                            "<tr" + " " + "class=" + "tr2" + "><td>" + brr[i][1] + "</td>" +
+                            "<td>" + brr[i][2] + "</td>" +
+                            "<td>" + brr[i][3] + "</td>" +
+                            "<td>" + brr[i][4] + "</td>" +
+                            "<td>" + brr[i][5] + "</td>" +
+                            "<td>" + brr[i][10] + "</td>" +
+                            "<td>" + brr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                            "<td>" + brr[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                            "</table>" +
+                            "</div>" +
+                            "</div>"
+                    }
+                    showbodys.innerHTML = out2;
+                    out2 = "";
+                }
             }
         });
     }
@@ -118,7 +217,7 @@ function reqfirst() {
                 alert('cuowu');
             },
             success: function (data) {
-               
+
             }
         });
     }
@@ -191,7 +290,12 @@ for (let k = 0; k < but.length; k++) {
                     "</div>" +
                     "</div>"
             }
-            showbodyf.innerHTML = out;
+            if (arr ==[]) {
+                showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+            }
+            else {
+                showbodyf.innerHTML = out;
+            }
             out = "";
         }
         if (k == 1) {
@@ -217,7 +321,12 @@ for (let k = 0; k < but.length; k++) {
                     "</div>" +
                     "</div>"
             }
-            showbodyf.innerHTML = out;
+            if (arr ==[]) {
+                showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+            }
+            else {
+                showbodyf.innerHTML = out;
+            }
             out = "";
         }
         if (k == 2) {
@@ -243,7 +352,12 @@ for (let k = 0; k < but.length; k++) {
                     "</div>" +
                     "</div>"
             }
-            showbodyf.innerHTML = out;
+            if (arr ==[]) {
+                showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+            }
+            else {
+                showbodyf.innerHTML = out;
+            }
             out = "";
         }
         if (k == 3) {
@@ -269,7 +383,12 @@ for (let k = 0; k < but.length; k++) {
                     "</div>" +
                     "</div>"
             }
-            showbodyf.innerHTML = out;
+            if (arr ==[]) {
+                showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+            }
+            else {
+                showbodyf.innerHTML = out;
+            }
             out = "";
         }
     })
@@ -284,7 +403,7 @@ for (let k = 0; k < but2.length; k++) {
         this.style.backgroundColor = 'darkgray';
         console.log(k);
         if (k == 0) {
-            for (let i = 0; i < arr2.length; i++) {
+            for (let i = 0; i < brr2.length; i++) {
                 out += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
                     "<table" + " " + "border=" + "1px" + ">" +
@@ -294,23 +413,28 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>出发时间</td>" +
                     "<td>抵达时间</td>" +
                     "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
-                    "<tr" + " " + "class=" + "tr2" + "><td>" + arr2[i][1] + "</td>" +
-                    "<td>" + arr2[i][2] + "</td>" +
-                    "<td>" + arr2[i][3] + "</td>" +
-                    "<td>" + arr2[i][4] + "</td>" +
-                    "<td>" + arr2[i][5] + "</td>" +
-                    "<td>" + arr2[i][10] + "</td>" +
-                    "<td>" + arr2[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + arr2[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<tr" + " " + "class=" + "tr2" + "><td>" + brr2[i][1] + "</td>" +
+                    "<td>" + brr2[i][2] + "</td>" +
+                    "<td>" + brr2[i][3] + "</td>" +
+                    "<td>" + brr2[i][4] + "</td>" +
+                    "<td>" + brr2[i][5] + "</td>" +
+                    "<td>" + brr2[i][10] + "</td>" +
+                    "<td>" + brr2[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + brr2[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
             }
-            showbodys.innerHTML = out;
-            out = "";
+            if (brr ==[]) {
+                showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+            }
+            else {
+                showbodys.innerHTML = out2;
+            }
+            out2 = "";
         }
         if (k == 1) {
-            for (let i = 0; i < arr3.length; i++) {
+            for (let i = 0; i < brr3.length; i++) {
                 out += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
                     "<table" + " " + "border=" + "1px" + ">" +
@@ -320,23 +444,28 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>出发时间</td>" +
                     "<td>抵达时间</td>" +
                     "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
-                    "<tr" + " " + "class=" + "tr2" + "><td>" + arr3[i][1] + "</td>" +
-                    "<td>" + arr3[i][2] + "</td>" +
-                    "<td>" + arr3[i][3] + "</td>" +
-                    "<td>" + arr3[i][4] + "</td>" +
-                    "<td>" + arr3[i][5] + "</td>" +
-                    "<td>" + arr3[i][10] + "</td>" +
-                    "<td>" + arr3[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + arr3[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<tr" + " " + "class=" + "tr2" + "><td>" + brr3[i][1] + "</td>" +
+                    "<td>" + brr3[i][2] + "</td>" +
+                    "<td>" + brr3[i][3] + "</td>" +
+                    "<td>" + brr3[i][4] + "</td>" +
+                    "<td>" + brr3[i][5] + "</td>" +
+                    "<td>" + brr3[i][10] + "</td>" +
+                    "<td>" + brr3[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + brr3[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
             }
-            showbodys.innerHTML = out;
-            out = "";
+            if (brr ==[]) {
+                showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+            }
+            else {
+                showbodys.innerHTML = out2;
+            }
+            out2 = "";
         }
         if (k == 2) {
-            for (let i = 0; i < arr4.length; i++) {
+            for (let i = 0; i < brr4.length; i++) {
                 out += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
                     "<table" + " " + "border=" + "1px" + ">" +
@@ -346,23 +475,28 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>出发时间</td>" +
                     "<td>抵达时间</td>" +
                     "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
-                    "<tr" + " " + "class=" + "tr2" + "><td>" + arr4[i][1] + "</td>" +
-                    "<td>" + arr4[i][2] + "</td>" +
-                    "<td>" + arr4[i][3] + "</td>" +
-                    "<td>" + arr4[i][4] + "</td>" +
-                    "<td>" + arr4[i][5] + "</td>" +
-                    "<td>" + arr4[i][10] + "</td>" +
-                    "<td>" + arr4[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + arr4[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<tr" + " " + "class=" + "tr2" + "><td>" + brr4[i][1] + "</td>" +
+                    "<td>" + brr4[i][2] + "</td>" +
+                    "<td>" + brr4[i][3] + "</td>" +
+                    "<td>" + brr4[i][4] + "</td>" +
+                    "<td>" + brr4[i][5] + "</td>" +
+                    "<td>" + brr4[i][10] + "</td>" +
+                    "<td>" + brr4[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + brr4[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
             }
-            showbodys.innerHTML = out;
-            out = "";
+            if (brr ==[]) {
+                showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+            }
+            else {
+                showbodys.innerHTML = out2;
+            }
+            out2 = "";
         }
         if (k == 3) {
-            for (let i = 0; i < arr5.length; i++) {
+            for (let i = 0; i < brr5.length; i++) {
                 out += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
                     "<table" + " " + "border=" + "1px" + ">" +
@@ -372,20 +506,25 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>出发时间</td>" +
                     "<td>抵达时间</td>" +
                     "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
-                    "<tr" + " " + "class=" + "tr2" + "><td>" + arr5[i][1] + "</td>" +
-                    "<td>" + arr5[i][2] + "</td>" +
-                    "<td>" + arr5[i][3] + "</td>" +
-                    "<td>" + arr5[i][4] + "</td>" +
-                    "<td>" + arr5[i][5] + "</td>" +
-                    "<td>" + arr5[i][10] + "</td>" +
-                    "<td>" + arr5[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + arr5[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<tr" + " " + "class=" + "tr2" + "><td>" + brr5[i][1] + "</td>" +
+                    "<td>" + brr5[i][2] + "</td>" +
+                    "<td>" + brr5[i][3] + "</td>" +
+                    "<td>" + brr5[i][4] + "</td>" +
+                    "<td>" + brr5[i][5] + "</td>" +
+                    "<td>" + brr5[i][10] + "</td>" +
+                    "<td>" + brr5[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + brr5[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
             }
-            showbodys.innerHTML = out;
-            out = "";
+            if (brr ==[]) {
+                showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+            }
+            else {
+                showbodys.innerHTML = out2;
+            }
+            out2 = "";
         }
     })
 }
