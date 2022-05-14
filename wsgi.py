@@ -212,7 +212,6 @@ def index_ajax1():
         economy_class,First_class = b.result()
         economy_class, First_class,result = json.dumps(economy_class.tolist(),ensure_ascii=False), json.dumps(First_class.tolist()),json.dumps(result,ensure_ascii=False)
         go_sort,arrival_sort = c.result()
-        result = json.dumps(result,ensure_ascii=False)
         return jsonify({
             'string':'2','common': result,'economy_class':economy_class,'First_class':First_class,'go_sort':go_sort,'arrival_sort':arrival_sort
         })
@@ -354,6 +353,9 @@ def settlement_ajax2():
 def success():
     return render_template('success.html')
 
+@app.get('/wait')
+def wait():
+    return render_template('wait.html')
 
 @scheduler.task(trigger=interval, name='plane_update', id='plane_update')
 def plane_update():

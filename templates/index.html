@@ -21,7 +21,7 @@
     <div class="cover">
 
     </div>
-    <iframe src="../templates/wait.html" frameborder="0" name="hello" scrolling="no" class="ifa"></iframe>
+    <iframe src="/wait" frameborder="0" name="hello" scrolling="no" class="ifa"></iframe>
     <div class="jingbao">
         <h1>购买须知</h1>
 
@@ -70,7 +70,7 @@
         </div>
     </div>
     <!-- 展示近期时间的航班 -->
-    <div class="date ban"><a href="#"><img src="../static/s-other/adv.png" alt=""></a></div>
+    <div class="date ban"><a href=""><img src="../static/s-other/adv.png" alt=""></a></div>
     <!-- 选择去程和返程的航班 -->
     <div class="show ban">
         <div class="kuang">
@@ -240,7 +240,6 @@
     </div>
 </body>
 <script>
-    var csrf_token = $("csrf-token").val();
     var gobtn = document.getElementById('gobtn');
     var backbtn = document.getElementById('backbtn');
     var navf = document.getElementsByClassName('nav0')[0];
@@ -277,12 +276,8 @@
             //计算时间
         }, 5000);
     })
-    pay.addEventListener('click', function () {
-        location.href = './settlement.html';
-    })
-    pay2.addEventListener('click', function () {
-        location.href = './settlement.html';
-    })
+
+
 </script>
 <script src="../static/s-js/city.js"></script>
 <script src="../static/s-js/index.js"></script>
