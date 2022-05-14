@@ -202,7 +202,7 @@ def index_ajax1():
     if result is None or result == []:
         return jsonify({'string': '1'})
     elif len(result) == 1:
-        result = json.dumps(result)
+        result = json.dumps(result,ensure_ascii=False)
         return {
             'string':'2','common': result,'economy_class':result,'First_class':result,'go_sort':result,'arrival_sort':result
         }
@@ -210,9 +210,9 @@ def index_ajax1():
         b = Thread_Pool.submit(Function.sort_planes_cost, numpy.array(result))  # 排序
         c = Thread_Pool.submit(Function.sort_planes_time,result)
         economy_class,First_class = b.result()
-        economy_class, First_class,result = json.dumps(economy_class.tolist()), json.dumps(First_class.tolist()),json.dumps(result)
+        economy_class, First_class,result = json.dumps(economy_class.tolist(),ensure_ascii=False), json.dumps(First_class.tolist()),json.dumps(result,ensure_ascii=False)
         go_sort,arrival_sort = c.result()
-        result = json.dumps(result)
+        result = json.dumps(result,ensure_ascii=False)
         return jsonify({
             'string':'2','common': result,'economy_class':economy_class,'First_class':First_class,'go_sort':go_sort,'arrival_sort':arrival_sort
         })
