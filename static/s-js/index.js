@@ -34,7 +34,7 @@ function reqfirst() {
             },
             success: function (data) {
                 if (data['string'] === "0") {
-                    showbodyf.innerHTML ="<span>"+"服务器正在在更新"+"<p>"+"<img"+" "+"src="+"../static/s-other/1(1).png"+">"+"</span>";
+                    showbodyf.innerHTML ="<span>"+"服务器正在更新"+"<p>"+"<img"+" "+"src="+"../static/s-other/1(1).png"+">"+"</span>";
                     arr = [];
                     arr2 = [];
                     arr3 = [];
