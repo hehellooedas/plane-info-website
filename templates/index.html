@@ -250,6 +250,7 @@
     var ifa = document.getElementsByClassName('ifa')[0];
     var btn = document.getElementsByClassName('btn')[0];
     var pay = document.getElementsByClassName('pay')[0];
+    var pay2 = document.getElementsByClassName('pay2')[0];
     gobtn.addEventListener('click', function () {
         navf.className = "nav0";
         navs.className = "nav2";
@@ -266,16 +267,7 @@
         showbodys.className = 'show-body0';
         showbodyf.className = 'show-body2';
     });
-<<<<<<< HEAD
-    //var btn = document.getElementsByClassName('btn')[0];
-    //btn.addEventListener('click', function () {
-        //location.href = './wait.html';
-        //这个路径你改成后端
-   //})
-    //var pay = document.getElementsByClassName('pay')[0];
-    //pay.addEventListener('click', function () {
-        //location.href = './settlement.html';
-=======
+
     btn.addEventListener('click', function () {
         cover.style.height = document.body.clientHeight + 'px';
         cover.className = 'cover2';
@@ -288,9 +280,12 @@
     })
     pay.addEventListener('click', function () {
         location.href = './settlement.html';
->>>>>>> gzt
+  })
+    })
+    pay2.addEventListener('click', function () {
+        location.href = './settlement.html';
         //这个路径你改成后端
-    //})
+    }
 </script>
 <script src="../static/s-js/city.js"></script>
 <script src="../static/s-js/index.js"></script>

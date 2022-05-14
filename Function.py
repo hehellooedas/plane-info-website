@@ -1,4 +1,4 @@
-import pandas, pickle, os, random, time, copy,numpy,threading,numba
+import pandas, pickle, os, random, time, copy,numpy,threading,numba,json
 
 
 def delete_log_byhand():
@@ -93,7 +93,7 @@ def sort_planes_cost(result)->tuple:#按价格排序
             result[index] = temp
     return (cost_sort_Economics,result)
 
-@numba.jit()
+
 def sort_planes_time(result: list) -> tuple:#按时间排序
     t = [i[4].split(' ')[1].split(':')[0:2] for i in result]
     for i in t:
@@ -105,10 +105,10 @@ def sort_planes_time(result: list) -> tuple:#按时间排序
             if t[i][0] > t[j][0] or (t[i][0] == t[j][0] and t[i][1] > t[j][1]):
                 index = j
         if index != i:
-            temp = numpy.copy(result[i])
+            temp = result[i]
             result[i] = result[index]
             result[index] = temp
-    time_go_sort = numpy.copy(result)
+    time_go_sort = copy.deepcopy(result)
     t = [i[5].split(' ')[1].split(':')[0:2] for i in result]
     for i in t:
         i[0] = int(i[0])
@@ -119,10 +119,10 @@ def sort_planes_time(result: list) -> tuple:#按时间排序
             if t[i][0] > t[j][0] or (t[i][0] == t[j][0] and t[i][1] > t[j][1]):
                 index = j
         if index != i:
-            temp = numpy.copy(result[i])
+            temp = result[i]
             result[i] = result[index]
             result[index] = temp
-    return (time_go_sort,result)
+    return (json.dumps(time_go_sort),json.dumps(result))
 
 
 

@@ -1,3 +1,4 @@
+import json
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 from apscheduler.events import EVENT_JOB_EXECUTED, EVENT_JOB_ERROR
 from flask import Flask, render_template, request, url_for, redirect, make_response, session, g, jsonify, abort
@@ -201,16 +202,17 @@ def index_ajax1():
     if result is None or result == []:
         return jsonify({'string': '1'})
     elif len(result) == 1:
+        result = json.dumps(result)
         return {
             'string':'2','common': result,'economy_class':result,'First_class':result,'go_sort':result,'arrival_sort':result
         }
     else:
         b = Thread_Pool.submit(Function.sort_planes_cost, numpy.array(result))  # 排序
-        c = Thread_Pool.submit(Function.sort_planes_time,numpy.array(result))
+        c = Thread_Pool.submit(Function.sort_planes_time,result)
         economy_class,First_class = b.result()
-        economy_class, First_class = economy_class.tolist(), First_class.tolist()
+        economy_class, First_class,result = json.dumps(economy_class.tolist()), json.dumps(First_class.tolist()),json.dumps(result)
         go_sort,arrival_sort = c.result()
-        go_sort,arrival_sort = go_sort.tolist(),arrival_sort.tolist()
+        result = json.dumps(result)
         return jsonify({
             'string':'2','common': result,'economy_class':economy_class,'First_class':First_class,'go_sort':go_sort,'arrival_sort':arrival_sort
         })
