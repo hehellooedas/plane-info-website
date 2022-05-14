@@ -54,7 +54,7 @@ function reqfirst() {
                     arr = JSON.parse(arr);
                     arr2 = eval(data['go_sort']);
                     arr2 = JSON.parse(arr2);
-                    arr3 = eval(data['arriva_sort']);
+                    arr3 = eval(data['arrival_sort']);
                     arr3 = JSON.parse(arr3);
                     arr4 = eval(data['First_class']);
                     arr4 = JSON.parse(arr4);

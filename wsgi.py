@@ -196,7 +196,7 @@ def index_ajax1():
     a = Thread_Pool.submit(Function.select_planes, (acity, bcity, date))  # 搜索
     result = a.result()
     if result is False:
-        logging.warning('在数据库更新的时候试图访问数据')
+        logging.warning('数据库更新时试图访问数据!')
         return jsonify({'string': '0'})
     if result is None or result == []:
         return jsonify({'string': '1'})

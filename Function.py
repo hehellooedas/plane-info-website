@@ -2,7 +2,7 @@ import pandas, pickle, os, random, time, copy,numpy,threading,numba,json
 
 
 def delete_log_byhand():
-    os.remove('./files/flask.log')
+    os.remove('./files/logs/flask.log')
 
 def get_date(date_time:str)->str:
     return date_time.split(' ')[0]
@@ -175,5 +175,5 @@ class emails_db:
 
 
 if __name__ == '__main__':
-    pass
+    delete_log_byhand()
 
