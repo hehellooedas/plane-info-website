@@ -118,13 +118,7 @@ function reqfirst() {
                 alert('cuowu');
             },
             success: function (data) {
-                arr2 = data;
-                // for(let j=0;j<arr.length;j++){
-                //     out+="<li>"+arr[j].city+"</li>";//data自定义
-                // }
-                // infofirst.innerHTML=out;
-                // out='';
-                console.log(arr2);
+               
             }
         });
     }
@@ -185,14 +179,14 @@ for (let k = 0; k < but.length; k++) {
                     "<td>出发时间</td>" +
                     "<td>抵达时间</td>" +
                     "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
-                    "<tr" + " " + "class=" + "tr2" + "><td>" + arr[i][1] + "</td>" +
-                    "<td>" + arr[i][2] + "</td>" +
-                    "<td>" + arr[i][3] + "</td>" +
-                    "<td>" + arr[i][4] + "</td>" +
-                    "<td>" + arr[i][5] + "</td>" +
-                    "<td>" + arr[i][10] + "</td>" +
-                    "<td>" + arr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + arr[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<tr" + " " + "class=" + "tr2" + "><td>" + arr2[i][1] + "</td>" +
+                    "<td>" + arr2[i][2] + "</td>" +
+                    "<td>" + arr2[i][3] + "</td>" +
+                    "<td>" + arr2[i][4] + "</td>" +
+                    "<td>" + arr2[i][5] + "</td>" +
+                    "<td>" + arr2[i][10] + "</td>" +
+                    "<td>" + arr2[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + arr2[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -211,14 +205,14 @@ for (let k = 0; k < but.length; k++) {
                     "<td>出发时间</td>" +
                     "<td>抵达时间</td>" +
                     "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
-                    "<tr" + " " + "class=" + "tr2" + "><td>" + arr[i][1] + "</td>" +
-                    "<td>" + arr[i][2] + "</td>" +
-                    "<td>" + arr[i][3] + "</td>" +
-                    "<td>" + arr[i][4] + "</td>" +
-                    "<td>" + arr[i][5] + "</td>" +
-                    "<td>" + arr[i][10] + "</td>" +
-                    "<td>" + arr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + arr[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<tr" + " " + "class=" + "tr2" + "><td>" + arr3[i][1] + "</td>" +
+                    "<td>" + arr3[i][2] + "</td>" +
+                    "<td>" + arr3[i][3] + "</td>" +
+                    "<td>" + arr3[i][4] + "</td>" +
+                    "<td>" + arr3[i][5] + "</td>" +
+                    "<td>" + arr3[i][10] + "</td>" +
+                    "<td>" + arr3[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + arr3[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -237,14 +231,14 @@ for (let k = 0; k < but.length; k++) {
                     "<td>出发时间</td>" +
                     "<td>抵达时间</td>" +
                     "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
-                    "<tr" + " " + "class=" + "tr2" + "><td>" + arr[i][1] + "</td>" +
-                    "<td>" + arr[i][2] + "</td>" +
-                    "<td>" + arr[i][3] + "</td>" +
-                    "<td>" + arr[i][4] + "</td>" +
-                    "<td>" + arr[i][5] + "</td>" +
-                    "<td>" + arr[i][10] + "</td>" +
-                    "<td>" + arr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + arr[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<tr" + " " + "class=" + "tr2" + "><td>" + arr4[i][1] + "</td>" +
+                    "<td>" + arr4[i][2] + "</td>" +
+                    "<td>" + arr4[i][3] + "</td>" +
+                    "<td>" + arr4[i][4] + "</td>" +
+                    "<td>" + arr4[i][5] + "</td>" +
+                    "<td>" + arr4[i][10] + "</td>" +
+                    "<td>" + arr4[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + arr4[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -263,14 +257,14 @@ for (let k = 0; k < but.length; k++) {
                     "<td>出发时间</td>" +
                     "<td>抵达时间</td>" +
                     "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
-                    "<tr" + " " + "class=" + "tr2" + "><td>" + arr[i][1] + "</td>" +
-                    "<td>" + arr[i][2] + "</td>" +
-                    "<td>" + arr[i][3] + "</td>" +
-                    "<td>" + arr[i][4] + "</td>" +
-                    "<td>" + arr[i][5] + "</td>" +
-                    "<td>" + arr[i][10] + "</td>" +
-                    "<td>" + arr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + arr[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<tr" + " " + "class=" + "tr2" + "><td>" + arr5[i][1] + "</td>" +
+                    "<td>" + arr5[i][2] + "</td>" +
+                    "<td>" + arr5[i][3] + "</td>" +
+                    "<td>" + arr5[i][4] + "</td>" +
+                    "<td>" + arr5[i][5] + "</td>" +
+                    "<td>" + arr5[i][10] + "</td>" +
+                    "<td>" + arr5[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + arr5[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -288,6 +282,7 @@ for (let k = 0; k < but2.length; k++) {
             but2[j].style.backgroundColor = 'powderblue';
         }
         this.style.backgroundColor = 'darkgray';
+        console.log(k);
         if (k == 0) {
             for (let i = 0; i < arr2.length; i++) {
                 out += "<div" + " " + "class=" + "xinxi" + ">" +
@@ -299,14 +294,14 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>出发时间</td>" +
                     "<td>抵达时间</td>" +
                     "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
-                    "<tr" + " " + "class=" + "tr2" + "><td>" + arr[i][1] + "</td>" +
-                    "<td>" + arr[i][2] + "</td>" +
-                    "<td>" + arr[i][3] + "</td>" +
-                    "<td>" + arr[i][4] + "</td>" +
-                    "<td>" + arr[i][5] + "</td>" +
-                    "<td>" + arr[i][10] + "</td>" +
-                    "<td>" + arr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + arr[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<tr" + " " + "class=" + "tr2" + "><td>" + arr2[i][1] + "</td>" +
+                    "<td>" + arr2[i][2] + "</td>" +
+                    "<td>" + arr2[i][3] + "</td>" +
+                    "<td>" + arr2[i][4] + "</td>" +
+                    "<td>" + arr2[i][5] + "</td>" +
+                    "<td>" + arr2[i][10] + "</td>" +
+                    "<td>" + arr2[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + arr2[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -325,14 +320,14 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>出发时间</td>" +
                     "<td>抵达时间</td>" +
                     "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
-                    "<tr" + " " + "class=" + "tr2" + "><td>" + arr[i][1] + "</td>" +
-                    "<td>" + arr[i][2] + "</td>" +
-                    "<td>" + arr[i][3] + "</td>" +
-                    "<td>" + arr[i][4] + "</td>" +
-                    "<td>" + arr[i][5] + "</td>" +
-                    "<td>" + arr[i][10] + "</td>" +
-                    "<td>" + arr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + arr[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<tr" + " " + "class=" + "tr2" + "><td>" + arr3[i][1] + "</td>" +
+                    "<td>" + arr3[i][2] + "</td>" +
+                    "<td>" + arr3[i][3] + "</td>" +
+                    "<td>" + arr3[i][4] + "</td>" +
+                    "<td>" + arr3[i][5] + "</td>" +
+                    "<td>" + arr3[i][10] + "</td>" +
+                    "<td>" + arr3[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + arr3[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -351,14 +346,14 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>出发时间</td>" +
                     "<td>抵达时间</td>" +
                     "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
-                    "<tr" + " " + "class=" + "tr2" + "><td>" + arr[i][1] + "</td>" +
-                    "<td>" + arr[i][2] + "</td>" +
-                    "<td>" + arr[i][3] + "</td>" +
-                    "<td>" + arr[i][4] + "</td>" +
-                    "<td>" + arr[i][5] + "</td>" +
-                    "<td>" + arr[i][10] + "</td>" +
-                    "<td>" + arr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + arr[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<tr" + " " + "class=" + "tr2" + "><td>" + arr4[i][1] + "</td>" +
+                    "<td>" + arr4[i][2] + "</td>" +
+                    "<td>" + arr4[i][3] + "</td>" +
+                    "<td>" + arr4[i][4] + "</td>" +
+                    "<td>" + arr4[i][5] + "</td>" +
+                    "<td>" + arr4[i][10] + "</td>" +
+                    "<td>" + arr4[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + arr4[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -377,14 +372,14 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>出发时间</td>" +
                     "<td>抵达时间</td>" +
                     "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
-                    "<tr" + " " + "class=" + "tr2" + "><td>" + arr[i][1] + "</td>" +
-                    "<td>" + arr[i][2] + "</td>" +
-                    "<td>" + arr[i][3] + "</td>" +
-                    "<td>" + arr[i][4] + "</td>" +
-                    "<td>" + arr[i][5] + "</td>" +
-                    "<td>" + arr[i][10] + "</td>" +
-                    "<td>" + arr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + arr[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<tr" + " " + "class=" + "tr2" + "><td>" + arr5[i][1] + "</td>" +
+                    "<td>" + arr5[i][2] + "</td>" +
+                    "<td>" + arr5[i][3] + "</td>" +
+                    "<td>" + arr5[i][4] + "</td>" +
+                    "<td>" + arr5[i][5] + "</td>" +
+                    "<td>" + arr5[i][10] + "</td>" +
+                    "<td>" + arr5[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + arr5[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
