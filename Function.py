@@ -81,7 +81,7 @@ def sort_planes_cost(result)->tuple:#按价格排序
             temp = numpy.copy(result[index])
             result[i] = result[index]
             result[index] = temp
-    cost_sort_Economics = copy.deepcopy(result)  # 申请一段内存单独存储排序后的结果
+    cost_sort_Economics = numpy.copy(result)  # 申请一段内存单独存储排序后的结果
     for i in range(len(result) - 1):
         index = i
         for j in range(i+1, len(result)):
@@ -93,7 +93,7 @@ def sort_planes_cost(result)->tuple:#按价格排序
             result[index] = temp
     return (cost_sort_Economics,result)
 
-@numba.jit(nopython=True)
+@numba.jit()
 def sort_planes_time(result: list) -> tuple:#按时间排序
     t = [i[4].split(' ')[1].split(':')[0:2] for i in result]
     for i in t:
@@ -108,7 +108,7 @@ def sort_planes_time(result: list) -> tuple:#按时间排序
             temp = numpy.copy(result[i])
             result[i] = result[index]
             result[index] = temp
-    time_go_sort = copy.deepcopy(result)
+    time_go_sort = numpy.copy(result)
     t = [i[5].split(' ')[1].split(':')[0:2] for i in result]
     for i in t:
         i[0] = int(i[0])

@@ -197,12 +197,12 @@ def index_ajax1():
     result = a.result()
     if result is False:
         logging.warning('在数据库更新的时候试图访问数据')
-        return jsonify({'string': '很抱歉，服务器正在更新中，请稍后再尝试！'})
+        return jsonify({'string': '0'})
     if result is None or result == []:
-        return jsonify({'string': '很抱歉，暂时没有符合要求的机票'})
+        return jsonify({'string': '1'})
     elif len(result) == 1:
         return {
-            'common': result, 'cost_sort': result, 'time_sort': result
+            'string':'2','common': result,'economy_class':result,'First_class':result,'go_sort':result,'arrival_sort':result
         }
     else:
         b = Thread_Pool.submit(Function.sort_planes_cost, numpy.array(result))  # 排序
@@ -212,7 +212,7 @@ def index_ajax1():
         go_sort,arrival_sort = c.result()
         go_sort,arrival_sort = go_sort.tolist(),arrival_sort.tolist()
         return jsonify({
-            'common': result,'economy_class':economy_class,'First_class':First_class,'go_sort':go_sort,'arrival_sort':arrival_sort
+            'string':'2','common': result,'economy_class':economy_class,'First_class':First_class,'go_sort':go_sort,'arrival_sort':arrival_sort
         })
 
 

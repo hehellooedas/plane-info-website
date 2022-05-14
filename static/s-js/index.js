@@ -23,13 +23,14 @@ function reqfirst() {
             // headers: {"X-CSRFToken", csrf_token},
             type: 'post',
             url: '/index_ajax1',
-            data: { "acity": acity.value, "bcity": bcity.value, "adata": time0.value },
+            data: { "acity": acity.value, "bcity": bcity.value, "adate": time0.value },
             dataType: 'json',
             async: false,
             error: function (request) {
                 alert('cuowu');
             },
             success: function (data) {
+            alert(data['string']);
                 arr = data;
                 for (let i = 0; i < arr.length; i++) {
                     out += "<div" + " " + "class=" + "xinxi" + ">" +
