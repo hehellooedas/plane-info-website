@@ -210,7 +210,6 @@ def index_ajax1():
         c = Thread_Pool.submit(Function.sort_planes_time,result)
         economy_class,First_class = b.result()
         go_sort,arrival_sort = c.result()
-        print(arrival_sort)
         return jsonify({
             'string':'2','common': json.dumps(result,ensure_ascii=False),
             'economy_class':json.dumps(economy_class.tolist(),ensure_ascii=False),
@@ -224,7 +223,6 @@ def index_ajax1():
 @app.post('/index_ajax2')  # 往返
 def index_ajax2():
     form = request.form
-    print(form)
     acity, bcity, adate, bdate = form.get('acity'), form.get('bcity'), form.get('adate'), form.get('bdate')
     a = Thread_Pool.submit(Function.select_planes, (acity, bcity, adate))
     b = Thread_Pool.submit(Function.select_planes, (bcity, acity, bdate))
@@ -384,7 +382,6 @@ def wait():
 
 @scheduler.task(trigger=interval, name='plane_update', id='plane_update')
 def plane_update():
-    #为了不影响用户体验，使用进程池加快文件读写
     Process_Pool.submit(Function.planes_Update_Function)
 
 
@@ -395,7 +392,7 @@ def delete_log():
 
 def my_listener(event):
     if event.exception:
-        print("任务出错了,调度器已终止执行！")
+        #print("任务出错了,调度器已终止执行！")
         logging.error("任务出错了,调度器已终止执行")
         scheduler.shutdown()
 
