@@ -95,10 +95,7 @@ def sort_planes_cost(result)->tuple:#按价格排序
 
 
 def sort_planes_time(result: list) -> tuple:#按时间排序
-    t = [i[4].split(' ')[1].split(':')[0:2] for i in result]
-    for i in t:
-        i[0] = int(i[0])
-        i[1] = int(i[1])
+    t = [(lambda x:[int(x[0]),int(x[1])])(i[4].split(' ')[1].split(':')[0:2]) for i in result]
     for i in range(len(result) - 1):
         index = i
         for j in range(i+1, len(result)):
@@ -109,10 +106,7 @@ def sort_planes_time(result: list) -> tuple:#按时间排序
             result[i] = result[index]
             result[index] = temp
     time_go_sort = copy.deepcopy(result)
-    t = [i[5].split(' ')[1].split(':')[0:2] for i in result]
-    for i in t:
-        i[0] = int(i[0])
-        i[1] = int(i[1])
+    t = [(lambda x:[int(x[0]),int(x[1])])(i[5].split(' ')[1].split(':')[0:2]) for i in result]
     for i in range(len(result) - 1):
         index = i
         for j in range(i+1, len(result)):
@@ -122,7 +116,7 @@ def sort_planes_time(result: list) -> tuple:#按时间排序
             temp = result[i]
             result[i] = result[index]
             result[index] = temp
-    return (json.dumps(time_go_sort),json.dumps(result))
+    return (json.dumps(time_go_sort,ensure_ascii=False),json.dumps(result,ensure_ascii=False))
 
 
 
