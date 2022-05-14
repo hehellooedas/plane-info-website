@@ -11,7 +11,7 @@ from apscheduler.triggers.interval import IntervalTrigger
 from user_agents import parse
 from markupsafe import escape
 from logging.handlers import TimedRotatingFileHandler
-import os, threading, logging, Function,numpy,json
+import os, logging, Function,numpy,json
 
 # 日志处理
 logging.basicConfig()
@@ -238,13 +238,13 @@ def index_ajax2():
     elif a_len == 1 and b_len == 1:
         a_result,b_result = json.dumps(a_result,ensure_ascii=False),json.dumps(b_result,ensure_ascii=False)
         return jsonify({
-            'string':'2','a_common': a_result,'a_economy_class':a_result,
+            'string':'2','a_common': json.dumps(a_result,ensure_ascii=False),'a_economy_class':b_result,
             'a_First_class':a_result,'a_go_sort':a_result,'a_arrival_sort':a_result,
             'b_common': b_result, 'b_economy_class':b_result,'b_First_class':b_result,
             'b_go_sort':b_result,'b_arrival_sort':b_result
         })
     elif a_len == 1 and b_len > 1:
-        a = Thread_Pool.submit(Function.sort_planes_cost,b_result)
+        a = Thread_Pool.submit(Function.sort_planes_cost,numpy.array(b_result))
         b = Thread_Pool.submit(Function.sort_planes_time,b_result)
         b_economy_class, b_First_class = a.result()
         b_go_sort,b_arrival_sort = b.result()
@@ -258,7 +258,7 @@ def index_ajax2():
             'b_arrival_sort':b_arrival_sort
         })
     elif b_len == 1 and a_len > 1:
-        a = Thread_Pool.submit(Function.sort_planes_cost, a_result)
+        a = Thread_Pool.submit(Function.sort_planes_cost, numpy.array(a_result))
         b = Thread_Pool.submit(Function.sort_planes_time, a_result)
         a_economy_class,a_First_class = a.result()
         a_go_sort,a_arrival_sort = b.result()
@@ -272,22 +272,21 @@ def index_ajax2():
             'b_common': b_result, 'b_economy_class':b_result,'b_First_class':b_result,'b_go_sort':b_result,'b_arrival_sort':b_result
         })
     else:
-        a = Thread_Pool.submit(Function.sort_planes_cost,a_result)
-        b = Thread_Pool.submit(Function.sort_planes_cost,b_result)
+        a = Thread_Pool.submit(Function.sort_planes_cost,numpy.array(a_result))
+        b = Thread_Pool.submit(Function.sort_planes_cost,numpy.array(b_result))
         c = Thread_Pool.submit(Function.sort_planes_time,a_result)
         d = Thread_Pool.submit(Function.sort_planes_time,b_result)
         a_economy_class, a_First_class = a.result()
         a_go_sort, a_arrival_sort = c.result()
         b_economy_class, b_First_class = b.result()
         b_go_sort, b_arrival_sort = d.result()
-        a_result, b_result = json.dumps(a_result, ensure_ascii=False), json.dumps(b_result, ensure_ascii=False)
         return jsonify({
-            'string':'2','a_common': a_result,
+            'string':'2','a_common': json.dumps(a_result, ensure_ascii=False),
             'a_economy_class':json.dumps(a_economy_class.tolist(),ensure_ascii=False),
             'a_First_class':json.dumps(a_First_class.tolist(),ensure_ascii=False),
             'a_go_sort':a_go_sort,
             'a_arrival_sort':a_arrival_sort,
-            'b_common': b_result,
+            'b_common': json.dumps(b_result, ensure_ascii=False),
             'b_economy_class':json.dumps(b_economy_class.tolist(),ensure_ascii=False),
             'b_First_class':json.dumps(b_First_class.tolist(),ensure_ascii=False),
             'b_go_sort':b_go_sort,
@@ -299,27 +298,28 @@ def index_ajax2():
 @app.post('/index_ajax3')  # 多程
 def index_ajax3():
     informations = json.loads(request.form.get('informations'))
+    n = len(informations)
     select_tasks = [
         (information[0], information[1], information[2])
         for information in informations
     ]
     results = []
-    with ThreadPoolExecutor() as pool:
+    with Thread_Pool as pool:
         futures = [pool.submit(Function.select_planes, task) for task in select_tasks]
         for future in futures:
             results.append(future.result())
     if False in results:
+        logging.warning('数据库更新时试图访问数据!')
         jsonify({'string': '0'})
     for result in results:
         if result is None or result == []:
             return jsonify({'string': '1'})
-    for i in range(len(results) - 1):
-        if results[i][6] != select_tasks[i][0] or results[i][7] != select_tasks[i][1]:
-            for j in range(i + 1, len(results)):
-                if results[j][6] == select_tasks[i][0] or results[j][7] == select_tasks[i][1]:
-                    temp = results[j]
-                    results[j] = results[i]
-                    results[i] = temp
+    for i in range(n-1):
+        for j in range(i,n):
+            if results[j][6] == informations[i][0] and results[j][7] == informations[i][1]:
+                results[i],results[j] = results[j],results[i]
+                return
+
 
 
 @app.get('/settlement')  # 结算
@@ -344,14 +344,11 @@ def settlement_ajax1():
     numbers = request.form.get('numbers')
     emails = request.form.get('emails')
     Function.set_task([index, acity, numbers])
-    t = threading.Thread(target=Function.set_task, args=([acity, index, numbers],))
-    t.start()
+    Thread_Pool.submit(Function.set_task,[acity, index, numbers])
     content = Function.get_content(company, flight_number, acity, bcity, adate, bdate)
     more = f'。详细信息请访问{request.host_url}'
     if len(emails) == 1:
-        t = threading.Thread(target=send_email, args=(app, emails, '购票通知', content + emails[0] + more),
-                             name='settlement_thread')
-        t.start()
+        Thread_Pool.submit(send_email,(app, emails, '购票通知', content + emails[0] + more))
     else:
         tasks = [
             (app, [email], '购票信息', content + email + more)

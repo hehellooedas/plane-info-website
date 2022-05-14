@@ -136,6 +136,7 @@ function reqfirst() {
                 if (data['string'] === "2") {
                     arr = data['a_common'];
                     arr = JSON.parse(arr);
+                    console.log(arr);
                     arr2 = data['a_go_sort'];
                     arr2 = JSON.parse(arr2);
                     arr3 = data['a_arrival_sort'];
