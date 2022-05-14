@@ -11,7 +11,7 @@ from apscheduler.triggers.interval import IntervalTrigger
 from user_agents import parse
 from markupsafe import escape
 from logging.handlers import TimedRotatingFileHandler
-import os, threading, logging, Function
+import os, threading, logging, Function,numpy
 
 # 日志处理
 logging.basicConfig()
@@ -205,14 +205,15 @@ def index_ajax1():
             'common': result, 'cost_sort': result, 'time_sort': result
         }
     else:
-        b = Thread_Pool.submit(Function.sort_planes_cost, result)  # 排序
-        c = Thread_Pool.submit(Function.sort_planes_time,result)
+        b = Thread_Pool.submit(Function.sort_planes_cost, numpy.array(result))  # 排序
+        c = Thread_Pool.submit(Function.sort_planes_time,numpy.array(result))
         economy_class,First_class = b.result()
+        economy_class, First_class = economy_class.tolist(), First_class.tolist()
         go_sort,arrival_sort = c.result()
-        # result为搜索后的结构，cost_sort为按价格排序后的结果,time_sort为按时间排序后的结果
-        return {
+        go_sort,arrival_sort = go_sort.tolist(),arrival_sort.tolist()
+        return jsonify({
             'common': result,'economy_class':economy_class,'First_class':First_class,'go_sort':go_sort,'arrival_sort':arrival_sort
-        }
+        })
 
 
 @csrf.exempt
