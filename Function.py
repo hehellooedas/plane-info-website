@@ -91,7 +91,7 @@ def sort_planes_cost(result)->tuple:#按价格排序
             temp = numpy.copy(result[index])
             result[i] = result[index]
             result[index] = temp
-    return (cost_sort_Economics,result)
+    return cost_sort_Economics,result
 
 
 def sort_planes_time(result: list) -> tuple:#按时间排序
@@ -116,7 +116,7 @@ def sort_planes_time(result: list) -> tuple:#按时间排序
             temp = result[i]
             result[i] = result[index]
             result[index] = temp
-    return (json.dumps(time_go_sort,ensure_ascii=False),json.dumps(result,ensure_ascii=False))
+    return json.dumps(time_go_sort,ensure_ascii=False),json.dumps(result,ensure_ascii=False)
 
 
 

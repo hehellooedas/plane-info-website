@@ -299,7 +299,7 @@ def index_ajax2():
 @csrf.exempt
 @app.post('/index_ajax3')  # 多程
 def index_ajax3():
-    informations = request.form.get('informations')
+    informations = json.loads(request.form.get('informations'))
     select_tasks = [
         (information[0], information[1], information[2])
         for information in informations
