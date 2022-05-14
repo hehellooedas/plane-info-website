@@ -1,4 +1,3 @@
-import json
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 from apscheduler.events import EVENT_JOB_EXECUTED, EVENT_JOB_ERROR
 from flask import Flask, render_template, request, url_for, redirect, make_response, session, g, jsonify, abort
@@ -12,7 +11,7 @@ from apscheduler.triggers.interval import IntervalTrigger
 from user_agents import parse
 from markupsafe import escape
 from logging.handlers import TimedRotatingFileHandler
-import os, threading, logging, Function,numpy
+import os, threading, logging, Function,numpy,json
 
 # 日志处理
 logging.basicConfig()
@@ -197,7 +196,7 @@ def index_ajax1():
     a = Thread_Pool.submit(Function.select_planes, (acity, bcity, date))  # 搜索
     result = a.result()
     if result is False:
-        logging.warning('在数据库更新的时候试图访问数据')
+        logging.warning('数据库更新时试图访问数据!')
         return jsonify({'string': '0'})
     if result is None or result == []:
         return jsonify({'string': '1'})
@@ -210,10 +209,13 @@ def index_ajax1():
         b = Thread_Pool.submit(Function.sort_planes_cost, numpy.array(result))  # 排序
         c = Thread_Pool.submit(Function.sort_planes_time,result)
         economy_class,First_class = b.result()
-        economy_class, First_class,result = json.dumps(economy_class.tolist(),ensure_ascii=False), json.dumps(First_class.tolist()),json.dumps(result,ensure_ascii=False)
         go_sort,arrival_sort = c.result()
         return jsonify({
-            'string':'2','common': result,'economy_class':economy_class,'First_class':First_class,'go_sort':go_sort,'arrival_sort':arrival_sort
+            'string':'2','common': json.dumps(result,ensure_ascii=False),
+            'economy_class':json.dumps(economy_class.tolist(),ensure_ascii=False),
+            'First_class':json.dumps(First_class.tolist()),
+            'go_sort':go_sort,
+            'arrival_sort':arrival_sort
         })
 
 
@@ -231,30 +233,43 @@ def index_ajax2():
         return jsonify({'string': '0'})
     a_len, b_len = len(a_result), len(b_result)
     if a_result is None or a_result == []:
-        return jsonify({'string': f'1'})
+        return jsonify({'string': '1'})
     elif b_result is None or b_result == []:
-        return jsonify({'string': f'1'})
+        return jsonify({'string': '1'})
     elif a_len == 1 and b_len == 1:
+        a_result,b_result = json.dumps(a_result,ensure_ascii=False),json.dumps(b_result,ensure_ascii=False)
         return jsonify({
-            'string':'2','a_common': a_result,'a_economy_class':a_result,'a_First_class':a_result,'a_go_sort':a_result,'a_arrival_sort':a_result,
-            'b_common': b_result, 'b_economy_class':b_result,'b_First_class':b_result,'b_go_sort':b_result,'b_arrival_sort':b_result
+            'string':'2','a_common': a_result,'a_economy_class':a_result,
+            'a_First_class':a_result,'a_go_sort':a_result,'a_arrival_sort':a_result,
+            'b_common': b_result, 'b_economy_class':b_result,'b_First_class':b_result,
+            'b_go_sort':b_result,'b_arrival_sort':b_result
         })
     elif a_len == 1 and b_len > 1:
         a = Thread_Pool.submit(Function.sort_planes_cost,b_result)
         b = Thread_Pool.submit(Function.sort_planes_time,b_result)
-        b_economy_class,b_First_class = a.result()
+        b_economy_class, b_First_class = a.result()
         b_go_sort,b_arrival_sort = b.result()
+        a_result, b_result = json.dumps(a_result, ensure_ascii=False), json.dumps(b_result, ensure_ascii=False)
         return jsonify({
-            'string':'2','a_common': a_result, 'a_economy_class':a_result,'a_First_class':a_result,'a_go_sort':a_result,'a_arrival_sort':a_result,
-            'b_common': b_result, 'b_economy_class':b_economy_class,'b_First_class':b_First_class,'b_go_sort':b_go_sort,'b_arrival_sort':b_arrival_sort
+            'string':'2','a_common': a_result, 'a_economy_class':a_result,
+            'a_First_class':a_result,'a_go_sort':a_result,'a_arrival_sort':a_result,'b_common': b_result,
+            'b_economy_class':json.dumps(b_economy_class.tolist(),ensure_ascii=False),
+            'b_First_class':json.dumps(b_First_class.tplist(),ensure_ascii=False),
+            'b_go_sort':b_go_sort,
+            'b_arrival_sort':b_arrival_sort
         })
     elif b_len == 1 and a_len > 1:
         a = Thread_Pool.submit(Function.sort_planes_cost, a_result)
         b = Thread_Pool.submit(Function.sort_planes_time, a_result)
         a_economy_class,a_First_class = a.result()
         a_go_sort,a_arrival_sort = b.result()
+        a_result, b_result = json.dumps(a_result, ensure_ascii=False), json.dumps(b_result, ensure_ascii=False)
         return jsonify({
-            'string':'2','a_common': a_result,'a_economy_class':a_economy_class,'a_First_class':a_First_class,'a_go_sort':a_go_sort,'a_arrival_sort':a_arrival_sort,
+            'string':'2','a_common': a_result,
+            'a_economy_class':json.dumps(a_economy_class.tolist(),ensure_ascii=False),
+            'a_First_class':json.dumps(a_First_class.tolist(),ensure_ascii=False),
+            'a_go_sort':a_go_sort,
+            'a_arrival_sort':a_arrival_sort,
             'b_common': b_result, 'b_economy_class':b_result,'b_First_class':b_result,'b_go_sort':b_result,'b_arrival_sort':b_result
         })
     else:
@@ -266,16 +281,25 @@ def index_ajax2():
         a_go_sort, a_arrival_sort = c.result()
         b_economy_class, b_First_class = b.result()
         b_go_sort, b_arrival_sort = d.result()
+        a_result, b_result = json.dumps(a_result, ensure_ascii=False), json.dumps(b_result, ensure_ascii=False)
         return jsonify({
-            'string':'2','a_common': a_result, 'a_economy_class':a_economy_class,'a_First_class':a_First_class,'a_go_sort':a_go_sort,'a_arrival_sort':a_arrival_sort,
-            'b_common': b_result, 'b_economy_class':b_economy_class,'b_First_class':b_First_class,'b_go_sort':b_go_sort,'b_arrival_sort':b_arrival_sort
+            'string':'2','a_common': a_result,
+            'a_economy_class':json.dumps(a_economy_class.tolist(),ensure_ascii=False),
+            'a_First_class':json.dumps(a_First_class.tolist(),ensure_ascii=False),
+            'a_go_sort':a_go_sort,
+            'a_arrival_sort':a_arrival_sort,
+            'b_common': b_result,
+            'b_economy_class':json.dumps(b_economy_class.tolist(),ensure_ascii=False),
+            'b_First_class':json.dumps(b_First_class.tolist(),ensure_ascii=False),
+            'b_go_sort':b_go_sort,
+            'b_arrival_sort':b_arrival_sort
         })
 
 
 @csrf.exempt
 @app.post('/index_ajax3')  # 多程
 def index_ajax3():
-    informations = request.form.get('informations')
+    informations = json.loads(request.form.get('informations'))
     select_tasks = [
         (information[0], information[1], information[2])
         for information in informations
@@ -286,10 +310,10 @@ def index_ajax3():
         for future in futures:
             results.append(future.result())
     if False in results:
-        jsonify({'string': '很抱歉，服务器正在更新中，请稍后再尝试！'})
+        jsonify({'string': '0'})
     for result in results:
         if result is None or result == []:
-            return jsonify({'string': f'很抱歉，暂时没有能够满足您所有行程的机票'})
+            return jsonify({'string': '1'})
     for i in range(len(results) - 1):
         if results[i][6] != select_tasks[i][0] or results[i][7] != select_tasks[i][1]:
             for j in range(i + 1, len(results)):
@@ -359,7 +383,8 @@ def wait():
 
 @scheduler.task(trigger=interval, name='plane_update', id='plane_update')
 def plane_update():
-    Function.planes_Update_Function()
+    #为了不影响用户体验，使用进程池加快文件读写
+    Process_Pool.submit(Function.planes_Update_Function)
 
 
 @scheduler.task(trigger='interval', days=4, name='delete_log', id='delete_log')
