@@ -251,8 +251,9 @@ Vcity.CitySelector.prototype = {
                 odd = document.createElement('dd');
                 odt.innerHTML = sortKey[j] == 'hot'?'&nbsp;':sortKey[j];
                 odda = [];
+
                 for(var i=0,n=oCity[key][sortKey[j]].length;i<n;i++){
-                    str = '<a href="#">' + oCity[key][sortKey[j]][i] + '</a>';
+                    str = "<p>"+ oCity[key][sortKey[j]][i]+"</p>" ;
                     odda.push(str);
                 }
                 odd.innerHTML = odda.join('');
@@ -303,7 +304,7 @@ Vcity.CitySelector.prototype = {
      * */
 
     linkEvent:function(){
-        var links = Vcity._m.$('a',this.hotCity);
+        var links = Vcity._m.$('p',this.hotCity);
         var that = this;
         for(var i=0,n=links.length;i<n;i++){
             links[i].onclick = function(){
