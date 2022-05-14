@@ -33,15 +33,28 @@ function reqfirst() {
                 alert('cuowu');
             },
             success: function (data) {
-                if (data['string'] === 1) {
-                    showbodyf.innerHTML = '没有合适的航班';
+                if (data['string'] === "0") {
+                    showbodyf.innerHTML = '服务器在刷新';
+                    arr = [];
+                    arr2 = [];
+                    arr3 = [];
+                    arr4 = [];
+                    arr5 = [];
                 }
-                if (data['string'] === 2) {
-                    arr=data['common'];
-                    arr2=data['go_sort'];
-                    arr3=data['arriva_sort'];
-                    arr4=data['First_class'];
-                    add5=data['economy_class'];
+                if (data['string'] === "1") {
+                    showbodyf.innerHTML = '没有合适的航班';
+                    arr = [];
+                    arr2 = [];
+                    arr3 = [];
+                    arr4 = [];
+                    arr5 = [];
+                }
+                if (data['string'] === "2") {
+                    arr = eval(data['common']);
+                    arr2 = eval(data['go_sort']);
+                    arr3 = eval(data['arriva_sort']);
+                    arr4 = eval(data['First_class']);
+                    add5 = eval(data['economy_class']);
                     for (let i = 0; i < arr.length; i++) {
                         out += "<div" + " " + "class=" + "xinxi" + ">" +
                             "<div" + " " + "class=" + "tab" + ">" +
@@ -83,7 +96,7 @@ function reqfirst() {
                 alert('cuowu');
             },
             success: function (data) {
-                
+                 
             }
         });
     }
@@ -156,7 +169,7 @@ for (let k = 0; k < but.length; k++) {
         }
         this.style.backgroundColor = 'black';
         console.log(k);
-        if(k==0){
+        if (k == 0) {
             for (let i = 0; i < arr2.length; i++) {
                 out += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
@@ -166,7 +179,7 @@ for (let k = 0; k < but.length; k++) {
                     "<td>机型</td>" +
                     "<td>出发时间</td>" +
                     "<td>抵达时间</td>" +
-                    "<td>余票</td>"+"<td>公务舱</td>"+"<td>经济舱</td>"+"</tr>" +
+                    "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
                     "<tr" + " " + "class=" + "tr2" + "><td>" + arr[i][1] + "</td>" +
                     "<td>" + arr[i][2] + "</td>" +
                     "<td>" + arr[i][3] + "</td>" +
@@ -182,8 +195,7 @@ for (let k = 0; k < but.length; k++) {
             showbodyf.innerHTML = out;
             out = "";
         }
-        if(k==1)
-        {
+        if (k == 1) {
             for (let i = 0; i < arr3.length; i++) {
                 out += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
@@ -193,7 +205,7 @@ for (let k = 0; k < but.length; k++) {
                     "<td>机型</td>" +
                     "<td>出发时间</td>" +
                     "<td>抵达时间</td>" +
-                    "<td>余票</td>"+"<td>公务舱</td>"+"<td>经济舱</td>"+"</tr>" +
+                    "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
                     "<tr" + " " + "class=" + "tr2" + "><td>" + arr[i][1] + "</td>" +
                     "<td>" + arr[i][2] + "</td>" +
                     "<td>" + arr[i][3] + "</td>" +
@@ -209,8 +221,7 @@ for (let k = 0; k < but.length; k++) {
             showbodyf.innerHTML = out;
             out = "";
         }
-        if(k==2)
-        {
+        if (k == 2) {
             for (let i = 0; i < arr4.length; i++) {
                 out += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
@@ -220,7 +231,7 @@ for (let k = 0; k < but.length; k++) {
                     "<td>机型</td>" +
                     "<td>出发时间</td>" +
                     "<td>抵达时间</td>" +
-                    "<td>余票</td>"+"<td>公务舱</td>"+"<td>经济舱</td>"+"</tr>" +
+                    "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
                     "<tr" + " " + "class=" + "tr2" + "><td>" + arr[i][1] + "</td>" +
                     "<td>" + arr[i][2] + "</td>" +
                     "<td>" + arr[i][3] + "</td>" +
@@ -236,8 +247,7 @@ for (let k = 0; k < but.length; k++) {
             showbodyf.innerHTML = out;
             out = "";
         }
-        if(k==3)
-        {
+        if (k == 3) {
             for (let i = 0; i < arr5.length; i++) {
                 out += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
@@ -247,7 +257,7 @@ for (let k = 0; k < but.length; k++) {
                     "<td>机型</td>" +
                     "<td>出发时间</td>" +
                     "<td>抵达时间</td>" +
-                    "<td>余票</td>"+"<td>公务舱</td>"+"<td>经济舱</td>"+"</tr>" +
+                    "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
                     "<tr" + " " + "class=" + "tr2" + "><td>" + arr[i][1] + "</td>" +
                     "<td>" + arr[i][2] + "</td>" +
                     "<td>" + arr[i][3] + "</td>" +
@@ -265,13 +275,13 @@ for (let k = 0; k < but.length; k++) {
         }
     })
 }
-for (let k = 0; k < but.length; k++) {
+for (let k = 0; k < but2.length; k++) {
     but2[k].addEventListener('click', function () {
-        for (let j = 0; j < but.length; j++) {
+        for (let j = 0; j < but2.length; j++) {
             but2[j].style.backgroundColor = 'cornflowerblue';
         }
         this.style.backgroundColor = 'black';
-        if(k==0){
+        if (k == 0) {
             for (let i = 0; i < arr2.length; i++) {
                 out += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
@@ -281,7 +291,7 @@ for (let k = 0; k < but.length; k++) {
                     "<td>机型</td>" +
                     "<td>出发时间</td>" +
                     "<td>抵达时间</td>" +
-                    "<td>余票</td>"+"<td>公务舱</td>"+"<td>经济舱</td>"+"</tr>" +
+                    "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
                     "<tr" + " " + "class=" + "tr2" + "><td>" + arr[i][1] + "</td>" +
                     "<td>" + arr[i][2] + "</td>" +
                     "<td>" + arr[i][3] + "</td>" +
@@ -294,11 +304,10 @@ for (let k = 0; k < but.length; k++) {
                     "</div>" +
                     "</div>"
             }
-            showbodyf.innerHTML = out;
+            showbodys.innerHTML = out;
             out = "";
         }
-        if(k==1)
-        {
+        if (k == 1) {
             for (let i = 0; i < arr3.length; i++) {
                 out += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
@@ -308,7 +317,7 @@ for (let k = 0; k < but.length; k++) {
                     "<td>机型</td>" +
                     "<td>出发时间</td>" +
                     "<td>抵达时间</td>" +
-                    "<td>余票</td>"+"<td>公务舱</td>"+"<td>经济舱</td>"+"</tr>" +
+                    "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
                     "<tr" + " " + "class=" + "tr2" + "><td>" + arr[i][1] + "</td>" +
                     "<td>" + arr[i][2] + "</td>" +
                     "<td>" + arr[i][3] + "</td>" +
@@ -321,11 +330,10 @@ for (let k = 0; k < but.length; k++) {
                     "</div>" +
                     "</div>"
             }
-            showbodyf.innerHTML = out;
+            showbodys.innerHTML = out;
             out = "";
         }
-        if(k==2)
-        {
+        if (k == 2) {
             for (let i = 0; i < arr4.length; i++) {
                 out += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
@@ -335,7 +343,7 @@ for (let k = 0; k < but.length; k++) {
                     "<td>机型</td>" +
                     "<td>出发时间</td>" +
                     "<td>抵达时间</td>" +
-                    "<td>余票</td>"+"<td>公务舱</td>"+"<td>经济舱</td>"+"</tr>" +
+                    "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
                     "<tr" + " " + "class=" + "tr2" + "><td>" + arr[i][1] + "</td>" +
                     "<td>" + arr[i][2] + "</td>" +
                     "<td>" + arr[i][3] + "</td>" +
@@ -348,11 +356,10 @@ for (let k = 0; k < but.length; k++) {
                     "</div>" +
                     "</div>"
             }
-            showbodyf.innerHTML = out;
+            showbodys.innerHTML = out;
             out = "";
         }
-        if(k==3)
-        {
+        if (k == 3) {
             for (let i = 0; i < arr5.length; i++) {
                 out += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
@@ -362,7 +369,7 @@ for (let k = 0; k < but.length; k++) {
                     "<td>机型</td>" +
                     "<td>出发时间</td>" +
                     "<td>抵达时间</td>" +
-                    "<td>余票</td>"+"<td>公务舱</td>"+"<td>经济舱</td>"+"</tr>" +
+                    "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
                     "<tr" + " " + "class=" + "tr2" + "><td>" + arr[i][1] + "</td>" +
                     "<td>" + arr[i][2] + "</td>" +
                     "<td>" + arr[i][3] + "</td>" +
@@ -375,7 +382,7 @@ for (let k = 0; k < but.length; k++) {
                     "</div>" +
                     "</div>"
             }
-            showbodyf.innerHTML = out;
+            showbodys.innerHTML = out;
             out = "";
         }
     })
@@ -411,3 +418,5 @@ for (let k = 0; k < but.length; k++) {
 //     showbodyf.innerHTML = out;
 //     out = "";
 // });
+// var app="[[3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400]]";
+// console.log(eval(app));

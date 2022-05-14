@@ -1,0 +1,229 @@
+[ERROR] - Exception on /index_ajax1 [POST]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 210, in index_ajax1
+    economy_class,First_class = b.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\Python3.10.4\lib\site-packages\numba\core\dispatcher.py", line 468, in _compile_for_args
+    error_rewrite(e, 'typing')
+  File "D:\Python3.10.4\lib\site-packages\numba\core\dispatcher.py", line 409, in error_rewrite
+    raise e.with_traceback(None)
+numba.core.errors.TypingError: Failed in nopython mode pipeline (step: nopython frontend)
+[1m[1mUnknown attribute 'deepcopy' of type Module(<module 'copy' from 'D:\\Python3.10.4\\lib\\copy.py'>)
+[1m
+File "Function.py", line 84:[0m
+[1mdef sort_planes_cost(result)->tuple:#按价格排序
+    <source elided>
+            result[index] = temp
+[1m    cost_sort_Economics = copy.deepcopy(result)  # 申请一段内存单独存储排序后的结果
+[0m    [1m^[0m[0m
+[0m
+[0m[1mDuring: typing of get attribute at D:\民航行程推荐\Function.py (84)[0m
+[1m
+File "Function.py", line 84:[0m
+[1mdef sort_planes_cost(result)->tuple:#按价格排序
+    <source elided>
+            result[index] = temp
+[1m    cost_sort_Economics = copy.deepcopy(result)  # 申请一段内存单独存储排序后的结果
+[0m    [1m^[0m[0m
+
+[ERROR] - Exception on /index_ajax1 [POST]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 210, in index_ajax1
+    economy_class,First_class = b.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\Python3.10.4\lib\site-packages\numba\core\dispatcher.py", line 468, in _compile_for_args
+    error_rewrite(e, 'typing')
+  File "D:\Python3.10.4\lib\site-packages\numba\core\dispatcher.py", line 409, in error_rewrite
+    raise e.with_traceback(None)
+numba.core.errors.TypingError: Failed in nopython mode pipeline (step: nopython frontend)
+[1m[1mUnknown attribute 'deepcopy' of type Module(<module 'copy' from 'D:\\Python3.10.4\\lib\\copy.py'>)
+[1m
+File "Function.py", line 84:[0m
+[1mdef sort_planes_cost(result)->tuple:#按价格排序
+    <source elided>
+            result[index] = temp
+[1m    cost_sort_Economics = copy.deepcopy(result)  # 申请一段内存单独存储排序后的结果
+[0m    [1m^[0m[0m
+[0m
+[0m[1mDuring: typing of get attribute at D:\民航行程推荐\Function.py (84)[0m
+[1m
+File "Function.py", line 84:[0m
+[1mdef sort_planes_cost(result)->tuple:#按价格排序
+    <source elided>
+            result[index] = temp
+[1m    cost_sort_Economics = copy.deepcopy(result)  # 申请一段内存单独存储排序后的结果
+[0m    [1m^[0m[0m
+
+[ERROR] - Exception on /index_ajax1 [POST]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 212, in index_ajax1
+    go_sort,arrival_sort = c.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\Python3.10.4\lib\site-packages\numba\core\dispatcher.py", line 468, in _compile_for_args
+    error_rewrite(e, 'typing')
+  File "D:\Python3.10.4\lib\site-packages\numba\core\dispatcher.py", line 409, in error_rewrite
+    raise e.with_traceback(None)
+numba.core.errors.TypingError: Failed in nopython mode pipeline (step: nopython frontend)
+[1m[1m[1mNo implementation of function Function(<class 'int'>) found for signature:
+ 
+ >>> int(unicode_type)
+ 
+There are 2 candidate implementations:
+[1m     - Of which 2 did not match due to:
+     Overload of function 'int': File: numba\core\typing\builtins.py: Line 953.
+       With argument(s): '(unicode_type)':[0m
+[1m      No match.[0m
+[0m
+[0m[1mDuring: resolving callee type: Function(<class 'int'>)[0m
+[0m[1mDuring: typing of call at D:\民航行程推荐\Function.py (100)
+[0m
+[1m
+File "Function.py", line 100:[0m
+[1mdef sort_planes_time(result: list) -> tuple:#按时间排序
+    <source elided>
+    for i in t:
+[1m        i[0] = int(i[0])
+[0m        [1m^[0m[0m
+
+[ERROR] - Exception on /index_ajax1 [POST]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 212, in index_ajax1
+    go_sort,arrival_sort = c.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\Python3.10.4\lib\site-packages\numba\core\dispatcher.py", line 487, in _compile_for_args
+    raise e
+  File "D:\Python3.10.4\lib\site-packages\numba\core\dispatcher.py", line 420, in _compile_for_args
+    return_val = self.compile(tuple(argtypes))
+  File "D:\Python3.10.4\lib\site-packages\numba\core\dispatcher.py", line 965, in compile
+    cres = self._compiler.compile(args, return_type)
+  File "D:\Python3.10.4\lib\site-packages\numba\core\dispatcher.py", line 125, in compile
+    status, retval = self._compile_cached(args, return_type)
+  File "D:\Python3.10.4\lib\site-packages\numba\core\dispatcher.py", line 139, in _compile_cached
+    retval = self._compile_core(args, return_type)
+  File "D:\Python3.10.4\lib\site-packages\numba\core\dispatcher.py", line 152, in _compile_core
+    cres = compiler.compile_extra(self.targetdescr.typing_context,
+  File "D:\Python3.10.4\lib\site-packages\numba\core\compiler.py", line 693, in compile_extra
+    return pipeline.compile_extra(func)
+  File "D:\Python3.10.4\lib\site-packages\numba\core\compiler.py", line 429, in compile_extra
+    return self._compile_bytecode()
+  File "D:\Python3.10.4\lib\site-packages\numba\core\compiler.py", line 497, in _compile_bytecode
+    return self._compile_core()
+  File "D:\Python3.10.4\lib\site-packages\numba\core\compiler.py", line 476, in _compile_core
+    raise e
+  File "D:\Python3.10.4\lib\site-packages\numba\core\compiler.py", line 463, in _compile_core
+    pm.run(self.state)
+  File "D:\Python3.10.4\lib\site-packages\numba\core\compiler_machinery.py", line 353, in run
+    raise patched_exception
+  File "D:\Python3.10.4\lib\site-packages\numba\core\compiler_machinery.py", line 341, in run
+    self._runPass(idx, pass_inst, state)
+  File "D:\Python3.10.4\lib\site-packages\numba\core\compiler_lock.py", line 35, in _acquire_compile_lock
+    return func(*args, **kwargs)
+  File "D:\Python3.10.4\lib\site-packages\numba\core\compiler_machinery.py", line 296, in _runPass
+    mutated |= check(pss.run_pass, internal_state)
+  File "D:\Python3.10.4\lib\site-packages\numba\core\compiler_machinery.py", line 269, in check
+    mangled = func(compiler_state)
+  File "D:\Python3.10.4\lib\site-packages\numba\core\object_mode_passes.py", line 53, in run_pass
+    cres = self._frontend_looplift(state)
+  File "D:\Python3.10.4\lib\site-packages\numba\core\object_mode_passes.py", line 40, in _frontend_looplift
+    cres = compile_ir(state.typingctx, state.targetctx, main,
+  File "D:\Python3.10.4\lib\site-packages\numba\core\compiler.py", line 731, in compile_ir
+    norw_cres = compile_local(func_ir.copy(), norw_flags)
+  File "D:\Python3.10.4\lib\site-packages\numba\core\compiler.py", line 727, in compile_local
+    return pipeline.compile_ir(func_ir=the_ir, lifted=lifted,
+  File "D:\Python3.10.4\lib\site-packages\numba\core\compiler.py", line 439, in compile_ir
+    return self._compile_ir()
+  File "D:\Python3.10.4\lib\site-packages\numba\core\compiler.py", line 504, in _compile_ir
+    return self._compile_core()
+  File "D:\Python3.10.4\lib\site-packages\numba\core\compiler.py", line 476, in _compile_core
+    raise e
+  File "D:\Python3.10.4\lib\site-packages\numba\core\compiler.py", line 463, in _compile_core
+    pm.run(self.state)
+  File "D:\Python3.10.4\lib\site-packages\numba\core\compiler_machinery.py", line 353, in run
+    raise patched_exception
+  File "D:\Python3.10.4\lib\site-packages\numba\core\compiler_machinery.py", line 341, in run
+    self._runPass(idx, pass_inst, state)
+  File "D:\Python3.10.4\lib\site-packages\numba\core\compiler_lock.py", line 35, in _acquire_compile_lock
+    return func(*args, **kwargs)
+  File "D:\Python3.10.4\lib\site-packages\numba\core\compiler_machinery.py", line 296, in _runPass
+    mutated |= check(pss.run_pass, internal_state)
+  File "D:\Python3.10.4\lib\site-packages\numba\core\compiler_machinery.py", line 269, in check
+    mangled = func(compiler_state)
+  File "D:\Python3.10.4\lib\site-packages\numba\core\object_mode_passes.py", line 120, in run_pass
+    lowered = backend_object_mode()
+  File "D:\Python3.10.4\lib\site-packages\numba\core\object_mode_passes.py", line 115, in backend_object_mode
+    return self._py_lowering_stage(state.targetctx,
+  File "D:\Python3.10.4\lib\site-packages\numba\core\object_mode_passes.py", line 78, in _py_lowering_stage
+    lower.lower()
+  File "D:\Python3.10.4\lib\site-packages\numba\core\lowering.py", line 234, in lower
+    self.library.add_ir_module(self.module)
+  File "D:\Python3.10.4\lib\site-packages\numba\core\codegen.py", line 728, in add_ir_module
+    ll_module = ll.parse_assembly(ir)
+  File "D:\Python3.10.4\lib\site-packages\llvmlite\binding\module.py", line 25, in parse_assembly
+    raise RuntimeError("LLVM IR parsing error\n{0}".format(errmsg))
+RuntimeError: Failed in object mode pipeline (step: object mode frontend)
+Failed in object mode pipeline (step: object mode backend)
+LLVM IR parsing error
+<string>:1333:49: error: expected value token
+  %".1089" = call i8* @"PyLong_FromSsize_t"(i64 slice(0, 2, None))
+                                                ^
+
