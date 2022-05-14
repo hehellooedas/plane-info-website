@@ -34,7 +34,7 @@ function reqfirst() {
             },
             success: function (data) {
                 if (data['string'] === "0") {
-                    showbodyf.innerHTML = '服务器在刷新';
+                    showbodyf.innerHTML = '服务器在更新';
                     arr = [];
                     arr2 = [];
                     arr3 = [];
@@ -50,7 +50,9 @@ function reqfirst() {
                     arr5 = [];
                 }
                 if (data['string'] === "2") {
-                    arr = eval(data['common']);
+                    arr = data['common'];
+                    arr = JSON.parse(arr);
+                    console.log(arr);
                     arr2 = eval(data['go_sort']);
                     arr3 = eval(data['arriva_sort']);
                     arr4 = eval(data['First_class']);

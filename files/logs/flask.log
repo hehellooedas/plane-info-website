@@ -325,3 +325,12 @@ Traceback (most recent call last):
   File "D:\Python3.10.4\lib\json\encoder.py", line 179, in default
     raise TypeError(f'Object of type {o.__class__.__name__} '
 TypeError: Object of type ndarray is not JSON serializable
+[WARNING] - 在数据库更新的时候试图访问数据
+[WARNING] - 在数据库更新的时候试图访问数据
+[WARNING] - 在数据库更新的时候试图访问数据
+[WARNING] - 在数据库更新的时候试图访问数据
+[WARNING] - 在数据库更新的时候试图访问数据
+[WARNING] - 在数据库更新的时候试图访问数据
+[WARNING] - 在数据库更新的时候试图访问数据
+[WARNING] - 在数据库更新的时候试图访问数据
+[WARNING] - 在数据库更新的时候试图访问数据

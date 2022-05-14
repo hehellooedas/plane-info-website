@@ -15,14 +15,12 @@
     <link rel="stylesheet" href="../static/s-css/city.css">
     <script src="../static/s-js/jquery.min.js"></script>
 </head>
-
 <body>
     <!-- 遮罩层 -->
     <div class="cover">
 
     </div>
-    <!-- src  你改一下 -->
-    <iframe src="../templates/wait.html" frameborder="0" name="hello" scrolling="no" class="ifa"></iframe>
+    <iframe src="/wait" frameborder="0" name="hello" scrolling="no" class="ifa"></iframe>
     <div class="jingbao">
         <h1>购买须知</h1>
 
@@ -71,7 +69,7 @@
         </div>
     </div>
     <!-- 展示近期时间的航班 -->
-    <div class="date ban"><a href="#"><img src="../static/s-other/adv.png" alt=""></a></div>
+    <div class="date ban"><a href=""><img src="../static/s-other/adv (2).png" alt=""></a></div>
     <!-- 选择去程和返程的航班 -->
     <div class="show ban">
         <div class="kuang">
@@ -141,75 +139,20 @@
         </div>
         <!-- 选择完成时航班的展示 -->
         <div class="show-body0">
-            <div class="xinxi">
-                <!-- <div class="gou">
-                    <input type="radio" name="a" class="radio">
-                </div> -->
-                <div class="tab">
-                    <table border="1px">
-                        <tr class="tr1">
-                            <td>航空公司</td>
-                            <td>航班</td>
-                            <td>机型</td>
-                            <td>出发时间</td>
-                            <td>抵达时间</td>
-                            <td>余票</td>
-                            <td>公务舱</td>
-                            <td>经济舱</td>
-                        </tr>
-                        <tr class="tr2">
-                            <td>厦门航空</td>
-                            <td>MF8083</td>
-                            <td>波音737</td>
-                            <td>2022-12-21 07:45:00</td>
-                            <td>2022-12-21 09:50:00</td>
-                            <td>400</td>
-                            <td>4100
-                                <input type="radio" name="a" class="radio">
-                            </td>
-                            <td>2100
-                                <input type="radio" name="a" class="radio">
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="xinxi">
-                <!-- <div class="gou">
-                    <input type="radio" name="a" class="radio">
-                </div> -->
-                <div class="tab">
-                    <table border="1px">
-                        <tr class="tr1">
-                            <td>航空公司</td>
-                            <td>航班</td>
-                            <td>机型</td>
-                            <td>出发时间</td>
-                            <td>抵达时间</td>
-                            <td>余票</td>
-                            <td>公务舱</td>
-                            <td>经济舱</td>
-                        </tr>
-                        <tr class="tr2">
-                            <td>厦门航空</td>
-                            <td>MF8083</td>
-                            <td>波音737</td>
-                            <td>2022-12-21 07:45:00</td>
-                            <td>2022-12-21 09:50:00</td>
-                            <td>400</td>
-                            <td>4100
-                                <input type="radio" name="a" class="radio">
-                            </td>
-                            <td>2100
-                                <input type="radio" name="a" class="radio">
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+            <span>
+                航班信息显示qwq
+                <p>
+                    <img src="../static/s-other/1(1).png" alt="">
+                </p>
+            </span>
         </div>
         <div class="show-body2">
-            4
+            <span>
+                航班信息显示qwq
+                <p>
+                    <img src="../static/s-other/1(1).png" alt="">
+                </p>
+            </span>
         </div>
     </div>
     <div id="foot">
@@ -241,7 +184,6 @@
     </div>
 </body>
 <script>
-    var csrf_token = $("csrf-token").val();
     var gobtn = document.getElementById('gobtn');
     var backbtn = document.getElementById('backbtn');
     var navf = document.getElementsByClassName('nav0')[0];
@@ -276,14 +218,10 @@
             cover.className = 'cover';
             ifa.className = 'ifa';
             //计算时间
-        }, 5000);
+        }, 3000);
     })
-    pay.addEventListener('click', function () {
-        location.href = './settlement.html';
-    })
-    pay2.addEventListener('click', function () {
-        location.href = './settlement.html';
-    })
+
+
 </script>
 <script src="../static/s-js/city.js"></script>
 <script src="../static/s-js/index.js"></script>

@@ -202,7 +202,7 @@ def index_ajax1():
     if result is None or result == []:
         return jsonify({'string': '1'})
     elif len(result) == 1:
-        result = json.dumps(result)
+        result = json.dumps(result,ensure_ascii=False)
         return {
             'string':'2','common': result,'economy_class':result,'First_class':result,'go_sort':result,'arrival_sort':result
         }
@@ -210,9 +210,8 @@ def index_ajax1():
         b = Thread_Pool.submit(Function.sort_planes_cost, numpy.array(result))  # 排序
         c = Thread_Pool.submit(Function.sort_planes_time,result)
         economy_class,First_class = b.result()
-        economy_class, First_class,result = json.dumps(economy_class.tolist()), json.dumps(First_class.tolist()),json.dumps(result)
+        economy_class, First_class,result = json.dumps(economy_class.tolist(),ensure_ascii=False), json.dumps(First_class.tolist()),json.dumps(result,ensure_ascii=False)
         go_sort,arrival_sort = c.result()
-        result = json.dumps(result)
         return jsonify({
             'string':'2','common': result,'economy_class':economy_class,'First_class':First_class,'go_sort':go_sort,'arrival_sort':arrival_sort
         })
@@ -229,15 +228,15 @@ def index_ajax2():
     a_result, b_result = a.result(), b.result()
     if a_result is False or b_result is False:
         logging.warning('在数据库更新的时候试图访问数据')
-        return jsonify({'string': '很抱歉，服务器正在更新中，请稍后再尝试！'})
+        return jsonify({'string': '0'})
     a_len, b_len = len(a_result), len(b_result)
     if a_result is None or a_result == []:
-        return jsonify({'string': f'很抱歉，暂时没有从{acity}到{bcity}符合您要求的机票'})
+        return jsonify({'string': f'1'})
     elif b_result is None or b_result == []:
-        return jsonify({'string': f'很抱歉，暂时没有从{bcity}到{acity}符合您要求的机票'})
+        return jsonify({'string': f'1'})
     elif a_len == 1 and b_len == 1:
         return jsonify({
-            'a_common': a_result,'a_economy_class':a_result,'a_First_class':a_result,'a_go_sort':a_result,'a_arrival_sort':a_result,
+            'string':'2','a_common': a_result,'a_economy_class':a_result,'a_First_class':a_result,'a_go_sort':a_result,'a_arrival_sort':a_result,
             'b_common': b_result, 'b_economy_class':b_result,'b_First_class':b_result,'b_go_sort':b_result,'b_arrival_sort':b_result
         })
     elif a_len == 1 and b_len > 1:
@@ -246,7 +245,7 @@ def index_ajax2():
         b_economy_class,b_First_class = a.result()
         b_go_sort,b_arrival_sort = b.result()
         return jsonify({
-            'a_common': a_result, 'a_economy_class':a_result,'a_First_class':a_result,'a_go_sort':a_result,'a_arrival_sort':a_result,
+            'string':'2','a_common': a_result, 'a_economy_class':a_result,'a_First_class':a_result,'a_go_sort':a_result,'a_arrival_sort':a_result,
             'b_common': b_result, 'b_economy_class':b_economy_class,'b_First_class':b_First_class,'b_go_sort':b_go_sort,'b_arrival_sort':b_arrival_sort
         })
     elif b_len == 1 and a_len > 1:
@@ -255,7 +254,7 @@ def index_ajax2():
         a_economy_class,a_First_class = a.result()
         a_go_sort,a_arrival_sort = b.result()
         return jsonify({
-            'a_common': a_result,'a_economy_class':a_economy_class,'a_First_class':a_First_class,'a_go_sort':a_go_sort,'a_arrival_sort':a_arrival_sort,
+            'string':'2','a_common': a_result,'a_economy_class':a_economy_class,'a_First_class':a_First_class,'a_go_sort':a_go_sort,'a_arrival_sort':a_arrival_sort,
             'b_common': b_result, 'b_economy_class':b_result,'b_First_class':b_result,'b_go_sort':b_result,'b_arrival_sort':b_result
         })
     else:
@@ -268,7 +267,7 @@ def index_ajax2():
         b_economy_class, b_First_class = b.result()
         b_go_sort, b_arrival_sort = d.result()
         return jsonify({
-            'a_common': a_result, 'a_economy_class':a_economy_class,'a_First_class':a_First_class,'a_go_sort':a_go_sort,'a_arrival_sort':a_arrival_sort,
+            'string':'2','a_common': a_result, 'a_economy_class':a_economy_class,'a_First_class':a_First_class,'a_go_sort':a_go_sort,'a_arrival_sort':a_arrival_sort,
             'b_common': b_result, 'b_economy_class':b_economy_class,'b_First_class':b_First_class,'b_go_sort':b_go_sort,'b_arrival_sort':b_arrival_sort
         })
 
@@ -354,6 +353,9 @@ def settlement_ajax2():
 def success():
     return render_template('success.html')
 
+@app.get('/wait')
+def wait():
+    return render_template('wait.html')
 
 @scheduler.task(trigger=interval, name='plane_update', id='plane_update')
 def plane_update():
