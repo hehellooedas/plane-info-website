@@ -70,7 +70,7 @@ def planes_Update_Function():
             f.truncate()  # 完成所有task之后，清空这个写有任务的pickle文件
 
 
-@numba.jit(nopython=True)
+@numba.jit(nopython=True,cache=True,nogil=True)
 def sort_planes_cost(result)->tuple:#按价格排序
     for i in range(len(result) - 1):
         index = i
@@ -94,6 +94,8 @@ def sort_planes_cost(result)->tuple:#按价格排序
     return cost_sort_Economics,result
 
 
+
+
 def sort_planes_time(result: list) -> tuple:#按时间排序
     t = [(lambda x:[int(x[0]),int(x[1])])(i[4].split(' ')[1].split(':')[0:2]) for i in result]
     for i in range(len(result) - 1):
@@ -115,6 +117,8 @@ def sort_planes_time(result: list) -> tuple:#按时间排序
             t[i], t[index] = t[index], t[i]
             result[i], result[index] = result[index], result[i]
     return json.dumps(time_go_sort,ensure_ascii=False),json.dumps(result,ensure_ascii=False)
+
+
 
 
 

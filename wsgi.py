@@ -304,22 +304,28 @@ def index_ajax3():
         for information in informations
     ]
     results = []
-    with Thread_Pool as pool:
-        futures = [pool.submit(Function.select_planes, task) for task in select_tasks]
-        for future in futures:
-            results.append(future.result())
+    futures = [Thread_Pool.submit(Function.select_planes, task) for task in select_tasks]
+    for future in futures:
+        results.append(future.result())
     if False in results:
         logging.warning('数据库更新时试图访问数据!')
         jsonify({'string': '0'})
     for result in results:
         if result is None or result == []:
             return jsonify({'string': '1'})
-    for i in range(n-1):
-        for j in range(i,n):
-            if results[j][6] == informations[i][0] and results[j][7] == informations[i][1]:
-                results[i],results[j] = results[j],results[i]
-                return
+    #for i in range(n-1):
+        #for j in range(i,n):
+            #if results[j][6] == informations[i][0] and results[j][7] == informations[i][1]:
+                #results[i],results[j] = results[j],results[i]
+                #return
 
+
+@csrf.exempt
+@app.post('/index_ajax4')
+def index_ajax4():
+    g.st = request.form.get('st')
+    g.table = request.form.get('table')
+    return redirect(url_for('settlement'))
 
 
 @app.get('/settlement')  # 结算
@@ -336,27 +342,25 @@ def settlement():
 
 
 @csrf.exempt
-@app.post('/settlement_ajax1')  # 单程结算
+@app.post('/settlement_ajax')
 def settlement_ajax1():
-    table = request.form.get('table')
-    index, company, flight_number, acity, bcity, adate, bdate = \
-    table[0], table[1], table[2], table[6], table[7], table[4], table[5]
-    numbers = request.form.get('numbers')
-    emails = request.form.get('emails')
-    Function.set_task([index, acity, numbers])
-    Thread_Pool.submit(Function.set_task,[acity, index, numbers])
-    content = Function.get_content(company, flight_number, acity, bcity, adate, bdate)
-    more = f'。详细信息请访问{request.host_url}'
-    if len(emails) == 1:
-        Thread_Pool.submit(send_email,(app, emails, '购票通知', content + emails[0] + more))
-    else:
-        tasks = [
-            (app, [email], '购票信息', content + email + more)
-            for email in emails
-        ]
-        with ThreadPoolExecutor() as pool:
-            pool.map(send_email, tasks)
-    return redirect(url_for('success'))
+    st = g.get('st')
+    table = g.get('table')
+    if st == 1:
+        acity,bcity,adate,adate = table[6],table[7],table[4],table[5]
+        #Thread_Pool.submit(Function.set_task,[acity, index, numbers])
+    #content = Function.get_content(company, flight_number, acity, bcity, adate, bdate)
+    #more = f'。详细信息请访问{request.host_url}'
+    #if len(emails) == 1:
+        #Thread_Pool.submit(send_email,(app, emails, '购票通知', content + emails[0] + more))
+    #else:
+        #tasks = [
+            #(app, [email], '购票信息', content + email + more)
+            #for email in emails
+        #]
+        #with ThreadPoolExecutor() as pool:
+            #pool.map(send_email, tasks)
+    #return redirect(url_for('success'))
 
 
 @csrf.exempt
