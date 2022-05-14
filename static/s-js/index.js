@@ -34,7 +34,7 @@ function reqfirst() {
             },
             success: function (data) {
                 if (data['string'] === "0") {
-                    showbodyf.innerHTML = '服务器在更新';
+                    showbodyf.innerHTML ="<span>"+"服务器正在在更新"+"<p>"+"<img"+" "+"src="+"../static/s-other/1(1).png"+">"+"</span>";
                     arr = [];
                     arr2 = [];
                     arr3 = [];
@@ -42,7 +42,7 @@ function reqfirst() {
                     arr5 = [];
                 }
                 if (data['string'] === "1") {
-                    showbodyf.innerHTML = '没有合适的航班';
+                    showbodyf.innerHTML ="<span>"+"没有航班了呦"+"<p>"+"<img"+" "+"src="+"../static/s-other/1(1).png"+">"+"</span>";
                     arr = [];
                     arr2 = [];
                     arr3 = [];
@@ -52,11 +52,14 @@ function reqfirst() {
                 if (data['string'] === "2") {
                     arr = data['common'];
                     arr = JSON.parse(arr);
-                    console.log(arr);
                     arr2 = eval(data['go_sort']);
+                    arr2 = JSON.parse(arr2);
                     arr3 = eval(data['arriva_sort']);
+                    arr3 = JSON.parse(arr3);
                     arr4 = eval(data['First_class']);
+                    arr4 = JSON.parse(arr4);
                     add5 = eval(data['economy_class']);
+                    arr5 = JSON.parse(arr5);
                     for (let i = 0; i < arr.length; i++) {
                         out += "<div" + " " + "class=" + "xinxi" + ">" +
                             "<div" + " " + "class=" + "tab" + ">" +
@@ -167,9 +170,9 @@ var but2 = document.getElementsByClassName('but2');
 for (let k = 0; k < but.length; k++) {
     but[k].addEventListener('click', function () {
         for (let j = 0; j < but.length; j++) {
-            but[j].style.backgroundColor = 'cornflowerblue';
+            but[j].style.backgroundColor = 'powderblue';
         }
-        this.style.backgroundColor = 'black';
+        this.style.backgroundColor = 'darkgray';
         console.log(k);
         if (k == 0) {
             for (let i = 0; i < arr2.length; i++) {
@@ -277,12 +280,14 @@ for (let k = 0; k < but.length; k++) {
         }
     })
 }
+// 2
+
 for (let k = 0; k < but2.length; k++) {
     but2[k].addEventListener('click', function () {
         for (let j = 0; j < but2.length; j++) {
-            but2[j].style.backgroundColor = 'cornflowerblue';
+            but2[j].style.backgroundColor = 'powderblue';
         }
-        this.style.backgroundColor = 'black';
+        this.style.backgroundColor = 'darkgray';
         if (k == 0) {
             for (let i = 0; i < arr2.length; i++) {
                 out += "<div" + " " + "class=" + "xinxi" + ">" +
@@ -389,9 +394,9 @@ for (let k = 0; k < but2.length; k++) {
         }
     })
 }
-//show0.innerHTML;
-// var arr = [[3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400]];
-//  but.addEventListener('click',function(){
+// var app="[[3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400]]";
+//     arr=eval(app);
+//  but[0].addEventListener('click',function(){
 //      console.log('sss')
 //     let p = 0;
 //     for (let i = 0; i < arr.length; i++) {

@@ -215,6 +215,7 @@ body{
     height: 120px;
 }
 .date > a {
+    pointer-events: none;
     width: 100%;
     height: 100%;
 }
@@ -315,16 +316,42 @@ body{
 }
 .show-body0{
     display: block;
-
     width: 1200px;
 }
-
+.show-body0 span{
+     display: inline-block;
+     width: 300px;
+     height: 300px;
+     margin-left: 500px;
+    font-size: 20px;
+}
+.show-body0 span p{
+    width: 200px;
+    height: 200px;
+}
+.show-body0 span p img{
+    width: 100%;
+    height: 100%;
+}
 .show-body2{
     display: none;
-
     width: 1200px;
 }
-
+.show-body2 span{
+    display: inline-block;
+    width: 300px;
+    height: 300px;
+    margin-left: 500px;
+    font-size: 20px;
+}
+.show-body2 span p{
+   width: 200px;
+   height: 200px;
+}
+.show-body2 span p img{
+   width: 100%;
+   height: 100%;
+}
 .info0 > li{
     color: aqua;
 }
@@ -414,7 +441,7 @@ body{
     width: 100px;
     height: 40px;
     border: none;
-    background-color: cornflowerblue;
+    background-color: powderblue;
     font-style: italic;
     font-size: 18px;
     border-radius: 10px 10px 10px 10px;
@@ -425,7 +452,7 @@ body{
     width: 100px;
     height: 40px;
     border: none;
-    background-color: cornflowerblue;
+    background-color:powderblue;
     font-style: italic;
     font-size: 18px;
     border-radius: 10px 10px 10px 10px;
@@ -465,7 +492,7 @@ body{
     height: 500px;
     border-radius: 10px;
     color: black;
-    background-color: azure;
+    background-color: cornsilk;
 }
 .jingbao2 p{
     font-size: large;
@@ -480,7 +507,7 @@ body{
     left: 100px;
     width: 300px;
     height: 40px;
-    background-color: cadetblue;
+    background-color:khaki;
     color: black;
 }
 .cha:active{
@@ -499,8 +526,26 @@ body{
 }
 .tr1 td{
     text-align: center;
+    width: 200px;
+}
+.tr1 td:nth-child(4){
+    width: 100px;
+    text-align: center;
+}
+.tr1 td:nth-child(5){
+    width: 100px;
+    text-align: center;
 }
 .tr2 td{
+    text-align: center;
+    width: 200px;
+}
+.tr2 td:nth-child(4){
+    width: 100px;
+    text-align: center;
+}
+.tr2 td:nth-child(5){
+    width: 100px;
     text-align: center;
 }
 .tab{
@@ -511,7 +556,6 @@ body{
 table{
     width: 100%;
     height: 100%;
-
 }
 .tiaojian{
     color: black;

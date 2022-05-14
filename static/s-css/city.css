@@ -19,5 +19,5 @@
     .cityTab dl{margin:0;padding:0;overflow:hidden;}
     .cityTab dl dt{float:left;padding-left:3px;color:#F30;text-indent:5px;font-family:"Lucida console","consolas","courier new";line-height:22px;font-size:14px;width:20px;}
     .cityTab dl dd{margin-left:2px;float:left;width:290px;}
-    .cityTab dl dd a{padding-left:5px;width:66px;line-height:22px;display:inline-block;color:#000;text-decoration:none;}
-    .cityTab dl dd a:hover{text-decoration:underline;color:red}
+    .cityTab dl dd p{padding-left:5px;width:66px;line-height:22px;display:inline-block;color:#000;text-decoration:none;}
+    .cityTab dl dd p:hover{text-decoration:underline;color:red;cursor: pointer;}
