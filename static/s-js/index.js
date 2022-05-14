@@ -12,7 +12,7 @@ var brr3 = [];
 var brr4 = [];
 var brr5 = [];
 var out = "";
-var out2="";
+var out2 = "";
 var st = 1;
 var acity = document.getElementById('citySelect');
 var bcity = document.getElementById('citySelect1');
@@ -109,6 +109,7 @@ function reqfirst() {
             success: function (data) {
                 if (data['string'] === "0") {
                     showbodyf.innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+                    showbodys.innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
                     arr = [];
                     arr2 = [];
                     arr3 = [];
@@ -122,6 +123,7 @@ function reqfirst() {
                 }
                 if (data['string'] === "1") {
                     showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+                    showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
                     arr = [];
                     arr2 = [];
                     arr3 = [];
@@ -146,15 +148,15 @@ function reqfirst() {
                     arr5 = data['a_economy_class'];
                     arr5 = JSON.parse(arr5);
                     brr = data['b_common'];
-                    brr = JSON.parse(arr);
+                    brr = JSON.parse(brr);
                     brr2 = data['b_go_sort'];
-                    brr2 = JSON.parse(arr2);
+                    brr2 = JSON.parse(brr2);
                     brr3 = data['b_arrival_sort'];
-                    brr3 = JSON.parse(arr3);
+                    brr3 = JSON.parse(brr3);
                     brr4 = data['b_First_class'];
-                    brr4 = JSON.parse(arr4);
+                    brr4 = JSON.parse(brr4);
                     brr5 = data['b_economy_class'];
-                    brr5 = JSON.parse(arr5);
+                    brr5 = JSON.parse(brr5);
                     for (let i = 0; i < arr.length; i++) {
                         out += "<div" + " " + "class=" + "xinxi" + ">" +
                             "<div" + " " + "class=" + "tab" + ">" +
@@ -177,6 +179,8 @@ function reqfirst() {
                             "</div>" +
                             "</div>"
                     }
+                    showbodyf.innerHTML = out;
+                    out = "";
                     for (let i = 0; i < arr.length; i++) {
                         out2 += "<div" + " " + "class=" + "xinxi" + ">" +
                             "<div" + " " + "class=" + "tab" + ">" +
@@ -291,7 +295,7 @@ for (let k = 0; k < but.length; k++) {
                     "</div>" +
                     "</div>"
             }
-            if (arr ==[]) {
+            if (arr.length==0) {
                 showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
@@ -322,7 +326,7 @@ for (let k = 0; k < but.length; k++) {
                     "</div>" +
                     "</div>"
             }
-            if (arr ==[]) {
+            if (arr.length==0) {
                 showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
@@ -353,7 +357,7 @@ for (let k = 0; k < but.length; k++) {
                     "</div>" +
                     "</div>"
             }
-            if (arr ==[]) {
+            if (arr.length==0) {
                 showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
@@ -384,7 +388,7 @@ for (let k = 0; k < but.length; k++) {
                     "</div>" +
                     "</div>"
             }
-            if (arr ==[]) {
+            if (arr.length==0) {
                 showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
@@ -405,7 +409,7 @@ for (let k = 0; k < but2.length; k++) {
         console.log(k);
         if (k == 0) {
             for (let i = 0; i < brr2.length; i++) {
-                out += "<div" + " " + "class=" + "xinxi" + ">" +
+                out2 += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
                     "<table" + " " + "border=" + "1px" + ">" +
                     "<tr" + " " + "class=" + "tr1" + ">" + "<td" + ">航空公司</td>" +
@@ -426,7 +430,7 @@ for (let k = 0; k < but2.length; k++) {
                     "</div>" +
                     "</div>"
             }
-            if (brr ==[]) {
+            if (brr == []) {
                 showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
@@ -436,7 +440,7 @@ for (let k = 0; k < but2.length; k++) {
         }
         if (k == 1) {
             for (let i = 0; i < brr3.length; i++) {
-                out += "<div" + " " + "class=" + "xinxi" + ">" +
+                out2 += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
                     "<table" + " " + "border=" + "1px" + ">" +
                     "<tr" + " " + "class=" + "tr1" + ">" + "<td" + ">航空公司</td>" +
@@ -457,7 +461,7 @@ for (let k = 0; k < but2.length; k++) {
                     "</div>" +
                     "</div>"
             }
-            if (brr ==[]) {
+            if (brr.length==0) {
                 showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
@@ -467,7 +471,7 @@ for (let k = 0; k < but2.length; k++) {
         }
         if (k == 2) {
             for (let i = 0; i < brr4.length; i++) {
-                out += "<div" + " " + "class=" + "xinxi" + ">" +
+                out2 += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
                     "<table" + " " + "border=" + "1px" + ">" +
                     "<tr" + " " + "class=" + "tr1" + ">" + "<td" + ">航空公司</td>" +
@@ -488,7 +492,7 @@ for (let k = 0; k < but2.length; k++) {
                     "</div>" +
                     "</div>"
             }
-            if (brr ==[]) {
+            if (brr.length==0) {
                 showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
@@ -498,7 +502,7 @@ for (let k = 0; k < but2.length; k++) {
         }
         if (k == 3) {
             for (let i = 0; i < brr5.length; i++) {
-                out += "<div" + " " + "class=" + "xinxi" + ">" +
+                out2 += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
                     "<table" + " " + "border=" + "1px" + ">" +
                     "<tr" + " " + "class=" + "tr1" + ">" + "<td" + ">航空公司</td>" +
@@ -519,7 +523,7 @@ for (let k = 0; k < but2.length; k++) {
                     "</div>" +
                     "</div>"
             }
-            if (brr ==[]) {
+            if (brr.length==0) {
                 showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
