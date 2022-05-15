@@ -1,2 +1,27 @@
 [WARNING] - 数据库更新时试图访问数据!
 [WARNING] - 数据库更新时试图访问数据!
+[2022-05-15 11:01:23,461]-[ERROR] [log_exception - 1455- Exception on /index_ajax2 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 283, in index_ajax2
+    a_economy_class, a_First_class = a.result()
+AttributeError: 'tuple' object has no attribute 'result'
+[2022-05-15 11:51:29,850]-[WARNING] [_process_jobs - 980- Execution of job "delete_log (trigger: interval[0:00:01], next run at: 2022-05-15 11:51:29 CST)" skipped: maximum number of running instances reached (1)]
+[2022-05-15 11:51:30,860]-[WARNING] [_process_jobs - 980- Execution of job "delete_log (trigger: interval[0:00:01], next run at: 2022-05-15 11:51:30 CST)" skipped: maximum number of running instances reached (1)]
+[2022-05-15 11:51:31,851]-[WARNING] [_process_jobs - 980- Execution of job "delete_log (trigger: interval[0:00:01], next run at: 2022-05-15 11:51:31 CST)" skipped: maximum number of running instances reached (1)]
+[2022-05-15 11:51:32,851]-[WARNING] [_process_jobs - 980- Execution of job "delete_log (trigger: interval[0:00:01], next run at: 2022-05-15 11:51:32 CST)" skipped: maximum number of running instances reached (1)]
+[2022-05-15 11:51:33,850]-[WARNING] [_process_jobs - 980- Execution of job "delete_log (trigger: interval[0:00:01], next run at: 2022-05-15 11:51:33 CST)" skipped: maximum number of running instances reached (1)]
+[2022-05-15 11:51:57,951]-[WARNING] [_process_jobs - 980- Execution of job "delete_log (trigger: interval[0:00:02], next run at: 2022-05-15 11:51:57 CST)" skipped: maximum number of running instances reached (1)]
+[2022-05-15 11:51:59,948]-[WARNING] [_process_jobs - 980- Execution of job "delete_log (trigger: interval[0:00:02], next run at: 2022-05-15 11:51:59 CST)" skipped: maximum number of running instances reached (1)]
+[2022-05-15 11:56:12,984]-[WARNING] [_process_jobs - 980- Execution of job "delete_log (trigger: interval[0:00:02], next run at: 2022-05-15 11:56:12 CST)" skipped: maximum number of running instances reached (1)]
+[2022-05-15 11:56:14,985]-[WARNING] [_process_jobs - 980- Execution of job "delete_log (trigger: interval[0:00:02], next run at: 2022-05-15 11:56:14 CST)" skipped: maximum number of running instances reached (1)]
+[2022-05-15 12:19:40,002]-[WARNING] [_process_jobs - 980- Execution of job "plane_update (trigger: interval[0:00:10], next run at: 2022-05-15 12:19:40 CST)" skipped: maximum number of running instances reached (1)]

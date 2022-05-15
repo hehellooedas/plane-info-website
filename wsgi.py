@@ -1,5 +1,5 @@
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
-from apscheduler.events import EVENT_JOB_EXECUTED, EVENT_JOB_ERROR
+from apscheduler.events import EVENT_JOB_ERROR
 from flask import Flask, render_template, request, url_for, redirect, make_response, session, g, jsonify, abort
 from flask_cors import CORS
 from flask_mail import Mail, Message
@@ -11,7 +11,8 @@ from apscheduler.triggers.interval import IntervalTrigger
 from user_agents import parse
 from markupsafe import escape
 from logging.handlers import TimedRotatingFileHandler
-import os, logging, Function,numpy,json,gc
+import os, logging, Function,numpy,json,time
+
 
 
 # 日志处理
@@ -34,7 +35,7 @@ interval = IntervalTrigger(
     end_date='2023-5-31 08:00:00',
     timezone='Asia/Shanghai'
 )
-
+open = True
 # 设置内置环境变量
 CORS(app, supports_credentials=True)
 os.environ['FLASK_APP'] = 'wsgi'
@@ -192,12 +193,14 @@ def index():
 @csrf.exempt
 @app.post('/index_ajax1')  # 单程
 def index_ajax1():
+    if open is False:
+        logging.warning('数据库更新时试图访问数据!')
+        return jsonify({'string': '0'})
     form = request.form
     acity, bcity, date = form.get('acity'), form.get('bcity'), form.get('adate')
     a = Thread_Pool.submit(Function.select_planes, (acity, bcity, date))  # 搜索
     result = a.result()
     if result is False:
-        logging.warning('数据库更新时试图访问数据!')
         return jsonify({'string': '0'})
     if result is None or result == []:
         return jsonify({'string': '1'})
@@ -223,13 +226,13 @@ def index_ajax1():
 @csrf.exempt
 @app.post('/index_ajax2')  # 往返
 def index_ajax2():
+    if open is False:
+        logging.warning('数据库更新时试图访问数据!')
+        return jsonify({'string': '0'})
     form = request.form
     acity, bcity, adate, bdate = form.get('acity'), form.get('bcity'), form.get('adate'), form.get('bdate')
-    a = Thread_Pool.submit(Function.select_planes, (acity, bcity, adate))
-    b = Thread_Pool.submit(Function.select_planes, (bcity, acity, bdate))
-    a_result, b_result = a.result(), b.result()
+    a_result, b_result = Thread_Pool.map(Function.select_planes,[(acity, bcity, adate),(bcity, acity, bdate)])
     if a_result is False or b_result is False:
-        logging.warning('在数据库更新的时候试图访问数据')
         return jsonify({'string': '0'})
     a_len, b_len = len(a_result), len(b_result)
     if a_result is None or a_result == []:
@@ -273,14 +276,12 @@ def index_ajax2():
             'b_common': b_result, 'b_economy_class':b_result,'b_First_class':b_result,'b_go_sort':b_result,'b_arrival_sort':b_result
         })
     else:
-        a = Thread_Pool.submit(Function.sort_planes_cost,numpy.array(a_result))
-        b = Thread_Pool.submit(Function.sort_planes_cost,numpy.array(b_result))
-        c = Thread_Pool.submit(Function.sort_planes_time,a_result)
-        d = Thread_Pool.submit(Function.sort_planes_time,b_result)
-        a_economy_class, a_First_class = a.result()
-        a_go_sort, a_arrival_sort = c.result()
-        b_economy_class, b_First_class = b.result()
-        b_go_sort, b_arrival_sort = d.result()
+        a,b = Process_Pool.map(Function.sort_planes_cost,[numpy.array(a_result),numpy.array(b_result)])
+        c,d = Process_Pool.map(Function.sort_planes_time,[a_result,b_result])
+        a_economy_class, a_First_class = a
+        a_go_sort, a_arrival_sort = c
+        b_economy_class, b_First_class = b
+        b_go_sort, b_arrival_sort = d
         return jsonify({
             'string':'2','a_common': json.dumps(a_result, ensure_ascii=False),
             'a_economy_class':json.dumps(a_economy_class.tolist(),ensure_ascii=False),
@@ -298,22 +299,17 @@ def index_ajax2():
 @csrf.exempt
 @app.post('/index_ajax3')  # 多程
 def index_ajax3():
+    if open is False:
+        logging.warning('数据库更新时试图访问数据!')
+        return jsonify({'string': '0'})
     informations = json.loads(request.form.get('informations'))
     n = len(informations)
-    select_tasks = [
-        (information[0], information[1], information[2])
-        for information in informations
-    ]
-    results = []
-    futures = [Thread_Pool.submit(Function.select_planes, task) for task in select_tasks]
-    for future in futures:
-        results.append(future.result())
+    results = [result for result in Thread_Pool.map(Function.select_planes
+    ,[(information[0], information[1], information[2]) for information in informations])]
     if False in results:
-        logging.warning('数据库更新时试图访问数据!')
         jsonify({'string': '0'})
-    for result in results:
-        if result is None or result == []:
-            return jsonify({'string': '1'})
+    if [] in results or None in results:
+        return jsonify({'string': '1'})
     #for i in range(n-1):
         #for j in range(i,n):
             #if results[j][6] == informations[i][0] and results[j][7] == informations[i][1]:
@@ -383,24 +379,27 @@ def success():
 def wait():
     return render_template('wait.html')
 
-@scheduler.task(trigger=interval, name='plane_update', id='plane_update')
+@scheduler.task(trigger=interval, name='plane_update', id='1')
 def plane_update():
-    Process_Pool.submit(Function.planes_Update_Function)
+    global open
+    open = False
+    logging.info('数据库开始更新~')
+    time.sleep(1)
+    Function.planes_Update_Function()
+    open = True
 
 
-@scheduler.task(trigger='interval', days=4, name='delete_log', id='delete_log')
+@scheduler.task(trigger='interval', days=5, name='delete_log', id='2')
 def delete_log():
-    os.remove('./files/flask.log')
+    Function.delete_log_byhand()
 
 
-def my_listener(event):
-    if event.exception:
-        #print("任务出错了,调度器已终止执行！")
-        logging.error("任务出错了,调度器已终止执行")
-        scheduler.shutdown()
+def listen_error(event):
+    logging.error('APScheduler出错误了!')
 
 
-scheduler.add_listener(my_listener, mask=EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
+scheduler.add_listener(listen_error,mask=EVENT_JOB_ERROR)
+
 
 if __name__ == '__main__':
     Process_Pool = ProcessPoolExecutor()#进程池
