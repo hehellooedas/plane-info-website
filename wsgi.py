@@ -11,14 +11,15 @@ from apscheduler.triggers.interval import IntervalTrigger
 from user_agents import parse
 from markupsafe import escape
 from logging.handlers import TimedRotatingFileHandler
-import os, logging, Function,numpy,json
+import os, logging, Function,numpy,json,gc
+
 
 # 日志处理
 logging.basicConfig()
 file_log_handler = TimedRotatingFileHandler(
 filename='./files/logs/flask.log', encoding='UTF-8', delay=True,backupCount=10, interval=10, when='D'
 )
-file_log_handler.setFormatter(logging.Formatter("[%(levelname)s] - %(message)s"))
+file_log_handler.setFormatter(logging.Formatter("[%(asctime)s]-[%(levelname)s] [%(funcName)s - %(lineno)s- %(message)s]"))
 file_log_handler.setLevel(logging.WARNING)
 logging.getLogger().addHandler(file_log_handler)
 
@@ -378,6 +379,7 @@ def success():
     return render_template('success.html')
 
 @app.get('/wait')
+@cache.cached()
 def wait():
     return render_template('wait.html')
 
