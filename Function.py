@@ -134,11 +134,13 @@ def select_planes(info: tuple) -> list | None | bool:
     except:
         return False
     a = city_excel.query("到达城市==@bcity")  # 第一轮（城市）筛选后
+    if len(a) == 0:
+        return None
     b = [i.split(' ')[0] for i in a['出发时间'].values]
     index = [i for i in range(len(b)) if b[i] == date]  # 第二轮（时间）筛选后,index为符合条件的索引
-    if not index:
-        return
-    z = a.loc[index].values
+    if not index or index == []:
+        return None
+    z = a.iloc[index].values
     for i in range(len(z)):
         result.append(numpy.insert(z[i], 0, index[i],axis=0).tolist())
     return result

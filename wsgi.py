@@ -1,5 +1,5 @@
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
-from apscheduler.events import EVENT_JOB_ERROR
+from apscheduler.events import EVENT_JOB_ERROR,EVENT_JOB_EXECUTED
 from flask import Flask, render_template, request, url_for, redirect, make_response, session, g, jsonify, abort
 from flask_cors import CORS
 from flask_mail import Mail, Message
@@ -7,6 +7,7 @@ from flask_seasurf import SeaSurf
 from flask_apscheduler import APScheduler
 from flask_avatars import Avatars
 from flask_caching import Cache
+from flask_sslify import SSLify
 from apscheduler.triggers.interval import IntervalTrigger
 from user_agents import parse
 from markupsafe import escape
@@ -29,13 +30,16 @@ csrf = SeaSurf(app)  # csrf防护
 scheduler = APScheduler()  # 定时任务
 scheduler.init_app(app)
 scheduler.api_enabled = True
+#sslify = SSLify(app)
+#app.config['SLACK_WEBHOOK_URL'] = os.environ.get('SLACK_WEBHOOK_URL')
+#app.config['SSL_DISABLED'] = False
 interval = IntervalTrigger(
     hours=6,  # 六小时更新一次数据库
     start_date='2022-4-29 08:00:00',
     end_date='2023-5-31 08:00:00',
     timezone='Asia/Shanghai'
 )
-open = True
+open = True#确认当前数据库中数据是否能对外开放
 # 设置内置环境变量
 CORS(app, supports_credentials=True)
 os.environ['FLASK_APP'] = 'wsgi'
@@ -69,7 +73,6 @@ def send_email(info: tuple):
     with app.app_context():
         msg = Message(
             subject=subject,
-            sender="928309386@qq.com",
             recipients=emails
         )
         msg.body = content + '\n收到请勿回复！若您从未注册民航推荐网，请无视这封邮件，注意不要泄露个人信息！'
@@ -79,12 +82,12 @@ def send_email(info: tuple):
             logging.error('邮件发送失败！')
 
 
-@app.errorhandler(404)
+@app.errorhandler(404)#访问了错误的url
 def encounter_404(error):
     return render_template('error.html')
 
 
-@app.errorhandler(403)
+@app.errorhandler(403)#检测出访问网站的是爬虫程序
 def encounter_403(error):
     return f'<h3>很抱歉，您被识别为爬虫程序，如检测错误，请刷新浏览器，很抱歉给您带来了不便,请您谅解！<br></br>{error}</h3>'
 
@@ -92,6 +95,7 @@ def encounter_403(error):
 @app.template_filter
 def judge_Systen():
     return request.cookies.get('system') == 'phone'
+
 
 
 @app.get('/login')
@@ -395,10 +399,19 @@ def delete_log():
 
 
 def listen_error(event):
-    logging.error('APScheduler出错误了!')
+    if event.job_id == '1':
+        logging.error('数据库更新时出现了错误!')
+    else:
+        logging.error('删除日志时出现了错误！')
 
+def finished_task(event):
+    if event.job_id == '1':
+        logging.info('数据库已完成更新！')
+    else:
+        logging.info('日志已自动删除！')
 
 scheduler.add_listener(listen_error,mask=EVENT_JOB_ERROR)
+scheduler.add_listener(finished_task,mask=EVENT_JOB_EXECUTED)
 
 
 if __name__ == '__main__':

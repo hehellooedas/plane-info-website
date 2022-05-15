@@ -25,3 +25,561 @@ AttributeError: 'tuple' object has no attribute 'result'
 [2022-05-15 11:56:12,984]-[WARNING] [_process_jobs - 980- Execution of job "delete_log (trigger: interval[0:00:02], next run at: 2022-05-15 11:56:12 CST)" skipped: maximum number of running instances reached (1)]
 [2022-05-15 11:56:14,985]-[WARNING] [_process_jobs - 980- Execution of job "delete_log (trigger: interval[0:00:02], next run at: 2022-05-15 11:56:14 CST)" skipped: maximum number of running instances reached (1)]
 [2022-05-15 12:19:40,002]-[WARNING] [_process_jobs - 980- Execution of job "plane_update (trigger: interval[0:00:10], next run at: 2022-05-15 12:19:40 CST)" skipped: maximum number of running instances reached (1)]
+[2022-05-15 13:51:08,960]-[ERROR] [log_exception - 1455- Exception on /index_ajax1 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 205, in index_ajax1
+    result = a.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\民航行程推荐\Function.py", line 141, in select_planes
+    z = a.loc[index].values
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 967, in __getitem__
+    return self._getitem_axis(maybe_callable, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1191, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1132, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1327, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5782, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5842, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([2860, 2861, 2862, 2863, 2864, 2865, 2866, 2867, 2868, 2869, 2870,\n            2871, 2872, 2873, 2874, 2875, 2876, 2877, 2878, 2879, 2880, 2881,\n            2882, 2883, 2884, 2885, 2886, 2887, 2888, 2889, 2890, 2891, 2892,\n            2893, 2894, 2895, 2896, 2897, 2898, 2899, 2900, 2901, 2902, 2903,\n            2904, 2905, 2906, 2907, 2908, 2909, 2910, 2911, 2912, 2913, 2914,\n            2915, 2916, 2917, 2918, 2919, 2920, 2921, 2922, 2923, 2924, 2925,\n            2926, 2927, 2928, 2929, 2930, 2931, 2932, 2933, 2934, 2935, 2936,\n            2937, 2938, 2939, 2940, 2941, 2942, 2943, 2944, 2945, 2946],\n           dtype='int64')] are in the [index]"
+[2022-05-15 13:57:17,978]-[ERROR] [log_exception - 1455- Exception on / [GET]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+TypeError: before() takes 0 positional arguments but 1 was given
+[2022-05-15 13:57:17,978]-[ERROR] [finalize_request - 1552- Request finalizing failed with an error while handling an error]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+TypeError: before() takes 0 positional arguments but 1 was given
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+TypeError: before() takes 0 positional arguments but 1 was given
+[2022-05-15 13:57:18,038]-[ERROR] [log_exception - 1455- Exception on /favicon.ico [GET]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+TypeError: before() takes 0 positional arguments but 1 was given
+[2022-05-15 13:57:18,048]-[ERROR] [finalize_request - 1552- Request finalizing failed with an error while handling an error]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+TypeError: before() takes 0 positional arguments but 1 was given
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+TypeError: before() takes 0 positional arguments but 1 was given
+[2022-05-15 13:57:48,966]-[ERROR] [log_exception - 1455- Exception on / [GET]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+[2022-05-15 13:57:48,966]-[ERROR] [finalize_request - 1552- Request finalizing failed with an error while handling an error]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+[2022-05-15 13:57:49,016]-[ERROR] [log_exception - 1455- Exception on /favicon.ico [GET]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+[2022-05-15 13:57:49,016]-[ERROR] [finalize_request - 1552- Request finalizing failed with an error while handling an error]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+[2022-05-15 13:58:12,655]-[ERROR] [log_exception - 1455- Exception on / [GET]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+[2022-05-15 13:58:12,658]-[ERROR] [finalize_request - 1552- Request finalizing failed with an error while handling an error]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+[2022-05-15 13:58:12,711]-[ERROR] [log_exception - 1455- Exception on /favicon.ico [GET]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+[2022-05-15 13:58:12,711]-[ERROR] [finalize_request - 1552- Request finalizing failed with an error while handling an error]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+[2022-05-15 17:29:03,118]-[ERROR] [log_exception - 1455- Exception on /index_ajax1 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 206, in index_ajax1
+    result = a.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\民航行程推荐\Function.py", line 141, in select_planes
+    z = a.loc[index].values
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 967, in __getitem__
+    return self._getitem_axis(maybe_callable, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1191, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1132, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1327, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5782, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5842, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([2845, 2846, 2847, 2848, 2849, 2850, 2851, 2852, 2853, 2854, 2855,\n            2856, 2857, 2858, 2859, 2860, 2861, 2862, 2863, 2864, 2865, 2866,\n            2867, 2868, 2869, 2870, 2871, 2872, 2873, 2874, 2875, 2876, 2877,\n            2878, 2879, 2880, 2881, 2882, 2883, 2884, 2885],\n           dtype='int64')] are in the [index]"
+[2022-05-15 17:32:36,418]-[ERROR] [log_exception - 1455- Exception on /index_ajax1 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 206, in index_ajax1
+    result = a.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\民航行程推荐\Function.py", line 141, in select_planes
+    z = a.loc[index].values
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 967, in __getitem__
+    return self._getitem_axis(maybe_callable, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1191, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1132, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1327, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5782, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5842, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([2418, 2419, 2420, 2421, 2422, 2423, 2424, 2425, 2426, 2427, 2428,\n            2429, 2430, 2431, 2432, 2433, 2434, 2435, 2436, 2437, 2438, 2439,\n            2440, 2441, 2442, 2443, 2444, 2445, 2446, 2447],\n           dtype='int64')] are in the [index]"
+[2022-05-15 17:33:41,134]-[ERROR] [log_exception - 1455- Exception on /index_ajax1 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 206, in index_ajax1
+    result,b = a.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\民航行程推荐\Function.py", line 141, in select_planes
+    z = a.loc[index].values
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 967, in __getitem__
+    return self._getitem_axis(maybe_callable, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1191, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1132, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1327, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5782, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5842, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([2418, 2419, 2420, 2421, 2422, 2423, 2424, 2425, 2426, 2427, 2428,\n            2429, 2430, 2431, 2432, 2433, 2434, 2435, 2436, 2437, 2438, 2439,\n            2440, 2441, 2442, 2443, 2444, 2445, 2446, 2447],\n           dtype='int64')] are in the [index]"
+[2022-05-15 17:34:55,970]-[ERROR] [log_exception - 1455- Exception on /index_ajax1 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 206, in index_ajax1
+    result = a.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\民航行程推荐\Function.py", line 143, in select_planes
+    z = a.loc[index].values
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 967, in __getitem__
+    return self._getitem_axis(maybe_callable, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1191, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1132, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1327, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5782, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5842, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([2418, 2419, 2420, 2421, 2422, 2423, 2424, 2425, 2426, 2427, 2428,\n            2429, 2430, 2431, 2432, 2433, 2434, 2435, 2436, 2437, 2438, 2439,\n            2440, 2441, 2442, 2443, 2444, 2445, 2446, 2447],\n           dtype='int64')] are in the [index]"
+[2022-05-15 17:35:35,431]-[ERROR] [log_exception - 1455- Exception on /index_ajax1 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 206, in index_ajax1
+    result = a.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\民航行程推荐\Function.py", line 137, in select_planes
+    if a == []:
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\ops\common.py", line 70, in new_method
+    return method(self, other)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\arraylike.py", line 40, in __eq__
+    return self._cmp_method(other, operator.eq)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\frame.py", line 6931, in _cmp_method
+    self, other = ops.align_method_FRAME(self, other, axis, flex=False, level=None)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\ops\__init__.py", line 282, in align_method_FRAME
+    right = to_series(right)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\ops\__init__.py", line 239, in to_series
+    raise ValueError(
+ValueError: Unable to coerce to Series, length must be 11: given 0
+[2022-05-15 17:36:06,134]-[ERROR] [log_exception - 1455- Exception on /index_ajax1 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 206, in index_ajax1
+    result = a.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\民航行程推荐\Function.py", line 143, in select_planes
+    z = a.loc[index].values
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 967, in __getitem__
+    return self._getitem_axis(maybe_callable, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1191, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1132, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1327, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5782, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5842, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([2418, 2419, 2420, 2421, 2422, 2423, 2424, 2425, 2426, 2427, 2428,\n            2429, 2430, 2431, 2432, 2433, 2434, 2435, 2436, 2437, 2438, 2439,\n            2440, 2441, 2442, 2443, 2444, 2445, 2446, 2447],\n           dtype='int64')] are in the [index]"
+[2022-05-15 17:38:04,964]-[ERROR] [log_exception - 1455- Exception on /index_ajax1 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 206, in index_ajax1
+    result = a.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\民航行程推荐\Function.py", line 143, in select_planes
+    z = a.loc[index].values
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 967, in __getitem__
+    return self._getitem_axis(maybe_callable, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1191, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1132, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1327, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5782, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5842, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([2418, 2419, 2420, 2421, 2422, 2423, 2424, 2425, 2426, 2427, 2428,\n            2429, 2430, 2431, 2432, 2433, 2434, 2435, 2436, 2437, 2438, 2439,\n            2440, 2441, 2442, 2443, 2444, 2445, 2446, 2447],\n           dtype='int64')] are in the [index]"
+[2022-05-15 17:38:48,136]-[ERROR] [log_exception - 1455- Exception on /index_ajax1 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 206, in index_ajax1
+    result = a.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\民航行程推荐\Function.py", line 143, in select_planes
+    z = a.loc[index].values
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 967, in __getitem__
+    return self._getitem_axis(maybe_callable, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1191, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1132, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1327, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5782, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5842, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([2418, 2419, 2420, 2421, 2422, 2423, 2424, 2425, 2426, 2427, 2428,\n            2429, 2430, 2431, 2432, 2433, 2434, 2435, 2436, 2437, 2438, 2439,\n            2440, 2441, 2442, 2443, 2444, 2445, 2446, 2447],\n           dtype='int64')] are in the [index]"
+[2022-05-15 17:40:11,106]-[ERROR] [log_exception - 1455- Exception on /index_ajax1 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 206, in index_ajax1
+    result = a.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\民航行程推荐\Function.py", line 143, in select_planes
+    z = a.loc[index].values
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 967, in __getitem__
+    return self._getitem_axis(maybe_callable, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1191, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1132, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1327, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5782, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5842, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([3920, 3921, 3922, 3923, 3924, 3925, 3926, 3927, 3928, 3929, 3930,\n            3931, 3932, 3933, 3934, 3935, 3936, 3937, 3938, 3939, 3940, 3941,\n            3942, 3943, 3944, 3945, 3946, 3947],\n           dtype='int64')] are in the [index]"
