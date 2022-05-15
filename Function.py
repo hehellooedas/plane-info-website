@@ -65,13 +65,13 @@ def planes_Update_Function():
             for i in tasks:
                 city, index, numbers = i
                 information = pandas.read_pickle(f'./files/citys/{city}.pickle')
-                information['余座'].values[index] -= numbers
+                information['余座'].values[index] -= numbers#航班余座减少
                 pandas.to_pickle(f'./files/citys/{city}.pickle')
             f.truncate()  # 完成所有task之后，清空这个写有任务的pickle文件
 
 
-@numba.jit(nopython=True,cache=True,nogil=True)
-def sort_planes_cost(result)->tuple:#按价格排序
+@numba.jit(nopython=True,cache=True,nogil=True)#采用numba的LLVM编译器编译优化排序算法
+def sort_planes_cost(result)->tuple:#按价格升序
     for i in range(len(result) - 1):
         index = i
         for j in range(i+1, len(result)):
@@ -97,8 +97,8 @@ def sort_planes_cost(result)->tuple:#按价格排序
 
 
 def sort_planes_time(result: list) -> tuple:#按时间排序
-    t = [(lambda x:[int(x[0]),int(x[1])])(i[4].split(' ')[1].split(':')[0:2]) for i in result]
-    for i in range(len(result) - 1):
+    t = [(lambda x:[int(x[0]),int(x[1])])(i[4].split(' ')[1].split(':')[0:2]) for i in result]#建立时间的映像
+    for i in range(len(result) - 1):#选择排序
         index = i
         for j in range(i+1, len(result)):
             if t[index][0] > t[j][0] or (t[index][0] == t[j][0] and t[index][1] > t[j][1]):

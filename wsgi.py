@@ -22,7 +22,7 @@ file_log_handler = TimedRotatingFileHandler(
 filename='./files/logs/flask.log', encoding='UTF-8', delay=True,backupCount=10, interval=10, when='D'
 )
 file_log_handler.setFormatter(logging.Formatter("[%(asctime)s]-[%(levelname)s] [%(funcName)s - %(lineno)s- %(message)s]"))
-file_log_handler.setLevel(logging.WARNING)
+file_log_handler.setLevel(logging.WARNING)#记录warning级别的日志
 logging.getLogger().addHandler(file_log_handler)
 
 app = Flask(__name__)
@@ -47,7 +47,7 @@ os.environ['FLASK_ENV'] = 'production'
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 app.secret_key = os.getenv('SECRET_KEY', Function.create_String(16))
-avatars = Avatars(app)
+avatars = Avatars(app)#生成头像
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})#页面缓存
 Thread_Pool = ThreadPoolExecutor()#线程池
 
@@ -386,11 +386,11 @@ def wait():
 @scheduler.task(trigger=interval, name='plane_update', id='1')
 def plane_update():
     global open
-    open = False
+    open = False #更新数据库时暂停搜索服务
     logging.info('数据库开始更新~')
     time.sleep(1)
     Function.planes_Update_Function()
-    open = True
+    open = True #更新结束后重新开启搜索服务
 
 
 @scheduler.task(trigger='interval', days=5, name='delete_log', id='2')
