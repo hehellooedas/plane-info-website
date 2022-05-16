@@ -583,3 +583,78 @@ Traceback (most recent call last):
   File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5842, in _raise_if_missing
     raise KeyError(f"None of [{key}] are in the [{axis_name}]")
 KeyError: "None of [Int64Index([3920, 3921, 3922, 3923, 3924, 3925, 3926, 3927, 3928, 3929, 3930,\n            3931, 3932, 3933, 3934, 3935, 3936, 3937, 3938, 3939, 3940, 3941,\n            3942, 3943, 3944, 3945, 3946, 3947],\n           dtype='int64')] are in the [index]"
+[2022-05-16 12:31:33,502]-[ERROR] [log_exception - 1455- Exception on / [GET]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 190, in index
+    print(g.text)
+  File "D:\Python3.10.4\lib\site-packages\flask\ctx.py", line 51, in __getattr__
+    raise AttributeError(name) from None
+AttributeError: text
+[2022-05-16 12:33:30,853]-[ERROR] [log_exception - 1455- Exception on /login [GET]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\Python3.10.4\lib\site-packages\flask_caching\__init__.py", line 475, in decorated_function
+    rv = f(*args, **kwargs)
+  File "D:\民航行程推荐\wsgi.py", line 104, in login
+    g[text] = 'hello'
+NameError: name 'text' is not defined
+[2022-05-16 12:33:42,764]-[ERROR] [log_exception - 1455- Exception on /login [GET]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\Python3.10.4\lib\site-packages\flask_caching\__init__.py", line 475, in decorated_function
+    rv = f(*args, **kwargs)
+  File "D:\民航行程推荐\wsgi.py", line 104, in login
+    g['text'] = 'hello'
+TypeError: '_AppCtxGlobals' object does not support item assignment
+[2022-05-16 13:43:05,178]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 13:44:58,016]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 13:45:11,772]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 13:46:07,021]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 13:46:21,183]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 13:46:42,432]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 14:23:08,348]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 14:23:32,611]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 14:58:59,755]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 15:05:09,129]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 15:05:26,433]-[WARNING] [encounter_404 - 87- 出现了404]
+[2022-05-16 15:06:12,497]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 15:10:32,940]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 15:10:58,283]-[WARNING] [encounter_404 - 87- 出现了404]
+[2022-05-16 15:10:58,547]-[WARNING] [encounter_404 - 87- 出现了404]
+[2022-05-16 15:12:08,673]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 15:12:08,773]-[WARNING] [encounter_404 - 87- 出现了404]
+[2022-05-16 15:13:06,114]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 15:13:07,206]-[WARNING] [encounter_404 - 87- 出现了404]
+[2022-05-16 15:13:12,155]-[WARNING] [encounter_404 - 87- 出现了404]
+[2022-05-16 15:13:32,574]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 15:13:43,732]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 15:13:53,370]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 15:14:36,643]-[WARNING] [_log - 224-  * Debugger is active!]

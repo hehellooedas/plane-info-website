@@ -171,10 +171,19 @@ class emails_db:
             a = pandas.DataFrame({'email': account}, index=[0])
             pandas.concat([emails, a], axis=0, ignore_index=True).to_pickle(self.path)
 
+    def delete_account(self,account:str): #删
+        lock = threading.Lock()
+        with lock:
+            a = pandas.read_pickle(self.path)
+            a.drop(a.query("email==@bcity").index,inplace=True)
+            a.to_pickle(self.path)
+
     def __str__(self):
         emails = pandas.read_pickle(self.path)
         return (emails)
-
+    def __repr__(self):
+        emails = pandas.read_pickle(self.path)
+        return (emails.values)
 
 
 

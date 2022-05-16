@@ -43,7 +43,7 @@ open = True#确认当前数据库中数据是否能对外开放
 # 设置内置环境变量
 CORS(app, supports_credentials=True)
 os.environ['FLASK_APP'] = 'wsgi'
-os.environ['FLASK_ENV'] = 'production'
+os.environ['FLASK_ENV'] = 'development'
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 app.secret_key = os.getenv('SECRET_KEY', Function.create_String(16))
@@ -73,7 +73,7 @@ def send_email(info: tuple):
     with app.app_context():
         msg = Message(
             subject=subject,
-            recipients=emails
+            recipients=[emails]
         )
         msg.body = content + '\n收到请勿回复！若您从未注册民航推荐网，请无视这封邮件，注意不要泄露个人信息！'
         try:
@@ -84,11 +84,13 @@ def send_email(info: tuple):
 
 @app.errorhandler(404)#访问了错误的url
 def encounter_404(error):
+    logging.warning('出现了404')
     return render_template('error.html')
 
 
 @app.errorhandler(403)#检测出访问网站的是爬虫程序
 def encounter_403(error):
+    logging.warning('出现了403,可能是遇到了爬虫!')
     return f'<h3>很抱歉，您被识别为爬虫程序，如检测错误，请刷新浏览器，很抱歉给您带来了不便,请您谅解！<br></br>{error}</h3>'
 
 
@@ -97,14 +99,13 @@ def judge_Systen():
     return request.cookies.get('system') == 'phone'
 
 
-
 @app.get('/login')
 @cache.cached(timeout=300, query_string=True)
 def login():
     response = make_response(render_template('login.html'))
     agent = parse(request.user_agent.string)
     if agent.is_bot:
-        abort(403)
+        abort(403)#遇到爬虫则返回403
     elif agent.is_mobile:
         response.set_cookie(key='system', value='phone')
     else:
@@ -122,7 +123,7 @@ def login_ajax():
     Verification_Code = Function.create_String()
     if email and emails_db.exist_account(email):
         Thread_Pool.submit(send_email, (
-            app, [email], '民航推荐网站登录',
+            app, email, '民航推荐网站登录',
             f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
         ))
         string = u'邮件已发送，请注意查收！'
@@ -163,7 +164,7 @@ def register_ajax1():
             string = u'您的账户已经注册，请检查邮件是否填写正确！'
         else:
             Thread_Pool.submit(send_email, (
-                app, [email], '民航推荐网站注册',
+                app, email, '民航推荐网站注册',
                 f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
             ))
             string = u'邮件已发送，请注意查收！'
@@ -314,6 +315,8 @@ def index_ajax3():
         jsonify({'string': '0'})
     if [] in results or None in results:
         return jsonify({'string': '1'})
+    a = Process_Pool.map(Function.sort_planes_cost,[numpy.array(i) for i in results])
+
     #for i in range(n-1):
         #for j in range(i,n):
             #if results[j][6] == informations[i][0] and results[j][7] == informations[i][1]:
@@ -324,32 +327,56 @@ def index_ajax3():
 @csrf.exempt
 @app.post('/index_ajax4')
 def index_ajax4():
-    g.st = request.form.get('st')
-    g.table = request.form.get('table')
-    return redirect(url_for('settlement'))
+    response = make_response(redirect(url_for('settlement')))
+    session['st'] = request.form.get('st')
+    session['table'] = request.form.get('table')
+    session['cabin'] = request.form.get('cabin')
+    session['settlement'] = True
+    return response
 
 
-@app.get('/settlement')  # 结算
+@csrf.exempt
+@app.route('/settlement',methods=['GET','POST'])  # 结算
 def settlement():
     email = session.get("email")
     login_status = session.get('login_status')
     settlement = session.get('settlement')
     if email and login_status and settlement:
-        return render_template('settlement.html')
+        st = session.get('st')
+        table = session.get('table')
+        cabin = session.get('cabin')
+        if request.method == 'POST':
+            emails = json.loads(request.form.get('emails'))
+            if st == '1':
+                Thread_Pool.submit(Function.set_task,[table[6], table[0], len(emails)])
+                for i in emails:
+                    Thread_Pool.submit(send_email, (app, i, '购票通知', Function.get_content(
+                        table[1],table[2],table[6],table[7],table[4],table[5]
+                    ) + emails[0] + f'。详细信息请访问{request.host_url}'))
+            elif st == '2':
+                Thread_Pool.submit(Function.set_task, [table[0][6], table[0][0], len(emails)])
+                Thread_Pool.submit(Function.set_task, [table[1][6], table[1][0], len(emails)])
+                for i in emails:
+                    ...
+            elif st == '3':
+                n = len(table)
+                ...
+            else:
+                logging.warning('非法访问！')
+                abort(404)
+            return redirect(url_for('success'))
+        data = {
+            email:email,table:table,cabin:cabin,st:st
+        }
+        return render_template('settlement.html',**data)
     elif email and login_status:
         return redirect(url_for('index'))
     else:
         return redirect(url_for('login'))
 
 
-@csrf.exempt
-@app.post('/settlement_ajax')
-def settlement_ajax1():
-    st = g.get('st')
-    table = g.get('table')
-    if st == 1:
-        acity,bcity,adate,adate = table[6],table[7],table[4],table[5]
-        #Thread_Pool.submit(Function.set_task,[acity, index, numbers])
+
+    #Thread_Pool.submit(Function.set_task,[acity, index, numbers])
     #content = Function.get_content(company, flight_number, acity, bcity, adate, bdate)
     #more = f'。详细信息请访问{request.host_url}'
     #if len(emails) == 1:
@@ -364,24 +391,22 @@ def settlement_ajax1():
     #return redirect(url_for('success'))
 
 
-@csrf.exempt
-@app.route('/settlement_ajax2', methods=['POST'])  # 往返结算
-def settlement_ajax2():
-    pass
-    form = request.form
-    table1, table2 = form.get('table1'), form.get('table2')
-    index1, index2 = form.get('index1'), form.get('index2')
-    ...
 
 
 @app.get('/success')
 def success():
-    return render_template('success.html')
+    if session.get('login_status'):
+        return render_template('success.html')
+    else:
+        return redirect(url_for('login'))
 
 @app.get('/wait')
 @cache.cached()
 def wait():
-    return render_template('wait.html')
+    if session.get('login_status'):
+        return render_template('wait.html')
+    else:
+        return redirect(url_for('login'))
 
 @scheduler.task(trigger=interval, name='plane_update', id='1')
 def plane_update():
@@ -418,5 +443,5 @@ if __name__ == '__main__':
     Process_Pool = ProcessPoolExecutor()#进程池
     scheduler.start()
     print('服务器开始运行')
-    app.run(debug=False, port=80, host='0.0.0.0')
+    app.run(debug=True, port=80, host='0.0.0.0')
     print('服务器关闭')
