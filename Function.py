@@ -178,6 +178,7 @@ class emails_db:
             a.drop(a.query("email==@bcity").index,inplace=True)
             a.to_pickle(self.path)
 
+
     def __str__(self):
         emails = pandas.read_pickle(self.path)
         return (emails)

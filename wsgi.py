@@ -1,6 +1,6 @@
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 from apscheduler.events import EVENT_JOB_ERROR,EVENT_JOB_EXECUTED
-from flask import Flask, render_template, request, url_for, redirect, make_response, session, g, jsonify, abort
+from flask import Flask, render_template, request, url_for, redirect, make_response, session, jsonify, abort
 from flask_cors import CORS
 from flask_mail import Mail, Message
 from flask_seasurf import SeaSurf
