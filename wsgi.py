@@ -85,7 +85,7 @@ def send_email(info: tuple):
 
 @app.errorhandler(404)#访问了错误的url
 def encounter_404(error):
-    logging.warning('出现了404')
+    #logging.warning('出现了404')
     return render_template('error.html')
 
 
@@ -144,7 +144,7 @@ def login_ajax2():
     session['email'] = email
     session.permanent = True
     cache.clear()
-    return url_for('index')
+    return request.host_url+url_for('index')
 
 
 @csrf.exempt
@@ -328,12 +328,11 @@ def index_ajax3():
 @csrf.exempt
 @app.post('/index_ajax4')
 def index_ajax4():
-    response = make_response(redirect(url_for('settlement')))
     session['st'] = request.form.get('st')
     session['table'] = request.form.get('table')
     session['cabin'] = request.form.get('cabin')
     session['settlement'] = True
-    return response
+    return request.host_url+url_for('settlement')
 
 
 @csrf.exempt
@@ -363,13 +362,14 @@ def settlement():
                 n = len(table)
                 ...
             else:
+                ...
                 logging.warning('非法访问！')
                 abort(404)
             return redirect(url_for('success'))
         data = {
             'email':email,'table':table,'cabin':cabin,'st':st
         }
-        return render_template('settlement.html',**data)
+        return render_template('settlement.html')
     elif email and login_status:
         return redirect(url_for('index'))
     else:

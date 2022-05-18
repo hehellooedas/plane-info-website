@@ -49,7 +49,7 @@ login1btn.addEventListener('click', function () {
 			alert("Connection error");
 		},
 		success: function (data) {
-			location.href = data;
+			location.replace(data);
 		}
 	});
 	}

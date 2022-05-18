@@ -540,28 +540,25 @@ var send=[];
 pay.addEventListener('click',function(){
     if(st==1)
     {
-        send="[['北京','上海','MU5735']]"
+        send="[['北京','上海','MU5735']]";
     }
     if(st==2)
    {
-        send="[['北京','上海','MU5735']]"
+        send="[['北京','上海','MU5735']]";
    }
     $.ajax(
         {
             url:'/index_ajax4',
-            type:'post',
-            data:{"email":"2221362492@qq.com","table":send,"cabin":"经济舱","st":"1"},
-            dataType:'json',
+            type:'POST',
+            contentType: 'application/json',
+            data:JSON.stringify({"table":'send',"cabin":"0","st":"1"}),
             async: false,
             error: function (request) {
-                alert('cuowu');
+                alert('hello-cuowu');
             },
             success:function(data){
-
-            }  
+                location.replace(data);
+            }
         }
     )
-   setTimeout(function(){
-         location.href+='/settlement';
-   },1000)
 })

@@ -9,9 +9,8 @@
                 alert('cuowu');
             },
             success: function (data) {
-                alert(data);
+                alert(location.href);
             }
-
         }
     )
 })();
