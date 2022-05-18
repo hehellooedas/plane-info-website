@@ -61,3 +61,17 @@ reg.addEventListener('click', function () {
 		}
 	});
 });
+//正则表达式；
+var reg2=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+var use=document.getElementById('username');
+use.addEventListener('blur',function(){
+	if(!reg.test(use.value))
+	{
+	  info.innerText='输入格式错误';
+	  sendbtn.className = "send-btn2";
+	}
+	else{
+	  sendbtn.className = "send-btn3";
+	  info.innerText='';
+	}
+})

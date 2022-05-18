@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -15,7 +14,37 @@
     <link rel="stylesheet" href="../static/s-css/city.css">
     <script src="../static/s-js/jquery.min.js"></script>
 </head>
+<style>
+    #tuichu {
+        position: fixed;
+        right: 30px;
+        top: 40px;
+        cursor: pointer;
+        width: 60px;
+        height: 50px;
+        border: none;
+        background-color: blanchedalmond;
+        border-radius: 5px;
+        box-shadow: 0 3px #999;
+    }
+
+    #tuichu:active {
+        box-shadow: 0 1px #666;
+        transform: translateY(4px);
+    }
+    .xiaoxi{
+        color: red;
+        font-size: 17px;
+        width: 200px;
+        height: 20px;
+        position: absolute;
+        top: 0;
+        left: 190px;
+    }
+</style>
+
 <body>
+    <input type="button" id="tuichu" value="退出登录" onclick="back()">
     <!-- 遮罩层 -->
     <div class="cover">
 
@@ -44,8 +73,10 @@
     <div class="search ban">
         <p class="ico"></p>
         <div class="search-address">
+            <p class="xiaoxi"></p>
             <div class="selcet"><input type="radio" name="hi" id="dan" checked="checked">单程<input type="radio" name="hi"
-                    id="shuang">往返<input type="radio" name="hi" id="duo">多程</div>
+                    id="shuang">往返<input type="radio" name="hi" id="duo">多程
+            </div>
             <div class="address-start"><span>出发点&nbsp&nbsp</span>
                 <input type="text" id="citySelect" value="城市名">
             </div>
@@ -63,7 +94,7 @@
             </div>
         </div>
         <div class="chazhao">
-            <button class="btn" >
+            <button class="btn">
                 <h2>&nbsp搜索</h2>
             </button>
         </div>
@@ -128,10 +159,10 @@
                             <li><input type="button" value="经济舱低价" class="but2"></li>
                         </ul>
                         <ul class="show-nav-sort">
-                            <li>
+                            <!-- <li>
                                 <input type="button" class="pay2" value="￥结算">
-                                <!-- 查询按钮 -->
-                            </li>
+                                
+                            </li> -->
                         </ul>
                     </form>
                 </div>
@@ -158,28 +189,29 @@
     <div id="foot">
         <div class="foot2">
             <p class="name">中国民航为你提供实时举报服务</p>
-        <div class="wen">
-            <p>Copyright©1999-2022, ctrip.com. All rights reserved. | ICP证：沪B2-20050130 | 沪ICP备08023580号-3</p>
-            <p>沪公网备31010502002731号丨互联网药品信息服务资格证丨（沪）网械平台备字[2022]第00001号丨旅游度假资质</p>
-            <p>违法和不良信息举报电话021-22500846丨全国旅游投诉热线12345丨上海市旅游网站落实诚信建设主体责任承诺书</p>
-        </div>
-        <div class="first">
-            <a href="http://www.cecpsp.org.cn/index.credit?action=certDetail&amp;id=40288084605466f1016057ea4cb20021"
-                class="honour1" target="_blank" rel="nofollow"><img src="../static/s-other/dj.png" alt=""></a>
-            <a href="http://scjgj.sh.gov.cn/" title="工商亮照标识" class="honour2" target="_blank" rel="nofollow"><img
-                    src="../static/s-other/sh.png" alt=""></a>
-            <a href="http://www.zx110.org/" class="honour4" target="_blank" rel="nofollow" title="征信网"><img
-                    src="../static/s-other/zx.png" alt=""></a>
-            <a href="http://www.shjbzx.cn/" class="honour5" target="_blank" rel="nofollow"
-                title="上海市互联网违法与违规信息举报中心"><img src="../static/s-other/l.png" alt=""></a>
-            <a href="https://ss.knet.cn/verifyseal.dll?sn=e12061531010025926306977" class="honour6" target="_blank"
-                rel="nofollow" title="可信网站"><img src="../static/s-other/z.png" alt=""></a>
-            <a href="http://www.creditchina.gov.cn/" class="honour10" title="信用中国" target="_blank"
-                rel="nofollow"><img src="../static/s-other/xin.png" alt=""></a>
-            <a href="https://im-synthesize.ctrip.com/complaints/rights/AppealCreate" class="honour11"
-                title="消费维权联络点" target="_blank" rel="nofollow"><img src="../static/s-other/jubao.png" alt=""></a>
-            <a href="http://www.huilan.com/zkhl/fa/ai+zw/zxkfwza/" class="honour100" title="适老化及无障碍标识" rel="nofollow"><img src="../static/s-other/wang.png" alt=""></a>
-        </div>
+            <div class="wen">
+                <p>Copyright©1999-2022, ctrip.com. All rights reserved. | ICP证：沪B2-20050130 | 沪ICP备08023580号-3</p>
+                <p>沪公网备31010502002731号丨互联网药品信息服务资格证丨（沪）网械平台备字[2022]第00001号丨旅游度假资质</p>
+                <p>违法和不良信息举报电话021-22500846丨全国旅游投诉热线12345丨上海市旅游网站落实诚信建设主体责任承诺书</p>
+            </div>
+            <div class="first">
+                <a href="http://www.cecpsp.org.cn/index.credit?action=certDetail&amp;id=40288084605466f1016057ea4cb20021"
+                    class="honour1" target="_blank" rel="nofollow"><img src="../static/s-other/dj.png" alt=""></a>
+                <a href="http://scjgj.sh.gov.cn/" title="工商亮照标识" class="honour2" target="_blank" rel="nofollow"><img
+                        src="../static/s-other/sh.png" alt=""></a>
+                <a href="http://www.zx110.org/" class="honour4" target="_blank" rel="nofollow" title="征信网"><img
+                        src="../static/s-other/zx.png" alt=""></a>
+                <a href="http://www.shjbzx.cn/" class="honour5" target="_blank" rel="nofollow"
+                    title="上海市互联网违法与违规信息举报中心"><img src="../static/s-other/l.png" alt=""></a>
+                <a href="https://ss.knet.cn/verifyseal.dll?sn=e12061531010025926306977" class="honour6" target="_blank"
+                    rel="nofollow" title="可信网站"><img src="../static/s-other/z.png" alt=""></a>
+                <a href="http://www.creditchina.gov.cn/" class="honour10" title="信用中国" target="_blank"
+                    rel="nofollow"><img src="../static/s-other/xin.png" alt=""></a>
+                <a href="https://im-synthesize.ctrip.com/complaints/rights/AppealCreate" class="honour11"
+                    title="消费维权联络点" target="_blank" rel="nofollow"><img src="../static/s-other/jubao.png" alt=""></a>
+                <a href="http://www.huilan.com/zkhl/fa/ai+zw/zxkfwza/" class="honour100" title="适老化及无障碍标识"
+                    rel="nofollow"><img src="../static/s-other/wang.png" alt=""></a>
+            </div>
         </div>
     </div>
 </body>
@@ -211,17 +243,33 @@
         showbodyf.className = 'show-body2';
     });
     btn.addEventListener('click', function () {
-        cover.style.height = document.body.clientHeight + 'px';
-        cover.className = 'cover2';
-        ifa.className = 'ifa2';
-        setTimeout(function () {
-            cover.className = 'cover';
-            ifa.className = 'ifa';
-            reqfirst();
-            //计算时间
-        }, 2000);
+        if (st==1&&(acity.value == '城市名' || bcity.value == '城市名' || time0.value == '')) {
+            xiaoxi.innerHTML = '请把搜索信息填写完整';
+        }
+        else if(st==2&&(acity.value == '城市名' || bcity.value == '城市名' || time0.value == ''|| time2.value == ''))
+        {
+            xiaoxi.innerHTML = '请把搜索信息填写完整';
+        }
+        else {
+            xiaoxi.innerHTML = '';
+            cover.style.height = document.body.clientHeight + 'px';
+            cover.className = 'cover2';
+            ifa.className = 'ifa2';
+            setTimeout(function () {
+                cover.className = 'cover';
+                ifa.className = 'ifa';
+                reqfirst();
+                //计算时间
+            }, 2000);
+        }
     })
+</script>
+<script>
+    function back() {
+        history.go(-1);
+    }
 </script>
 <script src="../static/s-js/city.js"></script>
 <script src="../static/s-js/index.js"></script>
+
 </html>
