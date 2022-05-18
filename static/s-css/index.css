@@ -324,6 +324,7 @@ body{
      height: 300px;
      margin-left: 500px;
     font-size: 20px;
+    text-align: 55%;
 }
 .show-body0 span p{
     width: 200px;
@@ -342,9 +343,11 @@ body{
     width: 300px;
     height: 300px;
     margin-left: 500px;
+    text-align: 55%;
     font-size: 20px;
 }
 .show-body2 span p{
+   
    width: 200px;
    height: 200px;
 }

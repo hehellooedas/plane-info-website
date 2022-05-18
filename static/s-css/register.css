@@ -75,7 +75,8 @@
         }
         .send-btn{
            cursor: pointer;
-           color: dimgray;
+           background-color: darkgray;
+           pointer-events: none;
            width: 80px;
            height: 50px;
            border-radius: 5px;

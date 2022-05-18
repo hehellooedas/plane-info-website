@@ -14,6 +14,7 @@ var brr5 = [];
 var out = "";
 var out2 = "";
 var st = 1;
+var xiaoxi=document.getElementsByClassName('xiaoxi')[0];
 var acity = document.getElementById('citySelect');
 var bcity = document.getElementById('citySelect1');
 var time0 = document.getElementsByClassName('input')[0];
@@ -27,6 +28,7 @@ var time2 = document.getElementsByClassName('input')[1];
 //     location.href = {{ exit_url }};
 // };
 function reqfirst() {
+
     if (st == 1) {
         $.ajax({
             // headers: {"X-CSRFToken", csrf_token},
@@ -196,8 +198,8 @@ function reqfirst() {
                             "<td>" + brr[i][4] + "</td>" +
                             "<td>" + brr[i][5] + "</td>" +
                             "<td>" + brr[i][10] + "</td>" +
-                            "<td>" + brr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-                            "<td>" + brr[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                            "<td>" + brr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + ">" + "</td>" +
+                            "<td>" + brr[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + ">" + "</td>" +
                             "</table>" +
                             "</div>" +
                             "</div>"
@@ -423,8 +425,8 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>" + brr2[i][4] + "</td>" +
                     "<td>" + brr2[i][5] + "</td>" +
                     "<td>" + brr2[i][10] + "</td>" +
-                    "<td>" + brr2[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + brr2[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + brr2[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + brr2[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + ">" + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -454,8 +456,8 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>" + brr3[i][4] + "</td>" +
                     "<td>" + brr3[i][5] + "</td>" +
                     "<td>" + brr3[i][10] + "</td>" +
-                    "<td>" + brr3[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + brr3[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + brr3[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + brr3[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + ">" + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -485,8 +487,8 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>" + brr4[i][4] + "</td>" +
                     "<td>" + brr4[i][5] + "</td>" +
                     "<td>" + brr4[i][10] + "</td>" +
-                    "<td>" + brr4[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + brr4[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + brr4[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + brr4[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + ">" + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -516,8 +518,8 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>" + brr5[i][4] + "</td>" +
                     "<td>" + brr5[i][5] + "</td>" +
                     "<td>" + brr5[i][10] + "</td>" +
-                    "<td>" + brr5[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + brr5[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + brr5[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + brr5[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + ">" + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -532,36 +534,33 @@ for (let k = 0; k < but2.length; k++) {
         }
     })
 }
-// var app="[[3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400]]";
-//     arr=eval(app);
-//  but[0].addEventListener('click',function(){
-//      console.log('sss')
-//     let p = 0;
-//     for (let i = 0; i < arr.length; i++) {
-//         out += "<div" + " " + "class=" + "xinxi" + ">" +
-//             "<div" + " " + "class=" + "tab" + ">" +
-//             "<table" + " " + "border=" + "1px" + ">" +
-//             "<tr" + " " + "class=" + "tr1" + ">" + "<td" + ">航空公司</td>" +
-//             "<td>航班</td>" +
-//             "<td>机型</td>" +
-//             "<td>出发时间</td>" +
-//             "<td>抵达时间</td>" +
-//             "<td>余票</td>"+"<td>公务舱</td>"+"<td>经济舱</td>"+"</tr>" +
-//             "<tr" + " " + "class=" + "tr2" + "><td>" + arr[i][1] + "</td>" +
-//             "<td>" + arr[i][2] + "</td>" +
-//             "<td>" + arr[i][3] + "</td>" +
-//             "<td>" + arr[i][4] + "</td>" +
-//             "<td>" + arr[i][5] + "</td>" +
-//             "<td>" + arr[i][10] + "</td>" +
-//             "<td>" + arr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-//             "<td>" + arr[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-//             "</table>" +
-//             "</div>" +
-//             "</div>"
-//     }
-//     console.log(out);
-//     showbodyf.innerHTML = out;
-//     out = "";
-// });
-// var app="[[3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400], [3710, '厦门航空', 'MF8083', '波音737', '2022-12-21 07:45:00', '2022-12-21 09:50:00', '福州', '济南', 1480.0, 3700.0, 400, 400]]";
-// console.log(eval(app));
+// 结算
+var send=[];
+pay.addEventListener('click',function(){
+    if(st==1)
+    {
+        send="[['北京','上海','MU5735']]"
+    }
+    if(st==2)
+   {
+        send="[['北京','上海','MU5735']]"
+   }
+    $.ajax(
+        {
+            url:'/index_ajax4',
+            type:'post',
+            data:{"email":"2221362492@qq.com","table":send,"cabin":"经济舱","st":"1"},
+            dataType:'json',
+            async: false,
+            error: function (request) {
+                alert('cuowu');
+            },
+            success:function(data){
+
+            }  
+        }
+    )
+   setTimeout(function(){
+         location.href+='/settlement';
+   },1000)
+})
