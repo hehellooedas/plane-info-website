@@ -146,6 +146,9 @@ def select_planes(info: tuple) -> list | None | bool:
     return result
 
 
+def select_plane():
+    ...
+
 
 
 class emails_db:

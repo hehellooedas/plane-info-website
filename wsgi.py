@@ -7,7 +7,7 @@ from flask_seasurf import SeaSurf
 from flask_apscheduler import APScheduler
 from flask_avatars import Avatars
 from flask_caching import Cache
-from flask_sslify import SSLify
+#from flask_sslify import SSLify
 from apscheduler.triggers.interval import IntervalTrigger
 from user_agents import parse
 from markupsafe import escape
@@ -42,8 +42,8 @@ interval = IntervalTrigger(
 open = True#确认当前数据库中数据是否能对外开放
 # 设置内置环境变量
 CORS(app, supports_credentials=True)
-os.environ['FLASK_APP'] = 'wsgi'
-os.environ['FLASK_ENV'] = 'development'
+#os.environ['FLASK_APP'] = 'wsgi'
+#os.environ['FLASK_ENV'] = 'development'
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 app.secret_key = os.getenv('SECRET_KEY', Function.create_String(16))
@@ -59,7 +59,8 @@ app.config.update(dict(
     MAIL_USE_SSL=True,  # 是否使用SSL
     MAIL_USERNAME='928309386@qq.com',  # 发信服务器的用户名
     MAIL_PASSWORD='uhnufypshcmhbejf',  # 发信服务器的密码
-    MAIL_DEFAULT_SENDER=('April Zhao', '928309386@qq.com')  # 默认的发信人
+    MAIL_DEFAULT_SENDER=('April Zhao', '928309386@qq.com'),  # 默认的发信人
+    JSON_AS_ASCII=False
 ))
 mail = Mail(app)
 
@@ -366,7 +367,7 @@ def settlement():
                 abort(404)
             return redirect(url_for('success'))
         data = {
-            email:email,table:table,cabin:cabin,st:st
+            'email':email,'table':table,'cabin':cabin,'st':st
         }
         return render_template('settlement.html',**data)
     elif email and login_status:
@@ -443,5 +444,5 @@ if __name__ == '__main__':
     Process_Pool = ProcessPoolExecutor()#进程池
     scheduler.start()
     print('服务器开始运行')
-    app.run(debug=True, port=80, host='0.0.0.0')
+    app.run(port=80, host='0.0.0.0')
     print('服务器关闭')
