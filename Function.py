@@ -122,7 +122,7 @@ def sort_planes_time(result: list) -> tuple:#按时间排序
 
 
 
-def select_planes(info: tuple) -> list | None | bool:
+def select_planes(info: tuple):
     """
     :param info:出发城市，到达城市，出发日期
     :return: 正常情况下返回搜索到的结果，没搜索到返回None，数据库在更新返回False
