@@ -38,8 +38,8 @@
         width: 200px;
         height: 20px;
         position: absolute;
-        top: 0;
-        left: 190px;
+        top: 15px;
+        left: 960px;
     }
 </style>
 
@@ -49,6 +49,7 @@
     <div class="cover">
 
     </div>
+    <input type="radio" value="北京,上海,g" name="bb" id="bn" checked="checked">
     <iframe src="/wait" frameborder="0" name="hello" scrolling="no" class="ifa"></iframe>
     <div class="jingbao">
         <h1>购买须知</h1>
@@ -225,6 +226,8 @@
     var ifa = document.getElementsByClassName('ifa')[0];
     var btn = document.getElementsByClassName('btn')[0];
     var pay = document.getElementsByClassName('pay')[0];
+    var search=document.getElementsByClassName('search')[0];
+    var address_start=document.getElementsByClassName('address_start')[0];
     var pay2 = document.getElementsByClassName('pay2')[0];
     gobtn.addEventListener('click', function () {
         navf.className = "nav0";

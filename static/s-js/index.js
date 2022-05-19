@@ -19,6 +19,8 @@ var acity = document.getElementById('citySelect');
 var bcity = document.getElementById('citySelect1');
 var time0 = document.getElementsByClassName('input')[0];
 var time2 = document.getElementsByClassName('input')[1];
+var str;
+var str2;
 //上面不用管，这是写的去程和返程的转换
 //封装ajax；
 //搜索触发的接口
@@ -69,6 +71,8 @@ function reqfirst() {
                     arr5 = data['economy_class'];
                     arr5 = JSON.parse(arr5);
                     for (let i = 0; i < arr.length; i++) {
+                        str=arr[i]+'1';
+                        str2=arr[i]+'2';
                         out += "<div" + " " + "class=" + "xinxi" + ">" +
                             "<div" + " " + "class=" + "tab" + ">" +
                             "<table" + " " + "border=" + "1px" + ">" +
@@ -84,7 +88,7 @@ function reqfirst() {
                             "<td>" + arr[i][4] + "</td>" +
                             "<td>" + arr[i][5] + "</td>" +
                             "<td>" + arr[i][10] + "</td>" +
-                            "<td>" + arr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                            "<td>" + arr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio"+" "+"value="+str+" "+ ">" + "</td>" +
                             "<td>" + arr[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
                             "</table>" +
                             "</div>" +
@@ -556,11 +560,29 @@ pay.addEventListener('click',function(){
                 alert('cuowu');
             },
             success:function(data){
-
+            
             }  
         }
     )
    setTimeout(function(){
-         location.href+='/settlement';
+         location.href='../templates/settlement.html';
    },1000)
 })
+var app=document.getElementsByName('bb');
+     for(let i=0;i<app.length;i++)
+     {
+         if(app[i].checked){
+             str=app[i].value;
+             break;
+         }
+     }
+console.log(str);
+var kk=[['北京','上海'],['南京','广西']];
+str=kk[0]+',g';
+console.log(str);
+console.log(typeof(str));
+console.log(str.indexOf(',g'));
+console.log(str.split(','));
+
+
+
