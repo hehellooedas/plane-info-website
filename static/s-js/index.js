@@ -551,10 +551,10 @@ pay.addEventListener('click',function(){
             url:'/index_ajax4',
             type:'POST',
             contentType: 'application/json',
-            data:JSON.stringify({"table":'send',"cabin":"0","st":"1"}),
+            data:JSON.stringify({"table":send,"cabin":"0","st":"1"}),
             async: false,
             error: function (request) {
-                alert('hello-cuowu');
+                alert('结算出错！');
             },
             success:function(data){
                 location.replace(data);

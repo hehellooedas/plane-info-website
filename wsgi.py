@@ -144,7 +144,7 @@ def login_ajax2():
     session['email'] = email
     session.permanent = True
     cache.clear()
-    return request.host_url+url_for('index')
+    return request.host_url
 
 
 @csrf.exempt
@@ -332,7 +332,7 @@ def index_ajax4():
     session['table'] = request.form.get('table')
     session['cabin'] = request.form.get('cabin')
     session['settlement'] = True
-    return request.host_url+url_for('settlement')
+    return request.host_url+'settlement'
 
 
 @csrf.exempt
@@ -438,11 +438,11 @@ def finished_task(event):
 
 scheduler.add_listener(listen_error,mask=EVENT_JOB_ERROR)
 scheduler.add_listener(finished_task,mask=EVENT_JOB_EXECUTED)
-
+scheduler.start()
 
 if __name__ == '__main__':
     Process_Pool = ProcessPoolExecutor()#进程池
-    scheduler.start()
+    #scheduler.start()
     print('服务器开始运行')
     app.run(port=80, host='0.0.0.0')
     print('服务器关闭')
