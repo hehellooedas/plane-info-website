@@ -38,16 +38,29 @@
         width: 200px;
         height: 20px;
         position: absolute;
-        top: 0;
-        left: 190px;
+        top: 15px;
+        left: 960px;
+    }
+    .tishi{
+        position: absolute;
+        display: none;      
+        width: 900px;
+        height:99px;
+        border: 2px solid red;
+    }
+    .tishi2{
+        position: absolute;
+        display: block;      
+        width: 900px;
+        height:99px;
+        border: 2px solid red;
     }
 </style>
 
 <body>
     <input type="button" id="tuichu" value="退出登录" onclick="back()">
-    <!-- 遮罩层 -->
+    <!-- 遮罩层 -->  
     <div class="cover">
-
     </div>
     <iframe src="/wait" frameborder="0" name="hello" scrolling="no" class="ifa"></iframe>
     <div class="jingbao">
@@ -72,8 +85,11 @@
     <!-- 选择出发地 时间 -->
     <div class="search ban">
         <p class="ico"></p>
+        <div class="tishi">
+        </div>
         <div class="search-address">
             <p class="xiaoxi"></p>
+           
             <div class="selcet"><input type="radio" name="hi" id="dan" checked="checked">单程<input type="radio" name="hi"
                     id="shuang">往返<input type="radio" name="hi" id="duo">多程
             </div>
@@ -225,7 +241,10 @@
     var ifa = document.getElementsByClassName('ifa')[0];
     var btn = document.getElementsByClassName('btn')[0];
     var pay = document.getElementsByClassName('pay')[0];
+    var search=document.getElementsByClassName('search')[0];
+    var address_start=document.getElementsByClassName('address_start')[0];
     var pay2 = document.getElementsByClassName('pay2')[0];
+    var tishi=document.getElementsByClassName('tishi')[0];
     gobtn.addEventListener('click', function () {
         navf.className = "nav0";
         navs.className = "nav2";
@@ -245,13 +264,16 @@
     btn.addEventListener('click', function () {
         if (st==1&&(acity.value == '城市名' || bcity.value == '城市名' || time0.value == '')) {
             xiaoxi.innerHTML = '请把搜索信息填写完整';
+            tishi.className='tishi2';
         }
         else if(st==2&&(acity.value == '城市名' || bcity.value == '城市名' || time0.value == ''|| time2.value == ''))
         {
             xiaoxi.innerHTML = '请把搜索信息填写完整';
+            tishi.className='tishi2';
         }
         else {
             xiaoxi.innerHTML = '';
+            tishi.className='tishi';
             cover.style.height = document.body.clientHeight + 'px';
             cover.className = 'cover2';
             ifa.className = 'ifa2';
@@ -265,11 +287,11 @@
     })
 </script>
 <script>
+    //退出登录
     function back() {
-        history.go(-1);
+        location.replace('{{ url }}'+'login');
     }
 </script>
 <script src="../static/s-js/city.js"></script>
 <script src="../static/s-js/index.js"></script>
-
 </html>

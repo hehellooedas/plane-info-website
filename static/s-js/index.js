@@ -14,11 +14,13 @@ var brr5 = [];
 var out = "";
 var out2 = "";
 var st = 1;
-var xiaoxi=document.getElementsByClassName('xiaoxi')[0];
+var xiaoxi = document.getElementsByClassName('xiaoxi')[0];
 var acity = document.getElementById('citySelect');
 var bcity = document.getElementById('citySelect1');
 var time0 = document.getElementsByClassName('input')[0];
 var time2 = document.getElementsByClassName('input')[1];
+var str;
+var str2;
 //上面不用管，这是写的去程和返程的转换
 //封装ajax；
 //搜索触发的接口
@@ -69,6 +71,8 @@ function reqfirst() {
                     arr5 = data['economy_class'];
                     arr5 = JSON.parse(arr5);
                     for (let i = 0; i < arr.length; i++) {
+                        str = arr[i] + ',g';
+                        str2 = arr[i] + ',j';
                         out += "<div" + " " + "class=" + "xinxi" + ">" +
                             "<div" + " " + "class=" + "tab" + ">" +
                             "<table" + " " + "border=" + "1px" + ">" +
@@ -84,8 +88,8 @@ function reqfirst() {
                             "<td>" + arr[i][4] + "</td>" +
                             "<td>" + arr[i][5] + "</td>" +
                             "<td>" + arr[i][10] + "</td>" +
-                            "<td>" + arr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-                            "<td>" + arr[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                            "<td>" + arr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str + " " + ">" + "</td>" +
+                            "<td>" + arr[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str2 + " " + ">" + "</td>" +
                             "</table>" +
                             "</div>" +
                             "</div>"
@@ -160,6 +164,8 @@ function reqfirst() {
                     brr5 = data['b_economy_class'];
                     brr5 = JSON.parse(brr5);
                     for (let i = 0; i < arr.length; i++) {
+                        str = arr[i] + ',g';
+                        str2 = arr[i] + ',j';
                         out += "<div" + " " + "class=" + "xinxi" + ">" +
                             "<div" + " " + "class=" + "tab" + ">" +
                             "<table" + " " + "border=" + "1px" + ">" +
@@ -175,15 +181,17 @@ function reqfirst() {
                             "<td>" + arr[i][4] + "</td>" +
                             "<td>" + arr[i][5] + "</td>" +
                             "<td>" + arr[i][10] + "</td>" +
-                            "<td>" + arr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-                            "<td>" + arr[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                            "<td>" + arr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str + " " + ">" + "</td>" +
+                            "<td>" + arr[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str2 + " " + ">" + "</td>" +
                             "</table>" +
                             "</div>" +
                             "</div>"
                     }
                     showbodyf.innerHTML = out;
                     out = "";
-                    for (let i = 0; i < arr.length; i++) {
+                    for (let i = 0; i < brr.length; i++) {
+                        str = brr[i] + ',g';
+                        str2 = brr[i] + ',j'
                         out2 += "<div" + " " + "class=" + "xinxi" + ">" +
                             "<div" + " " + "class=" + "tab" + ">" +
                             "<table" + " " + "border=" + "1px" + ">" +
@@ -199,8 +207,8 @@ function reqfirst() {
                             "<td>" + brr[i][4] + "</td>" +
                             "<td>" + brr[i][5] + "</td>" +
                             "<td>" + brr[i][10] + "</td>" +
-                            "<td>" + brr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + ">" + "</td>" +
-                            "<td>" + brr[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + ">" + "</td>" +
+                            "<td>" + brr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + " " + "value=" + str + " " + ">" + "</td>" +
+                            "<td>" + brr[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + " " + "value=" + str2 + " " + ">" + "</td>" +
                             "</table>" +
                             "</div>" +
                             "</div>"
@@ -276,6 +284,8 @@ for (let k = 0; k < but.length; k++) {
         console.log(k);
         if (k == 0) {
             for (let i = 0; i < arr2.length; i++) {
+                str = arr2[i] + ',g';
+                str2 = arr2[i] + ',j';
                 out += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
                     "<table" + " " + "border=" + "1px" + ">" +
@@ -291,13 +301,13 @@ for (let k = 0; k < but.length; k++) {
                     "<td>" + arr2[i][4] + "</td>" +
                     "<td>" + arr2[i][5] + "</td>" +
                     "<td>" + arr2[i][10] + "</td>" +
-                    "<td>" + arr2[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + arr2[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + arr2[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str + " " + ">" + "</td>" +
+                    "<td>" + arr2[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str2 + " " + ">" + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
             }
-            if (arr.length==0) {
+            if (arr.length == 0) {
                 showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
@@ -307,6 +317,8 @@ for (let k = 0; k < but.length; k++) {
         }
         if (k == 1) {
             for (let i = 0; i < arr3.length; i++) {
+                str = arr3[i] + ',g';
+                str2 = arr3[i] + ',j';
                 out += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
                     "<table" + " " + "border=" + "1px" + ">" +
@@ -322,13 +334,13 @@ for (let k = 0; k < but.length; k++) {
                     "<td>" + arr3[i][4] + "</td>" +
                     "<td>" + arr3[i][5] + "</td>" +
                     "<td>" + arr3[i][10] + "</td>" +
-                    "<td>" + arr3[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + arr3[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + arr3[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str + " " + ">" + "</td>" +
+                    "<td>" + arr3[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str2 + " " + ">" + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
             }
-            if (arr.length==0) {
+            if (arr.length == 0) {
                 showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
@@ -338,6 +350,8 @@ for (let k = 0; k < but.length; k++) {
         }
         if (k == 2) {
             for (let i = 0; i < arr4.length; i++) {
+                str = arr4[i] + ',g';
+                str2 = arr4[i] + ',j';
                 out += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
                     "<table" + " " + "border=" + "1px" + ">" +
@@ -353,13 +367,13 @@ for (let k = 0; k < but.length; k++) {
                     "<td>" + arr4[i][4] + "</td>" +
                     "<td>" + arr4[i][5] + "</td>" +
                     "<td>" + arr4[i][10] + "</td>" +
-                    "<td>" + arr4[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + arr4[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + arr4[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str + " " + ">" + "</td>" +
+                    "<td>" + arr4[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str2 + " " + ">" + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
             }
-            if (arr.length==0) {
+            if (arr.length == 0) {
                 showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
@@ -369,6 +383,8 @@ for (let k = 0; k < but.length; k++) {
         }
         if (k == 3) {
             for (let i = 0; i < arr5.length; i++) {
+                str = arr5[i] + ',g';
+                str2 = arr5[i] + ',j';
                 out += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
                     "<table" + " " + "border=" + "1px" + ">" +
@@ -384,13 +400,13 @@ for (let k = 0; k < but.length; k++) {
                     "<td>" + arr5[i][4] + "</td>" +
                     "<td>" + arr5[i][5] + "</td>" +
                     "<td>" + arr5[i][10] + "</td>" +
-                    "<td>" + arr5[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + arr5[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + arr5[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str + " " + ">" + "</td>" +
+                    "<td>" + arr5[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str2 + " " + ">" + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
             }
-            if (arr.length==0) {
+            if (arr.length == 0) {
                 showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
@@ -411,7 +427,9 @@ for (let k = 0; k < but2.length; k++) {
         console.log(k);
         if (k == 0) {
             for (let i = 0; i < brr2.length; i++) {
-                out2 += "<div" + " " + "class=" + "xinxi" + ">" +
+                str = brr2[i] + ',g';
+                str2 = brr2[i] + ',j';
+                out += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
                     "<table" + " " + "border=" + "1px" + ">" +
                     "<tr" + " " + "class=" + "tr1" + ">" + "<td" + ">航空公司</td>" +
@@ -426,8 +444,8 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>" + brr2[i][4] + "</td>" +
                     "<td>" + brr2[i][5] + "</td>" +
                     "<td>" + brr2[i][10] + "</td>" +
-                    "<td>" + brr2[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + brr2[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + brr2[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + " " + "value=" + str + " " + ">" + "</td>" +
+                    "<td>" + brr2[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + " " + "value=" + str2 + " " + ">" + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -442,7 +460,9 @@ for (let k = 0; k < but2.length; k++) {
         }
         if (k == 1) {
             for (let i = 0; i < brr3.length; i++) {
-                out2 += "<div" + " " + "class=" + "xinxi" + ">" +
+                str = brr3[i] + ',g';
+                str2 = brr3[i] + ',j';
+                out += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
                     "<table" + " " + "border=" + "1px" + ">" +
                     "<tr" + " " + "class=" + "tr1" + ">" + "<td" + ">航空公司</td>" +
@@ -457,13 +477,13 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>" + brr3[i][4] + "</td>" +
                     "<td>" + brr3[i][5] + "</td>" +
                     "<td>" + brr3[i][10] + "</td>" +
-                    "<td>" + brr3[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + brr3[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + brr3[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + " " + "value=" + str + " " + ">" + "</td>" +
+                    "<td>" + brr3[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + " " + "value=" + str2 + " " + ">" + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
             }
-            if (brr.length==0) {
+            if (brr.length == 0) {
                 showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
@@ -473,7 +493,9 @@ for (let k = 0; k < but2.length; k++) {
         }
         if (k == 2) {
             for (let i = 0; i < brr4.length; i++) {
-                out2 += "<div" + " " + "class=" + "xinxi" + ">" +
+                str = brr4[i] + ',g';
+                str2 = brr4[i] + ',j';
+                out += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
                     "<table" + " " + "border=" + "1px" + ">" +
                     "<tr" + " " + "class=" + "tr1" + ">" + "<td" + ">航空公司</td>" +
@@ -488,13 +510,13 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>" + brr4[i][4] + "</td>" +
                     "<td>" + brr4[i][5] + "</td>" +
                     "<td>" + brr4[i][10] + "</td>" +
-                    "<td>" + brr4[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + brr4[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + ">" + "</td>" +
+                    "<td>" + brr4[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + " " + "value=" + str + " " + ">" + "</td>" +
+                    "<td>" + brr4[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + " " + "value=" + str2 + " " + ">" + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
             }
-            if (brr.length==0) {
+            if (brr.length == 0) {
                 showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
@@ -504,6 +526,8 @@ for (let k = 0; k < but2.length; k++) {
         }
         if (k == 3) {
             for (let i = 0; i < brr5.length; i++) {
+                str = brr5[i] + ',g';
+                str2 = brr5[i] + ',j'
                 out2 += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
                     "<table" + " " + "border=" + "1px" + ">" +
@@ -519,13 +543,12 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>" + brr5[i][4] + "</td>" +
                     "<td>" + brr5[i][5] + "</td>" +
                     "<td>" + brr5[i][10] + "</td>" +
-                    "<td>" + brr5[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "<td>" + brr5[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + ">" + "</td>" +
-                    "</table>" +
+                    "<td>" + brr5[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + " " + "value=" + str + " " + ">" + "</td>" +
+                    "<td>" + brr5[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio" + " " + "value=" + str2 + " " + ">" + "</td>" +
                     "</div>" +
                     "</div>"
             }
-            if (brr.length==0) {
+            if (brr.length == 0) {
                 showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
@@ -535,30 +558,96 @@ for (let k = 0; k < but2.length; k++) {
         }
     })
 }
-// 结算
-var send=[];
-pay.addEventListener('click',function(){
-    if(st==1)
-    {
-        send="[['北京','上海','MU5735']]";
+// 结算\
+var cang;
+var a1;
+var b1;
+var send = [];
+pay.addEventListener('click', function () {
+    alert('hi');
+    var app = document.getElementsByName('a');
+    var bpp = document.getElementsByName('b');
+    if (st == 1) {
+        for (let i = 0; i < app.length; i++) {
+            if (app[i].checked) {
+                a1 = app[i].value;
+                break;
+            }
+        }
+        if (a1.indexof(',g') > 0) {
+            cang = ['1'];
+        }
+        else {
+            cang = ['0'];
+        }
+        a1 = a1.split(',');
+        send[0] = a1;
+        send=JSON.stringify(send);
     }
-    if(st==2)
-   {
-        send="[['北京','上海','MU5735']]";
-   }
+    if (st == 2) {
+        for (let i = 0; i < app.length; i++) {
+            if (app[i].checked) {
+                a1 = app[i].value;
+                break;
+            }
+        }
+        for (let i = 0; i < bpp.length; i++) {
+            if (bpp[i].checked) {
+                b1 = bpp[i].value;
+                break;
+            }
+        }
+        if (a1.indexof(',g') > 0 && b1.indexof(',g') > 0) {
+            cang = ['1', '1'];
+        }
+        else if (a1.indexof(',g') > 0 && b1.indexof(',j') > 0) {
+            cang = ['1', '0'];
+        }
+        else if (a1.indexof(',j') > 0 && b1.indexof(',g') > 0) {
+            cang = ['0', '1'];
+        }
+        else if (a1.indexof(',j') > 0 && b1.indexof(',j') > 0) {
+            cang = ['0', '0'];
+        }
+        a1 = a1.split(',');
+        b1 = b1.split(',');
+        send[0] = a1;
+        send[1] = b1;
+        send = JSON.stringify(send);
+    }
+    alert('hello');
     $.ajax(
         {
-            url:'/index_ajax4',
-            type:'POST',
+            url: '/index_ajax4',
+            type: 'POST',
             contentType: 'application/json',
-            data:JSON.stringify({"table":send,"cabin":"0","st":"1"}),
+            data: JSON.stringify({ "table": send, "cabin": JSON.stringify(cang), "st": '0' }),
             async: false,
             error: function (request) {
                 alert('结算出错！');
             },
-            success:function(data){
+            success: function (data) {
                 location.replace(data);
             }
         }
     )
-})
+});
+var string = ['北京', '上海'] + ',g';
+var b = string.split(',');
+//    console.log(typeof(b));
+//    var c=b.join(',');
+//    var d;
+//    d=c+c;
+//    console.log(d);
+var send = [];
+send[0] = b;
+send[1] = b;
+send = JSON.stringify(send);
+console.log(send);
+console.log(JSON.stringify(['0','1']));
+
+
+
+
+
+

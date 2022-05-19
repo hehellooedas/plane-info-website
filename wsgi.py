@@ -191,7 +191,7 @@ def index():
     email = session.get("email")
     login_status = session.get('login_status')
     if login_status and email:
-        return render_template('index.html')
+        return render_template('index.html',url=request.host_url)
     else:
         return redirect(url_for('login'))
 
@@ -331,6 +331,9 @@ def index_ajax4():
     session['st'] = request.form.get('st')
     session['table'] = request.form.get('table')
     session['cabin'] = request.form.get('cabin')
+    print(request.form.get('st'))
+    print(request.form.get('table'))
+    print(request.form.get('cabin'))
     session['settlement'] = True
     return request.host_url+'settlement'
 
