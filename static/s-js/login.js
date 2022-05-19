@@ -8,36 +8,43 @@ var information;
 var info=document.getElementsByClassName('info')[0];
 var codefail=document.getElementsByClassName('codefail')[0];
 sendbtn.addEventListener('click', function () {
-	sendbtn.value = "等待" + time + "s";
-	sendbtn.className = "send-btn2";
-	var ss = setInterval(function () {
-		time--;
-		sendbtn.value = "等待" + time + "s";
-		if (time === 0) {
-			time = 60;
-			sendbtn.value = "发送";
-			sendbtn.className = "send-btn3";
-			clearInterval(ss);
-		}
-	}, 1000);
-	information = { 'email': email1.value};
+	if(!reg.test(use.value))
+	  {
+		info.innerText='输入格式错误';
+	  }
+	  else{
+		sendbtn.className = "send-btn2";
+		info.innerHTML='<p>&nbsp</p>';
+		var ss = setInterval(function () {
+			time--;
+			sendbtn.value = "等待" + time + "s";
+			if (time === 0) {
+				time = 60;
+				sendbtn.value = "发送";
+				sendbtn.className = "send-btn3";
+				clearInterval(ss);
+			}
+		}, 1000);
+		information = { 'email': email1.value};
+		$.ajax({
+			type: "POST",
+			url: '/login_ajax1',
+			data: information,
+			dataType: 'json',
+			async: false,
+			error: function (request) {
+				alert("Connection error");
+			},
+			success: function (data) {
+				databack=data.Code;
+				info.innerText=data.string;
+			}
+		});
+	  }
 })
-sendbtn.addEventListener('click', function () {
-	$.ajax({
-		type: "POST",
-		url: '/login_ajax1',
-		data: information,
-		dataType: 'json',
-		async: false,
-		error: function (request) {
-			alert("Connection error");
-		},
-		success: function (data) {
-			databack=data.Code;
-			info.innerText=data.string;//没注册消息闪现
-		}
-	});
-});
+// sendbtn.addEventListener('click', function () {
+	
+// });
 login1btn.addEventListener('click', function () {
 	if (databack == password.value) {
 	$.ajax({
@@ -49,7 +56,7 @@ login1btn.addEventListener('click', function () {
 			alert("Connection error");
 		},
 		success: function (data) {
-			location.href = data;
+			location.replace(data);
 		}
 	});
 	}
@@ -59,13 +66,5 @@ login1btn.addEventListener('click', function () {
   var reg=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
   var use=document.getElementById('username');
   use.addEventListener('blur',function(){
-	  if(!reg.test(use.value))
-	  {
-		info.innerText='输入格式错误';
-		sendbtn.className = "send-btn2";
-	  }
-	  else{
-		sendbtn.className = "send-btn3";
-		info.innerText='';
-	  }
+	  
   })

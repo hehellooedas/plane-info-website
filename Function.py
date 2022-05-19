@@ -65,13 +65,13 @@ def planes_Update_Function():
             for i in tasks:
                 city, index, numbers = i
                 information = pandas.read_pickle(f'./files/citys/{city}.pickle')
-                information['余座'].values[index] -= numbers
+                information['余座'].values[index] -= numbers#航班余座减少
                 pandas.to_pickle(f'./files/citys/{city}.pickle')
             f.truncate()  # 完成所有task之后，清空这个写有任务的pickle文件
 
 
-@numba.jit(nopython=True)
-def sort_planes_cost(result)->tuple:#按价格排序
+@numba.jit(nopython=True,cache=True,nogil=True)#采用numba的LLVM编译器编译优化排序算法
+def sort_planes_cost(result)->tuple:#按价格升序
     for i in range(len(result) - 1):
         index = i
         for j in range(i+1, len(result)):
@@ -94,9 +94,11 @@ def sort_planes_cost(result)->tuple:#按价格排序
     return cost_sort_Economics,result
 
 
+
+
 def sort_planes_time(result: list) -> tuple:#按时间排序
-    t = [(lambda x:[int(x[0]),int(x[1])])(i[4].split(' ')[1].split(':')[0:2]) for i in result]
-    for i in range(len(result) - 1):
+    t = [(lambda x:[int(x[0]),int(x[1])])(i[4].split(' ')[1].split(':')[0:2]) for i in result]#建立时间的映像
+    for i in range(len(result) - 1):#选择排序
         index = i
         for j in range(i+1, len(result)):
             if t[index][0] > t[j][0] or (t[index][0] == t[j][0] and t[index][1] > t[j][1]):
@@ -118,7 +120,9 @@ def sort_planes_time(result: list) -> tuple:#按时间排序
 
 
 
-def select_planes(info: tuple) -> list | None | bool:
+
+
+def select_planes(info: tuple):
     """
     :param info:出发城市，到达城市，出发日期
     :return: 正常情况下返回搜索到的结果，没搜索到返回None，数据库在更新返回False
@@ -130,15 +134,20 @@ def select_planes(info: tuple) -> list | None | bool:
     except:
         return False
     a = city_excel.query("到达城市==@bcity")  # 第一轮（城市）筛选后
+    if len(a) == 0:
+        return None
     b = [i.split(' ')[0] for i in a['出发时间'].values]
     index = [i for i in range(len(b)) if b[i] == date]  # 第二轮（时间）筛选后,index为符合条件的索引
-    if not index:
-        return
-    z = a.loc[index].values
+    if not index or index == []:
+        return None
+    z = a.iloc[index].values
     for i in range(len(z)):
         result.append(numpy.insert(z[i], 0, index[i],axis=0).tolist())
     return result
 
+
+def select_plane():
+    ...
 
 
 
@@ -165,10 +174,20 @@ class emails_db:
             a = pandas.DataFrame({'email': account}, index=[0])
             pandas.concat([emails, a], axis=0, ignore_index=True).to_pickle(self.path)
 
+    def delete_account(self,account:str): #删
+        lock = threading.Lock()
+        with lock:
+            a = pandas.read_pickle(self.path)
+            a.drop(a.query("email==@bcity").index,inplace=True)
+            a.to_pickle(self.path)
+
+
     def __str__(self):
         emails = pandas.read_pickle(self.path)
         return (emails)
-
+    def __repr__(self):
+        emails = pandas.read_pickle(self.path)
+        return (emails.values)
 
 
 

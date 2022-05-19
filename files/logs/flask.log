@@ -1,0 +1,841 @@
+[WARNING] - 数据库更新时试图访问数据!
+[WARNING] - 数据库更新时试图访问数据!
+[2022-05-15 11:01:23,461]-[ERROR] [log_exception - 1455- Exception on /index_ajax2 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 283, in index_ajax2
+    a_economy_class, a_First_class = a.result()
+AttributeError: 'tuple' object has no attribute 'result'
+[2022-05-15 11:51:29,850]-[WARNING] [_process_jobs - 980- Execution of job "delete_log (trigger: interval[0:00:01], next run at: 2022-05-15 11:51:29 CST)" skipped: maximum number of running instances reached (1)]
+[2022-05-15 11:51:30,860]-[WARNING] [_process_jobs - 980- Execution of job "delete_log (trigger: interval[0:00:01], next run at: 2022-05-15 11:51:30 CST)" skipped: maximum number of running instances reached (1)]
+[2022-05-15 11:51:31,851]-[WARNING] [_process_jobs - 980- Execution of job "delete_log (trigger: interval[0:00:01], next run at: 2022-05-15 11:51:31 CST)" skipped: maximum number of running instances reached (1)]
+[2022-05-15 11:51:32,851]-[WARNING] [_process_jobs - 980- Execution of job "delete_log (trigger: interval[0:00:01], next run at: 2022-05-15 11:51:32 CST)" skipped: maximum number of running instances reached (1)]
+[2022-05-15 11:51:33,850]-[WARNING] [_process_jobs - 980- Execution of job "delete_log (trigger: interval[0:00:01], next run at: 2022-05-15 11:51:33 CST)" skipped: maximum number of running instances reached (1)]
+[2022-05-15 11:51:57,951]-[WARNING] [_process_jobs - 980- Execution of job "delete_log (trigger: interval[0:00:02], next run at: 2022-05-15 11:51:57 CST)" skipped: maximum number of running instances reached (1)]
+[2022-05-15 11:51:59,948]-[WARNING] [_process_jobs - 980- Execution of job "delete_log (trigger: interval[0:00:02], next run at: 2022-05-15 11:51:59 CST)" skipped: maximum number of running instances reached (1)]
+[2022-05-15 11:56:12,984]-[WARNING] [_process_jobs - 980- Execution of job "delete_log (trigger: interval[0:00:02], next run at: 2022-05-15 11:56:12 CST)" skipped: maximum number of running instances reached (1)]
+[2022-05-15 11:56:14,985]-[WARNING] [_process_jobs - 980- Execution of job "delete_log (trigger: interval[0:00:02], next run at: 2022-05-15 11:56:14 CST)" skipped: maximum number of running instances reached (1)]
+[2022-05-15 12:19:40,002]-[WARNING] [_process_jobs - 980- Execution of job "plane_update (trigger: interval[0:00:10], next run at: 2022-05-15 12:19:40 CST)" skipped: maximum number of running instances reached (1)]
+[2022-05-15 13:51:08,960]-[ERROR] [log_exception - 1455- Exception on /index_ajax1 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 205, in index_ajax1
+    result = a.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\民航行程推荐\Function.py", line 141, in select_planes
+    z = a.loc[index].values
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 967, in __getitem__
+    return self._getitem_axis(maybe_callable, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1191, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1132, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1327, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5782, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5842, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([2860, 2861, 2862, 2863, 2864, 2865, 2866, 2867, 2868, 2869, 2870,\n            2871, 2872, 2873, 2874, 2875, 2876, 2877, 2878, 2879, 2880, 2881,\n            2882, 2883, 2884, 2885, 2886, 2887, 2888, 2889, 2890, 2891, 2892,\n            2893, 2894, 2895, 2896, 2897, 2898, 2899, 2900, 2901, 2902, 2903,\n            2904, 2905, 2906, 2907, 2908, 2909, 2910, 2911, 2912, 2913, 2914,\n            2915, 2916, 2917, 2918, 2919, 2920, 2921, 2922, 2923, 2924, 2925,\n            2926, 2927, 2928, 2929, 2930, 2931, 2932, 2933, 2934, 2935, 2936,\n            2937, 2938, 2939, 2940, 2941, 2942, 2943, 2944, 2945, 2946],\n           dtype='int64')] are in the [index]"
+[2022-05-15 13:57:17,978]-[ERROR] [log_exception - 1455- Exception on / [GET]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+TypeError: before() takes 0 positional arguments but 1 was given
+[2022-05-15 13:57:17,978]-[ERROR] [finalize_request - 1552- Request finalizing failed with an error while handling an error]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+TypeError: before() takes 0 positional arguments but 1 was given
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+TypeError: before() takes 0 positional arguments but 1 was given
+[2022-05-15 13:57:18,038]-[ERROR] [log_exception - 1455- Exception on /favicon.ico [GET]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+TypeError: before() takes 0 positional arguments but 1 was given
+[2022-05-15 13:57:18,048]-[ERROR] [finalize_request - 1552- Request finalizing failed with an error while handling an error]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+TypeError: before() takes 0 positional arguments but 1 was given
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+TypeError: before() takes 0 positional arguments but 1 was given
+[2022-05-15 13:57:48,966]-[ERROR] [log_exception - 1455- Exception on / [GET]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+[2022-05-15 13:57:48,966]-[ERROR] [finalize_request - 1552- Request finalizing failed with an error while handling an error]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+[2022-05-15 13:57:49,016]-[ERROR] [log_exception - 1455- Exception on /favicon.ico [GET]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+[2022-05-15 13:57:49,016]-[ERROR] [finalize_request - 1552- Request finalizing failed with an error while handling an error]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+[2022-05-15 13:58:12,655]-[ERROR] [log_exception - 1455- Exception on / [GET]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+[2022-05-15 13:58:12,658]-[ERROR] [finalize_request - 1552- Request finalizing failed with an error while handling an error]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+[2022-05-15 13:58:12,711]-[ERROR] [log_exception - 1455- Exception on /favicon.ico [GET]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+[2022-05-15 13:58:12,711]-[ERROR] [finalize_request - 1552- Request finalizing failed with an error while handling an error]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1547, in finalize_request
+    response = self.process_response(response)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1889, in process_response
+    response = self.ensure_sync(func)(response)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 177, in cors_after_request
+    if resp.headers is not None and resp.headers.get(ACL_ORIGIN):
+AttributeError: 'NoneType' object has no attribute 'headers'
+[2022-05-15 17:29:03,118]-[ERROR] [log_exception - 1455- Exception on /index_ajax1 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 206, in index_ajax1
+    result = a.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\民航行程推荐\Function.py", line 141, in select_planes
+    z = a.loc[index].values
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 967, in __getitem__
+    return self._getitem_axis(maybe_callable, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1191, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1132, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1327, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5782, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5842, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([2845, 2846, 2847, 2848, 2849, 2850, 2851, 2852, 2853, 2854, 2855,\n            2856, 2857, 2858, 2859, 2860, 2861, 2862, 2863, 2864, 2865, 2866,\n            2867, 2868, 2869, 2870, 2871, 2872, 2873, 2874, 2875, 2876, 2877,\n            2878, 2879, 2880, 2881, 2882, 2883, 2884, 2885],\n           dtype='int64')] are in the [index]"
+[2022-05-15 17:32:36,418]-[ERROR] [log_exception - 1455- Exception on /index_ajax1 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 206, in index_ajax1
+    result = a.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\民航行程推荐\Function.py", line 141, in select_planes
+    z = a.loc[index].values
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 967, in __getitem__
+    return self._getitem_axis(maybe_callable, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1191, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1132, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1327, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5782, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5842, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([2418, 2419, 2420, 2421, 2422, 2423, 2424, 2425, 2426, 2427, 2428,\n            2429, 2430, 2431, 2432, 2433, 2434, 2435, 2436, 2437, 2438, 2439,\n            2440, 2441, 2442, 2443, 2444, 2445, 2446, 2447],\n           dtype='int64')] are in the [index]"
+[2022-05-15 17:33:41,134]-[ERROR] [log_exception - 1455- Exception on /index_ajax1 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 206, in index_ajax1
+    result,b = a.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\民航行程推荐\Function.py", line 141, in select_planes
+    z = a.loc[index].values
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 967, in __getitem__
+    return self._getitem_axis(maybe_callable, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1191, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1132, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1327, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5782, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5842, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([2418, 2419, 2420, 2421, 2422, 2423, 2424, 2425, 2426, 2427, 2428,\n            2429, 2430, 2431, 2432, 2433, 2434, 2435, 2436, 2437, 2438, 2439,\n            2440, 2441, 2442, 2443, 2444, 2445, 2446, 2447],\n           dtype='int64')] are in the [index]"
+[2022-05-15 17:34:55,970]-[ERROR] [log_exception - 1455- Exception on /index_ajax1 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 206, in index_ajax1
+    result = a.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\民航行程推荐\Function.py", line 143, in select_planes
+    z = a.loc[index].values
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 967, in __getitem__
+    return self._getitem_axis(maybe_callable, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1191, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1132, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1327, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5782, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5842, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([2418, 2419, 2420, 2421, 2422, 2423, 2424, 2425, 2426, 2427, 2428,\n            2429, 2430, 2431, 2432, 2433, 2434, 2435, 2436, 2437, 2438, 2439,\n            2440, 2441, 2442, 2443, 2444, 2445, 2446, 2447],\n           dtype='int64')] are in the [index]"
+[2022-05-15 17:35:35,431]-[ERROR] [log_exception - 1455- Exception on /index_ajax1 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 206, in index_ajax1
+    result = a.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\民航行程推荐\Function.py", line 137, in select_planes
+    if a == []:
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\ops\common.py", line 70, in new_method
+    return method(self, other)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\arraylike.py", line 40, in __eq__
+    return self._cmp_method(other, operator.eq)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\frame.py", line 6931, in _cmp_method
+    self, other = ops.align_method_FRAME(self, other, axis, flex=False, level=None)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\ops\__init__.py", line 282, in align_method_FRAME
+    right = to_series(right)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\ops\__init__.py", line 239, in to_series
+    raise ValueError(
+ValueError: Unable to coerce to Series, length must be 11: given 0
+[2022-05-15 17:36:06,134]-[ERROR] [log_exception - 1455- Exception on /index_ajax1 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 206, in index_ajax1
+    result = a.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\民航行程推荐\Function.py", line 143, in select_planes
+    z = a.loc[index].values
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 967, in __getitem__
+    return self._getitem_axis(maybe_callable, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1191, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1132, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1327, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5782, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5842, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([2418, 2419, 2420, 2421, 2422, 2423, 2424, 2425, 2426, 2427, 2428,\n            2429, 2430, 2431, 2432, 2433, 2434, 2435, 2436, 2437, 2438, 2439,\n            2440, 2441, 2442, 2443, 2444, 2445, 2446, 2447],\n           dtype='int64')] are in the [index]"
+[2022-05-15 17:38:04,964]-[ERROR] [log_exception - 1455- Exception on /index_ajax1 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 206, in index_ajax1
+    result = a.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\民航行程推荐\Function.py", line 143, in select_planes
+    z = a.loc[index].values
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 967, in __getitem__
+    return self._getitem_axis(maybe_callable, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1191, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1132, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1327, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5782, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5842, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([2418, 2419, 2420, 2421, 2422, 2423, 2424, 2425, 2426, 2427, 2428,\n            2429, 2430, 2431, 2432, 2433, 2434, 2435, 2436, 2437, 2438, 2439,\n            2440, 2441, 2442, 2443, 2444, 2445, 2446, 2447],\n           dtype='int64')] are in the [index]"
+[2022-05-15 17:38:48,136]-[ERROR] [log_exception - 1455- Exception on /index_ajax1 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 206, in index_ajax1
+    result = a.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\民航行程推荐\Function.py", line 143, in select_planes
+    z = a.loc[index].values
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 967, in __getitem__
+    return self._getitem_axis(maybe_callable, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1191, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1132, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1327, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5782, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5842, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([2418, 2419, 2420, 2421, 2422, 2423, 2424, 2425, 2426, 2427, 2428,\n            2429, 2430, 2431, 2432, 2433, 2434, 2435, 2436, 2437, 2438, 2439,\n            2440, 2441, 2442, 2443, 2444, 2445, 2446, 2447],\n           dtype='int64')] are in the [index]"
+[2022-05-15 17:40:11,106]-[ERROR] [log_exception - 1455- Exception on /index_ajax1 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 206, in index_ajax1
+    result = a.result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 446, in result
+    return self.__get_result()
+  File "D:\Python3.10.4\lib\concurrent\futures\_base.py", line 391, in __get_result
+    raise self._exception
+  File "D:\Python3.10.4\lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\民航行程推荐\Function.py", line 143, in select_planes
+    z = a.loc[index].values
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 967, in __getitem__
+    return self._getitem_axis(maybe_callable, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1191, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1132, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexing.py", line 1327, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5782, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "D:\Python3.10.4\lib\site-packages\pandas\core\indexes\base.py", line 5842, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([3920, 3921, 3922, 3923, 3924, 3925, 3926, 3927, 3928, 3929, 3930,\n            3931, 3932, 3933, 3934, 3935, 3936, 3937, 3938, 3939, 3940, 3941,\n            3942, 3943, 3944, 3945, 3946, 3947],\n           dtype='int64')] are in the [index]"
+[2022-05-16 12:31:33,502]-[ERROR] [log_exception - 1455- Exception on / [GET]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 190, in index
+    print(g.text)
+  File "D:\Python3.10.4\lib\site-packages\flask\ctx.py", line 51, in __getattr__
+    raise AttributeError(name) from None
+AttributeError: text
+[2022-05-16 12:33:30,853]-[ERROR] [log_exception - 1455- Exception on /login [GET]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\Python3.10.4\lib\site-packages\flask_caching\__init__.py", line 475, in decorated_function
+    rv = f(*args, **kwargs)
+  File "D:\民航行程推荐\wsgi.py", line 104, in login
+    g[text] = 'hello'
+NameError: name 'text' is not defined
+[2022-05-16 12:33:42,764]-[ERROR] [log_exception - 1455- Exception on /login [GET]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask_cors\extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\Python3.10.4\lib\site-packages\flask_caching\__init__.py", line 475, in decorated_function
+    rv = f(*args, **kwargs)
+  File "D:\民航行程推荐\wsgi.py", line 104, in login
+    g['text'] = 'hello'
+TypeError: '_AppCtxGlobals' object does not support item assignment
+[2022-05-16 13:43:05,178]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 13:44:58,016]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 13:45:11,772]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 13:46:07,021]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 13:46:21,183]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 13:46:42,432]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 14:23:08,348]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 14:23:32,611]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 14:58:59,755]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 15:05:09,129]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 15:05:26,433]-[WARNING] [encounter_404 - 87- 出现了404]
+[2022-05-16 15:06:12,497]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 15:10:32,940]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 15:10:58,283]-[WARNING] [encounter_404 - 87- 出现了404]
+[2022-05-16 15:10:58,547]-[WARNING] [encounter_404 - 87- 出现了404]
+[2022-05-16 15:12:08,673]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 15:12:08,773]-[WARNING] [encounter_404 - 87- 出现了404]
+[2022-05-16 15:13:06,114]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 15:13:07,206]-[WARNING] [encounter_404 - 87- 出现了404]
+[2022-05-16 15:13:12,155]-[WARNING] [encounter_404 - 87- 出现了404]
+[2022-05-16 15:13:32,574]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 15:13:43,732]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 15:13:53,370]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-16 15:14:36,643]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-17 14:55:21,155]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-17 14:55:30,262]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-17 14:55:47,102]-[WARNING] [encounter_404 - 87- 出现了404]
+[2022-05-17 14:57:32,896]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-17 14:57:49,794]-[WARNING] [encounter_404 - 87- 出现了404]
+[2022-05-17 14:58:29,586]-[WARNING] [encounter_404 - 87- 出现了404]
+[2022-05-17 14:58:46,034]-[WARNING] [encounter_404 - 87- 出现了404]
+[2022-05-18 13:51:33,027]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 13:57:13,452]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 13:58:53,864]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 13:59:22,294]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 14:00:08,065]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 14:14:11,684]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 14:30:12,981]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 14:30:31,715]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 16:01:45,506]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 16:02:36,840]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 16:04:06,125]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 16:04:53,538]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 16:05:09,724]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 16:06:54,920]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 16:07:11,312]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 16:08:08,221]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 16:09:46,871]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 16:10:05,185]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 16:10:57,815]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 16:11:16,311]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 16:13:14,893]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 16:13:29,577]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 16:14:23,049]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 16:14:28,988]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 16:14:45,063]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 16:19:46,686]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 16:20:01,931]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 16:20:28,657]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 16:23:10,873]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 16:23:26,048]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 16:24:55,365]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 16:24:56,989]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 16:24:57,019]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 16:25:01,575]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 16:25:01,595]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 16:26:02,497]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 16:26:20,303]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 16:29:51,731]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 16:30:10,460]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 16:31:34,139]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 16:31:49,517]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 16:33:25,706]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 16:33:40,684]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 16:34:51,991]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 16:35:07,752]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 16:36:44,375]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 16:37:06,316]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 16:39:02,474]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 16:39:18,489]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 16:40:38,771]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 16:41:09,369]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:01:47,131]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:02:08,174]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:03:50,036]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:04:05,626]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:04:28,828]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:04:54,988]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:05:44,566]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:05:59,801]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:08:56,243]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:08:59,886]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:08:59,926]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:09:43,996]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:10:01,223]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:10:19,904]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:10:37,637]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:14:25,856]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:14:26,130]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:14:31,331]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:15:05,949]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:15:21,119]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:15:48,669]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:16:03,869]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:21:47,907]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:22:02,050]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:22:43,750]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:23:08,407]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:24:21,581]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:24:41,177]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:25:16,146]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:25:36,540]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:26:26,928]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:26:41,119]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:28:30,105]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:28:45,503]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:30:04,290]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:30:12,066]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:30:27,639]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:31:46,008]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:32:22,236]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:33:00,114]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:33:16,361]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:38:33,978]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:39:41,937]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:39:57,407]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:40:30,019]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:40:48,875]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:43:42,313]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:43:58,905]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:44:46,224]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:45:01,692]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:45:24,053]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:45:43,214]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:46:01,356]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:46:15,369]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:46:38,911]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:46:48,262]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:47:07,305]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:47:14,680]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:47:23,227]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:47:25,306]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:48:42,837]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:49:01,095]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:50:30,825]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:50:52,817]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:53:16,485]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:53:34,878]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 18:53:58,640]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:56:56,461]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 18:57:58,354]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:00:46,179]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:03:25,216]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:04:24,835]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:05:05,011]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:05:28,879]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 19:06:45,987]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:11:17,072]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:12:10,204]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:12:25,491]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 19:13:20,941]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:13:39,540]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 19:14:01,320]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:14:48,081]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:15:25,200]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:18:36,252]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:19:17,682]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:19:34,224]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 19:20:12,176]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 19:21:50,976]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:22:08,231]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 19:22:47,526]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:23:04,060]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 19:23:23,535]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:23:42,462]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 19:24:41,889]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:24:57,679]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 19:25:26,662]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:25:41,499]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 19:25:42,089]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 19:27:36,518]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:27:53,796]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 19:27:58,784]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 19:28:03,134]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 19:30:52,001]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:31:38,118]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:33:39,469]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:34:13,420]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:34:36,775]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 19:35:08,058]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:35:26,062]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 19:35:26,953]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-18 19:39:26,753]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-18 19:39:42,654]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-19 05:04:42,291]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-19 05:05:45,985]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-19 05:06:05,314]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-19 05:06:41,515]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-19 05:07:00,040]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-19 05:08:09,386]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-19 05:08:24,455]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-19 05:08:25,594]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-19 05:11:04,105]-[WARNING] [_log - 224-  * Debugger is active!]
+[2022-05-19 05:11:29,669]-[WARNING] [encounter_404 - 88- 出现了404]
+[2022-05-19 05:11:30,586]-[WARNING] [encounter_404 - 88- 出现了404]
