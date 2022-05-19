@@ -162,7 +162,7 @@ def register_ajax1():
     string = 'hello'
     if email:
         if emails_db.exist_account(email):
-            string = u'您的账户已经注册，请检查邮件是否填写正确！'
+            string = '1'
         else:
             Thread_Pool.submit(send_email, (
                 app, email, '民航推荐网站注册',
@@ -369,7 +369,7 @@ def settlement():
         data = {
             'email':email,'table':table,'cabin':cabin,'st':st
         }
-        return render_template('settlement.html')
+        return render_template('settlement.html',**data)
     elif email and login_status:
         return redirect(url_for('index'))
     else:
