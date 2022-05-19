@@ -331,9 +331,6 @@ def index_ajax4():
     session['st'] = request.form.get('st')
     session['table'] = request.form.get('table')
     session['cabin'] = request.form.get('cabin')
-    print(request.form.get('st'))
-    print(request.form.get('table'))
-    print(request.form.get('cabin'))
     session['settlement'] = True
     return request.host_url+'settlement'
 

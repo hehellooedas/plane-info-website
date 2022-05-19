@@ -558,27 +558,22 @@ for (let k = 0; k < but2.length; k++) {
         }
     })
 }
-// 结算\
+// 结算
 var cang;
 var a1;
 var b1;
-var send = [];
+var app;
+var bpp;
+var send = [2];
 pay.addEventListener('click', function () {
-    alert('hi');
-    var app = document.getElementsByName('a');
-    var bpp = document.getElementsByName('b');
-    if (st == 1) {
+     app = document.getElementsByName('a');
+     bpp = document.getElementsByName('b');
+     if (st == 1) {
         for (let i = 0; i < app.length; i++) {
             if (app[i].checked) {
                 a1 = app[i].value;
                 break;
             }
-        }
-        if (a1.indexof(',g') > 0) {
-            cang = ['1'];
-        }
-        else {
-            cang = ['0'];
         }
         a1 = a1.split(',');
         send[0] = a1;
@@ -597,31 +592,18 @@ pay.addEventListener('click', function () {
                 break;
             }
         }
-        if (a1.indexof(',g') > 0 && b1.indexof(',g') > 0) {
-            cang = ['1', '1'];
-        }
-        else if (a1.indexof(',g') > 0 && b1.indexof(',j') > 0) {
-            cang = ['1', '0'];
-        }
-        else if (a1.indexof(',j') > 0 && b1.indexof(',g') > 0) {
-            cang = ['0', '1'];
-        }
-        else if (a1.indexof(',j') > 0 && b1.indexof(',j') > 0) {
-            cang = ['0', '0'];
-        }
         a1 = a1.split(',');
         b1 = b1.split(',');
         send[0] = a1;
         send[1] = b1;
         send = JSON.stringify(send);
     }
-    alert('hello');
     $.ajax(
         {
             url: '/index_ajax4',
             type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({ "table": send, "cabin": JSON.stringify(cang), "st": '0' }),
+            dataType: 'text',
+            data: { "table": send, "cabin":"['0']", "st": "1" },
             async: false,
             error: function (request) {
                 alert('结算出错！');
@@ -632,19 +614,6 @@ pay.addEventListener('click', function () {
         }
     )
 });
-var string = ['北京', '上海'] + ',g';
-var b = string.split(',');
-//    console.log(typeof(b));
-//    var c=b.join(',');
-//    var d;
-//    d=c+c;
-//    console.log(d);
-var send = [];
-send[0] = b;
-send[1] = b;
-send = JSON.stringify(send);
-console.log(send);
-console.log(JSON.stringify(['0','1']));
 
 
 
