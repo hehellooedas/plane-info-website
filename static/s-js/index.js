@@ -564,17 +564,11 @@ var a1;
 var b1;
 var app;
 var bpp;
-var string = ['北京', '上海'] + ',g';
-var b = string.split(',');
-var send = [2];
-send[0] = b;
-send[1] = b;
-send = JSON.stringify(send);
-console.log(send);
+var send = [100];
 pay.addEventListener('click', function () {
-     app = document.getElementsByName('a');
-     bpp = document.getElementsByName('b');
-     if (st == 1) {
+    app = document.getElementsByName('a');
+    bpp = document.getElementsByName('b');
+    if (st == 1) {
         for (let i = 0; i < app.length; i++) {
             if (app[i].checked) {
                 a1 = app[i].value;
@@ -582,8 +576,25 @@ pay.addEventListener('click', function () {
             }
         }
         a1 = a1.split(',');
-        send[0] = a1;
-        send=JSON.stringify(send);
+        send = a1;
+        if (a1[a1.length - 1] == 'g') {
+            cang[0] = '1';
+        }
+        $.ajax(
+            {
+                url: '/index_ajax4',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ "table": JSON.stringify(send), "cabin": cang, "st": "1" }),
+                async: false,
+                error: function (request) {
+                    alert('hello-cuowu');
+                },
+                success: function (data) {
+                    location.replace(data);
+                }
+            }
+        )
     }
     if (st == 2) {
         for (let i = 0; i < app.length; i++) {
@@ -602,23 +613,34 @@ pay.addEventListener('click', function () {
         b1 = b1.split(',');
         send[0] = a1;
         send[1] = b1;
-        send = JSON.stringify(send);
-    }
-    $.ajax(
-        {
-            url: '/index_ajax4',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({ "table": send, "cabin":"['0']", "st": "1" }),
-            async: false,
-            error: function (request) {
-                alert('hello-cuowu');
-            },
-            success: function (data) {
-                location.replace(data);
-            }
+        if (a1[a1.length - 1] == 'g') {
+            cang[0] = '1';
         }
-    )
+        if (a1[a1.length - 1] == 'j') {
+            cang[0] = '0';
+        }
+        if (b1[b1.length - 1] == 'g') {
+            cang[1] = '1';
+        }
+        if (b1[b1.length - 1] == 'j') {
+            cang[1] = '0';
+        }
+        $.ajax(
+            {
+                url: '/index_ajax4',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ "table": JSON.stringify(send), "cabin": JSON.stringify(cang), "st": "2" }),
+                async: false,
+                error: function (request) {
+                    alert('hello-cuowu');
+                },
+                success: function (data) {
+                    location.replace(data);
+                }
+            }
+        )
+    }
 });
 
 
