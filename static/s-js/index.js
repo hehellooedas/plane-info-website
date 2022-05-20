@@ -26,9 +26,6 @@ var str2;
 //搜索触发的接口
 // var app = angular.module('app',["wui.date"]);
 // var exit = document.getElementById('exit');
-// exit.onclick = function(){
-//     location.href = {{ exit_url }};
-// };
 function reqfirst() {
 
     if (st == 1) {
@@ -207,8 +204,8 @@ function reqfirst() {
                             "<td>" + brr[i][4] + "</td>" +
                             "<td>" + brr[i][5] + "</td>" +
                             "<td>" + brr[i][10] + "</td>" +
-                            "<td>" + brr[i][9] +  `<input type="radio" name="b" class="radio2" value="${str}">` + "</td>" +
-                            "<td>" + brr[i][8] +  `<input type="radio" name="b" class="radio2" value="${str2}">` + "</td>" +
+                            "<td>" + brr[i][9] +  `<input type="radio" name="b" class="radio" value="${str}">` + "</td>" +
+                            "<td>" + brr[i][8] +  `<input type="radio" name="b" class="radio" value="${str2}">` + "</td>" +
                             "</table>" +
                             "</div>" +
                             "</div>"
@@ -444,8 +441,8 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>" + brr2[i][4] + "</td>" +
                     "<td>" + brr2[i][5] + "</td>" +
                     "<td>" + brr2[i][10] + "</td>" +
-                    "<td>" + brr2[i][9] + `<input type="radio" name="b" class="radio2" value="${str}">` + "</td>" +
-                    "<td>" + brr2[i][8] + `<input type="radio" name="b" class="radio2" value="${str2}">` + "</td>" +
+                    "<td>" + brr2[i][9] + `<input type="radio" name="b" class="radio" value="${str}">` + "</td>" +
+                    "<td>" + brr2[i][8] + `<input type="radio" name="b" class="radio" value="${str2}">` + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -477,8 +474,8 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>" + brr3[i][4] + "</td>" +
                     "<td>" + brr3[i][5] + "</td>" +
                     "<td>" + brr3[i][10] + "</td>" +
-                    "<td>" + brr3[i][9] + `<input type="radio" name="b" class="radio2" value="${str}">` + "</td>" +
-                    "<td>" + brr3[i][8] + `<input type="radio" name="b" class="radio2" value="${str2}">` + "</td>" +
+                    "<td>" + brr3[i][9] + `<input type="radio" name="b" class="radio" value="${str}">` + "</td>" +
+                    "<td>" + brr3[i][8] + `<input type="radio" name="b" class="radio" value="${str2}">` + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -510,8 +507,8 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>" + brr4[i][4] + "</td>" +
                     "<td>" + brr4[i][5] + "</td>" +
                     "<td>" + brr4[i][10] + "</td>" +
-                    "<td>" + brr4[i][9] + `<input type="radio" name="b" class="radio2" value="${str}">`  + "</td>" +
-                    "<td>" + brr4[i][8] + `<input type="radio" name="b" class="radio2" value="${str2}">` + "</td>" +
+                    "<td>" + brr4[i][9] + `<input type="radio" name="b" class="radio" value="${str}">`  + "</td>" +
+                    "<td>" + brr4[i][8] + `<input type="radio" name="b" class="radio" value="${str2}">` + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -543,8 +540,8 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>" + brr5[i][4] + "</td>" +
                     "<td>" + brr5[i][5] + "</td>" +
                     "<td>" + brr5[i][10] + "</td>" +
-                    "<td>" + brr5[i][9] + `<input type="radio" name="b" class="radio2" value="${str}">` + "</td>" +
-                    "<td>" + brr5[i][8] + `<input type="radio" name="b" class="radio2" value="${str2}">` + "</td>" +
+                    "<td>" + brr5[i][9] + `<input type="radio" name="b" class="radio" value="${str}">` + "</td>" +
+                    "<td>" + brr5[i][8] + `<input type="radio" name="b" class="radio" value="${str2}">` + "</td>" +
                     "</div>" +
                     "</div>"
             }
@@ -558,8 +555,7 @@ for (let k = 0; k < but2.length; k++) {
         }
     })
 }
-// 结算
-var cang = [100];
+var cang;
 var a1;
 var b1;
 var app;
@@ -596,8 +592,8 @@ function jiesuan() {
                 break;
             }
         }
-        if (a1.indexOf('g') == 'g') {
-            cang[0] = '1';
+        if (a1.indexOf('g')=='g') {
+            cang = ['1'];
         }
         a1 = a1.split(',');
         send = a1;
@@ -649,7 +645,7 @@ function jiesuan() {
             {
                 url: '/index_ajax4',
                 type: 'POST',
-                data: { "table": JSON.stringify(send), "cabin": JSON.stringify(cang), "st": "2" },
+                data: {"table": JSON.stringify(send),"cabin": JSON.stringify(cang),"st": "2"},
                 async: false,
                 error: function (request) {
                     alert('hello-cuowu');

@@ -7,33 +7,41 @@ from flask_seasurf import SeaSurf
 from flask_apscheduler import APScheduler
 from flask_avatars import Avatars
 from flask_caching import Cache
-#from flask_sslify import SSLify
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 from apscheduler.triggers.interval import IntervalTrigger
 from user_agents import parse
 from markupsafe import escape
+from dotenv import load_dotenv
 from logging.handlers import TimedRotatingFileHandler
-import os, logging, Function,numpy,json,time
+import os, logging, Function,numpy,json,time,secrets
 
 
+#引入外置环境变量
+dotenv_path = os.path.join(os.path.dirname(__file__),'.env')
+if os.path.exists(dotenv_path):
+    load_dotenv(dotenv_path)#从.env文件引入环境变量
 
 # 日志处理
 logging.basicConfig()
 file_log_handler = TimedRotatingFileHandler(
 filename='./files/logs/flask.log', encoding='UTF-8', delay=True,backupCount=10, interval=10, when='D'
 )
-file_log_handler.setFormatter(logging.Formatter("[%(asctime)s]-[%(levelname)s] [%(funcName)s - %(lineno)s- %(message)s]"))
+file_log_handler.setFormatter(logging.Formatter("[%(asctime)s]-[%(levelname)s] [%(funcName)s - %(lineno)s- %(message)s]"))#设置log格式
 file_log_handler.setLevel(logging.WARNING)#记录warning级别的日志
 logging.getLogger().addHandler(file_log_handler)
 
 app = Flask(__name__)
+limiter = Limiter(#设置网站访问上限
+    app,
+    key_func=get_remote_address,
+    default_limits=["1000 per day", "200 per hour"]
+)
 csrf = SeaSurf(app)  # csrf防护
 scheduler = APScheduler()  # 定时任务
 scheduler.init_app(app)
-scheduler.api_enabled = True
-#sslify = SSLify(app)
-#app.config['SLACK_WEBHOOK_URL'] = os.environ.get('SLACK_WEBHOOK_URL')
-#app.config['SSL_DISABLED'] = False
-interval = IntervalTrigger(
+scheduler.api_enabled = False
+interval = IntervalTrigger(#设置定时任务
     hours=6,  # 六小时更新一次数据库
     start_date='2022-4-29 08:00:00',
     end_date='2023-5-31 08:00:00',
@@ -42,14 +50,13 @@ interval = IntervalTrigger(
 open = True#确认当前数据库中数据是否能对外开放
 # 设置内置环境变量
 CORS(app, supports_credentials=True)
-#os.environ['FLASK_APP'] = 'wsgi'
-#os.environ['FLASK_ENV'] = 'development'
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
-app.secret_key = os.getenv('SECRET_KEY', Function.create_String(16))
+app.secret_key = os.getenv('SECRET_KEY',secrets.token_urlsafe(16))
 avatars = Avatars(app)#生成头像
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})#页面缓存
 Thread_Pool = ThreadPoolExecutor()#线程池
+Process_Pool = ProcessPoolExecutor()#进程池
 
 # 邮件smtp相关配置
 app.config.update(dict(
@@ -100,7 +107,7 @@ def judge_Systen():
     return request.cookies.get('system') == 'phone'
 
 
-@app.get('/login')
+@app.get('/login')#登录界面
 @cache.cached(timeout=300, query_string=True)
 def login():
     response = make_response(render_template('login.html'))
@@ -118,7 +125,7 @@ def login():
 
 
 @csrf.exempt
-@app.post('/login_ajax1')
+@app.post('/login_ajax1')#登录发送按钮
 def login_ajax():
     email = escape(request.form.get('email'))
     Verification_Code = Function.create_String()
@@ -137,7 +144,7 @@ def login_ajax():
 
 
 @csrf.exempt
-@app.post('/login_ajax2')
+@app.post('/login_ajax2')#登录成功
 def login_ajax2():
     email = request.form.get('email')
     session['login_status'] = True
@@ -148,21 +155,21 @@ def login_ajax2():
 
 
 @csrf.exempt
-@app.get('/register')
+@app.get('/register')#注册界面
 @cache.cached(timeout=300, query_string=True)
 def register():
     return render_template('register.html')
 
 
 @csrf.exempt
-@app.post('/register_ajax1')
+@app.post('/register_ajax1')#注册发送按钮
 def register_ajax1():
     email = escape(request.form.get('email'))
     Verification_Code = Function.create_String()
     string = 'hello'
     if email:
         if emails_db.exist_account(email):
-            string = '1'
+            string = '1'#提示邮件已注册
         else:
             Thread_Pool.submit(send_email, (
                 app, email, '民航推荐网站注册',
@@ -176,7 +183,7 @@ def register_ajax1():
 
 
 @csrf.exempt
-@app.post('/register_ajax2')
+@app.post('/register_ajax2')#注册成功
 def register_ajax2():
     email = request.form.get('email')
     Thread_Pool.submit(emails_db.add_account,email)
@@ -186,7 +193,8 @@ def register_ajax2():
 
 # index函数为航班推荐主页面
 @csrf.exempt
-@app.get('/')
+@app.get('/')#主页面
+@limiter.limit("30/second", override_defaults=True,error_message='sorry you have too many requests')
 def index():
     email = session.get("email")
     login_status = session.get('login_status')
@@ -326,17 +334,23 @@ def index_ajax3():
 
 
 @csrf.exempt
-@app.post('/index_ajax4')
+@app.post('/index_ajax4')#结算按钮
 def index_ajax4():
-    session['st'] = request.form.get('st')
-    session['table'] = request.form.get('table')
-    session['cabin'] = request.form.get('cabin')
+    form  = request.form
+    print(form.get('st'))
+    print(form.get('table'))
+    print(form.get('cabin'))
+    session['st'] = form.get('st')
+    session['table'] = form.get('table')
+    session['cabin'] = form.get('cabin')
     session['settlement'] = True
     return request.host_url+'settlement'
 
 
+
+
 @csrf.exempt
-@app.route('/settlement',methods=['GET','POST'])  # 结算
+@app.route('/settlement',methods=['GET','POST'])  # 结算界面
 def settlement():
     email = session.get("email")
     login_status = session.get('login_status')
@@ -407,7 +421,7 @@ def wait():
     if session.get('login_status'):
         return render_template('wait.html')
     else:
-        return redirect(url_for('login'))
+        abort(404)
 
 @scheduler.task(trigger=interval, name='plane_update', id='1')
 def plane_update():
