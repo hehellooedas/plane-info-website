@@ -1,18 +1,18 @@
 import pandas, pickle, os, random, time, copy,numpy,threading,numba,json
 
 
-def delete_log_byhand():
+def delete_log_byhand():#删除日志
     os.remove('./files/logs/flask.log')
 
-def get_date(date_time:str)->str:
+def get_date(date_time:str)->str:#解析日期
     return date_time.split(' ')[0]
 
 
-def get_time(date_time:str)->str:
+def get_time(date_time:str)->str:#解析时间
     return date_time.split(' ')[1]
 
 
-def get_Time():
+def get_Time():#获取当前时间
     return time.strftime("%Y-%m-%d", time.localtime())
 
 
@@ -32,7 +32,7 @@ def get_content(company, flight_number, acity, bcity, adate, bdate)->str:
            f'并提前20分钟抵达登机口。乘机人'
 
 
-def create_String(n=6)->str:
+def create_String(n=6)->str:#生成随机字符串
     """
     Generate random string
     :param n:int

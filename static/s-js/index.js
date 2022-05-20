@@ -26,9 +26,6 @@ var str2;
 //搜索触发的接口
 // var app = angular.module('app',["wui.date"]);
 // var exit = document.getElementById('exit');
-// exit.onclick = function(){
-//     location.href = {{ exit_url }};
-// };
 function reqfirst() {
 
     if (st == 1) {
@@ -600,16 +597,17 @@ function jiesuan(){
                 break;
             }
         }
+        alert(a1);
+        if (a1.indexOf('g')=='g') {
+            cang = ['1'];
+        }
         a1 = a1.split(',');
         send = a1;
-        if (a1[a1.length - 1] == 'g') {
-            cang[0] = '1';
-        }
         $.ajax(
             {
                 url: '/index_ajax4',
                 type: 'POST',
-                data: {"table": JSON.stringify(send),"cabin": JSON.stringify(cang),"st": "1"},
+                data: { "table": JSON.stringify(send), "cabin": JSON.stringify(cang), "st": "1" },
                 async: false,
                 error: function (request) {
                     alert('hello-cuowu');
@@ -633,22 +631,22 @@ function jiesuan(){
                 break;
             }
         }
+        if (a1.indexOf('g')!=-1) {
+            cang[0] = '1';
+        }
+        if (a1.indexOf('j')!=-1) {
+            cang[0] = '0';
+        }
+        if (b1.indexOf('g')!=-1) {
+            cang[1] = '1';
+        }
+        if (b1.indexOf('j')!=-1) {
+            cang[1] = '0';
+        }
         a1 = a1.split(',');
         b1 = b1.split(',');
         send[0] = a1;
         send[1] = b1;
-        if (a1[a1.length - 1] == 'g') {
-            cang[0] = '1';
-        }
-        if (a1[a1.length - 1] == 'j') {
-            cang[0] = '0';
-        }
-        if (b1[b1.length - 1] == 'g') {
-            cang[1] = '1';
-        }
-        if (b1[b1.length - 1] == 'j') {
-            cang[1] = '0';
-        }
         $.ajax(
             {
                 url: '/index_ajax4',
@@ -665,8 +663,4 @@ function jiesuan(){
         )
     }
 }
-
-
-
-
 
