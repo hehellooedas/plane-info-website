@@ -609,8 +609,7 @@ function jiesuan(){
             {
                 url: '/index_ajax4',
                 type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({ "table": JSON.stringify(send), "cabin": cang, "st": "1" }),
+                data: {"table": JSON.stringify(send),"cabin": JSON.stringify(cang),"st": "1"},
                 async: false,
                 error: function (request) {
                     alert('hello-cuowu');
@@ -654,8 +653,7 @@ function jiesuan(){
             {
                 url: '/index_ajax4',
                 type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({ "table": JSON.stringify(send), "cabin": JSON.stringify(cang), "st": "2" }),
+                data: {"table": JSON.stringify(send),"cabin": JSON.stringify(cang),"st": "2"},
                 async: false,
                 error: function (request) {
                     alert('hello-cuowu');

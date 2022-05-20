@@ -328,6 +328,9 @@ def index_ajax3():
 @csrf.exempt
 @app.post('/index_ajax4')
 def index_ajax4():
+    print(request.form.get('st'))
+    print(request.form.get('table'))
+    print(request.form.get('cabin'))
     session['st'] = request.form.get('st')
     session['table'] = request.form.get('table')
     session['cabin'] = request.form.get('cabin')
