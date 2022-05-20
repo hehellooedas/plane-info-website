@@ -88,8 +88,8 @@ function reqfirst() {
                             "<td>" + arr[i][4] + "</td>" +
                             "<td>" + arr[i][5] + "</td>" +
                             "<td>" + arr[i][10] + "</td>" +
-                            "<td>" + arr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str + " " + ">" + "</td>" +
-                            "<td>" + arr[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str2 + " " + ">" + "</td>" +
+                            "<td>" + arr[i][9] + `<input type="radio" name="a" class="radio" value="${str}">` + "</td>" +
+                            "<td>" + arr[i][8] + `<input type="radio" name="a" class="radio" value="${str2}">` + "</td>" +
                             "</table>" +
                             "</div>" +
                             "</div>"
@@ -181,8 +181,8 @@ function reqfirst() {
                             "<td>" + arr[i][4] + "</td>" +
                             "<td>" + arr[i][5] + "</td>" +
                             "<td>" + arr[i][10] + "</td>" +
-                            "<td>" + arr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str + " " + ">" + "</td>" +
-                            "<td>" + arr[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str2 + " " + ">" + "</td>" +
+                            "<td>" + arr[i][9] +  `<input type="radio" name="a" class="radio" value="${str}">` + "</td>" +
+                            "<td>" + arr[i][8] + `<input type="radio" name="a" class="radio" value="${str2}">`+ "</td>" +
                             "</table>" +
                             "</div>" +
                             "</div>"
@@ -207,8 +207,8 @@ function reqfirst() {
                             "<td>" + brr[i][4] + "</td>" +
                             "<td>" + brr[i][5] + "</td>" +
                             "<td>" + brr[i][10] + "</td>" +
-                            "<td>" + brr[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio2" + " " + "value=" + str + " " + ">" + "</td>" +
-                            "<td>" + brr[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio2" + " " + "value=" + str2 + " " + ">" + "</td>" +
+                            "<td>" + brr[i][9] +  `<input type="radio" name="b" class="radio2" value="${str}">` + "</td>" +
+                            "<td>" + brr[i][8] +  `<input type="radio" name="b" class="radio2" value="${str2}">` + "</td>" +
                             "</table>" +
                             "</div>" +
                             "</div>"
@@ -301,8 +301,8 @@ for (let k = 0; k < but.length; k++) {
                     "<td>" + arr2[i][4] + "</td>" +
                     "<td>" + arr2[i][5] + "</td>" +
                     "<td>" + arr2[i][10] + "</td>" +
-                    "<td>" + arr2[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str + " " + ">" + "</td>" +
-                    "<td>" + arr2[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str2 + " " + ">" + "</td>" +
+                    "<td>" + arr2[i][9] +  `<input type="radio" name="a" class="radio" value="${str}">`+ "</td>" +
+                    "<td>" + arr2[i][8] + `<input type="radio" name="a" class="radio" value="${str2}">` + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -334,8 +334,8 @@ for (let k = 0; k < but.length; k++) {
                     "<td>" + arr3[i][4] + "</td>" +
                     "<td>" + arr3[i][5] + "</td>" +
                     "<td>" + arr3[i][10] + "</td>" +
-                    "<td>" + arr3[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str + " " + ">" + "</td>" +
-                    "<td>" + arr3[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str2 + " " + ">" + "</td>" +
+                    "<td>" + arr3[i][9] +  `<input type="radio" name="a" class="radio" value="${str}">`+ "</td>" +
+                    "<td>" + arr3[i][8] + `<input type="radio" name="a" class="radio" value="${str2}">` + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -367,8 +367,8 @@ for (let k = 0; k < but.length; k++) {
                     "<td>" + arr4[i][4] + "</td>" +
                     "<td>" + arr4[i][5] + "</td>" +
                     "<td>" + arr4[i][10] + "</td>" +
-                    "<td>" + arr4[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str + " " + ">" + "</td>" +
-                    "<td>" + arr4[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str2 + " " + ">" + "</td>" +
+                    "<td>" + arr4[i][9] +  `<input type="radio" name="a" class="radio" value="${str}">`+ "</td>" +
+                    "<td>" + arr4[i][8] + `<input type="radio" name="a" class="radio" value="${str2}">` + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -400,8 +400,8 @@ for (let k = 0; k < but.length; k++) {
                     "<td>" + arr5[i][4] + "</td>" +
                     "<td>" + arr5[i][5] + "</td>" +
                     "<td>" + arr5[i][10] + "</td>" +
-                    "<td>" + arr5[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str + " " + ">" + "</td>" +
-                    "<td>" + arr5[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "a" + " " + "class=" + "radio" + " " + "value=" + str2 + " " + ">" + "</td>" +
+                    "<td>" + arr5[i][9] + `<input type="radio" name="a" class="radio" value="${str}">`+ "</td>" +
+                    "<td>" + arr5[i][8] +`<input type="radio" name="a" class="radio" value="${str2}">` + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -444,8 +444,8 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>" + brr2[i][4] + "</td>" +
                     "<td>" + brr2[i][5] + "</td>" +
                     "<td>" + brr2[i][10] + "</td>" +
-                    "<td>" + brr2[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio2" + " " + "value=" + str + " " + ">" + "</td>" +
-                    "<td>" + brr2[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio2" + " " + "value=" + str2 + " " + ">" + "</td>" +
+                    "<td>" + brr2[i][9] + `<input type="radio" name="b" class="radio2" value="${str}">` + "</td>" +
+                    "<td>" + brr2[i][8] + `<input type="radio" name="b" class="radio2" value="${str2}">` + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -477,8 +477,8 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>" + brr3[i][4] + "</td>" +
                     "<td>" + brr3[i][5] + "</td>" +
                     "<td>" + brr3[i][10] + "</td>" +
-                    "<td>" + brr3[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio2" + " " + "value=" + str + " " + ">" + "</td>" +
-                    "<td>" + brr3[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio2" + " " + "value=" + str2 + " " + ">" + "</td>" +
+                    "<td>" + brr3[i][9] + `<input type="radio" name="b" class="radio2" value="${str}">` + "</td>" +
+                    "<td>" + brr3[i][8] + `<input type="radio" name="b" class="radio2" value="${str2}">` + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -510,8 +510,8 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>" + brr4[i][4] + "</td>" +
                     "<td>" + brr4[i][5] + "</td>" +
                     "<td>" + brr4[i][10] + "</td>" +
-                    "<td>" + brr4[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio2" + " " + "value=" + str + " " + ">" + "</td>" +
-                    "<td>" + brr4[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio2" + " " + "value=" + str2 + " " + ">" + "</td>" +
+                    "<td>" + brr4[i][9] + `<input type="radio" name="b" class="radio2" value="${str}">`  + "</td>" +
+                    "<td>" + brr4[i][8] + `<input type="radio" name="b" class="radio2" value="${str2}">` + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -543,8 +543,8 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>" + brr5[i][4] + "</td>" +
                     "<td>" + brr5[i][5] + "</td>" +
                     "<td>" + brr5[i][10] + "</td>" +
-                    "<td>" + brr5[i][9] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio2" + " " + "value=" + str + " " + ">" + "</td>" +
-                    "<td>" + brr5[i][8] + "<input" + " " + "type=" + "radio" + " " + "name=" + "b" + " " + "class=" + "radio2" + " " + "value=" + str2 + " " + ">" + "</td>" +
+                    "<td>" + brr5[i][9] + `<input type="radio" name="b" class="radio2" value="${str}">` + "</td>" +
+                    "<td>" + brr5[i][8] + `<input type="radio" name="b" class="radio2" value="${str2}">` + "</td>" +
                     "</div>" +
                     "</div>"
             }
@@ -559,38 +559,34 @@ for (let k = 0; k < but2.length; k++) {
     })
 }
 // 结算
-var cang=[100];
+var cang = [100];
 var a1;
 var b1;
 var app;
 var bpp;
 var send = [100];
-var nav_tishi=document.getElementsByClassName('nav_tishi')[0];
-var nav_tishi3=document.getElementsByClassName('nav_tishi3')[0];
+var nav_tishi = document.getElementsByClassName('nav_tishi')[0];
+var nav_tishi3 = document.getElementsByClassName('nav_tishi3')[0];
 pay.addEventListener('click', function () {
-    if(order1!==1)
-    {
-     nav_tishi3.innerText='请选择去程的机票';
-     nav_tishi3.className='nav_tishi4';   
+    if (order1 !== 1) {
+        nav_tishi3.innerText = '请选择去程的机票';
+        nav_tishi3.className = 'nav_tishi4';
     }
-    if(order2!==1&&st==2)
-    {
-     nav_tishi.innerText='请选择返程的机票';
-     nav_tishi.className='nav_tishi2';      
+    if (order2 !== 1 && st == 2) {
+        nav_tishi.innerText = '请选择返程的机票';
+        nav_tishi.className = 'nav_tishi2';
     }
-    if(order1==1&&st==1)
-    {
-        nav_tishi3.className='nav_tishi3';
+    if (order1 == 1 && st == 1) {
+        nav_tishi3.className = 'nav_tishi3';
         jiesuan();
     }
-    if(order1==1&&st==2&order2==1)
-    {
-        nav_tishi.className='nav_tishi';
-        nav_tishi3.className='nav_tishi3';
+    if (order1 == 1 && st == 2 & order2 == 1) {
+        nav_tishi.className = 'nav_tishi';
+        nav_tishi3.className = 'nav_tishi3';
         jiesuan();
     }
 });
-function jiesuan(){
+function jiesuan() {
     app = document.getElementsByName('a');
     bpp = document.getElementsByName('b');
     if (st == 1) {
@@ -600,7 +596,7 @@ function jiesuan(){
                 break;
             }
         }
-        if (a1.indexOf('g')=='g') {
+        if (a1.indexOf('g') == 'g') {
             cang[0] = '1';
         }
         a1 = a1.split(',');
@@ -609,7 +605,7 @@ function jiesuan(){
             {
                 url: '/index_ajax4',
                 type: 'POST',
-                data: { "table": JSON.stringify(send), "cabin": cang, "st": "1" },
+                data: { "table": JSON.stringify(send), "cabin": JSON.stringify(cang), "st": "1" },
                 async: false,
                 error: function (request) {
                     alert('hello-cuowu');
@@ -633,16 +629,16 @@ function jiesuan(){
                 break;
             }
         }
-        if (a1.indexOf('g')!=-1) {
+        if (a1.indexOf('g') != -1) {
             cang[0] = '1';
         }
-        if (a1.indexOf('j')!=-1) {
+        if (a1.indexOf('j') != -1) {
             cang[0] = '0';
         }
-        if (b1.indexOf('g')!=-1) {
+        if (b1.indexOf('g') != -1) {
             cang[1] = '1';
         }
-        if (b1.indexOf('j')!=-1) {
+        if (b1.indexOf('j') != -1) {
             cang[1] = '0';
         }
         a1 = a1.split(',');
@@ -653,7 +649,7 @@ function jiesuan(){
             {
                 url: '/index_ajax4',
                 type: 'POST',
-                data: { "table": JSON.stringify(send), "cabin": cang, "st": "2" },
+                data: { "table": JSON.stringify(send), "cabin": JSON.stringify(cang), "st": "2" },
                 async: false,
                 error: function (request) {
                     alert('hello-cuowu');
@@ -665,7 +661,3 @@ function jiesuan(){
         )
     }
 }
-
-
-
-
