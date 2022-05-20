@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +8,7 @@
   <title>订单</title>
   <link href="../static/s-css/bootstrap.min.css" rel="stylesheet">
   <link href="../static/s-css/common.css" rel="stylesheet">
+  <script src="../static/s-js/jquery.min.js"></script>
 </head>
 <style>
   .head {
@@ -34,12 +34,11 @@
     height: 45px;
       background-color: aliceblue;
     float:right;
-}
-.pay:active{
+  }
+ .pay:active{
   background-color: azure;
-}
+  }
 </style>
-
 <body>
   <div class="head">
     <div>
@@ -193,7 +192,8 @@
         
 
           
-       
+    
+
 
         <div style=" margin-left:-15px; overflow:hidden;">
           <h4 class="mar-left-10" style="display:block; float:left;">订单总额</h4>
@@ -210,4 +210,24 @@
   </div>
 </body>
 
+<script>
+(function(){
+              $.ajax(
+                  {
+                    type:'POST',
+                    url:'settlement_ajax',
+                    dataType: 'json',
+			        async: false,
+			        error: function (request) {
+				    alert("Connection error");
+			        },
+			        success: function (data) {
+				      var st = data['st'];
+				      table = JSON.pares(data['table']);
+				      email = data['email'];
+			        }
+                  }
+              )
+            })();
+</script>
 </html>
