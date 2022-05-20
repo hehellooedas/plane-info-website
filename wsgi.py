@@ -12,7 +12,7 @@ from apscheduler.triggers.interval import IntervalTrigger
 from user_agents import parse
 from markupsafe import escape
 from logging.handlers import TimedRotatingFileHandler
-import os, logging, Function,numpy,json,time
+import os, logging, Function,numpy,json,time,secrets
 
 
 
@@ -46,7 +46,7 @@ CORS(app, supports_credentials=True)
 #os.environ['FLASK_ENV'] = 'development'
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
-app.secret_key = os.getenv('SECRET_KEY', Function.create_String(16))
+app.secret_key = os.getenv('SECRET_KEY',secrets.token_urlsafe(16))
 avatars = Avatars(app)#生成头像
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})#页面缓存
 Thread_Pool = ThreadPoolExecutor()#线程池
@@ -333,6 +333,8 @@ def index_ajax4():
     session['cabin'] = request.form.get('cabin')
     session['settlement'] = True
     return request.host_url+'settlement'
+
+
 
 
 @csrf.exempt
