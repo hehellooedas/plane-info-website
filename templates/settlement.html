@@ -1,119 +1,213 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="../static/s-css/settle.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="renderer" content="webkit">
+  <title>订单</title>
+  <link href="../static/s-css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/s-css/common.css" rel="stylesheet">
 </head>
-<script src="../static/s-js/jquery.min.js"></script>
+<style>
+  .head {
+    position: absolute;
+    top: 10px;
+    overflow: hidden;
+    left: 178px;
+    width: 1180px;
+    height: 100px;
+    background-color: #C4C4C4;
+    text-align: center;
+    line-height: 100px;
+    font-size: large;
+    box-shadow: 2px 2px 2px 2px darkgrey;
+  }
+  .foot{
+       width: 1100px;
+       height: 100px;
+       margin: auto;
+  }
+  .pay{
+    width: 200px;
+    height: 45px;
+      background-color: aliceblue;
+    float:right;
+}
+.pay:active{
+  background-color: azure;
+}
+</style>
+
 <body>
-  <div class="passenger">
-    <h2>尊敬的....用户
-      你的订单如下
-    </h2>
+  <div class="head">
+    <div>
+      尊敬的用户你的订单如下
+    </div>
   </div>
-  <div class="order">
-    <div class="info">
-      <div class="time">
-        5月4号 08：25
-      </div>
-      <div class="flight">
-        <div class="plane">
-          <p>中国南航</p>
-          <p>CZ6259</p>
+
+  <div class="body0">
+
+    <div class="container bg-gray-eee box-shadow mar-bottom-30"
+      style="padding-right:0px; padding-left:0px; position:relative; margin-top:120px;">
+      <div class="col-sm-7 container bg-white  pad-bottom-20">
+
+        <div style="overflow:hidden;">
+          <h3 class="mar-bottom-20" style=" display:block; float:left;">乘机人</h3>
         </div>
-        <div class="addf">
-          <h3>哈尔滨</h3>
-          <p>08：25</p>
+
+        <div>
+          <input name="input" type="text" class="form-control input-sm w300" style=" display: inline-block;"
+            placeholder="姓名，与登机所持证件中的姓名一致">
+          <select name="select" class="form-control input-sm w150" style=" display: inline-block;">
+            <option value="成人" selected="selected">成人</option>
+            <option value="儿童">儿童（2-12岁）</option>
+            <option value="婴儿">婴儿（14天-2岁）</option>
+          </select>
         </div>
-        <div class="pho">
-          <p>------></p>
-          <p>3小时15分</p>
+
+        <div class="mar-top-10">
+          <select name="select" class="form-control input-sm w150" style=" display: inline-block;">
+            <option value="身份证" selected="selected">身份证</option>
+          </select>
+          <input name="input" type="text" class="form-control input-sm w300" style=" display: inline-block;"
+            placeholder="证件号码">
         </div>
-        <div class="adds">
-          <h3>杭州</h3>
-          <p>11：40</p>
+
+        <!-- 保险 -->
+        <div style="position:relative;">
+
+          <h3 class="mar-bottom-20">保险</h3>
+          <a href="" class="mar-right-10 safe">航意险</a>
+          <select name="select" class="form-control input-sm w150 mar-right-10" style=" display: inline-block;">
+            <option value="保险" selected="selected">￥30/份X1</option>
+          </select>
+          <span>保额￥260万/份</span>
+
+          <!--航意险说明-->
+          <div
+            style="width:460px; border:1px solid #C4C4C4; padding:5px; position:absolute; left:0px; top:75px; background-color:#eee;"
+            class="explain">
+            <h5>航意险说明</h5>
+            <p>1.保险费：<i class="rmb">¥</i>30/份。保险金额及保险责任：<i class="rmb">¥</i>260万/份。航空意外险由太平财产保险有限公司深圳分公司承保。</p>
+            <p>2.保险购买即生效，不可单独退保。机票退款后，自动退保。机票改签后，保险责任保护到改签后航班。提供保险定额发票作为报销凭证。</p>
+          </div>
+
         </div>
-      </div>
-      <div class="card">
-        <table border="1" cellspacing="5">
-          <tr class="app">
-            <td>旅客姓名</td>
-            <td>日期</td>
-            <td>座位号</td>
-            <td>座位类型</td>
-            <td>价格</td>
-          </tr>
-          <tr class="app2">
-            <td>赵飞扬</td>
-            <td>4月28号周三</td>
-            <td>49C</td>
-            <td>普通座位</td>
-            <td>0里程</td>
-          </tr>
-        </table>
+
+        <!-- 联系人 -->
+        <h3 class="mar-bottom-20">联系人</h3>
+        <input name="input" type="text" class="form-control input-sm" style=" display: inline-block; width:460px;"
+          placeholder="姓名">
+
+        <div class="mar-top-10">
+          <select name="select" class="form-control input-sm w110 mar-right-10" style=" display: inline-block;">
+            <option value="国家" selected="selected">中国&nbsp;&nbsp;+86</option>
+          </select>
+          <input name="input" type="text" class="form-control input-sm" style=" display: inline-block; width:337px;"
+            placeholder="手机号码，接收航班信息">
+        </div>
+
+
+        <!-- 报销 -->
+        <h3 class="mar-bottom-20">报销</h3>
+        <input type="checkbox" name="choice">&nbsp;需要报销凭证<span style=" color:#999;">（含：行程单和差额发票，快递费发票）</span>
 
       </div>
-    </div>
-    <!-- 2 -->
-    <div class="info2">
-      <div class="time2">
-        5月4号 08：25
-      </div>
-      <div class="flight2">
-        <div class="plane2">
-          <p>中国南航</p>
-          <p>CZ6259</p>
+      <!-- 订单左边 -->
+
+      <div class="col-sm-5 bg-gray-eee">
+
+        <div style=" margin-left:-15px;">
+          <h4 style="overflow:hidden; margin-left:10px;">
+    
+            <span style="display:block; float:left;" class="time">5月3日&nbsp;&nbsp;</span>
+            <span style="display:block; float:left; margin-left:80px;"class="adress">长春————》上海</span>
+            <span style=" display:block; float:right;color:#999; font-size:14px; margin-right:5px;" class="cangwei">经济舱</span>
+
+          </h4>
         </div>
-        <div class="addf2">
-          <h3>哈尔滨</h3>
-          <p>08：25</p>
+
+        <div style=" overflow:hidden; margin-bottom:20px;">
+
+          <div class="flight-from" style="float:left;">
+            <span class="time text-center" class="time-start">7：00</span><br />
+            <span class="text-center" class="address">长春</span>
+          </div>
+
+          <div class="flight-info" style="float:left; margin-left:100px;">
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="text-center font12 gray-999 mar-left-10" class="hangkong">中国民航</span>
+            
+            <span class="text-center font12 gray-999"class="hangban">MU5735</span><br />
+            <span class="airline-direct"></span>
+            <span class="arrow"></span>
+          </div>
+
+          <div class="flight-to" style="float:right;">
+            <span class="time text-center"class="time2">9：00</span><br />
+            <span class="text-center"class="address">上海</span>
+          </div>
+
         </div>
-        <div class="pho2">
-          <p>------></p>
-          <p>3小时15分</p>
+
+
+        <div style=" margin-left:-15px;">
+          <h4 style="overflow:hidden; margin-left:10px;">
+    
+            <span style="display:block; float:left;" class="time">5月3日&nbsp;&nbsp;</span>
+            <span style="display:block; float:left; margin-left:80px;"class="adress">长春————》上海</span>
+            <span style=" display:block; float:right;color:#999; font-size:14px; margin-right:5px;" class="cangwei">经济舱</span>
+
+          </h4>
         </div>
-        <div class="adds2">
-          <h3>杭州</h3>
-          <p>11：40</p>
+
+        <div style=" overflow:hidden; margin-bottom:20px;">
+
+          <div class="flight-from" style="float:left;">
+            <span class="time text-center" class="time-start">7：00</span><br />
+            <span class="text-center" class="address">长春</span>
+          </div>
+
+          <div class="flight-info" style="float:left; margin-left:100px;">
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="text-center font12 gray-999 mar-left-10" class="hangkong">中国民航</span>
+            
+            <span class="text-center font12 gray-999"class="hangban">MU5735</span><br />
+            <span class="airline-direct"></span>
+            <span class="arrow"></span>
+          </div>
+
+          <div class="flight-to" style="float:right;">
+            <span class="time text-center"class="time2">9：00</span><br />
+            <span class="text-center"class="address">上海</span>
+          </div>
+
         </div>
+
+
+        
+        
+
+          
+       
+
+        <div style=" margin-left:-15px; overflow:hidden;">
+          <h4 class="mar-left-10" style="display:block; float:left;">订单总额</h4>
+          <h4 class="red" style=" display:block; float:right; font-weight:bold;"><p class="money">￥800</p></h4>
+        </div>
+        <!-- n内容 -->
       </div>
-      <div class="card2">
-        <table border="1" cellspacing="5">
-          <tr class="app3">
-            <td>旅客姓名</td>
-            <td>日期</td>
-            <td>座位号</td>
-            <td>座位类型</td>
-            <td>价格</td>
-          </tr>
-          <tr class="app4">
-            <td>赵飞扬</td>
-            <td>4月28号周三</td>
-            <td>49C</td>
-            <td>普通座位</td>
-            <td>0里程</td>
-          </tr>
-        </table>
-      </div>
-    </div>
-    <div class="money">
-      <div class="mon">
-        <span>￥</span>
-      <h2 class="offer">1200</h2>
-      </div>
-    </div>
+   
+  </div>
+  <div class="foot">
+      <span><input type="checkbox">同意相关协议
+      </span>
+    <input type="button" value="支付" class="pay">
   </div>
 </body>
-<script>
-  var email = '{{ email }}';
-  //var table = '{ table }';
-  var table = ['','']
-  var cabin = '{ cabin }';
-  var st = '{ st }';
 
-</script>
 </html>

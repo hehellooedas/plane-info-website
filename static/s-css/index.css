@@ -410,6 +410,10 @@ body{
     text-align: center;
 }
 .pay{
+    position: absolute;
+    z-index: 100;
+    right: 100px;
+    top: 80px;
     cursor: pointer;
     width: 150px;
     height: 40px;
