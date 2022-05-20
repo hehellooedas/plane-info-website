@@ -592,16 +592,13 @@ function jiesuan() {
                 break;
             }
         }
-        if (a1.indexOf('g')=='g') {
-            cang = ['1'];
-        }
         a1 = a1.split(',');
         send = a1;
         $.ajax(
             {
                 url: '/index_ajax4',
                 type: 'POST',
-                data: { "table": JSON.stringify(send), "cabin": JSON.stringify(cang), "st": "1" },
+                data: { "table": JSON.stringify(send),"st": "1" },
                 async: false,
                 error: function (request) {
                     alert('hello-cuowu');
@@ -625,18 +622,6 @@ function jiesuan() {
                 break;
             }
         }
-        if (a1.indexOf('g') != -1) {
-            cang[0] = '1';
-        }
-        if (a1.indexOf('j') != -1) {
-            cang[0] = '0';
-        }
-        if (b1.indexOf('g') != -1) {
-            cang[1] = '1';
-        }
-        if (b1.indexOf('j') != -1) {
-            cang[1] = '0';
-        }
         a1 = a1.split(',');
         b1 = b1.split(',');
         send[0] = a1;
@@ -645,7 +630,7 @@ function jiesuan() {
             {
                 url: '/index_ajax4',
                 type: 'POST',
-                data: {"table": JSON.stringify(send),"cabin": JSON.stringify(cang),"st": "2"},
+                data: { "table": JSON.stringify(send),"st": "2" },
                 async: false,
                 error: function (request) {
                     alert('hello-cuowu');

@@ -8,6 +8,7 @@
   <title>订单</title>
   <link href="../static/s-css/bootstrap.min.css" rel="stylesheet">
   <link href="../static/s-css/common.css" rel="stylesheet">
+  <script src="../static/s-js/jquery.min.js"></script>
 </head>
 <style>
   .head {
@@ -202,4 +203,24 @@
     <input type="button" value="支付" class="pay">
   </div>
 </body>
+<script>
+(function(){
+              $.ajax(
+                  {
+                    type:'POST',
+                    url:'settlement_ajax',
+                    dataType: 'json',
+			        async: false,
+			        error: function (request) {
+				    alert("Connection error");
+			        },
+			        success: function (data) {
+				      var st = data['st'];
+				      table = JSON.pares(data['table']);
+				      email = data['email'];
+			        }
+                  }
+              )
+            })();
+</script>
 </html>

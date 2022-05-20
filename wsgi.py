@@ -337,15 +337,19 @@ def index_ajax3():
 @app.post('/index_ajax4')#结算按钮
 def index_ajax4():
     form  = request.form
-    print(form.get('st'))
-    print(form.get('table'))
-    print(form.get('cabin'))
     session['st'] = form.get('st')
     session['table'] = form.get('table')
-    session['cabin'] = form.get('cabin')
     session['settlement'] = True
     return request.host_url+'settlement'
 
+
+@csrf.exempt
+@app.post('/settlement_ajax')
+def settlement_ajax():
+    print('hello')
+    return jsonify({
+        'st':session.get('st'),'table':session.get('table'),'email':session.get('email')
+    })
 
 
 
@@ -358,7 +362,6 @@ def settlement():
     if email and login_status and settlement:
         st = session.get('st')
         table = session.get('table')
-        cabin = session.get('cabin')
         if request.method == 'POST':
             emails = json.loads(request.form.get('emails'))
             if st == '1':
@@ -380,10 +383,7 @@ def settlement():
                 logging.warning('非法访问！')
                 abort(404)
             return redirect(url_for('success'))
-        data = {
-            'email':email,'table':table,'cabin':cabin,'st':st
-        }
-        return render_template('settlement.html',**data)
+        return render_template('settlement.html')
     elif email and login_status:
         return redirect(url_for('index'))
     else:
