@@ -204,8 +204,8 @@ function reqfirst() {
                             "<td>" + brr[i][4] + "</td>" +
                             "<td>" + brr[i][5] + "</td>" +
                             "<td>" + brr[i][10] + "</td>" +
-                            "<td>" + brr[i][9] +  `<input type="radio" name="b" class="radio" value="${str}">` + "</td>" +
-                            "<td>" + brr[i][8] +  `<input type="radio" name="b" class="radio" value="${str2}">` + "</td>" +
+                            "<td>" + brr[i][9] +  `<input type="radio" name="b" class="radio2" value="${str}">` + "</td>" +
+                            "<td>" + brr[i][8] +  `<input type="radio" name="b" class="radio2" value="${str2}">` + "</td>" +
                             "</table>" +
                             "</div>" +
                             "</div>"
@@ -441,8 +441,8 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>" + brr2[i][4] + "</td>" +
                     "<td>" + brr2[i][5] + "</td>" +
                     "<td>" + brr2[i][10] + "</td>" +
-                    "<td>" + brr2[i][9] + `<input type="radio" name="b" class="radio" value="${str}">` + "</td>" +
-                    "<td>" + brr2[i][8] + `<input type="radio" name="b" class="radio" value="${str2}">` + "</td>" +
+                    "<td>" + brr2[i][9] + `<input type="radio" name="b" class="radio2" value="${str}">` + "</td>" +
+                    "<td>" + brr2[i][8] + `<input type="radio" name="b" class="radio2" value="${str2}">` + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -474,8 +474,8 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>" + brr3[i][4] + "</td>" +
                     "<td>" + brr3[i][5] + "</td>" +
                     "<td>" + brr3[i][10] + "</td>" +
-                    "<td>" + brr3[i][9] + `<input type="radio" name="b" class="radio" value="${str}">` + "</td>" +
-                    "<td>" + brr3[i][8] + `<input type="radio" name="b" class="radio" value="${str2}">` + "</td>" +
+                    "<td>" + brr3[i][9] + `<input type="radio" name="b" class="radio2" value="${str}">` + "</td>" +
+                    "<td>" + brr3[i][8] + `<input type="radio" name="b" class="radio2" value="${str2}">` + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -507,8 +507,8 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>" + brr4[i][4] + "</td>" +
                     "<td>" + brr4[i][5] + "</td>" +
                     "<td>" + brr4[i][10] + "</td>" +
-                    "<td>" + brr4[i][9] + `<input type="radio" name="b" class="radio" value="${str}">`  + "</td>" +
-                    "<td>" + brr4[i][8] + `<input type="radio" name="b" class="radio" value="${str2}">` + "</td>" +
+                    "<td>" + brr4[i][9] + `<input type="radio" name="b" class="radio2" value="${str}">`  + "</td>" +
+                    "<td>" + brr4[i][8] + `<input type="radio" name="b" class="radio2" value="${str2}">` + "</td>" +
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -540,8 +540,8 @@ for (let k = 0; k < but2.length; k++) {
                     "<td>" + brr5[i][4] + "</td>" +
                     "<td>" + brr5[i][5] + "</td>" +
                     "<td>" + brr5[i][10] + "</td>" +
-                    "<td>" + brr5[i][9] + `<input type="radio" name="b" class="radio" value="${str}">` + "</td>" +
-                    "<td>" + brr5[i][8] + `<input type="radio" name="b" class="radio" value="${str2}">` + "</td>" +
+                    "<td>" + brr5[i][9] + `<input type="radio" name="b" class="radio2" value="${str}">` + "</td>" +
+                    "<td>" + brr5[i][8] + `<input type="radio" name="b" class="radio2" value="${str2}">` + "</td>" +
                     "</div>" +
                     "</div>"
             }
