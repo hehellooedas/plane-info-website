@@ -144,7 +144,7 @@ def login_ajax2():
     session['email'] = email
     session.permanent = True
     cache.clear()
-    return request.host_url+url_for('index')
+    return request.host_url
 
 
 @csrf.exempt
@@ -162,7 +162,7 @@ def register_ajax1():
     string = 'hello'
     if email:
         if emails_db.exist_account(email):
-            string = u'您的账户已经注册，请检查邮件是否填写正确！'
+            string = '1'
         else:
             Thread_Pool.submit(send_email, (
                 app, email, '民航推荐网站注册',
@@ -191,7 +191,7 @@ def index():
     email = session.get("email")
     login_status = session.get('login_status')
     if login_status and email:
-        return render_template('index.html')
+        return render_template('index.html',url=request.host_url)
     else:
         return redirect(url_for('login'))
 
@@ -332,7 +332,7 @@ def index_ajax4():
     session['table'] = request.form.get('table')
     session['cabin'] = request.form.get('cabin')
     session['settlement'] = True
-    return request.host_url+url_for('settlement')
+    return request.host_url+'settlement'
 
 
 @csrf.exempt
@@ -369,7 +369,7 @@ def settlement():
         data = {
             'email':email,'table':table,'cabin':cabin,'st':st
         }
-        return render_template('settlement.html')
+        return render_template('settlement.html',**data)
     elif email and login_status:
         return redirect(url_for('index'))
     else:
@@ -438,11 +438,11 @@ def finished_task(event):
 
 scheduler.add_listener(listen_error,mask=EVENT_JOB_ERROR)
 scheduler.add_listener(finished_task,mask=EVENT_JOB_EXECUTED)
-
+scheduler.start()
 
 if __name__ == '__main__':
     Process_Pool = ProcessPoolExecutor()#进程池
-    scheduler.start()
+    #scheduler.start()
     print('服务器开始运行')
     app.run(port=80, host='0.0.0.0')
     print('服务器关闭')

@@ -55,8 +55,43 @@
         height:99px;
         border: 2px solid red;
     }
+    .nav_tishi{
+          position: absolute;
+          display: none;
+          color: red;
+          right: 700px;
+          top: -20px;
+          width: 200px;
+          height: 30px;
+    }
+    .nav_tishi2{
+          position: absolute;
+          display: block;
+          color: red;
+          top: -20px;
+          right: 700px;
+          width: 200px;
+          height: 30px;
+    }
+    .nav_tishi3{
+          position: absolute;
+          display: none;
+          right: 1000px;
+          color: red;
+          top: -20px;
+          width: 200px;
+          height: 30px;
+    }
+    .nav_tishi4{
+          position: absolute;
+          display: block;
+          right: 1000px;
+          color: red;
+          top: -20px;
+          width: 200px;
+          height: 30px;
+    }
 </style>
-
 <body>
     <input type="button" id="tuichu" value="退出登录" onclick="back()">
     <!-- 遮罩层 -->  
@@ -158,6 +193,8 @@
                     </form>
                 </div>
                 <input type="button" class="pay" value="￥结算">
+                <h4 class="nav_tishi"></h4>
+                <h4 class="nav_tishi3"></h4>
                 <div class="nav2">
                     <!-- 2 -->
                     <form class="show-nav-info">
@@ -282,6 +319,7 @@
                 cover.className = 'cover';
                 ifa.className = 'ifa';
                 reqfirst();
+                refound();
                 //计算时间
             }, 2000);
         }
@@ -290,7 +328,27 @@
 <script>
     //退出登录
     function back() {
-        
+        location.replace('{{ url }}'+'login');
+    }
+</script>
+<script>
+    var order1,order2;
+    var radio,radio2;
+   function refound () {
+        radio=document.getElementsByClassName('radio');
+    for(let i=0;i<radio.length-1;i++)
+    {
+        radio[i].addEventListener("click",function(){
+            order1=1;
+        })
+    }
+     radio2=document.getElementsByClassName('radio2');
+    for(let i=0;i<radio.length-1;i++)
+    {
+        radio2[i].addEventListener("click",function(){
+            order2=1;
+        })
+    }
     }
 </script>
 <script src="../static/s-js/city.js"></script>

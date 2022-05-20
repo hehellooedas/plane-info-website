@@ -18,8 +18,21 @@ html{
     width: 1200px;
     background-color: aqua;
 }
+.pay{
+    position: absolute;
+    left: 168px;
+}
 .order{
-    position: relative;
+    position: absolute;
+    margin: auto;
+    width: 1200px;
+    height: 650px;
+    background-color: aqua;
+    z-index: 4;
+}
+.order2{
+    position: absolute;
+    z-index: 3;
     margin: auto;
     width: 1200px;
     height: 650px;
