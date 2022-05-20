@@ -559,7 +559,7 @@ for (let k = 0; k < but2.length; k++) {
     })
 }
 // 结算
-var cang;
+var cang=[100];
 var a1;
 var b1;
 var app;
@@ -600,17 +600,16 @@ function jiesuan(){
                 break;
             }
         }
-        a1 = a1.split(',');
-        send = a1;
-        if (a1[a1.length - 1] == 'g') {
+        if (a1.indexOf('g')=='g') {
             cang[0] = '1';
         }
+        a1 = a1.split(',');
+        send = a1;
         $.ajax(
             {
                 url: '/index_ajax4',
                 type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({ "table": JSON.stringify(send), "cabin": cang, "st": "1" }),
+                data: { "table": JSON.stringify(send), "cabin": cang, "st": "1" },
                 async: false,
                 error: function (request) {
                     alert('hello-cuowu');
@@ -634,28 +633,27 @@ function jiesuan(){
                 break;
             }
         }
+        if (a1.indexOf('g')!=-1) {
+            cang[0] = '1';
+        }
+        if (a1.indexOf('j')!=-1) {
+            cang[0] = '0';
+        }
+        if (b1.indexOf('g')!=-1) {
+            cang[1] = '1';
+        }
+        if (b1.indexOf('j')!=-1) {
+            cang[1] = '0';
+        }
         a1 = a1.split(',');
         b1 = b1.split(',');
         send[0] = a1;
         send[1] = b1;
-        if (a1[a1.length - 1] == 'g') {
-            cang[0] = '1';
-        }
-        if (a1[a1.length - 1] == 'j') {
-            cang[0] = '0';
-        }
-        if (b1[b1.length - 1] == 'g') {
-            cang[1] = '1';
-        }
-        if (b1[b1.length - 1] == 'j') {
-            cang[1] = '0';
-        }
         $.ajax(
             {
                 url: '/index_ajax4',
                 type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({ "table": JSON.stringify(send), "cabin": JSON.stringify(cang), "st": "2" }),
+                data: { "table": JSON.stringify(send), "cabin": cang, "st": "2" },
                 async: false,
                 error: function (request) {
                     alert('hello-cuowu');
@@ -667,7 +665,6 @@ function jiesuan(){
         )
     }
 }
-
 
 
 
