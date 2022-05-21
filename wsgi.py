@@ -351,7 +351,6 @@ def index_ajax32():
 @app.post('/index_ajax4')#结算按钮
 def index_ajax4():
     form  = request.form
-    print(form.get('table'))
     session['st'] = form.get('st')
     session['table'] = form.get('table')
     session['settlement'] = True
@@ -422,7 +421,9 @@ def settlement():
 
 @app.get('/success')
 def success():
-    if g.login_status:
+    if g.login_status and g.email:
+        if session['settlement']:
+            session.pop('settlement')
         return render_template('success.html')
     else:
         return redirect(url_for('login'))
