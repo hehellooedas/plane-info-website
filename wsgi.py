@@ -190,7 +190,7 @@ def register_ajax1():
 @app.post('/register_ajax2')#注册成功
 def register_ajax2():
     email = request.form.get('email')
-    Thread_Pool.submit(emails_db.add_account,email)
+    emails_db.add_account(email)
     cache.clear()
     return url_for('login')
 
