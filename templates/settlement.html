@@ -152,28 +152,7 @@
     <input type="button" value="支付" class="pay">
   </div>
 </body>
-<script>
-  var st,table,email;
-  (function () {
-    $.ajax(
-      {
-        type: 'POST',
-        url: 'settlement_ajax',
-        dataType: 'json',
-        async: false,
-        error: function (request) {
-          alert("Connection error");
-        },
-        success: function (data) {
-          st = data['st'];
-          table = JSON.pares(data['table']);
-          email = data['email'];
-          add();
-        }
-      }
-    )
-  })();
-</script>
+
 <script src="../static/s-js/settle.js">
 </script>
 </html>

@@ -1,3 +1,4 @@
+
 var list=document.getElementById('list_hang');
 var zongjia=document.getElementsByClassName('zongjia')[0];
 var str,cang,money,date,date2;
@@ -29,8 +30,10 @@ function pan2(){
         }
     }
 }
+
+
 function add(){
-    if(st=='1'){   
+    if(st=='1'){
             date=new Date(table[4]);
             date2=new Date(table[5]);
             pan();
@@ -45,7 +48,7 @@ function add(){
                 <p style="text-align: center;font-size:large;">${table[6]}</p>
               </div>
               <div class="show-bot2">
-              
+
                 <p style="text-align: center;font-style: italic;">${date2.toLocaleTimeString()}</p>
                 <p style="text-align: center;font-size:large;">${table[7]}</p>
               </div>
@@ -57,7 +60,7 @@ function add(){
             </div>
             <div style="height:30px;width:100%;background-color: #C4C4C4;border-radius: 0 0 5px 5px;">
               <h4 style="float: right;margin-right: 5px;">￥${money}</h4>
-            </div>  
+            </div>
           </div>`;
           list.innerHTML=str;
           str=" ";
@@ -82,7 +85,7 @@ function add(){
                 <p style="text-align: center;font-size:large;">${table[i][6]}</p>
               </div>
               <div class="show-bot2">
-              
+
                 <p style="text-align: center;font-style: italic;">${date2.toLocaleTimeString()}</p>
                 <p style="text-align: center;font-size:large;">${table[i][7]}</p>
               </div>
@@ -94,7 +97,7 @@ function add(){
             </div>
             <div style="height:30px;width:100%;background-color: #C4C4C4;border-radius: 0 0 5px 5px;">
               <h4 style="float: right;margin-right: 5px;">￥${money2[i]}</h4>
-            </div>  
+            </div>
           </div>`;
         }
         list.innerHTML=str;
@@ -102,3 +105,27 @@ function add(){
         zongjia.innerHTML="￥"+sum+"";
     }
 }
+
+
+
+var st,table,email;
+  (function () {
+    $.ajax(
+      {
+        type: 'POST',
+        url: 'settlement_ajax',
+        dataType: 'json',
+        async: false,
+        error: function (request) {
+          alert("Connection error");
+        },
+        success: function (data) {
+          st = data['st'];
+          table = JSON.parse(data['table']);
+          email = data['email'];
+          add();
+        }
+      }
+    )
+  })();
+
