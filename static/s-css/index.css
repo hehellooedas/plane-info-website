@@ -531,6 +531,12 @@ body{
      height: 20px;
      width: 20px;
 }
+.radio2{
+    float: right;
+    margin-right: 5px;
+     height: 20px;
+     width: 20px;
+}
 .tr1 td{
     text-align: center;
     width: 200px;

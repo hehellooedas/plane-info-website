@@ -555,7 +555,6 @@ for (let k = 0; k < but2.length; k++) {
         }
     })
 }
-// 结算
 var cang;
 var a1;
 var b1;
@@ -643,4 +642,3 @@ function jiesuan() {
         )
     }
 }
-

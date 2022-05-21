@@ -9,24 +9,11 @@ var information;
 var info=document.getElementsByClassName('info')[0];
 var codefail=document.getElementsByClassName('codefail')[0];
 sendbtn.addEventListener('click', function () {
-	if(!reg.test(use.value))
-	  {
-		info.innerText='输入格式错误';
-	  }
-	  else{
-		sendbtn.className = "send-btn2";
-		info.innerHTML='<p>&nbsp</p>';
-		var ss = setInterval(function () {
-			time--;
-			sendbtn.value = "等待" + time + "s";
-			if (time === 0) {
-				time = 60;
-				sendbtn.value = "发送";
-				sendbtn.className = "send-btn3";
-				clearInterval(ss);
-			}
-		}, 1000);
-		information = { 'email': email1.value};
+	if (!reg.test(use.value)) {
+		info.innerText = '输入格式错误';
+	}
+	else {
+		information = { 'email': email1.value };
 		$.ajax({
 
 			type: "POST",
@@ -39,11 +26,27 @@ sendbtn.addEventListener('click', function () {
 				alert("Connection error");
 			},
 			success: function (data) {
-				databack=data.Code;
-				info.innerText=data.string;
+				if (data == '1') {
+					sendbtn.className = "send-btn3";
+					info.innerText = '你的用户未注册,请先去注册';
+				}
+				else {
+					info.innerHTML = '<p>&nbsp</p>';
+					sendbtn.className = "send-btn2";
+					var ss = setInterval(function () {
+						time--;
+						sendbtn.value = "等待" + time + "s";
+						if (time === 0) {
+							time = 60;
+							sendbtn.value = "发送";
+							sendbtn.className = "send-btn3";
+							clearInterval(ss);
+						}
+					}, 1000);
+				}
 			}
 		});
-	  }
+	}
 })
 // sendbtn.addEventListener('click', function () {
 	
