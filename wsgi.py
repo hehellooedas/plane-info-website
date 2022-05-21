@@ -471,5 +471,5 @@ if __name__ == '__main__':
     Process_Pool = ProcessPoolExecutor()#进程池
     #scheduler.start()
     print('服务器开始运行')
-    app.run(port=80, host='0.0.0.0')
+    app.run(port=8000, host='0.0.0.0')
     print('服务器关闭')
