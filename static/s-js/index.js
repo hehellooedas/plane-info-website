@@ -30,7 +30,7 @@ function reqfirst() {
 
     if (st == 1) {
         $.ajax({
-            // headers: {"X-CSRFToken", csrf_token},
+            // headers: {"X-CSRFToken", $("csrf-token").val()},
             type: 'post',
             url: '/index_ajax1',
             data: { "acity": acity.value, "bcity": bcity.value, "adate": time0.value },

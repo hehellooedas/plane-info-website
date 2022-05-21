@@ -1,3 +1,4 @@
+var csrf_token = $("[name='_csrf_token']").val();
 var email1 = document.getElementById('username');
 var password = document.getElementById('password');
 var login1btn = document.getElementById("login-btn");
@@ -27,11 +28,13 @@ sendbtn.addEventListener('click', function () {
 		}, 1000);
 		information = { 'email': email1.value};
 		$.ajax({
+
 			type: "POST",
 			url: '/login_ajax1',
 			data: information,
 			dataType: 'json',
 			async: false,
+			headers: {"X-CSRFToken":csrf_token},
 			error: function (request) {
 				alert("Connection error");
 			},
@@ -48,10 +51,13 @@ sendbtn.addEventListener('click', function () {
 login1btn.addEventListener('click', function () {
 	if (databack == password.value) {
 	$.ajax({
+
 		type: "POST",
 		url: '/login_ajax2',
 		data: information,
+		dataType: "text",
 		async: false,
+		headers: {"X-CSRFToken":csrf_token},
 		error: function (request) {
 			alert("Connection error");
 		},
