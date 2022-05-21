@@ -164,21 +164,19 @@ class emails_db:
         return [account] in emails.values
 
     def add_account(self, account: str):  # 增
-        lock = threading.Lock()
-        with lock:
-            try:
-                emails = pandas.read_pickle(self.path)
-            except:
-                time.sleep(3)
-                emails = pandas.read_pickle(self.path)
-            a = pandas.DataFrame({'email': account}, index=[0])
-            pandas.concat([emails, a], axis=0, ignore_index=True).to_pickle(self.path)
+        try:
+            emails = pandas.read_pickle(self.path)
+        except:
+            time.sleep(3)
+            emails = pandas.read_pickle(self.path)
+        a = pandas.DataFrame({'email': account}, index=[0])
+        pandas.concat([emails, a], axis=0, ignore_index=True).to_pickle(self.path)
 
     def delete_account(self,account:str): #删
         lock = threading.Lock()
         with lock:
             a = pandas.read_pickle(self.path)
-            a.drop(a.query("email==@bcity").index,inplace=True)
+            a.drop(a.query("email==@account").index,inplace=True)
             a.to_pickle(self.path)
 
 
@@ -192,5 +190,5 @@ class emails_db:
 
 
 if __name__ == '__main__':
-    delete_log_byhand()
+    pass
 
