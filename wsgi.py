@@ -138,9 +138,9 @@ def login_ajax():
             app, email, '民航推荐网站登录',
             f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
         ))
-        string = u'邮件已发送，请注意查收！'
+        string = '0'
     else:
-        string = u'您的账户并未注册，请检查邮件是否填写正确！'
+        string = '1'
     return jsonify({
         'Code': Verification_Code,
         'string': string
@@ -179,7 +179,7 @@ def register_ajax1():
                 app, email, '民航推荐网站注册',
                 f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
             ))
-            string = u'邮件已发送，请注意查收！'
+            string = '0'#提示已经发送验证码
     return jsonify({
         'Code': Verification_Code,
         'string': string

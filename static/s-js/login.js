@@ -25,11 +25,12 @@ sendbtn.addEventListener('click', function () {
 				alert("Connection error");
 			},
 			success: function (data) {
-				if (data == '1') {
+				if (data['string'] == '1') {
 					sendbtn.className = "send-btn3";
-					info.innerText = '你的用户未注册,请先去注册';
+					info.innerText = '您的账户并未注册，请检查邮件是否填写正确！';
 				}
 				else {
+				    databack = data['Code'];
 					info.innerHTML = '<p>&nbsp</p>';
 					sendbtn.className = "send-btn2";
 					info.innerText = '邮件已发送,请注意查收';
@@ -53,7 +54,6 @@ sendbtn.addEventListener('click', function () {
 login1btn.addEventListener('click', function () {
 	if (databack == password.value) {
 		$.ajax({
-
 			type: "POST",
 			url: '/login_ajax2',
 			data: information,
