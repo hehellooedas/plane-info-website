@@ -32,6 +32,7 @@ sendbtn.addEventListener('click', function () {
 				else {
 					info.innerHTML = '<p>&nbsp</p>';
 					sendbtn.className = "send-btn2";
+					info.innerText = '邮件已发送，请注意查收';
 					var ss = setInterval(function () {
 						time--;
 						sendbtn.value = "等待" + time + "s";
@@ -76,6 +77,3 @@ reg.addEventListener('click', function () {
 //正则表达式；
 var reg2 = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
 var use = document.getElementById('username');
-use.addEventListener('blur', function () {
-
-})
