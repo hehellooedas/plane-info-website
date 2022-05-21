@@ -96,7 +96,7 @@ def encounter_404(error):
 
 @app.errorhandler(403)#检测出访问网站的是爬虫程序
 def encounter_403(error):
-    logging.warning('出现了403,可能是遇到了爬虫或是csrf注入!')
+    logging.warning('出现了403,可能是遇到了爬虫或是csrf令牌错误!')
     return f'<h3>很抱歉，您被识别为爬虫程序，如检测错误，请刷新浏览器，很抱歉给您带来了不便,请您谅解！<br></br>{error}</h3>'
 
 
@@ -314,7 +314,7 @@ def index_ajax2():
 
 
 @csrf.exempt
-@app.post('/index_ajax3')  # 多程
+@app.post('/index_ajax31')  # 多程
 def index_ajax3():
     if open is False:
         logging.warning('数据库更新时试图访问数据!')
@@ -328,18 +328,30 @@ def index_ajax3():
     if [] in results or None in results:
         return jsonify({'string': '1'})
     a = Process_Pool.map(Function.sort_planes_cost,[numpy.array(i) for i in results])
+    b = Process_Pool.map(Function.sort_planes_time,[result for result in results])
+    a = [i for i in a]
+    b = [i for i in b]
+    session['original_tables'] = [i[0] for i in b]
+    return jsonify({
+        'string': '2', 'common': json.dumps(results[0], ensure_ascii=False),
+        'economy_class': json.dumps(a[0][0].tolist(), ensure_ascii=False),
+        'First_class': json.dumps(a[0][1].tolist(), ensure_ascii=False),
+        'go_sort': b[0][0],
+        'arrival_sort': b[0][1]
+    })
 
-    #for i in range(n-1):
-        #for j in range(i,n):
-            #if results[j][6] == informations[i][0] and results[j][7] == informations[i][1]:
-                #results[i],results[j] = results[j],results[i]
-                #return
+
+@csrf.exempt
+@app.post('/index_ajax32')  # 多程
+def index_ajax32():
+    ...
 
 
 @csrf.exempt
 @app.post('/index_ajax4')#结算按钮
 def index_ajax4():
     form  = request.form
+    print(form.get('table'))
     session['st'] = form.get('st')
     session['table'] = form.get('table')
     session['settlement'] = True
