@@ -34,7 +34,7 @@ app = Flask(__name__)
 limiter = Limiter(#设置网站访问上限
     app,
     key_func=get_remote_address,
-    default_limits=["1000 per day", "200 per hour"]
+    default_limits=["200000 per day", "4000 per hour"]
 )
 csrf = SeaSurf(app)  # csrf防护
 scheduler = APScheduler()  # 定时任务
@@ -199,7 +199,7 @@ def register_ajax2():
 # index函数为航班推荐主页面
 @csrf.exempt
 @app.get('/')#主页面
-@limiter.limit("30/second", override_defaults=True,error_message='sorry you have too many requests')
+@limiter.limit("100/second", override_defaults=True,error_message='sorry you have too many requests')
 def index():
     if g.login_status and g.email:
         return render_template('index.html',url=request.host_url)

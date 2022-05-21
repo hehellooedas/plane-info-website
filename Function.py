@@ -185,6 +185,11 @@ class emails_db:
         emails = pandas.read_pickle(self.path)
         return (emails.values)
 
+def delete_email_account(account):
+    path = './files/emails.pickle'
+    a = pandas.read_pickle(path)
+    a.drop(a.query("email==@account").index, inplace=True)
+    a.to_pickle(path)
 
 
 if __name__ == '__main__':
