@@ -1,3 +1,4 @@
+var csrf_token = $("[name='_csrf_token']").val();
 var email1 = document.getElementById('username');
 var password = document.getElementById('password');
 var reg = document.getElementById("reg");//这里名字改了以下 
@@ -19,6 +20,7 @@ sendbtn.addEventListener('click', function () {
 			data: information,
 			dataType: 'json',
 			async: false,
+			headers: {"X-CSRFToken":csrf_token},
 			error: function (request) {
 				alert("Connection error");
 			},
@@ -60,6 +62,7 @@ reg.addEventListener('click', function () {
 		url: '/register_ajax2',
 		data: information,
 		async: false,
+		headers: {"X-CSRFToken":csrf_token},
 		error: function (request) {
 			alert("Connection error");
 		},

@@ -1,7 +1,6 @@
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 from apscheduler.events import EVENT_JOB_ERROR,EVENT_JOB_EXECUTED
-from flask import Flask, render_template, request, url_for, redirect, make_response, session, jsonify, abort
-from flask_cors import CORS
+from flask import Flask, render_template, request, url_for, redirect, make_response, session, jsonify, abort,g
 from flask_mail import Mail, Message
 from flask_seasurf import SeaSurf
 from flask_apscheduler import APScheduler
@@ -49,7 +48,6 @@ interval = IntervalTrigger(#设置定时任务
 )
 open = True#确认当前数据库中数据是否能对外开放
 # 设置内置环境变量
-CORS(app, supports_credentials=True)
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 app.secret_key = os.getenv('SECRET_KEY',secrets.token_urlsafe(16))
@@ -98,13 +96,19 @@ def encounter_404(error):
 
 @app.errorhandler(403)#检测出访问网站的是爬虫程序
 def encounter_403(error):
-    logging.warning('出现了403,可能是遇到了爬虫!')
+    logging.warning('出现了403,可能是遇到了爬虫或是csrf注入!')
     return f'<h3>很抱歉，您被识别为爬虫程序，如检测错误，请刷新浏览器，很抱歉给您带来了不便,请您谅解！<br></br>{error}</h3>'
 
 
 @app.template_filter
 def judge_Systen():
     return request.cookies.get('system') == 'phone'
+
+
+@app.before_request#每次收到请求前检验是否已经登录
+def before_request():
+    g.email = session.get("email")
+    g.login_status = session.get('login_status')
 
 
 @app.get('/login')#登录界面
@@ -124,7 +128,7 @@ def login():
     return response
 
 
-@csrf.exempt
+
 @app.post('/login_ajax1')#登录发送按钮
 def login_ajax():
     email = escape(request.form.get('email'))
@@ -143,7 +147,7 @@ def login_ajax():
     })
 
 
-@csrf.exempt
+
 @app.post('/login_ajax2')#登录成功
 def login_ajax2():
     email = request.form.get('email')
@@ -154,14 +158,14 @@ def login_ajax2():
     return request.host_url
 
 
-@csrf.exempt
+
 @app.get('/register')#注册界面
 @cache.cached(timeout=300, query_string=True)
 def register():
     return render_template('register.html')
 
 
-@csrf.exempt
+
 @app.post('/register_ajax1')#注册发送按钮
 def register_ajax1():
     email = escape(request.form.get('email'))
@@ -182,7 +186,7 @@ def register_ajax1():
     })
 
 
-@csrf.exempt
+
 @app.post('/register_ajax2')#注册成功
 def register_ajax2():
     email = request.form.get('email')
@@ -191,14 +195,13 @@ def register_ajax2():
     return url_for('login')
 
 
+
 # index函数为航班推荐主页面
 @csrf.exempt
 @app.get('/')#主页面
 @limiter.limit("30/second", override_defaults=True,error_message='sorry you have too many requests')
 def index():
-    email = session.get("email")
-    login_status = session.get('login_status')
-    if login_status and email:
+    if g.login_status and g.email:
         return render_template('index.html',url=request.host_url)
     else:
         return redirect(url_for('login'))
@@ -346,7 +349,6 @@ def index_ajax4():
 @csrf.exempt
 @app.post('/settlement_ajax')
 def settlement_ajax():
-    print('hello')
     return jsonify({
         'st':session.get('st'),'table':session.get('table'),'email':session.get('email')
     })
@@ -356,12 +358,10 @@ def settlement_ajax():
 @csrf.exempt
 @app.route('/settlement',methods=['GET','POST'])  # 结算界面
 def settlement():
-    email = session.get("email")
-    login_status = session.get('login_status')
     settlement = session.get('settlement')
-    if email and login_status and settlement:
+    if g.email and g.login_status and settlement:
         st = session.get('st')
-        table = session.get('table')
+        table = json.loads(session.get('table'))
         if request.method == 'POST':
             emails = json.loads(request.form.get('emails'))
             if st == '1':
@@ -384,7 +384,7 @@ def settlement():
                 abort(404)
             return redirect(url_for('success'))
         return render_template('settlement.html')
-    elif email and login_status:
+    elif g.email and g.login_status:
         return redirect(url_for('index'))
     else:
         return redirect(url_for('login'))
@@ -410,7 +410,7 @@ def settlement():
 
 @app.get('/success')
 def success():
-    if session.get('login_status'):
+    if g.login_status:
         return render_template('success.html')
     else:
         return redirect(url_for('login'))
@@ -418,7 +418,7 @@ def success():
 @app.get('/wait')
 @cache.cached()
 def wait():
-    if session.get('login_status'):
+    if g.login_status:
         return render_template('wait.html')
     else:
         abort(404)
