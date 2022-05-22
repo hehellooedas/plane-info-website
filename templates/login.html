@@ -13,12 +13,10 @@
     <div class="app">
         <div class="login-wrapper">
             <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-            <!-- 这里没改 -->
             <div class="login">用户登录</div>
             <div class="form-wrapper">
                 <input name="email" type="email" id="username" placeholder="邮箱" />
                 <p class="info">&nbsp</p>
-                <!-- 未注册消息闪现 -->
                 <input name="password" type="text" id="password" placeholder="验证码" />
                 <input type="button" class="send-btn" value="发送">
                 <button type="button" id="login-btn">登录</button>
@@ -26,7 +24,6 @@
                 <!-- 验证码错误消息闪现 -->
             </div>
             <div class="zhuce">
-                <!-- 这里也没动 -->
                 <a class="" href={{url_for('register')}}>
                     <h4>还没有账户？前往注册</h4>
                 </a>

@@ -112,7 +112,7 @@ def before_request():
 
 
 @app.get('/login')#登录界面
-@cache.cached(timeout=300, query_string=True)
+@cache.cached(timeout=300, query_string=True)#设置缓存
 def login():
     response = make_response(render_template('login.html'))
     agent = parse(request.user_agent.string)
@@ -154,13 +154,13 @@ def login_ajax2():
     session['login_status'] = True
     session['email'] = email
     session.permanent = True
-    cache.clear()
-    return request.host_url
+    cache.clear()#清理缓存
+    return request.host_url#返回url，交给前端跳转
 
 
 
 @app.get('/register')#注册界面
-@cache.cached(timeout=300, query_string=True)
+@cache.cached(timeout=300, query_string=True)#设置缓存
 def register():
     return render_template('register.html')
 
@@ -191,8 +191,8 @@ def register_ajax1():
 def register_ajax2():
     email = request.form.get('email')
     emails_db.add_account(email)
-    cache.clear()
-    return url_for('login')
+    cache.clear()#清理缓存
+    return url_for('login')#返回url，交给前端跳转
 
 
 
