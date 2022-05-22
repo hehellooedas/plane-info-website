@@ -4,7 +4,6 @@ from flask import Flask, render_template, request, url_for, redirect, make_respo
 from flask_mail import Mail, Message
 from flask_seasurf import SeaSurf
 from flask_apscheduler import APScheduler
-from flask_avatars import Avatars
 from flask_caching import Cache
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -51,10 +50,10 @@ open = True#确认当前数据库中数据是否能对外开放
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 app.secret_key = os.getenv('SECRET_KEY',secrets.token_urlsafe(16))
-avatars = Avatars(app)#生成头像
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})#页面缓存
 Thread_Pool = ThreadPoolExecutor()#线程池
 Process_Pool = ProcessPoolExecutor()#进程池
+
 
 # 邮件smtp相关配置
 app.config.update(dict(
@@ -376,24 +375,23 @@ def settlement():
         if request.method == 'POST':
             emails = json.loads(request.form.get('emails'))
             if st == '1':
-                Thread_Pool.submit(Function.set_task,[table[6], table[0], len(emails)])
+                Function.set_task([table[6], table[0], len(emails)])
                 for i in emails:
                     Thread_Pool.submit(send_email, (app, i, '购票通知', Function.get_content(
                         table[1],table[2],table[6],table[7],table[4],table[5]
                     ) + emails[0] + f'。详细信息请访问{request.host_url}'))
             elif st == '2':
-                Thread_Pool.submit(Function.set_task, [table[0][6], table[0][0], len(emails)])
-                Thread_Pool.submit(Function.set_task, [table[1][6], table[1][0], len(emails)])
+                Function.set_task([table[0][6], table[0][0], len(emails)])
+                Function.set_task([table[1][6], table[1][0], len(emails)])
                 for i in emails:
                     ...
             elif st == '3':
                 n = len(table)
                 ...
             else:
-                ...
                 logging.warning('非法访问！')
                 abort(404)
-            return redirect(url_for('success'))
+            return request.host_url+'login'
         return render_template('settlement.html')
     elif g.email and g.login_status:
         return redirect(url_for('index'))
@@ -418,20 +416,10 @@ def settlement():
 
 
 
-
-@app.get('/success')
-def success():
-    if g.login_status and g.email:
-        if session['settlement']:
-            session.pop('settlement')
-        return render_template('success.html')
-    else:
-        return redirect(url_for('login'))
-
 @app.get('/wait')
 @cache.cached()
 def wait():
-    if g.login_status:
+    if g.login_status and g.email:
         return render_template('wait.html')
     else:
         abort(404)
