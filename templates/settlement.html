@@ -68,9 +68,58 @@
     width: 80px;
     padding-top: 15px;
   }
+
+  .cover {
+    background: #000;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    filter: alpha(opacity=30);
+    opacity: 0.3;
+    display: none;
+    z-index: 1000;
+  }
+
+  .cover2 {
+    background: #000;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    filter: alpha(opacity=30);
+    opacity: 0.3;
+    display: block;
+    z-index: 1000;
+  }
+
+  .showname {
+    position: absolute;
+    display: none;
+    left:38%;
+    top: 20%;
+    z-index: 5000;
+    width: 500px;
+    height: 500px;
+  }
+
+  .showname2 {
+    position: absolute;
+    display: none;
+    left:38%;
+    top: 20%;
+    z-index: 5000;
+    width: 500px;
+    height: 500px;
+  }
 </style>
 
 <body>
+  <div class="cover">
+  </div>
+  <div class="showname">
+    <h1 style="color:green;width: 400px;height: 400px;background-color: aliceblue;text-align: center;line-height: 400px;">支付成功</h1>
+  </div>
   <div class="head">
     <div>
       尊敬的用户您的订单如下
@@ -112,7 +161,7 @@
 
           <h3 class="mar-bottom-20">保险</h3>
           <span>航意险：</span>
-          <input type="checkbox" value="buy">&nbsp&nbsp购买
+          <label for="a"><input id="a" type="checkbox" value="buy" class="buyname">&nbsp&nbsp购买</label>
           <!--航意险说明-->
           <div
             style="width:460px; border:1px solid #C4C4C4; padding:5px; position:absolute; left:0px; top:75px; background-color:#eee;"
@@ -128,17 +177,18 @@
 
         <!-- 报销 -->
         <h3 class="mar-bottom-20">报销</h3>
-        <input type="checkbox" name="choice">&nbsp;需要报销凭证<span style=" color:#999;">（含：行程单和差额发票，快递费发票）</span>
+        <label for="b"><input id="b" type="checkbox" name="choice">&nbsp;需要报销凭证</label><span
+          style=" color:#999;">（含：行程单和差额发票，快递费发票）</span>
 
       </div>
       <!-- 订单左边 -->
       <!-- 订单右边 -->
       <div class="col-sm-5 bg-gray-eee">
         <div id="list_hang">
-       
+
         </div>
         <div style="width:100%;height: 40px;">
-          <h4 >订单总价（保险费另算）</h4>
+          <h4>订单总价（保险费另算）</h4>
           <h3 class="zongjia" style="width:77px;float:right;color: coral;margin-top: -30px;"></h3>
         </div>
         <!-- n内容 -->
@@ -147,12 +197,14 @@
     </div>
   </div>
   <div class="foot">
-    <span><input type="checkbox">同意相关协议
+    <span style="font-size:25px ;"><label for="input"><input type="checkbox" id="input"
+          style="width: 20px;height:20px;display:inline-block;">同意相关协议</label>
     </span>
-    <input type="button" value="支付" class="pay">
+    <input type="button" value="支付" class="pay" style="font-size: 17px;">
   </div>
 </body>
 
 <script src="../static/s-js/settle.js">
 </script>
+
 </html>

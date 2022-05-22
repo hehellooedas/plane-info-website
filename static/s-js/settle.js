@@ -128,4 +128,30 @@ var st,table,email;
       }
     )
   })();
-
+var reg=new RegExp("￥");//删除字符
+var str5;
+var buyname=document.getElementsByClassName('buyname')[0];
+     buyname.addEventListener('click',function(){
+         str5=zongjia.innerHTML.replace(reg,"");
+         str5=parseInt(str5)+100;
+         zongjia.innerHTML="￥"+str5+"";
+     })
+var pay=document.getElementsByClassName('pay')[0];
+var showname=document.getElementsByClassName('showname')[0];
+var cover=document.getElementsByClassName('cover')[0];
+    pay.addEventListener('click',function(){
+      $.ajax({
+        type: 'POST',
+        url: '/settlement',
+        dataType: 'json',
+        async: false,
+        error: function (request) {
+          alert("Connection error");
+        },
+        success: function (data) {
+          cover.style.height = document.body.clientHeight +150+ 'px';
+          cover.className = 'cover2';
+          showname.className='showname2';
+        }
+      })
+    })
