@@ -370,21 +370,21 @@ def settlement_ajax():
 def settlement():
     settlement = session.get('settlement')
     if g.email and g.login_status and settlement:
+        email = g.email
         st = session.get('st')
         table = json.loads(session.get('table'))
         if request.method == 'POST':
-            emails = json.loads(request.form.get('emails'))
             if st == '1':
-                Function.set_task([table[6], table[0], len(emails)])
-                for i in emails:
-                    Thread_Pool.submit(send_email, (app, i, '购票通知', Function.get_content(
-                        table[1],table[2],table[6],table[7],table[4],table[5]
-                    ) + emails[0] + f'。详细信息请访问{request.host_url}'))
+                Function.set_task([table[6], table[0], 1])
+                Thread_Pool.submit(send_email, (app, email, '购票通知', Function.get_content(
+                    table[1],table[2],table[6],table[7],table[4],table[5]
+                )+ f'{email}。详细信息请访问{request.host_url}'))
             elif st == '2':
-                Function.set_task([table[0][6], table[0][0], len(emails)])
-                Function.set_task([table[1][6], table[1][0], len(emails)])
-                for i in emails:
-                    ...
+                Function.set_task([table[0][6], table[0][0], 1])
+                Function.set_task([table[1][6], table[1][0], 1])
+                Thread_Pool.submit(send_email, (app, email, '购票通知', Function.get_content(
+                    table[0][1], table[0][2], table[0][6], table[0][7], table[0][4], table[0][5]
+                ) + f'{email}。详细信息请访问{request.host_url}'))
             elif st == '3':
                 n = len(table)
                 ...
@@ -397,22 +397,6 @@ def settlement():
         return redirect(url_for('index'))
     else:
         return redirect(url_for('login'))
-
-
-
-    #Thread_Pool.submit(Function.set_task,[acity, index, numbers])
-    #content = Function.get_content(company, flight_number, acity, bcity, adate, bdate)
-    #more = f'。详细信息请访问{request.host_url}'
-    #if len(emails) == 1:
-        #Thread_Pool.submit(send_email,(app, emails, '购票通知', content + emails[0] + more))
-    #else:
-        #tasks = [
-            #(app, [email], '购票信息', content + email + more)
-            #for email in emails
-        #]
-        #with ThreadPoolExecutor() as pool:
-            #pool.map(send_email, tasks)
-    #return redirect(url_for('success'))
 
 
 

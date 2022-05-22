@@ -143,15 +143,14 @@ var cover=document.getElementsByClassName('cover')[0];
       $.ajax({
         type: 'POST',
         url: '/settlement',
-        dataType: 'json',
+        dataType: 'text',
         async: false,
         error: function (request) {
           alert("Connection error");
         },
         success: function (data) {
-          cover.style.height = document.body.clientHeight +150+ 'px';
-          cover.className = 'cover2';
-          showname.className='showname2';
+          alert('购票成功!');
+          location.replace(data);
         }
       })
     })
