@@ -256,7 +256,8 @@ body{
       border-radius: 1px;
       cursor: pointer;
 }
-.show-nav .show-nav-span2 button{
+.show-nav .show-nav-span2 button:nth-child(1){
+    pointer-events: none;
     float: left;
     width:300px;
     border:1px solid aliceblue;
@@ -375,40 +376,14 @@ body{
     background-color: #999;
     width: 100%;
     height: 200px;
-}
-.foot2{
-    position: relative;
-    width: 100%;
-    height: 100%;
+    text-align: center;
 }
 .name{
     position: absolute;
     left: 40%;
     font-size: large;
 }
-.first a{
-    display: inline-block;
-    width: 90px;
-    height: 35px;
-    border: 1px solid #999;
-}
-.first a img{
-    width: 100%;
-    height: 100%;
-}
-.first{
-    position: absolute;
-    bottom: 40px;
-    left: 365px;
-    padding-left: 10px;
-}
-.wen{
-    position: absolute;
-    top: 30px;
-    width: 100%;
-    height: 100px;
-    text-align: center;
-}
+
 .pay{
     position: absolute;
     z-index: 100;

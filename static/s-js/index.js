@@ -41,7 +41,7 @@ function reqfirst() {
             },
             success: function (data) {
                 if (data['string'] === "0") {
-                    showbodyf.innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+                    showbodyf.innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/gen.jpg" + ">" + "</span>";
                     arr = [];
                     arr2 = [];
                     arr3 = [];
@@ -49,7 +49,7 @@ function reqfirst() {
                     arr5 = [];
                 }
                 if (data['string'] === "1") {
-                    showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+                    showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/wu.gif" + ">" + "</span>";
                     arr = [];
                     arr2 = [];
                     arr3 = [];
@@ -111,8 +111,8 @@ function reqfirst() {
             },
             success: function (data) {
                 if (data['string'] === "0") {
-                    showbodyf.innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
-                    showbodys.innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+                    showbodyf.innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/gen.jpg" + ">" + "</span>";
+                    showbodys.innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/gen.jpg" + ">" + "</span>";
                     arr = [];
                     arr2 = [];
                     arr3 = [];
@@ -125,8 +125,8 @@ function reqfirst() {
                     brr5 = [];
                 }
                 if (data['string'] === "1") {
-                    showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
-                    showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+                    showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/wu.gif" + ">" + "</span>";
+                    showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/wu.gif" + ">" + "</span>";
                     arr = [];
                     arr2 = [];
                     arr3 = [];
