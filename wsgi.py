@@ -128,8 +128,9 @@ def before_request():
 
 
 @app.get('/login')#登录界面
-@cache.cached(timeout=300, query_string=True)#设置缓存
+@cache.cached(timeout=3000, query_string=True)#设置缓存
 def login():
+    abort(403)
     response = make_response(render_template('login.html'))
     agent = parse(request.user_agent.string)
     if agent.is_bot:
@@ -177,7 +178,7 @@ def login_ajax2():
 
 
 @app.get('/register')#注册界面
-@cache.cached(timeout=300, query_string=True)#设置缓存
+@cache.cached(timeout=3000, query_string=True)#设置缓存
 def register():
     return render_template('register.html')
 
@@ -206,7 +207,7 @@ def register_ajax1():
 
 @app.post('/register_ajax2')#注册成功
 def register_ajax2():
-    email = request.form.get('email')
+    email = escape(request.form.get('email'))
     #把用户信息记录到“数据库”
     emails_db.add_account(email)
     cache.clear()#清理缓存
@@ -270,7 +271,8 @@ def index_ajax2():
     acity, bcity, adate, bdate = form.get('acity'), form.get('bcity'), form.get('adate'), form.get('bdate')
     a_result, b_result = Thread_Pool.map(Function.select_planes,[(acity, bcity, adate),(bcity, acity, bdate)])
     if a_result is False or b_result is False:
-        #搜索过程出现错误
+        #搜索过程出现错误时，提示服务器端错误信息
+        logging.warning('服务器端搜索机票出现错误！')
         return jsonify({'string': '0'})
     a_len, b_len = len(a_result), len(b_result)
     if a_result is None or a_result == []:
@@ -347,32 +349,71 @@ def index_ajax3():
         logging.warning('数据库更新时试图访问数据!')
         return jsonify({'string': '0'})
     informations = json.loads(request.form.get('informations'))
-    n = len(informations)
-    results = [result for result in Thread_Pool.map(Function.select_planes
-    ,[(information[0], information[1], information[2]) for information in informations])]
-    if False in results:
-        jsonify({'string': '0'})
-    if [] in results or None in results:
+    session['informations'] = informations # 将多程的城市和时间信息记录在cookies里
+    session['num'] = 1
+    a = Thread_Pool.submit(Function.select_planes,informations[0])
+    result = a.result()
+    if result is False:
+        return jsonify({'string': '0'})
+    if result is None or result == []:
         return jsonify({'string': '1'})
-    a = Process_Pool.map(Function.sort_planes_cost,[numpy.array(i) for i in results])
-    b = Process_Pool.map(Function.sort_planes_time,[result for result in results])
-    a,b = list(a),list(b)
-    session['original_tables'] = [i[0] for i in b]
-    return jsonify({
-        'string': '2', 'common': json.dumps(results[0], ensure_ascii=False),
-        'economy_class': json.dumps(a[0][0].tolist(), ensure_ascii=False),
-        'First_class': json.dumps(a[0][1].tolist(), ensure_ascii=False),
-        'go_sort': b[0][0],
-        'arrival_sort': b[0][1]
-    })
+    elif len(result) == 1:
+        result = json.dumps(result, ensure_ascii=False)
+        return {
+            'string': '2', 'common': result, 'economy_class': result, 'First_class': result, 'go_sort': result,
+            'arrival_sort': result
+        }
+    else:
+        b = Thread_Pool.submit(Function.sort_planes_cost, numpy.array(result))  # 按价格排序
+        c = Thread_Pool.submit(Function.sort_planes_time, result)  # 按时间排序
+        economy_class, First_class = b.result()
+        go_sort, arrival_sort = c.result()
+        return jsonify({
+            'string': '2', 'common': json.dumps(result, ensure_ascii=False),
+            'economy_class': json.dumps(economy_class.tolist(), ensure_ascii=False),
+            'First_class': json.dumps(First_class.tolist(), ensure_ascii=False),
+            'go_sort': go_sort,
+            'arrival_sort': arrival_sort
+        })
 
 
 @csrf.exempt
 @app.post('/index_ajax32')  # 多程
 def index_ajax32():
-    num = request.form.get('num')
+    num = session['num']
+    session['num'] += 1
     table = request.form.get('table')
     session[f'table{num}'] = table
+    informations = session.get('informations')
+    if open is False:
+        logging.warning('数据库更新时试图访问数据!')
+        return jsonify({'string': '0'})
+    a = Thread_Pool.submit(Function.select_planes,informations[num])
+    result = a.result()
+    if result is False:
+        return jsonify({'string': '0'})
+    if result is None or result == []:
+        return jsonify({'string': '1'})
+    elif len(result) == 1:
+        result = json.dumps(result, ensure_ascii=False)
+        return {
+            'string': '2', 'common': result, 'economy_class': result, 'First_class': result, 'go_sort': result,
+            'arrival_sort': result
+        }
+    else:
+        b = Thread_Pool.submit(Function.sort_planes_cost, numpy.array(result))  # 按价格排序
+        c = Thread_Pool.submit(Function.sort_planes_time, result)  # 按时间排序
+        economy_class, First_class = b.result()
+        go_sort, arrival_sort = c.result()
+        return jsonify({
+            'string': '2', 'common': json.dumps(result, ensure_ascii=False),
+            'economy_class': json.dumps(economy_class.tolist(), ensure_ascii=False),
+            'First_class': json.dumps(First_class.tolist(), ensure_ascii=False),
+            'go_sort': go_sort,
+            'arrival_sort': arrival_sort
+        })
+
+
 
 
 
@@ -387,17 +428,29 @@ def index_ajax4():
     return url_for('settlement',_external=True)
 
 
-@csrf.exempt
+
+
 @app.post('/settlement_ajax')#将数据传给结算页面
 def settlement_ajax():
     #st记录用户选择：1代表单程，2代表往返，3代表剁成
-    return jsonify({
-        'st':session.get('st'),'table':session.get('table'),'email':session.get('email')
-    })
+    st = session.get('st')
+    email = session.get('email')
+    if st == '3':
+        num = session.get('num')
+        tables = []
+        for i in range(num):
+            tables.append(session.get(f'table{i+1}'))
+        return jsonify({
+            'st':st,'table':tables,'email':email
+        })
+    else:
+        return jsonify({
+            'st':st,'table':session.get('table'),'email':email
+        })
 
 
 
-@csrf.exempt
+
 @app.route('/settlement',methods=['GET','POST'])  # 结算界面
 def settlement():
     settlement = session.get('settlement')
@@ -412,6 +465,9 @@ def settlement():
                 Thread_Pool.submit(send_email, (app, email, '购票通知', Function.get_content_single(
                     table[1],table[2],table[6],table[7],table[4],table[5],cabin
                 )+ f'{email}。详细信息请访问{request.host_url}'))
+                session.pop('st')
+                session.pop('table')
+                session.pop('settlement')
             elif st == '2':
                 table = json.loads(session.get('table'))
                 Function.set_task([table[0][6], table[0][0], 1])
@@ -428,9 +484,6 @@ def settlement():
                 logging.warning('非法访问！')
                 abort(404)
             # 支付之后删除在cookies里暂存机票数据相关信息
-            session.pop('table')
-            session.pop('st')
-            session.pop('settlement')
             return url_for('login',_external=True)
         return render_template('settlement.html')
     elif g.email and g.login_status:
@@ -439,9 +492,9 @@ def settlement():
         return redirect(url_for('login'))
 
 
-
+@csrf.exempt # csrf审查豁免
 @app.get('/wait')
-@cache.cached()
+@cache.cached(timeout=86400)
 def wait():
     if g.login_status and g.email:
         return render_template('wait.html')

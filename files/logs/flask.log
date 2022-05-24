@@ -32,3 +32,8 @@ Traceback (most recent call last):
   File "D:\Python3.10.4\lib\random.py", line 482, in sample
     raise ValueError("Sample larger than population or is negative")
 ValueError: Sample larger than population or is negative
+[2022-05-25 07:15:56,907]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /settlement]
+[2022-05-25 07:15:56,907]-[WARNING] [encounter_403 - 115- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-05-25 07:18:22,452]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /settlement]
+[2022-05-25 07:18:22,452]-[WARNING] [encounter_403 - 115- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-05-25 07:20:57,156]-[WARNING] [encounter_403 - 115- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]

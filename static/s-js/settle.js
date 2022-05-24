@@ -146,6 +146,7 @@ var cover=document.getElementsByClassName('cover')[0];
         url: '/settlement',
         dataType: 'text',
         async: false,
+        headers: { "X-CSRFToken": csrf_token },
         error: function (request) {
           alert("Connection error");
         },
