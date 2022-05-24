@@ -328,8 +328,7 @@ def index_ajax3():
         return jsonify({'string': '1'})
     a = Process_Pool.map(Function.sort_planes_cost,[numpy.array(i) for i in results])
     b = Process_Pool.map(Function.sort_planes_time,[result for result in results])
-    a = [i for i in a]
-    b = [i for i in b]
+    a,b = list(a),list(b)
     session['original_tables'] = [i[0] for i in b]
     return jsonify({
         'string': '2', 'common': json.dumps(results[0], ensure_ascii=False),
@@ -353,7 +352,7 @@ def index_ajax4():
     session['st'] = form.get('st')
     session['table'] = form.get('table')
     session['settlement'] = True
-    return request.host_url+'settlement'
+    return url_for('settlement',_external=True)
 
 
 @csrf.exempt
@@ -375,23 +374,29 @@ def settlement():
         table = json.loads(session.get('table'))
         if request.method == 'POST':
             if st == '1':
+                cabin = '经济舱' if table[-1]=='j' else '公务舱'
                 Function.set_task([table[6], table[0], 1])
-                Thread_Pool.submit(send_email, (app, email, '购票通知', Function.get_content(
-                    table[1],table[2],table[6],table[7],table[4],table[5]
+                Thread_Pool.submit(send_email, (app, email, '购票通知', Function.get_content_single(
+                    table[1],table[2],table[6],table[7],table[4],table[5],cabin
                 )+ f'{email}。详细信息请访问{request.host_url}'))
             elif st == '2':
                 Function.set_task([table[0][6], table[0][0], 1])
                 Function.set_task([table[1][6], table[1][0], 1])
-                Thread_Pool.submit(send_email, (app, email, '购票通知', Function.get_content(
-                    table[0][1], table[0][2], table[0][6], table[0][7], table[0][4], table[0][5]
+                cabin1 = '经济舱' if table[0][-1] == 'j' else '公务舱'
+                cabin2 = '经济舱' if table[1][-1] == 'j' else '公务舱'
+                Thread_Pool.submit(send_email, (app, email, '购票通知', Function.get_content_double(
+                    table[0][1],table[1][1],table[0][2],table[1][2],table[0][6],table[0][7],table[0][4],
+                    table[1][4],table[0][5],table[1][5],cabin1,cabin2
                 ) + f'{email}。详细信息请访问{request.host_url}'))
             elif st == '3':
                 n = len(table)
+                for i in range(n):
+                    Function.set_task([table[i][6], table[i][0], 1])
                 ...
             else:
                 logging.warning('非法访问！')
                 abort(404)
-            return request.host_url+'login'
+            return url_for('login',_external=True)
         return render_template('settlement.html')
     elif g.email and g.login_status:
         return redirect(url_for('index'))

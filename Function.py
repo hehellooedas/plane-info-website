@@ -25,11 +25,18 @@ def get_Szm(city: str) -> str:
     return table.get(city)
 
 
-def get_content(company, flight_number, acity, bcity, adate, bdate)->str:
-    return f'【民航行程信息】您的机票已于{get_Time()}支付成功。{get_date(adate)} {company} {flight_number}航班' \
-           f'经济舱,{acity}（{get_Szm(acity)}） {get_time(adate)} - {bcity}（{get_Szm(bcity)}）' \
+def get_content_single(company, flight_number, acity, bcity, adate, bdate,cabin)->str:
+    return f'【民航行程信息】您的单程机票已于{get_Time()}支付成功。{get_date(adate)} {company} {flight_number}航班' \
+           f'{cabin},{acity}（{get_Szm(acity)}） {get_time(adate)} - {bcity}（{get_Szm(bcity)}）' \
            f'{get_time(bdate)}。\n航班将于起飞前45分钟截止办理乘机手续，为避免耽误您的行程，请您预留足够的时间办理乘机手续' \
            f'并提前20分钟抵达登机口。乘机人'
+
+
+def get_content_double(company1,company2,flight_number1,flight_number2,acity,bcity,adate1,bdate1,adate2,bdate2,cabin1,cabin2)->str:
+    return f'【民航行程信息】您的往返机票已于{get_Time()}支付成功。往：{get_date(adate1)} {company1} {flight_number1}航班{cabin1},{acity}({get_Szm(acity)})' \
+           f' {get_time(adate1)} - {bdate1}({get_Szm(bcity)}) {get_time(bdate1)}。返：{get_date(adate2)} {company2} {flight_number2}航班{cabin2},' \
+           f'{bcity}({get_Szm(bcity)}) {get_time(adate2)} - {acity}({get_Szm(acity)}) {get_time(bdate2)}。 \n' \
+           f'航班将于起飞前45分钟截止办理乘机手续，为避免耽误您的行程，请您预留足够的时间办理乘机手续并提前20分钟抵达登机口。乘机人'
 
 
 def create_String(n=6)->str:#生成随机字符串
