@@ -13,3 +13,22 @@ Traceback (most recent call last):
   File "D:\Python3.10.4\lib\json\__init__.py", line 339, in loads
     raise TypeError(f'the JSON object must be str, bytes or bytearray, '
 TypeError: the JSON object must be str, bytes or bytearray, not NoneType
+[2022-05-24 18:08:12,065]-[ERROR] [log_exception - 1455- Exception on /login [GET]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\Python3.10.4\lib\site-packages\flask_caching\__init__.py", line 475, in decorated_function
+    rv = f(*args, **kwargs)
+  File "D:\民航行程推荐\wsgi.py", line 116, in login
+    session['test'] = Function.create_String(100)
+  File "D:\民航行程推荐\Function.py", line 48, in create_String
+    return ''.join(random.sample('abcdefghijklmnopqrstuvwxyz0123456789', n))
+  File "D:\Python3.10.4\lib\random.py", line 482, in sample
+    raise ValueError("Sample larger than population or is negative")
+ValueError: Sample larger than population or is negative

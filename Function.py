@@ -1,4 +1,4 @@
-import pandas, pickle, os, random, time, copy,numpy,threading,numba,json
+import pandas, pickle, os, random, time, copy,numpy,numba,json
 
 
 def delete_log_byhand():#删除日志

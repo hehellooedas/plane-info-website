@@ -1,4 +1,4 @@
-
+var csrf_token = $("[name='_csrf_token']").val();
 var list=document.getElementById('list_hang');
 var zongjia=document.getElementsByClassName('zongjia')[0];
 var str,cang,money,date,date2;
@@ -116,6 +116,7 @@ var st,table,email;
         url: 'settlement_ajax',
         dataType: 'json',
         async: false,
+        headers: { "X-CSRFToken": csrf_token },
         error: function (request) {
           alert("Connection error");
         },
