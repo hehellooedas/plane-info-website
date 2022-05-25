@@ -184,7 +184,7 @@
       <!-- 订单左边 -->
       <!-- 订单右边 -->
       <div class="col-sm-5 bg-gray-eee">
-        <div id="list_hang">
+        <div id="list_hang" style="overflow:auto;height: 450px;width: 500px;">
 
         </div>
         <div style="width:100%;height: 40px;">
@@ -206,5 +206,58 @@
 
 <script src="../static/s-js/settle.js">
 </script>
+<script>
+  var str;
+  var list=document.getElementById('list_hang');
+  str=`<div class="show">
+            <h4 style="width: 420px;height:80px;margin-left:20px;"><br>
+              <p style="text-align:center ;font-size: large;"></p>
+              <p style="text-align:center ;color: #C4C4C4;"></p>
+            </h4>
+            <div style="position: relative;">
+              <div class="show-bot">
+                <p style="text-align: center;font-style: italic;"></p>
+                <p style="text-align: center;font-size:large;"></p>
+              </div>
+              <div class="show-bot2">
 
+                <p style="text-align: center;font-style: italic;"></p>
+                <p style="text-align: center;font-size:large;"></p>
+              </div>
+              <div style="position:absolute;left:215px;top:10px;width: auto;height: auto;">
+                <p style="margin-left:-65px;font-size: 18px;"></p>
+                <div style="width:30px;height:30px"><img src="../static/s-other/tl.png" alt=""
+                    style="width:100%;height:100%;"></div>
+              </div>
+            </div>
+            <div style="height:30px;width:100%;background-color: #C4C4C4;border-radius: 0 0 5px 5px;">
+              <h4 style="float: right;margin-right: 5px;">￥</h4>
+            </div>
+          </div>`+`<div class="show">
+            <h4 style="width: 420px;height:80px;margin-left:20px;"><br>
+              <p style="text-align:center ;font-size: large;"></p>
+              <p style="text-align:center ;color: #C4C4C4;"></p>
+            </h4>
+            <div style="position: relative;">
+              <div class="show-bot">
+                <p style="text-align: center;font-style: italic;"></p>
+                <p style="text-align: center;font-size:large;"></p>
+              </div>
+              <div class="show-bot2">
+
+                <p style="text-align: center;font-style: italic;"></p>
+                <p style="text-align: center;font-size:large;"></p>
+              </div>
+              <div style="position:absolute;left:215px;top:10px;width: auto;height: auto;">
+                <p style="margin-left:-65px;font-size: 18px;"></p>
+                <div style="width:30px;height:30px"><img src="../static/s-other/tl.png" alt=""
+                    style="width:100%;height:100%;"></div>
+              </div>
+            </div>
+            <div style="height:30px;width:100%;background-color: #C4C4C4;border-radius: 0 0 5px 5px;">
+              <h4 style="float: right;margin-right: 5px;">￥</h4>
+            </div>
+          </div>`;
+  list.innerHTML=str;
+</script>
 </html>

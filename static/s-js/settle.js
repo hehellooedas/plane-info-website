@@ -30,8 +30,6 @@ function pan2(){
         }
     }
 }
-
-
 function add(){
     if(st=='1'){
             date=new Date(table[4]);
