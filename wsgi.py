@@ -36,7 +36,7 @@ limiter = Limiter(#设置网站访问上限
     app,
     key_func=get_remote_address,
     default_limits=["200000 per day", "4000 per hour"]
-)
+)#设置单ip访问上限：每天200000次，每小时4000次
 csrf = SeaSurf(app)  # csrf防护,只有携带请求头（含有特定加密字符串）的post请求才能被视为合法请求
 
 #定时任务初始化
@@ -130,7 +130,6 @@ def before_request():
 @app.get('/login')#登录界面
 @cache.cached(timeout=3000, query_string=True)#设置缓存
 def login():
-    abort(403)
     response = make_response(render_template('login.html'))
     agent = parse(request.user_agent.string)
     if agent.is_bot:
@@ -342,15 +341,17 @@ def index_ajax2():
         })
 
 
+
 @csrf.exempt
-@app.post('/index_ajax31')  # 多程
+@app.post('/index_ajax31')  # ajax3系列为多程
 def index_ajax3():
     if open is False:
         logging.warning('数据库更新时试图访问数据!')
         return jsonify({'string': '0'})
     informations = json.loads(request.form.get('informations'))
     session['informations'] = informations # 将多程的城市和时间信息记录在cookies里
-    session['num'] = 1
+    session['st'] = '3'
+    session['num'] = 1 #num记录当前是第几程
     a = Thread_Pool.submit(Function.select_planes,informations[0])
     result = a.result()
     if result is False:
@@ -377,6 +378,7 @@ def index_ajax3():
         })
 
 
+
 @csrf.exempt
 @app.post('/index_ajax32')  # 多程
 def index_ajax32():
@@ -384,6 +386,7 @@ def index_ajax32():
     session['num'] += 1
     table = request.form.get('table')
     session[f'table{num}'] = table
+    adate = table[5]
     informations = session.get('informations')
     if open is False:
         logging.warning('数据库更新时试图访问数据!')
@@ -394,19 +397,23 @@ def index_ajax32():
         return jsonify({'string': '0'})
     if result is None or result == []:
         return jsonify({'string': '1'})
-    elif len(result) == 1:
+    if len(result) == 1 and Function.judgeDate(adate,result[0][4]):
         result = json.dumps(result, ensure_ascii=False)
         return {
             'string': '2', 'common': result, 'economy_class': result, 'First_class': result, 'go_sort': result,
             'arrival_sort': result
         }
     else:
-        b = Thread_Pool.submit(Function.sort_planes_cost, numpy.array(result))  # 按价格排序
-        c = Thread_Pool.submit(Function.sort_planes_time, result)  # 按时间排序
+        results = []
+        for i in result:
+            if Function.judgeDate(adate,i[4]):
+                results.append(i)
+        b = Thread_Pool.submit(Function.sort_planes_cost, numpy.array(results))  # 按价格排序
+        c = Thread_Pool.submit(Function.sort_planes_time, results)  # 按时间排序
         economy_class, First_class = b.result()
         go_sort, arrival_sort = c.result()
         return jsonify({
-            'string': '2', 'common': json.dumps(result, ensure_ascii=False),
+            'string': '2', 'common': json.dumps(results, ensure_ascii=False),
             'economy_class': json.dumps(economy_class.tolist(), ensure_ascii=False),
             'First_class': json.dumps(First_class.tolist(), ensure_ascii=False),
             'go_sort': go_sort,
@@ -507,8 +514,8 @@ def plane_update():
     global open
     open = False #更新数据库时暂停搜索服务
     logging.info('数据库开始更新~')
-    time.sleep(1)
-    Function.planes_Update_Function()
+    time.sleep(1)# 缓一缓
+    #Function.planes_Update_Function()#执行数据库更新函数
     open = True #更新结束后重新开启搜索服务
 
 

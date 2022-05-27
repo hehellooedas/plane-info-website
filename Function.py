@@ -82,22 +82,22 @@ def sort_planes_cost(result)->tuple:#按价格升序
     for i in range(len(result) - 1):
         index = i
         for j in range(i+1, len(result)):
-            if result[index][8] > result[j][8]:
+            if len(result[index][8]) > len(result[j][8]) or (len(result[index][8]) == len(result[j][8]) and result[index][8] > result[j][8]):
                 index = j
         if index != i:
             temp = numpy.copy(result[index])
-            result[i] = result[index]
-            result[index] = temp
+            result[index] = result[i]
+            result[i] = temp
     cost_sort_Economics = numpy.copy(result)  # 申请一段内存单独存储排序后的结果
     for i in range(len(result) - 1):
         index = i
         for j in range(i+1, len(result)):
-            if result[index][9] > result[j][9]:
+            if len(result[index][9]) > len(result[j][9]) or (len(result[index][9]) == len(result[j][9]) and result[index][9] > result[j][9]):
                 index = j
         if index != i:
             temp = numpy.copy(result[index])
-            result[i] = result[index]
-            result[index] = temp
+            result[index] = result[i]
+            result[i] = temp
     return cost_sort_Economics,result
 
 
@@ -153,8 +153,23 @@ def select_planes(info: tuple):
     return result
 
 
-def select_plane():
-    ...
+def judgeDate(adate:str,bdate:str)->bool:
+    a,b = adate.split(' '),bdate.split(' ')
+    if b[0] > a[0]:
+        return True
+    elif b[0] < a[0]:
+        return False
+    else:
+        if b[1] <= a[1]:
+            return False
+        else:
+            hour = int(a[1].split(':')[0])+2
+            other = a[1][2:]
+            new = str(hour) + other
+            if b[1] >= new:
+                return True
+
+
 
 
 
