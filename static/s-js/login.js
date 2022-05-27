@@ -1,19 +1,21 @@
 var csrf_token = $("[name='_csrf_token']").val();
-var email1 = document.getElementById('username');
+var use_email = document.getElementById('username');
 var password = document.getElementById('password');
-var login1btn = document.getElementById("login-btn");
-var sendbtn = document.getElementsByClassName('send-btn')[0];
-var databack;
-var time = 60;
-var information;
+var login_btn = document.getElementById("login-btn");
+var send_btn = document.getElementsByClassName('send-btn')[0];
 var info = document.getElementsByClassName('info')[0];
 var codefail = document.getElementsByClassName('codefail')[0];
-sendbtn.addEventListener('click', function () {
+var databack,information,time = 60;
+//正则表达式；
+var reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+var use = document.getElementById('username');
+//验证码发送验证信息
+send_btn.addEventListener('click', function () {
 	if (!reg.test(use.value)) {
 		info.innerText = '输入格式错误';
 	}
 	else {
-		information = { 'email': email1.value };
+		information = { 'email': use_email.value };
 		$.ajax({
 			type: "POST",
 			url: '/login_ajax1',
@@ -49,9 +51,8 @@ sendbtn.addEventListener('click', function () {
 		});
 	}
 })
-// sendbtn.addEventListener('click', function () {
-// });
-login1btn.addEventListener('click', function () {
+//登录验证
+login_btn.addEventListener('click', function () {
 	if (databack == password.value) {
 		$.ajax({
 			type: "POST",
@@ -70,6 +71,4 @@ login1btn.addEventListener('click', function () {
 	}
 	else { codefail.innerText = '验证码输入错误，请重新输入'; }
 });
-//正则表达式；
-var reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-var use = document.getElementById('username');
+

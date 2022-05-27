@@ -75,21 +75,146 @@ body{
 .search{
     position: relative;
     height: 100px;
-   
+}
+.search_single {
+    display: block;
+}
+.search_single2 {
+    display: none;
+}
+.search_many {
+    position: absolute;
+    width: 900px;
+    left: 0;
+    top: 20px;
+    display: none;
+    z-index: 100000;
+    background-color: aliceblue;
+}
+.search_many2 {
+    position: absolute;
+    width: 900px;
+    border-radius: 0px 5px 5px 5px;
+    left: 0;
+    top: 20px;
+    display: block;
+    background-color: aliceblue;
+    z-index: 100;
+}
+.search_many3 {
+    position: absolute;
+    width: 900px;
+    border-radius: 0px 5px 5px 5px;
+    left: 0;
+    top: 20px;
+    display: block;
+    background-color: aliceblue;
+    z-index: 100;
+    height: 82px;
+    overflow: auto;
+}
+#tuichu {
+    position: fixed;
+    right: 30px;
+    top: 40px;
+    cursor: pointer;
+    width: 60px;
+    height: 50px;
+    border: none;
+    background-color: blanchedalmond;
+    border-radius: 5px;
+    box-shadow: 0 3px #999;
+}
+#tuichu:active {
+    box-shadow: 0 1px #666;
+    transform: translateY(4px);
+}
+.xiaoxi {
+    color: red;
+    font-size: 17px;
+    width: 200px;
+    height: 20px;
+    position: absolute;
+    top: 15px;
+    left: 960px;
+}
+.tishi {
+    position: absolute;
+    display: none;
+    width: 900px;
+    height: 99px;
+    border: 2px solid red;
+}
+.tishi2 {
+    position: absolute;
+    display: block;
+    width: 900px;
+    height: 99px;
+    border: 2px solid red;
+}
+.nav_tishi {
+    position: absolute;
+    display: none;
+    color: red;
+    right: 700px;
+    top: -20px;
+    width: 200px;
+    height: 30px;
+}
+.nav_tishi2 {
+    position: absolute;
+    display: block;
+    color: red;
+    top: -20px;
+    right: 700px;
+    width: 200px;
+    height: 30px;
+}
+.nav_tishi3 {
+    position: absolute;
+    display: none;
+    right: 1000px;
+    color: red;
+    top: -20px;
+    width: 200px;
+    height: 30px;
+}
+.nav_tishi4 {
+    position: absolute;
+    display: block;
+    right: 1000px;
+    color: red;
+    top: -20px;
+    width: 200px;
+    height: 30px;
 }
 .input{
     border: none;
     height: 50px;
     font-style: bold;
 }
-#citySelect{
+.citySelect{
     border: none;
     height: 50px;
     font-style: bold;
     background:url('../s-other/city.png') no-repeat ;
     background-position: 120px 20px;
 }
-#citySelect1{
+.citySelect1{
+    border: none;
+    height: 50px;
+    font-style: bold;
+    background:url('../s-other/city.png') no-repeat ;
+    background-position: 120px 20px;
+}
+.city_first{
+    border: none;
+    height: 50px;
+    font-style: bold;
+    background:url('../s-other/city.png') no-repeat ;
+    background-position: 120px 20px;
+}
+.city_second{
     border: none;
     height: 50px;
     font-style: bold;
@@ -147,6 +272,64 @@ body{
     opacity: 0.3;
     font-weight: 700;
 }
+.arrive-start{
+    display: inline-block;
+    width: 155px;
+    height: 78px;
+    border: 2px solid black;
+    margin-right: 30px;
+}
+.arrive-start > span{
+    opacity: 0.3;
+    font-weight: 700;
+}
+.arrive-end > span{
+    opacity: 0.3;
+    font-weight: 700;
+}
+.arrive-end{
+    display: inline-block;
+    width: 155px;
+    height: 78px;
+    border: 2px solid black;
+   margin-right: 30px;
+}
+.arrive-time > span{
+    opacity: 0.3;
+    font-weight: 700;
+}
+.arrive-time{
+    display: inline-block;
+    width: 155px;
+    height: 78px;
+    border: 2px solid black;
+   margin-right: 30px;
+}
+.addition{
+    cursor: pointer;
+    width: 80px;
+    height: 40px;
+    background-color: antiquewhite;
+    box-shadow: 0 3px #999;
+    border-radius: 5px;
+}
+.addition:active{    
+        box-shadow: 0 1px #666;
+        transform: translateY(4px);
+}
+.decline{
+    cursor: pointer;
+    width: 80px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #999;
+    box-shadow: 0 3px #999;
+    margin-left: 30px;
+}
+.decline:active{    
+        box-shadow: 0 1px #666;
+        transform: translateY(4px);
+}
 .time-start{
     border: 2px solid black;
     position: absolute;
@@ -154,7 +337,7 @@ body{
     width: 155px;
     height: 78px;
 }
-.time-end > span{
+.time-end2 > span{
     opacity: 0.3;
     font-weight: 700;
 }
@@ -272,12 +455,12 @@ body{
     float: left;
     width:300px;
     border:1px solid aliceblue;
-    color: black;
+    color: white;
     font-size: large;
     height: 49px;
     border-radius: 1px;
     cursor: pointer;
-    background-color: bisque;
+    background-color: cadetblue;
 }
 .show-nav .show-nav-span2 button:active{
     background-color: azure;

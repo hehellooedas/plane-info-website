@@ -1,10 +1,10 @@
-
+var csrf_token = $("[name='_csrf_token']").val();
 var list=document.getElementById('list_hang');
 var zongjia=document.getElementsByClassName('zongjia')[0];
 var str,cang,money,date,date2;
-var sum=0;
-var cang2=[10];
-var money2=[10];
+var sum=0;//计算总价
+var cang2=[10];//对多个航程的舱位储存
+var money2=[10];//对多个航程的价格储存
 function pan(){
     if(table[12]=="g")
             {
@@ -103,9 +103,6 @@ function add(){
         zongjia.innerHTML="￥"+sum+"";
     }
 }
-
-
-
 var st,table,email;
   (function () {
     $.ajax(
@@ -114,6 +111,7 @@ var st,table,email;
         url: 'settlement_ajax',
         dataType: 'json',
         async: false,
+        headers: { "X-CSRFToken": csrf_token },
         error: function (request) {
           alert("Connection error");
         },
@@ -126,6 +124,7 @@ var st,table,email;
       }
     )
   })();
+//勾选保险购买后对订单总价刷新
 var reg=new RegExp("￥");//删除字符
 var str5;
 var buyname=document.getElementsByClassName('buyname')[0];
@@ -134,22 +133,21 @@ var buyname=document.getElementsByClassName('buyname')[0];
          str5=parseInt(str5)+100;
          zongjia.innerHTML="￥"+str5+"";
      })
+//购票验证
 var pay=document.getElementsByClassName('pay')[0];
-var showname=document.getElementsByClassName('showname')[0];
-var cover=document.getElementsByClassName('cover')[0];
     pay.addEventListener('click',function(){
       $.ajax({
         type: 'POST',
         url: '/settlement',
-        dataType: 'json',
+        dataType: 'text',
         async: false,
+        headers: { "X-CSRFToken": csrf_token },
         error: function (request) {
           alert("Connection error");
         },
         success: function (data) {
-          cover.style.height = document.body.clientHeight +150+ 'px';
-          cover.className = 'cover2';
-          showname.className='showname2';
+          alert('购票成功!');
+          location.replace(data);
         }
       })
     })

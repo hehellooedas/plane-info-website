@@ -14,92 +14,6 @@
     <link rel="stylesheet" href="../static/s-css/city.css">
     <script src="../static/s-js/jquery.min.js"></script>
 </head>
-<style>
-    #tuichu {
-        position: fixed;
-        right: 30px;
-        top: 40px;
-        cursor: pointer;
-        width: 60px;
-        height: 50px;
-        border: none;
-        background-color: blanchedalmond;
-        border-radius: 5px;
-        box-shadow: 0 3px #999;
-    }
-
-    #tuichu:active {
-        box-shadow: 0 1px #666;
-        transform: translateY(4px);
-    }
-
-    .xiaoxi {
-        color: red;
-        font-size: 17px;
-        width: 200px;
-        height: 20px;
-        position: absolute;
-        top: 15px;
-        left: 960px;
-    }
-
-    .tishi {
-        position: absolute;
-        display: none;
-        width: 900px;
-        height: 99px;
-        border: 2px solid red;
-    }
-
-    .tishi2 {
-        position: absolute;
-        display: block;
-        width: 900px;
-        height: 99px;
-        border: 2px solid red;
-    }
-
-    .nav_tishi {
-        position: absolute;
-        display: none;
-        color: red;
-        right: 700px;
-        top: -20px;
-        width: 200px;
-        height: 30px;
-    }
-
-    .nav_tishi2 {
-        position: absolute;
-        display: block;
-        color: red;
-        top: -20px;
-        right: 700px;
-        width: 200px;
-        height: 30px;
-    }
-
-    .nav_tishi3 {
-        position: absolute;
-        display: none;
-        right: 1000px;
-        color: red;
-        top: -20px;
-        width: 200px;
-        height: 30px;
-    }
-
-    .nav_tishi4 {
-        position: absolute;
-        display: block;
-        right: 1000px;
-        color: red;
-        top: -20px;
-        width: 200px;
-        height: 30px;
-    }
-</style>
-
 <body>
     <input type="button" id="tuichu" value="退出登录" onclick="back()">
     <!-- 遮罩层 -->
@@ -125,42 +39,74 @@
             <h1>欢迎使用中国民航旅行航班推荐系统！</h1>
         </div>
     </div>
-    <!-- 选择出发地 时间 -->
+
     <div class="search ban">
         <p class="ico"></p>
         <div class="tishi">
         </div>
-        <div class="search-address">
-            <p class="xiaoxi"></p>
+        <!-- 多程航班选择 -->
+        <div class="search_many">
+            <div class="trips" style="margin-bottom:5px;">
+                <span class="arrive-start"><span>出发点&nbsp&nbsp</span>
+                    <input type="text" value="城市名" class="city_first">
+                </span>
+                <span class="arrive-end"><span>目的地&nbsp&nbsp</span>
+                    <input type="text" value="城市名" class="city_second">
+                </span>
+                <span class="arrive-time">
+                    <span>出发时间&nbsp&nbsp</span>
+                    <input type="date" class="input time_first">
+                </span>
+                <span> <input type="button" value="第 1 程" class="decline" style="pointer-events: none;"></span>
+            </div>
+            <span><input class="up" type="button"
+                    style="position: absolute;right:5px;top:0px;border:none;font-size: large;background-color:aliceblue;cursor: pointer;"
+                    value=""></span>
+            <!-- 添加按钮 -->
+            <span style="position: absolute;right: 50px;top: 30px;"><input type="button" value="再加一程"
+                    class="addition"></span>
+        </div>
+        <!-- 单程，往返 -->
+        <div class="search_single">
+            <div class="search-address">
+                <p class="xiaoxi"></p>
 
-            <div class="selcet"><input type="radio" name="hi" id="dan" checked="checked">单程<input type="radio" name="hi"
-                    id="shuang">往返<input type="radio" name="hi" id="duo">多程
+                <div class="selcet"><label for="dan"><input type="radio" name="trip" id="dan"
+                            checked="checked">单程</label>
+                    <label for="shuang"><input type="radio" name="trip" id="shuang">往返</label>
+                    <label for="duo"><input type="radio" name="trip" id="duo">多程</label>
+                </div>
+                <div class="address-start"><span>出发点&nbsp&nbsp</span>
+                    <input type="text" class="citySelect" value="城市名">
+                </div>
+                <div class="address-end"><span>目的地&nbsp&nbsp</span>
+                    <input type="text" class="citySelect1" value="城市名">
+                </div>
             </div>
-            <div class="address-start"><span>出发点&nbsp&nbsp</span>
-                <input type="text" id="citySelect" value="城市名">
-            </div>
-            <div class="address-end"><span>目的地&nbsp&nbsp</span>
-                <input type="text" id="citySelect1" value="城市名">
+            <!-- 选择时间 -->
+            <div class="search-time">
+                <div class="time-start"><span>出发时间&nbsp&nbsp</span>
+                    <input type="date" class="input">
+                </div>
+                <div class="time-end"><span>返回时间&nbsp&nbsp</span>
+                    <input type="date" class="input">
+                </div>
             </div>
         </div>
-        <!-- <p class="ico2"></p> -->
-        <div class="search-time">
-            <div class="time-start"><span>出发时间&nbsp&nbsp</span>
-                <input type="date" class="input">
-            </div>
-            <div class="time-end"><span>返回时间&nbsp&nbsp</span>
-                <input type="date" class="input">
-            </div>
-        </div>
+        <!-- 查询 -->
         <div class="chazhao">
             <button class="btn">
                 <h2>&nbsp搜索</h2>
             </button>
         </div>
     </div>
-    <!-- 展示近期时间的航班 -->
-    <div class="date ban"><a href=""><img src="../static/s-other/adv (2).png" alt=""></a></div>
-    <!-- 选择去程和返程的航班 -->
+    <!-- 广告部分 -->
+    <div class="date ban" style="margin-top:10px;background-image: url('../static/s-other/adv.png');">
+        <p style="width:300px;height:120px;position: absolute;right: 100px;"><img src="../static/s-other/plane.png"
+                alt="" style="width:100%;height:100%;"></p>
+        <h1 style="line-height:100px;color: white;margin-left:100px;">关注航班动态，中国民航为您提供准确航班信息。</h1>
+    </div>
+    <!-- 航班展示部分 -->
     <div class="show ban">
         <div class="kuang">
             <div class="show-nav">
@@ -235,7 +181,7 @@
             <span>
                 航班信息显示qwq
                 <p>
-                    <img src="../static/s-other/show.gif" alt="">
+                    <img src="../static/s-other/1(1).png" alt="">
                 </p>
             </span>
         </div>
@@ -243,20 +189,24 @@
             <span>
                 航班信息显示qwq
                 <p>
-                    <img src="../static/s-other/show.gif" alt="">
+                    <img src="../static/s-other/1(1).png" alt="">
                 </p>
             </span>
         </div>
     </div>
+    <!-- 展示部分 -->
+
+    <!-- 网页底板展示 -->
     <div id="foot">
         <div class="foot2">
             <h3 style="margin: auto;width:100%;">中国民航提醒您航空旅行十大风险</h3>
             <ol style="float: left;margin-left: 450px;">
-            <li>1.疫情防控政策严 出行要求需看全</li>
-            <li>2.国际航班数量减 黄牛售票有风险</li>
-            <li>3.廉价机票销售火 退改条件限制多</li>
-            <li>4.组合航班非联程 错失中转无保证</li>
-            <li>5.行李标准有差异 购票旅行要注意</li></ol>
+                <li>1.疫情防控政策严 出行要求需看全</li>
+                <li>2.国际航班数量减 黄牛售票有风险</li>
+                <li>3.廉价机票销售火 退改条件限制多</li>
+                <li>4.组合航班非联程 错失中转无保证</li>
+                <li>5.行李标准有差异 购票旅行要注意</li>
+            </ol>
             <ol style="float: right;margin-right: 450px;">
                 <li>6.陌生号码须留神 转账汇款应谨慎</li>
                 <li>7.旅行套餐品类多 选择服务莫出错</li>
@@ -267,91 +217,6 @@
         </div>
     </div>
 </body>
-<script>
-    var gobtn = document.getElementById('gobtn');
-    var backbtn = document.getElementById('backbtn');
-    var navf = document.getElementsByClassName('nav0')[0];
-    var navs = document.getElementsByClassName('nav2')[0];
-    var showbodyf = document.getElementsByClassName('show-body0')[0];
-    var showbodys = document.getElementsByClassName('show-body2')[0];
-    var ifa = document.getElementsByClassName('ifa')[0];
-    var btn = document.getElementsByClassName('btn')[0];
-    var pay = document.getElementsByClassName('pay')[0];
-    var search = document.getElementsByClassName('search')[0];
-    var address_start = document.getElementsByClassName('address_start')[0];
-    var pay2 = document.getElementsByClassName('pay2')[0];
-    var tishi = document.getElementsByClassName('tishi')[0];
-    gobtn.addEventListener('click', function () {
-        navf.className = "nav0";
-        navs.className = "nav2";
-        gobtn.style.backgroundColor = 'black';
-        backbtn.style.backgroundColor = '';
-        showbodys.className = 'show-body2';
-        showbodyf.className = 'show-body0';
-    });
-    backbtn.addEventListener('click', function () {
-        navs.className = "nav0";
-        navf.className = "nav2";
-        backbtn.style.backgroundColor = 'black';
-        gobtn.style.backgroundColor = '';
-        showbodys.className = 'show-body0';
-        showbodyf.className = 'show-body2';
-    });
-    btn.addEventListener('click', function () {
-        if (st == 1 && (acity.value == '城市名' || bcity.value == '城市名' || time0.value == '')) {
-            xiaoxi.innerHTML = '请把搜索信息填写完整';
-            tishi.className = 'tishi2';
-        }
-        else if (st == 2 && (acity.value == '城市名' || bcity.value == '城市名' || time0.value == '' || time2.value == '')) {
-            xiaoxi.innerHTML = '请把搜索信息填写完整';
-            tishi.className = 'tishi2';
-        }
-        else if (acity.value == bcity.value) {
-            xiaoxi.innerHTML = '出发地和目的地相同啦';
-            tishi.className = 'tishi2';
-        }
-        else {
-            xiaoxi.innerHTML = '';
-            tishi.className = 'tishi';
-            cover.style.height = document.body.clientHeight + 'px';
-            cover.className = 'cover2';
-            ifa.className = 'ifa2';
-            setTimeout(function () {
-                cover.className = 'cover';
-                ifa.className = 'ifa';
-                reqfirst();
-                refound();
-                //计算时间
-            }, 2000);
-        }
-    })
-</script>
-<script>
-    //退出登录
-    function back() {
-        location.replace('{{ url }}' + 'login');
-    }
-</script>
-<script>
-    var order1, order2;
-    var radio, radio2;
-    function refound() {
-        radio = document.getElementsByClassName('radio');
-        for (let i = 0; i < radio.length - 1; i++) {
-            radio[i].addEventListener("click", function () {
-                order1 = 1;
-            })
-        }
-        if (st == 2) {
-            radio2 = document.getElementsByClassName('radio2');
-            for (let i = 0; i < radio.length - 1; i++) {
-                radio2[i].addEventListener("click", function () {
-                    order2 = 1;
-                })
-            }
-        }
-    }
-</script>
 <script src="../static/s-js/city.js"></script>
 <script src="../static/s-js/index.js"></script>
 </html>

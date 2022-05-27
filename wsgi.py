@@ -4,7 +4,6 @@ from flask import Flask, render_template, request, url_for, redirect, make_respo
 from flask_mail import Mail, Message
 from flask_seasurf import SeaSurf
 from flask_apscheduler import APScheduler
-from flask_avatars import Avatars
 from flask_caching import Cache
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -26,35 +25,50 @@ logging.basicConfig()
 file_log_handler = TimedRotatingFileHandler(
 filename='./files/logs/flask.log', encoding='UTF-8', delay=True,backupCount=10, interval=10, when='D'
 )
-file_log_handler.setFormatter(logging.Formatter("[%(asctime)s]-[%(levelname)s] [%(funcName)s - %(lineno)s- %(message)s]"))#设置log格式
+#设置log格式
+file_log_handler.setFormatter(logging.Formatter("[%(asctime)s]-[%(levelname)s] [%(funcName)s - %(lineno)s- %(message)s]"))
 file_log_handler.setLevel(logging.WARNING)#记录warning级别的日志
 logging.getLogger().addHandler(file_log_handler)
+
 
 app = Flask(__name__)
 limiter = Limiter(#设置网站访问上限
     app,
     key_func=get_remote_address,
-    default_limits=["1000 per day", "200 per hour"]
+    default_limits=["200000 per day", "4000 per hour"]
 )
-csrf = SeaSurf(app)  # csrf防护
-scheduler = APScheduler()  # 定时任务
+csrf = SeaSurf(app)  # csrf防护,只有携带请求头（含有特定加密字符串）的post请求才能被视为合法请求
+
+#定时任务初始化
+scheduler = APScheduler()
 scheduler.init_app(app)
 scheduler.api_enabled = False
-interval = IntervalTrigger(#设置定时任务
+#设置定时任务
+interval = IntervalTrigger(
     hours=6,  # 六小时更新一次数据库
     start_date='2022-4-29 08:00:00',
     end_date='2023-5-31 08:00:00',
     timezone='Asia/Shanghai'
 )
+
 open = True#确认当前数据库中数据是否能对外开放
+
 # 设置内置环境变量
+#设置jinjs2模板的使用格式
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
+
+#设置cookie的加密密钥
 app.secret_key = os.getenv('SECRET_KEY',secrets.token_urlsafe(16))
-avatars = Avatars(app)#生成头像
-cache = Cache(app, config={'CACHE_TYPE': 'simple'})#页面缓存
+
+#页面缓存初始化
+cache = Cache(app, config={'CACHE_TYPE': 'simple'})
+
+
+#引入进程池与线程池，防止线程/进程被过多创建，保护线程/进程安全
 Thread_Pool = ThreadPoolExecutor()#线程池
-Process_Pool = ProcessPoolExecutor()#进程池
+Process_Pool = ProcessPoolExecutor()#进程池(Linux服务器)
+
 
 # 邮件smtp相关配置
 app.config.update(dict(
@@ -69,22 +83,24 @@ app.config.update(dict(
 ))
 mail = Mail(app)
 
-#存储emails的数据库类
+#引入存储emails的数据库类
 emails_db = Function.emails_db()
 
 
 # 邮件发送函数
 def send_email(info: tuple):
     app, emails, subject, content = info
+    #激活程序上下文,防止邮件发送任务放置到线程池之后当前程序上下文丢失
     with app.app_context():
         msg = Message(
-            subject=subject,
-            recipients=[emails]
+            subject=subject,  #邮件主题
+            recipients=[emails]  #收件人列表
         )
         msg.body = content + '\n收到请勿回复！若您从未注册民航推荐网，请无视这封邮件，注意不要泄露个人信息！'
         try:
-            mail.send(msg)
+            mail.send(msg)#邮件发送
         except:
+            #记录错误信息
             logging.error('邮件发送失败！')
 
 
@@ -112,8 +128,9 @@ def before_request():
 
 
 @app.get('/login')#登录界面
-@cache.cached(timeout=300, query_string=True)
+@cache.cached(timeout=3000, query_string=True)#设置缓存
 def login():
+    abort(403)
     response = make_response(render_template('login.html'))
     agent = parse(request.user_agent.string)
     if agent.is_bot:
@@ -122,6 +139,7 @@ def login():
         response.set_cookie(key='system', value='phone')
     else:
         response.set_cookie(key='system', value='pc')
+    #进入登录（login）界面自动解除登录状态
     if 'login_status' in session and 'email' in session:
         session.pop('login_status')
         session.pop('email')
@@ -131,16 +149,16 @@ def login():
 
 @app.post('/login_ajax1')#登录发送按钮
 def login_ajax():
-    email = escape(request.form.get('email'))
-    Verification_Code = Function.create_String()
+    email = escape(request.form.get('email'))#使用escape转义
+    Verification_Code = Function.create_String()#产生随机字符串作为验证码
     if email and emails_db.exist_account(email):
         Thread_Pool.submit(send_email, (
             app, email, '民航推荐网站登录',
             f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
-        ))
-        string = '0'
+        ))#把发送邮件的任务放入线程池
+        string = '0'#邮件发送成功
     else:
-        string = '1'
+        string = '1'#用户还未注册
     return jsonify({
         'Code': Verification_Code,
         'string': string
@@ -154,13 +172,13 @@ def login_ajax2():
     session['login_status'] = True
     session['email'] = email
     session.permanent = True
-    cache.clear()
-    return request.host_url
+    cache.clear()#清理缓存
+    return request.host_url#返回url，交给前端跳转
 
 
 
 @app.get('/register')#注册界面
-@cache.cached(timeout=300, query_string=True)
+@cache.cached(timeout=3000, query_string=True)#设置缓存
 def register():
     return render_template('register.html')
 
@@ -178,7 +196,7 @@ def register_ajax1():
             Thread_Pool.submit(send_email, (
                 app, email, '民航推荐网站注册',
                 f'【民航】动态密码{Verification_Code}，您正在登录民航官网，验证码五分钟内有效。'
-            ))
+            ))#把发送邮件的任务放入线程池
             string = '0'#提示已经发送验证码
     return jsonify({
         'Code': Verification_Code,
@@ -189,21 +207,24 @@ def register_ajax1():
 
 @app.post('/register_ajax2')#注册成功
 def register_ajax2():
-    email = request.form.get('email')
-    Thread_Pool.submit(emails_db.add_account,email)
-    cache.clear()
-    return url_for('login')
+    email = escape(request.form.get('email'))
+    #把用户信息记录到“数据库”
+    emails_db.add_account(email)
+    cache.clear()#清理缓存
+    return url_for('login')#返回url，交给前端跳转
 
 
 
 # index函数为航班推荐主页面
 @csrf.exempt
 @app.get('/')#主页面
-@limiter.limit("30/second", override_defaults=True,error_message='sorry you have too many requests')
+@limiter.limit("100/second", override_defaults=True,error_message='sorry you have too many requests')
 def index():
+    #只有登录后的用户才能访问机票查询界面（主界面）
     if g.login_status and g.email:
         return render_template('index.html',url=request.host_url)
     else:
+        #若未登录则重定向到登录（login）界面
         return redirect(url_for('login'))
 
 
@@ -227,8 +248,8 @@ def index_ajax1():
             'string':'2','common': result,'economy_class':result,'First_class':result,'go_sort':result,'arrival_sort':result
         }
     else:
-        b = Thread_Pool.submit(Function.sort_planes_cost, numpy.array(result))  # 排序
-        c = Thread_Pool.submit(Function.sort_planes_time,result)
+        b = Thread_Pool.submit(Function.sort_planes_cost, numpy.array(result))  # 按价格排序
+        c = Thread_Pool.submit(Function.sort_planes_time,result) #按时间排序
         economy_class,First_class = b.result()
         go_sort,arrival_sort = c.result()
         return jsonify({
@@ -250,13 +271,18 @@ def index_ajax2():
     acity, bcity, adate, bdate = form.get('acity'), form.get('bcity'), form.get('adate'), form.get('bdate')
     a_result, b_result = Thread_Pool.map(Function.select_planes,[(acity, bcity, adate),(bcity, acity, bdate)])
     if a_result is False or b_result is False:
+        #搜索过程出现错误时，提示服务器端错误信息
+        logging.warning('服务器端搜索机票出现错误！')
         return jsonify({'string': '0'})
     a_len, b_len = len(a_result), len(b_result)
     if a_result is None or a_result == []:
+        #往返（双程）其中有往程是没有机票信息的
         return jsonify({'string': '1'})
     elif b_result is None or b_result == []:
+        # 往返（双程）其中有返程是没有机票信息的
         return jsonify({'string': '1'})
     elif a_len == 1 and b_len == 1:
+        #二者都只有一条记录，则无需排序，直接返回
         a_result,b_result = json.dumps(a_result,ensure_ascii=False),json.dumps(b_result,ensure_ascii=False)
         return jsonify({
             'string':'2','a_common': json.dumps(a_result,ensure_ascii=False),'a_economy_class':b_result,
@@ -265,6 +291,7 @@ def index_ajax2():
             'b_go_sort':b_result,'b_arrival_sort':b_result
         })
     elif a_len == 1 and b_len > 1:
+        #往程只有一条记录，往程无需排序，只需要返程排序即可，减少服务器CPU运算压力
         a = Thread_Pool.submit(Function.sort_planes_cost,numpy.array(b_result))
         b = Thread_Pool.submit(Function.sort_planes_time,b_result)
         b_economy_class, b_First_class = a.result()
@@ -279,6 +306,7 @@ def index_ajax2():
             'b_arrival_sort':b_arrival_sort
         })
     elif b_len == 1 and a_len > 1:
+        #返往程只有一条记录，返程无需排序，只需要往程排序即可，减少服务器CPU运算压力
         a = Thread_Pool.submit(Function.sort_planes_cost, numpy.array(a_result))
         b = Thread_Pool.submit(Function.sort_planes_time, a_result)
         a_economy_class,a_First_class = a.result()
@@ -293,6 +321,7 @@ def index_ajax2():
             'b_common': b_result, 'b_economy_class':b_result,'b_First_class':b_result,'b_go_sort':b_result,'b_arrival_sort':b_result
         })
     else:
+        #往返程都有多条记录，二者使用进程池同时排序
         a,b = Process_Pool.map(Function.sort_planes_cost,[numpy.array(a_result),numpy.array(b_result)])
         c,d = Process_Pool.map(Function.sort_planes_time,[a_result,b_result])
         a_economy_class, a_First_class = a
@@ -320,80 +349,142 @@ def index_ajax3():
         logging.warning('数据库更新时试图访问数据!')
         return jsonify({'string': '0'})
     informations = json.loads(request.form.get('informations'))
-    n = len(informations)
-    results = [result for result in Thread_Pool.map(Function.select_planes
-    ,[(information[0], information[1], information[2]) for information in informations])]
-    if False in results:
-        jsonify({'string': '0'})
-    if [] in results or None in results:
+    session['informations'] = informations # 将多程的城市和时间信息记录在cookies里
+    session['num'] = 1
+    a = Thread_Pool.submit(Function.select_planes,informations[0])
+    result = a.result()
+    if result is False:
+        return jsonify({'string': '0'})
+    if result is None or result == []:
         return jsonify({'string': '1'})
-    a = Process_Pool.map(Function.sort_planes_cost,[numpy.array(i) for i in results])
-    b = Process_Pool.map(Function.sort_planes_time,[result for result in results])
-    a = [i for i in a]
-    b = [i for i in b]
-    session['original_tables'] = [i[0] for i in b]
-    return jsonify({
-        'string': '2', 'common': json.dumps(results[0], ensure_ascii=False),
-        'economy_class': json.dumps(a[0][0].tolist(), ensure_ascii=False),
-        'First_class': json.dumps(a[0][1].tolist(), ensure_ascii=False),
-        'go_sort': b[0][0],
-        'arrival_sort': b[0][1]
-    })
+    elif len(result) == 1:
+        result = json.dumps(result, ensure_ascii=False)
+        return {
+            'string': '2', 'common': result, 'economy_class': result, 'First_class': result, 'go_sort': result,
+            'arrival_sort': result
+        }
+    else:
+        b = Thread_Pool.submit(Function.sort_planes_cost, numpy.array(result))  # 按价格排序
+        c = Thread_Pool.submit(Function.sort_planes_time, result)  # 按时间排序
+        economy_class, First_class = b.result()
+        go_sort, arrival_sort = c.result()
+        return jsonify({
+            'string': '2', 'common': json.dumps(result, ensure_ascii=False),
+            'economy_class': json.dumps(economy_class.tolist(), ensure_ascii=False),
+            'First_class': json.dumps(First_class.tolist(), ensure_ascii=False),
+            'go_sort': go_sort,
+            'arrival_sort': arrival_sort
+        })
 
 
 @csrf.exempt
 @app.post('/index_ajax32')  # 多程
 def index_ajax32():
-    ...
+    num = session['num']
+    session['num'] += 1
+    table = request.form.get('table')
+    session[f'table{num}'] = table
+    informations = session.get('informations')
+    if open is False:
+        logging.warning('数据库更新时试图访问数据!')
+        return jsonify({'string': '0'})
+    a = Thread_Pool.submit(Function.select_planes,informations[num])
+    result = a.result()
+    if result is False:
+        return jsonify({'string': '0'})
+    if result is None or result == []:
+        return jsonify({'string': '1'})
+    elif len(result) == 1:
+        result = json.dumps(result, ensure_ascii=False)
+        return {
+            'string': '2', 'common': result, 'economy_class': result, 'First_class': result, 'go_sort': result,
+            'arrival_sort': result
+        }
+    else:
+        b = Thread_Pool.submit(Function.sort_planes_cost, numpy.array(result))  # 按价格排序
+        c = Thread_Pool.submit(Function.sort_planes_time, result)  # 按时间排序
+        economy_class, First_class = b.result()
+        go_sort, arrival_sort = c.result()
+        return jsonify({
+            'string': '2', 'common': json.dumps(result, ensure_ascii=False),
+            'economy_class': json.dumps(economy_class.tolist(), ensure_ascii=False),
+            'First_class': json.dumps(First_class.tolist(), ensure_ascii=False),
+            'go_sort': go_sort,
+            'arrival_sort': arrival_sort
+        })
+
+
+
 
 
 @csrf.exempt
-@app.post('/index_ajax4')#结算按钮
+@app.post('/index_ajax4')#单程与往返的结算按钮
 def index_ajax4():
     form  = request.form
+    #将用户确定的信息暂时存储到加密的cookie（session）里
     session['st'] = form.get('st')
     session['table'] = form.get('table')
-    session['settlement'] = True
-    return request.host_url+'settlement'
+    session['settlement'] = True #设置结算（settlement）页面为可进页面
+    return url_for('settlement',_external=True)
 
 
-@csrf.exempt
-@app.post('/settlement_ajax')
+
+
+@app.post('/settlement_ajax')#将数据传给结算页面
 def settlement_ajax():
-    return jsonify({
-        'st':session.get('st'),'table':session.get('table'),'email':session.get('email')
-    })
+    #st记录用户选择：1代表单程，2代表往返，3代表剁成
+    st = session.get('st')
+    email = session.get('email')
+    if st == '3':
+        num = session.get('num')
+        tables = []
+        for i in range(num):
+            tables.append(session.get(f'table{i+1}'))
+        return jsonify({
+            'st':st,'table':tables,'email':email
+        })
+    else:
+        return jsonify({
+            'st':st,'table':session.get('table'),'email':email
+        })
 
 
 
-@csrf.exempt
+
 @app.route('/settlement',methods=['GET','POST'])  # 结算界面
 def settlement():
     settlement = session.get('settlement')
     if g.email and g.login_status and settlement:
+        email = g.email
         st = session.get('st')
-        table = json.loads(session.get('table'))
-        if request.method == 'POST':
-            emails = json.loads(request.form.get('emails'))
+        if request.method == 'POST': #支付按钮
             if st == '1':
-                Thread_Pool.submit(Function.set_task,[table[6], table[0], len(emails)])
-                for i in emails:
-                    Thread_Pool.submit(send_email, (app, i, '购票通知', Function.get_content(
-                        table[1],table[2],table[6],table[7],table[4],table[5]
-                    ) + emails[0] + f'。详细信息请访问{request.host_url}'))
+                table = json.loads(session.get('table'))
+                cabin = '经济舱' if table[-1]=='j' else '公务舱' #判断是经济舱还是公务舱
+                Function.set_task([table[6], table[0], 1])
+                Thread_Pool.submit(send_email, (app, email, '购票通知', Function.get_content_single(
+                    table[1],table[2],table[6],table[7],table[4],table[5],cabin
+                )+ f'{email}。详细信息请访问{request.host_url}'))
+                session.pop('st')
+                session.pop('table')
+                session.pop('settlement')
             elif st == '2':
-                Thread_Pool.submit(Function.set_task, [table[0][6], table[0][0], len(emails)])
-                Thread_Pool.submit(Function.set_task, [table[1][6], table[1][0], len(emails)])
-                for i in emails:
-                    ...
+                table = json.loads(session.get('table'))
+                Function.set_task([table[0][6], table[0][0], 1])
+                Function.set_task([table[1][6], table[1][0], 1])
+                cabin1 = '经济舱' if table[0][-1] == 'j' else '公务舱'
+                cabin2 = '经济舱' if table[1][-1] == 'j' else '公务舱'
+                Thread_Pool.submit(send_email, (app, email, '购票通知', Function.get_content_double(
+                    table[0][1],table[1][1],table[0][2],table[1][2],table[0][6],table[0][7],table[0][4],
+                    table[1][4],table[0][5],table[1][5],cabin1,cabin2
+                ) + f'{email}。详细信息请访问{request.host_url}'))
             elif st == '3':
-                n = len(table)
                 ...
             else:
-                ...
                 logging.warning('非法访问！')
                 abort(404)
-            return redirect(url_for('success'))
+            # 支付之后删除在cookies里暂存机票数据相关信息
+            return url_for('login',_external=True)
         return render_template('settlement.html')
     elif g.email and g.login_status:
         return redirect(url_for('index'))
@@ -401,40 +492,15 @@ def settlement():
         return redirect(url_for('login'))
 
 
-
-    #Thread_Pool.submit(Function.set_task,[acity, index, numbers])
-    #content = Function.get_content(company, flight_number, acity, bcity, adate, bdate)
-    #more = f'。详细信息请访问{request.host_url}'
-    #if len(emails) == 1:
-        #Thread_Pool.submit(send_email,(app, emails, '购票通知', content + emails[0] + more))
-    #else:
-        #tasks = [
-            #(app, [email], '购票信息', content + email + more)
-            #for email in emails
-        #]
-        #with ThreadPoolExecutor() as pool:
-            #pool.map(send_email, tasks)
-    #return redirect(url_for('success'))
-
-
-
-
-@app.get('/success')
-def success():
-    if g.login_status and g.email:
-        if session['settlement']:
-            session.pop('settlement')
-        return render_template('success.html')
-    else:
-        return redirect(url_for('login'))
-
+@csrf.exempt # csrf审查豁免
 @app.get('/wait')
-@cache.cached()
+@cache.cached(timeout=86400)
 def wait():
-    if g.login_status:
+    if g.login_status and g.email:
         return render_template('wait.html')
     else:
         abort(404)
+
 
 @scheduler.task(trigger=interval, name='plane_update', id='1')
 def plane_update():
@@ -463,13 +529,17 @@ def finished_task(event):
     else:
         logging.info('日志已自动删除！')
 
+
+#监听定时任务，遇到报错时记录错误
 scheduler.add_listener(listen_error,mask=EVENT_JOB_ERROR)
+#监听定时任务，定时任务执行后记录执行信息
 scheduler.add_listener(finished_task,mask=EVENT_JOB_EXECUTED)
+#启动定时任务
 scheduler.start()
 
 if __name__ == '__main__':
-    Process_Pool = ProcessPoolExecutor()#进程池
+    Process_Pool = ProcessPoolExecutor()#进程池(Windows)
     #scheduler.start()
     print('服务器开始运行')
-    app.run(port=80, host='0.0.0.0')
+    app.run(port=8000, host='0.0.0.0')
     print('服务器关闭')

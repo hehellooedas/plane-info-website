@@ -10,122 +10,16 @@
   <link rel="shortcut " href="../static/s-other/logo.ico" />
   <link href="../static/s-css/bootstrap.min.css" rel="stylesheet">
   <link href="../static/s-css/common.css" rel="stylesheet">
+  <link rel="stylesheet" href="../static/s-css/settle.css">
   <script src="../static/s-js/jquery.min.js"></script>
 </head>
-<style>
-  .head {
-    position: absolute;
-    top: 10px;
-    overflow: hidden;
-    left: 169px;
-    width: 1180px;
-    height: 100px;
-    background-color: #C4C4C4;
-    text-align: center;
-    line-height: 100px;
-    font-size: large;
-    box-shadow: 2px 2px 2px 2px darkgrey;
-  }
-
-  .foot {
-    width: 1100px;
-    height: 100px;
-    margin: auto;
-  }
-
-  .pay {
-    width: 200px;
-    height: 45px;
-    background-color: aliceblue;
-    float: right;
-  }
-
-  .pay:active {
-    background-color: azure;
-  }
-
-  .ban {
-    height: 200px;
-  }
-
-  .show {
-    border-radius: 5px;
-    background-color: gray;
-    width: 460px;
-    height: 200px;
-  }
-
-  .show-bot {
-    position: absolute;
-    right: 0px;
-    height: 80px;
-    width: 80px;
-    padding-top: 15px;
-  }
-
-  .show-bot2 {
-    height: 80px;
-    width: 80px;
-    padding-top: 15px;
-  }
-
-  .cover {
-    background: #000;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    filter: alpha(opacity=30);
-    opacity: 0.3;
-    display: none;
-    z-index: 1000;
-  }
-
-  .cover2 {
-    background: #000;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    filter: alpha(opacity=30);
-    opacity: 0.3;
-    display: block;
-    z-index: 1000;
-  }
-
-  .showname {
-    position: absolute;
-    display: none;
-    left:38%;
-    top: 20%;
-    z-index: 5000;
-    width: 500px;
-    height: 500px;
-  }
-
-  .showname2 {
-    position: absolute;
-    display: none;
-    left:38%;
-    top: 20%;
-    z-index: 5000;
-    width: 500px;
-    height: 500px;
-  }
-</style>
-
 <body>
-  <div class="cover">
-  </div>
-  <div class="showname">
-    <h1 style="color:green;width: 400px;height: 400px;background-color: aliceblue;text-align: center;line-height: 400px;">支付成功</h1>
-  </div>
   <div class="head">
     <div>
       尊敬的用户您的订单如下
     </div>
   </div>
-
+  
   <div class="body0">
     <div class="container bg-gray-eee box-shadow mar-bottom-30"
       style="padding-right:0px; padding-left:0px; position:relative; margin-top:120px;">
@@ -184,7 +78,9 @@
       <!-- 订单左边 -->
       <!-- 订单右边 -->
       <div class="col-sm-5 bg-gray-eee">
+
         <div id="list_hang" style="overflow:auto;height: 450px;width: 500px;">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
 
         </div>
         <div style="width:100%;height: 40px;">
@@ -205,59 +101,5 @@
 </body>
 
 <script src="../static/s-js/settle.js">
-</script>
-<script>
-  var str;
-  var list=document.getElementById('list_hang');
-  str=`<div class="show">
-            <h4 style="width: 420px;height:80px;margin-left:20px;"><br>
-              <p style="text-align:center ;font-size: large;"></p>
-              <p style="text-align:center ;color: #C4C4C4;"></p>
-            </h4>
-            <div style="position: relative;">
-              <div class="show-bot">
-                <p style="text-align: center;font-style: italic;"></p>
-                <p style="text-align: center;font-size:large;"></p>
-              </div>
-              <div class="show-bot2">
-
-                <p style="text-align: center;font-style: italic;"></p>
-                <p style="text-align: center;font-size:large;"></p>
-              </div>
-              <div style="position:absolute;left:215px;top:10px;width: auto;height: auto;">
-                <p style="margin-left:-65px;font-size: 18px;"></p>
-                <div style="width:30px;height:30px"><img src="../static/s-other/tl.png" alt=""
-                    style="width:100%;height:100%;"></div>
-              </div>
-            </div>
-            <div style="height:30px;width:100%;background-color: #C4C4C4;border-radius: 0 0 5px 5px;">
-              <h4 style="float: right;margin-right: 5px;">￥</h4>
-            </div>
-          </div>`+`<div class="show">
-            <h4 style="width: 420px;height:80px;margin-left:20px;"><br>
-              <p style="text-align:center ;font-size: large;"></p>
-              <p style="text-align:center ;color: #C4C4C4;"></p>
-            </h4>
-            <div style="position: relative;">
-              <div class="show-bot">
-                <p style="text-align: center;font-style: italic;"></p>
-                <p style="text-align: center;font-size:large;"></p>
-              </div>
-              <div class="show-bot2">
-
-                <p style="text-align: center;font-style: italic;"></p>
-                <p style="text-align: center;font-size:large;"></p>
-              </div>
-              <div style="position:absolute;left:215px;top:10px;width: auto;height: auto;">
-                <p style="margin-left:-65px;font-size: 18px;"></p>
-                <div style="width:30px;height:30px"><img src="../static/s-other/tl.png" alt=""
-                    style="width:100%;height:100%;"></div>
-              </div>
-            </div>
-            <div style="height:30px;width:100%;background-color: #C4C4C4;border-radius: 0 0 5px 5px;">
-              <h4 style="float: right;margin-right: 5px;">￥</h4>
-            </div>
-          </div>`;
-  list.innerHTML=str;
 </script>
 </html>

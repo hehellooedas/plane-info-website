@@ -1,19 +1,21 @@
 var csrf_token = $("[name='_csrf_token']").val();
-var email1 = document.getElementById('username');
+var use_email = document.getElementById('username');
 var password = document.getElementById('password');
-var reg = document.getElementById("reg");//这里名字改了以下 
+var register = document.getElementById("reg");//注册按钮
 var sendbtn = document.getElementsByClassName('send-btn')[0];
-var databack;
-var time = 60;
-var information;
+var databack,information,time = 60;
+//正则表达式；
+var reg2 = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+var use = document.getElementById('username');
 var info = document.getElementsByClassName('info')[0];
 var codefail = document.getElementsByClassName('codefail')[0];
+//验证码发送验证用户信息
 sendbtn.addEventListener('click', function () {
 	if (!reg2.test(use.value)) {
 		info.innerText = '输入格式错误';
 	}
 	else {
-		information = { 'email': email1.value };
+		information = { 'email': use_email.value };
 		$.ajax({
 			type: "POST",
 			url: '/register_ajax1',
@@ -49,11 +51,8 @@ sendbtn.addEventListener('click', function () {
 		});
 	}
 })
-sendbtn.addEventListener('click', function () {
-
-});
-//注册成功和注册失败的消息闪现
-reg.addEventListener('click', function () {
+//注册验证
+register.addEventListener('click', function () {
 	if (databack == password.value) {
 		codefail.className = 'codefail2';
 		codefail.innerText = '注册成功';
@@ -75,6 +74,4 @@ reg.addEventListener('click', function () {
 		}
 	});
 });
-//正则表达式；
-var reg2 = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-var use = document.getElementById('username');
+

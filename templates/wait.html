@@ -100,17 +100,16 @@
         </div>
     </div>
     <script>
-    var photo=document.getElementsByClassName('photo')[0];
-    var sss;
-    setInterval(function(){
-    sss=photo.offsetLeft;
-    sss+=25;
-    if(sss>530)
-    {
-        sss=30;
-    }
-    photo.style.left=sss+'px';
-    },100);
+        var photo = document.getElementsByClassName('photo')[0];
+        var seconds;
+        setInterval(function () {
+            seconds = photo.offsetLeft;
+            seconds += 25;
+            if (seconds > 530) {
+                seconds = 30;
+            }
+            photo.style.left = seconds + 'px';
+        }, 100);
     </script>
 </body>
 </html>
