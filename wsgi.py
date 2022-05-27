@@ -350,7 +350,8 @@ def index_ajax3():
         return jsonify({'string': '0'})
     informations = json.loads(request.form.get('informations'))
     session['informations'] = informations # 将多程的城市和时间信息记录在cookies里
-    session['num'] = 1
+    session['st'] = '3'
+    session['num'] = 1 #num记录当前是第几程
     a = Thread_Pool.submit(Function.select_planes,informations[0])
     result = a.result()
     if result is False:
