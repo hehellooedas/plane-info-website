@@ -102,7 +102,6 @@ for (let k = 0; k < btn_go.length; k++) {
             btn_go[j].style.backgroundColor = 'powderblue';
         }
         this.style.backgroundColor = 'darkgray';
-        console.log(k);
         if (k == 0) {
             for (let i = 0; i < arr2.length; i++) {
                 str = arr2[i] + ',g';
@@ -248,7 +247,6 @@ for (let k = 0; k < btn_back.length; k++) {
             btn_back[j].style.backgroundColor = 'powderblue';
         }
         this.style.backgroundColor = 'darkgray';
-        console.log(k);
         if (k == 0) {
             for (let i = 0; i < brr2.length; i++) {
                 str = brr2[i] + ',g';
@@ -506,7 +504,7 @@ function settlement() {
                 {
                     url: '/index_ajax32',
                     type: 'POST',
-                    data: { "table": JSON.stringify(send) },
+                    data: { "table": JSON.stringify(send)},
                     async: false,
                     error: function (request) {
                         alert('hello-cuowu');
@@ -798,9 +796,8 @@ function reqfirst() {
     if (st == 3) {
         $.ajax({
             type: 'post',
-            url: '/index_ajax3',
-            contentType: "application/json",
-            data: JSON.stringify(send_data),
+            url: '/index_ajax31',
+            data: {'informations':JSON.stringify(send_data)},
             dataType: 'json',
             async: false,
             error: function (request) {
