@@ -28,21 +28,21 @@ send_btn.addEventListener('click', function () {
 			},
 			success: function (data) {
 				if (data['string'] == '1') {
-					sendbtn.className = "send-btn3";
+					send_btn.className = "send-btn3";
 					info.innerText = '您的账户并未注册，请检查邮件是否填写正确！';
 				}
 				else {
 				    databack = data['Code'];
 					info.innerHTML = '<p>&nbsp</p>';
-					sendbtn.className = "send-btn2";
+					send_btn.className = "send-btn2";
 					info.innerText = '邮件已发送,请注意查收';
 					var ss = setInterval(function () {
 						time--;
-						sendbtn.value = "等待" + time + "s";
+						send_btn.value = "等待" + time + "s";
 						if (time === 0) {
 							time = 60;
-							sendbtn.value = "发送";
-							sendbtn.className = "send-btn3";
+							send_btn.value = "发送";
+							send_btn.className = "send-btn3";
 							clearInterval(ss);
 						}
 					}, 1000);
