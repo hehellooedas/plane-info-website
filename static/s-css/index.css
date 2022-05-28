@@ -129,6 +129,9 @@ body{
     box-shadow: 0 1px #666;
     transform: translateY(4px);
 }
+.hidden{
+    visibility: hidden;
+}
 .xiaoxi {
     color: red;
     font-size: 17px;

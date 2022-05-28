@@ -26,6 +26,16 @@ backbtn.addEventListener('click', function () {
     showbodys.className = 'show-body0';
     showbodyf.className = 'show-body2';
 });
+function check(){
+    for(let i=0;i<city_first.length;i++)
+    {
+        if(city_first[i].value=="城市名"||city_second[i].value=="城市名"||time_first[i].value=="")
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
 // 查询时所触发的事件
 var discover_btn = document.getElementsByClassName('btn')[0];//查询按钮
 var search_animation = document.getElementsByClassName('ifa')[0];//查询时的动画
@@ -44,6 +54,10 @@ discover_btn.addEventListener('click', function () {
     else if (acity.value == bcity.value && st != 3) {
         alarm.innerHTML = '出发地和目的地相同啦';
         information.className = 'tishi2';
+    }
+    else if(check())
+    {
+        alarm.innerHTML = '请把搜索信息填写完整';
     }
     else {
         alarm.innerHTML = '';
@@ -611,11 +625,23 @@ addition.addEventListener('click', function () {
     var test = new Vcity.CitySelector({ input: 'city_first', site: count });
     var test = new Vcity.CitySelector({ input: 'city_second', site: count });
     decline[count].value = "第 " + (count + 1) + " 程";
+    if(count==5){
+        addition.className="hidden";
+    }
 })
 // 将多程航班信息展示缩小按钮
+var counter=0;
 up.addEventListener('click', function () {
-    up.value = "";
-    search_many.className = "search_many3";
+    counter++;
+    if(counter%2==0)
+    {
+        up.value = "︿";
+        search_many.className = "search_many2";
+    }
+    else{
+        up.value = "    ﹀";
+        search_many.className = "search_many3";
+    }
 })
 //ajax请求数据获取
 var arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//去程
