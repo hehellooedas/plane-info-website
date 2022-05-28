@@ -12,7 +12,7 @@ from user_agents import parse
 from markupsafe import escape
 from dotenv import load_dotenv
 from logging.handlers import TimedRotatingFileHandler
-import os, logging, Function,numpy,json,time,secrets
+import os, logging, Function,numpy,json,time,secrets,datetime
 
 
 #引入外置环境变量
@@ -31,13 +31,13 @@ file_log_handler.setLevel(logging.WARNING)#记录warning级别的日志
 logging.getLogger().addHandler(file_log_handler)
 
 
-app = Flask(__name__)
+app = Flask(__name__) #创建app (Flask对象)
 limiter = Limiter(#设置网站访问上限
     app,
     key_func=get_remote_address,
     default_limits=["200000 per day", "4000 per hour"]
 )#设置单ip访问上限：每天200000次，每小时4000次
-csrf = SeaSurf(app)  # csrf防护,只有携带请求头（含有特定加密字符串）的post请求才能被视为合法请求
+csrf = SeaSurf(app)  # csrf防护,只有携带特定请求头（含有正确的加密字符串）的post请求才能被视为合法请求
 
 #定时任务初始化
 scheduler = APScheduler()
@@ -60,6 +60,7 @@ app.jinja_env.lstrip_blocks = True
 
 #设置cookie的加密密钥
 app.secret_key = os.getenv('SECRET_KEY',secrets.token_urlsafe(16))
+
 
 #页面缓存初始化
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
@@ -118,6 +119,7 @@ def encounter_403(error):
 
 @app.template_filter
 def judge_Systen():
+    #判断访问的设备是pc端还是移动端
     return request.cookies.get('system') == 'phone'
 
 
@@ -125,6 +127,10 @@ def judge_Systen():
 def before_request():
     g.email = session.get("email")
     g.login_status = session.get('login_status')
+    # 设置session的过期时间
+    session.permanent = True
+    # 30分钟后刷新页面则自动退出登录
+    app.permanent_session_lifetime = datetime.timedelta(minutes=30)
 
 
 @app.get('/login')#登录界面
@@ -135,13 +141,17 @@ def login():
     if agent.is_bot:
         abort(403)#遇到爬虫则返回403
     elif agent.is_mobile:
-        response.set_cookie(key='system', value='phone')
+        response.set_cookie(key='system', value='phone',httponly=True)
     else:
-        response.set_cookie(key='system', value='pc')
+        response.set_cookie(key='system', value='pc',httponly=True)
     #进入登录（login）界面自动解除登录状态
     if 'login_status' in session and 'email' in session:
         session.pop('login_status')
         session.pop('email')
+    if 'settlement' in session:
+        session.pop('settlement')
+    if 'informations' in session:
+        session.pop('informations')
     return response
 
 
@@ -170,7 +180,6 @@ def login_ajax2():
     email = request.form.get('email')
     session['login_status'] = True
     session['email'] = email
-    session.permanent = True
     cache.clear()#清理缓存
     return request.host_url#返回url，交给前端跳转
 
@@ -400,8 +409,8 @@ def index_ajax32():
     if len(result) == 1 and Function.judgeDate(adate,result[0][4]):
         result = json.dumps(result, ensure_ascii=False)
         return {
-            'string': '2', 'common': result, 'economy_class': result, 'First_class': result, 'go_sort': result,
-            'arrival_sort': result
+            'string': '2', 'common': result, 'economy_class': result,
+            'First_class': result, 'go_sort': result,'arrival_sort': result
         }
     else:
         results = []
@@ -439,7 +448,7 @@ def index_ajax4():
 
 @app.post('/settlement_ajax')#将数据传给结算页面
 def settlement_ajax():
-    #st记录用户选择：1代表单程，2代表往返，3代表剁成
+    #st记录用户选择：1代表单程，2代表往返，3代表多程
     st = session.get('st')
     email = session.get('email')
     if st == '3':
@@ -465,17 +474,16 @@ def settlement():
         email = g.email
         st = session.get('st')
         if request.method == 'POST': #支付按钮
-            if st == '1':
+            if st == '1': # 单程
                 table = json.loads(session.get('table'))
                 cabin = '经济舱' if table[-1]=='j' else '公务舱' #判断是经济舱还是公务舱
                 Function.set_task([table[6], table[0], 1])
                 Thread_Pool.submit(send_email, (app, email, '购票通知', Function.get_content_single(
                     table[1],table[2],table[6],table[7],table[4],table[5],cabin
                 )+ f'{email}。详细信息请访问{request.host_url}'))
-                session.pop('st')
+                # 支付之后删除在cookies里暂存机票数据相关信息
                 session.pop('table')
-                session.pop('settlement')
-            elif st == '2':
+            elif st == '2': # 往返
                 table = json.loads(session.get('table'))
                 Function.set_task([table[0][6], table[0][0], 1])
                 Function.set_task([table[1][6], table[1][0], 1])
@@ -485,12 +493,16 @@ def settlement():
                     table[0][1],table[1][1],table[0][2],table[1][2],table[0][6],table[0][7],table[0][4],
                     table[1][4],table[0][5],table[1][5],cabin1,cabin2
                 ) + f'{email}。详细信息请访问{request.host_url}'))
-            elif st == '3':
+                session.pop('table')
+            elif st == '3': # 多程
+                session.pop('tables')
                 ...
-            else:
-                logging.warning('非法访问！')
+            else: # st被篡改,csrf防护被攻破
+                logging.warning('非法访问,外部发送了post请求！')
                 abort(404)
             # 支付之后删除在cookies里暂存机票数据相关信息
+            session.pop('st')
+            session.pop('settlement')
             return url_for('login',_external=True)
         return render_template('settlement.html')
     elif g.email and g.login_status:
@@ -498,12 +510,16 @@ def settlement():
     else:
         return redirect(url_for('login'))
 
+@app.post('/settlement_ajax')
+def delete_info():
+    ...
+
 
 @csrf.exempt # csrf审查豁免
 @app.get('/wait')
 @cache.cached(timeout=86400)
 def wait():
-    if g.login_status and g.email:
+    if g.login_status and g.email and request.path == url_for('index'):
         return render_template('wait.html')
     else:
         abort(404)
@@ -515,12 +531,13 @@ def plane_update():
     open = False #更新数据库时暂停搜索服务
     logging.info('数据库开始更新~')
     time.sleep(1)# 缓一缓
-    #Function.planes_Update_Function()#执行数据库更新函数
+    Function.planes_Update_Function()#执行数据库更新函数
     open = True #更新结束后重新开启搜索服务
 
 
 @scheduler.task(trigger='interval', days=5, name='delete_log', id='2')
 def delete_log():
+    #执行日志删除函数
     Function.delete_log_byhand()
 
 
@@ -548,5 +565,5 @@ if __name__ == '__main__':
     Process_Pool = ProcessPoolExecutor()#进程池(Windows)
     #scheduler.start()
     print('服务器开始运行')
-    app.run(port=8000, host='0.0.0.0')
+    app.run(port=8000, host='0.0.0.0',load_dotenv=True)
     print('服务器关闭')
