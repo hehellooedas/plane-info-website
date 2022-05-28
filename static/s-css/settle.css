@@ -12,7 +12,22 @@
     font-size: large;
     box-shadow: 2px 2px 2px 2px darkgrey;
   }
-
+.settle_back{
+  position: fixed;
+  right: 70px;
+  top: 50px;
+  cursor: pointer;
+  width: 60px;
+  height: 50px;
+  border: none;
+  background-color: darkgray;
+  border-radius: 5px;
+  box-shadow: 0 3px #999;
+}
+.settle_back:active{
+  box-shadow: 0 1px #666;
+  transform: translateY(4px);
+}
   .foot {
     width: 1100px;
     height: 100px;
