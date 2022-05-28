@@ -230,7 +230,7 @@ def register_ajax2():
 def index():
     #只有登录后的用户才能访问机票查询界面（主界面）
     if g.login_status and g.email:
-        return render_template('index.html',url=request.host_url)
+        return render_template('index.html',url=request.host_url+'login')
     else:
         #若未登录则重定向到登录（login）界面
         return redirect(url_for('login'))
@@ -518,8 +518,8 @@ def settlement():
         return redirect(url_for('login'))
 
 
-@csrf.exempt
-@app.post('/settlement_ajax') # 返回页面
+
+@app.delete('/settlement_ajax') # 返回页面
 def delete_info():
     st = session.get('st')
     if st == '1' or st == '2':

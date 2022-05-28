@@ -59,10 +59,6 @@ discover_btn.addEventListener('click', function () {
         }, 2000);
     }
 })
-//退出登录
-function back() {
-    location.replace('{{ url }}' + 'login');
-}
 // 查询出来的航班，为他们添上监听事件，为后续判断是否勾选做准备
 var order1, order2, radio, radio2;
 function refound() {
