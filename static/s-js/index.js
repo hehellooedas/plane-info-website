@@ -262,12 +262,11 @@ for (let k = 0; k < btn_back.length; k++) {
             btn_back[j].style.backgroundColor = 'powderblue';
         }
         this.style.backgroundColor = 'darkgray';
-        console.log(k);
         if (k == 0) {
             for (let i = 0; i < brr2.length; i++) {
                 str = brr2[i] + ',g';
                 str2 = brr2[i] + ',j';
-                out += "<div" + " " + "class=" + "xinxi" + ">" +
+                out2 += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
                     "<table" + " " + "border=" + "1px" + ">" +
                     "<tr" + " " + "class=" + "tr1" + ">" + "<td" + ">航空公司</td>" +
@@ -301,7 +300,7 @@ for (let k = 0; k < btn_back.length; k++) {
             for (let i = 0; i < brr3.length; i++) {
                 str = brr3[i] + ',g';
                 str2 = brr3[i] + ',j';
-                out += "<div" + " " + "class=" + "xinxi" + ">" +
+                out2 += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
                     "<table" + " " + "border=" + "1px" + ">" +
                     "<tr" + " " + "class=" + "tr1" + ">" + "<td" + ">航空公司</td>" +
@@ -335,7 +334,7 @@ for (let k = 0; k < btn_back.length; k++) {
             for (let i = 0; i < brr4.length; i++) {
                 str = brr4[i] + ',g';
                 str2 = brr4[i] + ',j';
-                out += "<div" + " " + "class=" + "xinxi" + ">" +
+                out2+= "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
                     "<table" + " " + "border=" + "1px" + ">" +
                     "<tr" + " " + "class=" + "tr1" + ">" + "<td" + ">航空公司</td>" +
