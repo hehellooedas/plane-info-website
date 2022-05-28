@@ -392,10 +392,9 @@ var nav_tishi = document.getElementsByClassName('nav_tishi')[0];
 var nav_tishi3 = document.getElementsByClassName('nav_tishi3')[0];
 var pay = document.getElementsByClassName('pay')[0];
 pay.addEventListener('click', function () {
-    if(order1!=1&&(st==1||st==3))
-    {
+    if (order1 != 1 && (st == 1 || st == 3)) {
         nav_tishi3.innerText = '请选择机票';
-        nav_tishi3.className = 'nav_tishi4'; 
+        nav_tishi3.className = 'nav_tishi4';
     }
     if (order1 !== 1 && st == 2) {
         nav_tishi3.innerText = '请选择去程的机票';
@@ -405,7 +404,7 @@ pay.addEventListener('click', function () {
         nav_tishi.innerText = '请选择返程的机票';
         nav_tishi.className = 'nav_tishi2';
     }
-    if (order1 == 1 && (st == 1||st==3)) {
+    if (order1 == 1 && (st == 1 || st == 3)) {
         nav_tishi3.className = 'nav_tishi3';
         settlement();
     }
@@ -416,7 +415,7 @@ pay.addEventListener('click', function () {
     }
 });
 //发送用户选择的航班数据ajax
-var cang,num=0,go_data, back_data, go_radio, back_radio, send = [100];
+var cang, num = -1, go_data, back_data, go_radio, back_radio, send = [100];
 function settlement() {
     go_radio = document.getElementsByName('a');
     back_radio = document.getElementsByName('b');
@@ -476,9 +475,8 @@ function settlement() {
             }
         )
     }
-    if(st==3){
-         num++;//记录选啦几次
-         pay.value="选为第"+(num+1)+'程';
+    if (st == 3) {
+        num++;//记录选啦几次
         for (let i = 0; i < go_radio.length; i++) {
             if (go_radio[i].checked) {
                 go_data = go_radio[i].value;
@@ -487,21 +485,33 @@ function settlement() {
         }
         go_data = go_data.split(',');
         send = go_data;
-        $.ajax(
-            {
-                url: '/index_ajax32',
-                type: 'POST',
-                data: { "table": JSON.stringify(send) },
-                async: false,
-                error: function (request) {
-                    alert('hello-cuowu');
-                },
-                success: function (data) {
-                    //选的次数与预选航班数一致跳转
-                    if(num==count){
-                        location.replace(data);
+        ////选的次数与预选航班数一致
+        if (num == count) {
+            $.ajax(
+                {
+                    url: '/index_ajax4',
+                    type: 'POST',
+                    data: { "table": JSON.stringify(send),"st": "3"},
+                    async: false,
+                    error: function (request) {
+                        alert('hello-cuowu');
+                    },
+                    success: function (data) {
+                      location.replace(data);
                     }
-                    else{
+                })
+        }
+        else{
+            $.ajax(
+                {
+                    url: '/index_ajax32',
+                    type: 'POST',
+                    data: { "table": JSON.stringify(send) },
+                    async: false,
+                    error: function (request) {
+                        alert('hello-cuowu');
+                    },
+                    success: function (data) {
                         if (data['string'] === "0") {
                             showbodyf.innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/error.png" + ">" + "</span>";
                             arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
@@ -541,12 +551,14 @@ function settlement() {
                                     "</div>"
                             }
                             showbodyf.innerHTML = out;
+                            pay.value = "选为第" + (num + 2) + "程";
+                            refound();
                             out = "";//清空out数据
                         }
                     }
                 }
-            }
-        )
+            )
+        }
     }
 }
 // 多程代码部分
@@ -571,7 +583,7 @@ more.addEventListener('click', function () {
     time_back.className = "time-end";
     show2.style.zIndex = 2
     show.style.zIndex = 1;
-    pay.value="选为第1程";
+    pay.value = "选为第1程";
 })
 single.addEventListener('click', function () {
     time_back.className = "time-end";
@@ -579,7 +591,7 @@ single.addEventListener('click', function () {
     st = 1;
     show2.style.zIndex = 2
     show.style.zIndex = 1;
-    pay.value="￥预订";
+    pay.value = "￥预订";
 })
 double.addEventListener('click', function () {
     time_back.className = "time-end2";
@@ -587,7 +599,7 @@ double.addEventListener('click', function () {
     st = 2;
     show.style.zIndex = 2;
     show2.style.zIndex = 1;
-    pay.value="￥预订";
+    pay.value = "￥预订";
 })
 //addition是添加按钮，再加一程
 addition.addEventListener('click', function () {
@@ -787,7 +799,7 @@ function reqfirst() {
         $.ajax({
             type: 'post',
             url: '/index_ajax3',
-            contentType:"application/json",
+            contentType: "application/json",
             data: JSON.stringify(send_data),
             dataType: 'json',
             async: false,
