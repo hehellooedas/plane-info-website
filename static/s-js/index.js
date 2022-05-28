@@ -59,10 +59,6 @@ discover_btn.addEventListener('click', function () {
         }, 2000);
     }
 })
-//退出登录
-function back() {
-    location.replace('{{ url }}' + 'login');
-}
 // 查询出来的航班，为他们添上监听事件，为后续判断是否勾选做准备
 var order1, order2, radio, radio2;
 function refound() {
@@ -396,7 +392,7 @@ var nav_tishi = document.getElementsByClassName('nav_tishi')[0];
 var nav_tishi3 = document.getElementsByClassName('nav_tishi3')[0];
 var pay = document.getElementsByClassName('pay')[0];
 pay.addEventListener('click', function () {
-    if(order1!=1&&st==1)
+    if(order1!=1&&(st==1||st==3))
     {
         nav_tishi3.innerText = '请选择机票';
         nav_tishi3.className = 'nav_tishi4'; 
@@ -409,7 +405,7 @@ pay.addEventListener('click', function () {
         nav_tishi.innerText = '请选择返程的机票';
         nav_tishi.className = 'nav_tishi2';
     }
-    if (order1 == 1 && st == 1) {
+    if (order1 == 1 && (st == 1||st==3)) {
         nav_tishi3.className = 'nav_tishi3';
         settlement();
     }
@@ -420,7 +416,7 @@ pay.addEventListener('click', function () {
     }
 });
 //发送用户选择的航班数据ajax
-var cang, go_data, back_data, go_radio, back_radio, send = [100];
+var cang,num=0,go_data, back_data, go_radio, back_radio, send = [100];
 function settlement() {
     go_radio = document.getElementsByName('a');
     back_radio = document.getElementsByName('b');
@@ -480,6 +476,78 @@ function settlement() {
             }
         )
     }
+    if(st==3){
+         num++;//记录选啦几次
+         pay.value="选为第"+(num+1)+'程';
+        for (let i = 0; i < go_radio.length; i++) {
+            if (go_radio[i].checked) {
+                go_data = go_radio[i].value;
+                break;
+            }
+        }
+        go_data = go_data.split(',');
+        send = go_data;
+        $.ajax(
+            {
+                url: '/index_ajax32',
+                type: 'POST',
+                data: { "table": JSON.stringify(send) },
+                async: false,
+                error: function (request) {
+                    alert('hello-cuowu');
+                },
+                success: function (data) {
+                    //选的次数与预选航班数一致跳转
+                    if(num==count){
+                        location.replace(data);
+                    }
+                    else{
+                        if (data['string'] === "0") {
+                            showbodyf.innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/error.png" + ">" + "</span>";
+                            arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
+                        }
+                        if (data['string'] === "1") {
+                            showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/error.png" + ">" + "</span>";
+                            arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
+                        }
+                        if (data['string'] === "2") {
+                            arr = JSON.parse(data['common']);
+                            arr2 = JSON.parse(data['go_sort']);
+                            arr3 = JSON.parse(data['arrival_sort']);
+                            arr4 = JSON.parse(data['First_class']);
+                            arr5 = JSON.parse(data['economy_class']);
+                            for (let i = 0; i < arr.length; i++) {
+                                str = arr[i] + ',g';
+                                str2 = arr[i] + ',j';
+                                out += "<div" + " " + "class=" + "xinxi" + ">" +
+                                    "<div" + " " + "class=" + "tab" + ">" +
+                                    "<table" + " " + "border=" + "1px" + ">" +
+                                    "<tr" + " " + "class=" + "tr1" + ">" + "<td" + ">航空公司</td>" +
+                                    "<td>航班</td>" +
+                                    "<td>机型</td>" +
+                                    "<td>出发时间</td>" +
+                                    "<td>抵达时间</td>" +
+                                    "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
+                                    "<tr" + " " + "class=" + "tr2" + "><td>" + arr[i][1] + "</td>" +
+                                    "<td>" + arr[i][2] + "</td>" +
+                                    "<td>" + arr[i][3] + "</td>" +
+                                    "<td>" + arr[i][4] + "</td>" +
+                                    "<td>" + arr[i][5] + "</td>" +
+                                    "<td>" + arr[i][10] + "</td>" +
+                                    "<td>" + arr[i][9] + `<input type="radio" name="a" class="radio" value="${str}">` + "</td>" +
+                                    "<td>" + arr[i][8] + `<input type="radio" name="a" class="radio" value="${str2}">` + "</td>" +
+                                    "</table>" +
+                                    "</div>" +
+                                    "</div>"
+                            }
+                            showbodyf.innerHTML = out;
+                            out = "";//清空out数据
+                        }
+                    }
+                }
+            }
+        )
+    }
 }
 // 多程代码部分
 var search_many = document.getElementsByClassName('search_many')[0];
@@ -500,6 +568,10 @@ var show2 = document.getElementsByClassName('show-nav-span2')[0];
 more.addEventListener('click', function () {
     search_many.className = "search_many2";
     st = 3;
+    time_back.className = "time-end";
+    show2.style.zIndex = 2
+    show.style.zIndex = 1;
+    pay.value="选为第1程";
 })
 single.addEventListener('click', function () {
     time_back.className = "time-end";
@@ -507,6 +579,7 @@ single.addEventListener('click', function () {
     st = 1;
     show2.style.zIndex = 2
     show.style.zIndex = 1;
+    pay.value="￥预订";
 })
 double.addEventListener('click', function () {
     time_back.className = "time-end2";
@@ -514,6 +587,7 @@ double.addEventListener('click', function () {
     st = 2;
     show.style.zIndex = 2;
     show2.style.zIndex = 1;
+    pay.value="￥预订";
 })
 //addition是添加按钮，再加一程
 addition.addEventListener('click', function () {
@@ -547,12 +621,16 @@ var time_first = document.getElementsByClassName('time_first');
 //打包多程航班数据
 var send_data = [], count = 0;//count 计算用户选了几程 ，send_data数组里的元素是 航班数据json对象
 function package() {
+    // for (let i = 0; i < city_first.length; i++) {
+    //     send_data[i] = {
+    //         "acity": city_first[i].value, "bcity": city_second[i].value, "adate": time_first[i].value
+    //     }
+    // }
     for (let i = 0; i < city_first.length; i++) {
-        send_data[i] = {
-            "acity": city_first[i].value, "bcity": city_second[i].value, "adate": time_first[i].value
-        }
+        send_data[i] = [
+            city_first[i].value, city_second[i].value, time_first[i].value
+        ]
     }
-    // console.log(JSON.stringify(send_data));
 }
 // ajax请求数据
 function reqfirst() {
@@ -709,6 +787,7 @@ function reqfirst() {
         $.ajax({
             type: 'post',
             url: '/index_ajax3',
+            contentType:"application/json",
             data: JSON.stringify(send_data),
             dataType: 'json',
             async: false,
@@ -716,7 +795,47 @@ function reqfirst() {
                 alert('cuowu');
             },
             success: function (data) {
-                alert('success');
+                if (data['string'] === "0") {
+                    showbodyf.innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/error.png" + ">" + "</span>";
+                    arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
+                }
+                if (data['string'] === "1") {
+                    showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/error.png" + ">" + "</span>";
+                    arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
+                }
+                if (data['string'] === "2") {
+                    arr = JSON.parse(data['common']);
+                    arr2 = JSON.parse(data['go_sort']);
+                    arr3 = JSON.parse(data['arrival_sort']);
+                    arr4 = JSON.parse(data['First_class']);
+                    arr5 = JSON.parse(data['economy_class']);
+                    for (let i = 0; i < arr.length; i++) {
+                        str = arr[i] + ',g';
+                        str2 = arr[i] + ',j';
+                        out += "<div" + " " + "class=" + "xinxi" + ">" +
+                            "<div" + " " + "class=" + "tab" + ">" +
+                            "<table" + " " + "border=" + "1px" + ">" +
+                            "<tr" + " " + "class=" + "tr1" + ">" + "<td" + ">航空公司</td>" +
+                            "<td>航班</td>" +
+                            "<td>机型</td>" +
+                            "<td>出发时间</td>" +
+                            "<td>抵达时间</td>" +
+                            "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
+                            "<tr" + " " + "class=" + "tr2" + "><td>" + arr[i][1] + "</td>" +
+                            "<td>" + arr[i][2] + "</td>" +
+                            "<td>" + arr[i][3] + "</td>" +
+                            "<td>" + arr[i][4] + "</td>" +
+                            "<td>" + arr[i][5] + "</td>" +
+                            "<td>" + arr[i][10] + "</td>" +
+                            "<td>" + arr[i][9] + `<input type="radio" name="a" class="radio" value="${str}">` + "</td>" +
+                            "<td>" + arr[i][8] + `<input type="radio" name="a" class="radio" value="${str2}">` + "</td>" +
+                            "</table>" +
+                            "</div>" +
+                            "</div>"
+                    }
+                    showbodyf.innerHTML = out;
+                    out = "";//清空out数据
+                }
             }
         });
     }

@@ -155,10 +155,11 @@ var pay=document.getElementsByClassName('pay')[0];
  var  settle_back=document.getElementsByClassName('settle_back')[0];
  settle_back.addEventListener('click',function(){
     $.ajax({
-      type: 'POST',
+        type: 'DELETE',
         url: '/settlement_ajax',
         dataType: 'text',
         async: false,
+        headers: { "X-CSRFToken": csrf_token },
         error: function (request) {
           alert("Connection error");
         },
