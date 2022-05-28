@@ -16,7 +16,7 @@
 <body>
   <div class="head">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-    <div>
+    <div class="user">
       尊敬的用户您的订单如下
     </div>
   </div>
@@ -79,13 +79,12 @@
       <!-- 订单左边 -->
       <!-- 订单右边 -->
       <div class="col-sm-5 bg-gray-eee">
-
+        <!-- <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}"> -->
         <div id="list_hang" style="overflow:auto;height: 450px;width: 500px;">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-
+        
         </div>
         <div style="width:100%;height: 40px;">
-          <h4>订单总价（保险费另算）</h4>
+          <h4>订单总价</h4>
           <h3 class="zongjia" style="width:77px;float:right;color: coral;margin-top: -30px;"></h3>
         </div>
         <!-- n内容 -->

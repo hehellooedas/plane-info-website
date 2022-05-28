@@ -1,7 +1,8 @@
 var csrf_token = $("[name='_csrf_token']").val();
 var list=document.getElementById('list_hang');
 var zongjia=document.getElementsByClassName('zongjia')[0];
-var str,cang,money,date,date2;
+var user=document.getElementsByClassName('user')[0];
+var str=" ",cang,money,date,date2;
 var sum=0;//计算总价
 var cang2=[10];//对多个航程的舱位储存
 var money2=[10];//对多个航程的价格储存
