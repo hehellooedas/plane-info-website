@@ -38,6 +38,13 @@ def get_content_double(company1,company2,flight_number1,flight_number2,acity,bci
            f'{bcity}({get_Szm(bcity)}) {get_time(adate2)} - {acity}({get_Szm(acity)}) {get_time(bdate2)}。 \n' \
            f'航班将于起飞前45分钟截止办理乘机手续，为避免耽误您的行程，请您预留足够的时间办理乘机手续并提前20分钟抵达登机口。乘机人'
 
+def get_content_multiply(num,tables,email,url):
+    cabins = []
+    for i in range(num):
+        cabins.append('经济舱' if tables[i][-1]=='j' else '公务舱')
+    ...
+
+
 
 def create_String(n=6)->str:#生成随机字符串
     """
