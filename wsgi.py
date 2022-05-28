@@ -434,13 +434,15 @@ def index_ajax32():
 
 
 @csrf.exempt
-@app.post('/index_ajax4')#单程与往返的结算按钮
+@app.post('/index_ajax4')#结算按钮
 def index_ajax4():
     form  = request.form
     #将用户确定的信息暂时存储到加密的cookie（session）里
-    session['st'] = form.get('st')
-    session['table'] = form.get('table')
-    session['settlement'] = True #设置结算（settlement）页面为可进页面
+    st = form.get('st')
+    if st == '1' or st == '2':
+        session['st'] = st
+        session['table'] = form.get('table')
+        session['settlement'] = True #设置结算（settlement）页面为可进页面
     return url_for('settlement',_external=True)
 
 
@@ -495,6 +497,11 @@ def settlement():
                 ) + f'{email}。详细信息请访问{request.host_url}'))
                 session.pop('table')
             elif st == '3': # 多程
+                tables = session.get('tables')
+                num = session.get('num')
+                cabin = []
+                for i in range(num):
+                    cabin.append('经济舱' if tables[i][-1]=='j' else '公务舱')
                 session.pop('tables')
                 ...
             else: # st被篡改,csrf防护被攻破
@@ -510,16 +517,29 @@ def settlement():
     else:
         return redirect(url_for('login'))
 
-@app.post('/settlement_ajax')
+
+@csrf.exempt
+@app.post('/settlement_ajax') # 返回页面
 def delete_info():
-    ...
+    st = session.get('st')
+    if st == '1' or st == '2':
+        session.pop('table')
+    elif st == '3':
+        num = session.get('num')
+        for i in range(num):
+            session.pop(f'table{i}')
+        session.pop('informations')
+        session.pop('num')
+    session.pop('st')
+    session.pop('settlement')
+    return request.host_url
 
 
 @csrf.exempt # csrf审查豁免
 @app.get('/wait')
 @cache.cached(timeout=86400)
 def wait():
-    if g.login_status and g.email and request.path == url_for('index'):
+    if g.login_status and g.email:
         return render_template('wait.html')
     else:
         abort(404)
