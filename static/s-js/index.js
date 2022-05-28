@@ -10,6 +10,10 @@ gobtn.addEventListener('click', function () {
     showbodys.className = 'show-body2';
     showbodyf.className = 'show-body0';
 });
+var acity = document.getElementsByClassName('citySelect')[0];//出发地
+var bcity = document.getElementsByClassName('citySelect1')[0];//目的地
+var time0 = document.getElementsByClassName('time0')[0];//去程时间
+var time2 = document.getElementsByClassName('time2')[0];//返程时间
 //选择返程航班时的展示
 var backbtn = document.getElementById('backbtn');//返程选择按钮
 var showbodyf = document.getElementsByClassName('show-body0')[0];//去程的航班展示
@@ -522,10 +526,7 @@ var brr = [], brr2 = [], brr3 = [], brr4 = [], brr5 = [];//返程
 var out = "", out2 = "", st = 1;// 规定单程已经勾选 out展示去程，out2展示返程，模板字符串
 var str, str2;//用于添加g,j;
 // 针对单程和往返
-var acity = document.getElementsByClassName('citySelect')[0];//出发地
-var bcity = document.getElementsByClassName('citySelect1')[0];//目的地
-var time0 = document.getElementsByClassName('input')[0];//去程时间
-var time2 = document.getElementsByClassName('input')[1];//返程时间
+
 //获取多程数据的数组
 var city_first = document.getElementsByClassName('city_first');
 var city_second = document.getElementsByClassName('city_second');
