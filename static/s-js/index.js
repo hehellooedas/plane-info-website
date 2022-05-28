@@ -137,6 +137,7 @@ for (let k = 0; k < btn_go.length; k++) {
             }
             else {
                 showbodyf.innerHTML = out;
+                refound();//数据请求完成，添加事件
             }
             out = "";
         }
@@ -170,6 +171,7 @@ for (let k = 0; k < btn_go.length; k++) {
             }
             else {
                 showbodyf.innerHTML = out;
+                refound();//数据请求完成，添加事件
             }
             out = "";
         }
@@ -203,6 +205,7 @@ for (let k = 0; k < btn_go.length; k++) {
             }
             else {
                 showbodyf.innerHTML = out;
+                refound();//数据请求完成，添加事件
             }
             out = "";
         }
@@ -236,6 +239,7 @@ for (let k = 0; k < btn_go.length; k++) {
             }
             else {
                 showbodyf.innerHTML = out;
+                refound();//数据请求完成，添加事件
             }
             out = "";
         }
@@ -279,6 +283,7 @@ for (let k = 0; k < btn_back.length; k++) {
             }
             else {
                 showbodys.innerHTML = out2;
+                refound();//数据请求完成，添加事件
             }
             out2 = "";
         }
@@ -312,6 +317,7 @@ for (let k = 0; k < btn_back.length; k++) {
             }
             else {
                 showbodys.innerHTML = out2;
+                refound();//数据请求完成，添加事件
             }
             out2 = "";
         }
@@ -345,6 +351,7 @@ for (let k = 0; k < btn_back.length; k++) {
             }
             else {
                 showbodys.innerHTML = out2;
+                refound();//数据请求完成，添加事件
             }
             out2 = "";
         }
@@ -377,6 +384,7 @@ for (let k = 0; k < btn_back.length; k++) {
             }
             else {
                 showbodys.innerHTML = out2;
+                refound();//数据请求完成，添加事件
             }
             out2 = "";
         }
@@ -388,7 +396,12 @@ var nav_tishi = document.getElementsByClassName('nav_tishi')[0];
 var nav_tishi3 = document.getElementsByClassName('nav_tishi3')[0];
 var pay = document.getElementsByClassName('pay')[0];
 pay.addEventListener('click', function () {
-    if (order1 !== 1) {
+    if(order1!=1&&st==1)
+    {
+        nav_tishi3.innerText = '请选择机票';
+        nav_tishi3.className = 'nav_tishi4'; 
+    }
+    if (order1 !== 1 && st == 2) {
         nav_tishi3.innerText = '请选择去程的机票';
         nav_tishi3.className = 'nav_tishi4';
     }
