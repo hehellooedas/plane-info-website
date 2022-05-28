@@ -558,7 +558,7 @@ body{
    height: 145px;
 }
 #foot{
-    margin-bottom: 0px;
+    margin-bottom: 0;
     background-color: #999;
     width: 100%;
     height: 200px;
