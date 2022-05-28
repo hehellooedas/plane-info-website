@@ -116,7 +116,7 @@ for (let k = 0; k < btn_go.length; k++) {
             btn_go[j].style.backgroundColor = 'powderblue';
         }
         this.style.backgroundColor = 'darkgray';
-        console.log(k);
+
         if (k == 0) {
             for (let i = 0; i < arr2.length; i++) {
                 str = arr2[i] + ',g';
@@ -266,26 +266,25 @@ for (let k = 0; k < btn_back.length; k++) {
             for (let i = 0; i < brr2.length; i++) {
                 str = brr2[i] + ',g';
                 str2 = brr2[i] + ',j';
-                out2 += "<div" + " " + "class=" + "xinxi" + ">" +
-                    "<div" + " " + "class=" + "tab" + ">" +
-                    "<table" + " " + "border=" + "1px" + ">" +
-                    "<tr" + " " + "class=" + "tr1" + ">" + "<td" + ">航空公司</td>" +
-                    "<td>航班</td>" +
-                    "<td>机型</td>" +
-                    "<td>出发时间</td>" +
-                    "<td>抵达时间</td>" +
-                    "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
-                    "<tr" + " " + "class=" + "tr2" + "><td>" + brr2[i][1] + "</td>" +
-                    "<td>" + brr2[i][2] + "</td>" +
-                    "<td>" + brr2[i][3] + "</td>" +
-                    "<td>" + brr2[i][4] + "</td>" +
-                    "<td>" + brr2[i][5] + "</td>" +
-                    "<td>" + brr2[i][10] + "</td>" +
-                    "<td>" + brr2[i][9] + `<input type="radio" name="b" class="radio2" value="${str}">` + "</td>" +
-                    "<td>" + brr2[i][8] + `<input type="radio" name="b" class="radio2" value="${str2}">` + "</td>" +
-                    "</table>" +
-                    "</div>" +
-                    "</div>"
+                out2 +=`<div class="xinxi">
+                <div class="tab">
+                <table border="1px">
+                <tr class="tr1"> <td>航空公司</td>
+                <td>航班</td>
+                <td>机型</td>
+                <td>出发时间</td>
+                <td>抵达时间</td>
+                <td>余票</td><td>公务舱</td><td>经济舱</td></tr>
+                <tr class="tr2"><td>${brr2[i][1]}</td>
+                <td> ${brr2[i][2]}</td>
+                <td> ${brr2[i][3]}</td>
+                <td> ${brr2[i][4]}</td>
+                <td> ${brr2[i][5]}</td>
+                <td> ${brr2[i][10]} </td>
+                <td> ${brr2[i][9]}<input type="radio" name="b" class="radio2" value="${str}"></td>
+                <td> ${brr2[i][8]}<input type="radio" name="b" class="radio2" value="${str2}"></td>
+                </div>
+                </div>`;
             }
             if (brr.length == 0) {
                 showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
@@ -300,26 +299,25 @@ for (let k = 0; k < btn_back.length; k++) {
             for (let i = 0; i < brr3.length; i++) {
                 str = brr3[i] + ',g';
                 str2 = brr3[i] + ',j';
-                out2 += "<div" + " " + "class=" + "xinxi" + ">" +
-                    "<div" + " " + "class=" + "tab" + ">" +
-                    "<table" + " " + "border=" + "1px" + ">" +
-                    "<tr" + " " + "class=" + "tr1" + ">" + "<td" + ">航空公司</td>" +
-                    "<td>航班</td>" +
-                    "<td>机型</td>" +
-                    "<td>出发时间</td>" +
-                    "<td>抵达时间</td>" +
-                    "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
-                    "<tr" + " " + "class=" + "tr2" + "><td>" + brr3[i][1] + "</td>" +
-                    "<td>" + brr3[i][2] + "</td>" +
-                    "<td>" + brr3[i][3] + "</td>" +
-                    "<td>" + brr3[i][4] + "</td>" +
-                    "<td>" + brr3[i][5] + "</td>" +
-                    "<td>" + brr3[i][10] + "</td>" +
-                    "<td>" + brr3[i][9] + `<input type="radio" name="b" class="radio2" value="${str}">` + "</td>" +
-                    "<td>" + brr3[i][8] + `<input type="radio" name="b" class="radio2" value="${str2}">` + "</td>" +
-                    "</table>" +
-                    "</div>" +
-                    "</div>"
+                out2 +=`<div class="xinxi">
+                <div class="tab">
+                <table border="1px">
+                <tr class="tr1"> <td>航空公司</td>
+                <td>航班</td>
+                <td>机型</td>
+                <td>出发时间</td>
+                <td>抵达时间</td>
+                <td>余票</td><td>公务舱</td><td>经济舱</td></tr>
+                <tr class="tr2"><td>${brr3[i][1]}</td>
+                <td> ${brr3[i][2]}</td>
+                <td> ${brr3[i][3]}</td>
+                <td> ${brr3[i][4]}</td>
+                <td> ${brr3[i][5]}</td>
+                <td> ${brr3[i][10]} </td>
+                <td> ${brr3[i][9]}<input type="radio" name="b" class="radio2" value="${str}"></td>
+                <td> ${brr3[i][8]}<input type="radio" name="b" class="radio2" value="${str2}"></td>
+                </div>
+                </div>`;
             }
             if (brr.length == 0) {
                 showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
@@ -334,26 +332,25 @@ for (let k = 0; k < btn_back.length; k++) {
             for (let i = 0; i < brr4.length; i++) {
                 str = brr4[i] + ',g';
                 str2 = brr4[i] + ',j';
-                out2+= "<div" + " " + "class=" + "xinxi" + ">" +
-                    "<div" + " " + "class=" + "tab" + ">" +
-                    "<table" + " " + "border=" + "1px" + ">" +
-                    "<tr" + " " + "class=" + "tr1" + ">" + "<td" + ">航空公司</td>" +
-                    "<td>航班</td>" +
-                    "<td>机型</td>" +
-                    "<td>出发时间</td>" +
-                    "<td>抵达时间</td>" +
-                    "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
-                    "<tr" + " " + "class=" + "tr2" + "><td>" + brr4[i][1] + "</td>" +
-                    "<td>" + brr4[i][2] + "</td>" +
-                    "<td>" + brr4[i][3] + "</td>" +
-                    "<td>" + brr4[i][4] + "</td>" +
-                    "<td>" + brr4[i][5] + "</td>" +
-                    "<td>" + brr4[i][10] + "</td>" +
-                    "<td>" + brr4[i][9] + `<input type="radio" name="b" class="radio2" value="${str}">` + "</td>" +
-                    "<td>" + brr4[i][8] + `<input type="radio" name="b" class="radio2" value="${str2}">` + "</td>" +
-                    "</table>" +
-                    "</div>" +
-                    "</div>"
+                out2 +=`<div class="xinxi">
+                <div class="tab">
+                <table border="1px">
+                <tr class="tr1"> <td>航空公司</td>
+                <td>航班</td>
+                <td>机型</td>
+                <td>出发时间</td>
+                <td>抵达时间</td>
+                <td>余票</td><td>公务舱</td><td>经济舱</td></tr>
+                <tr class="tr2"><td>${brr4[i][1]}</td>
+                <td> ${brr4[i][2]}</td>
+                <td> ${brr4[i][3]}</td>
+                <td> ${brr4[i][4]}</td>
+                <td> ${brr4[i][5]}</td>
+                <td> ${brr4[i][10]} </td>
+                <td> ${brr4[i][9]}<input type="radio" name="b" class="radio2" value="${str}"></td>
+                <td> ${brr4[i][8]}<input type="radio" name="b" class="radio2" value="${str2}"></td>
+                </div>
+                </div>`;
             }
             if (brr.length == 0) {
                 showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
@@ -368,25 +365,25 @@ for (let k = 0; k < btn_back.length; k++) {
             for (let i = 0; i < brr5.length; i++) {
                 str = brr5[i] + ',g';
                 str2 = brr5[i] + ',j'
-                out2 += "<div" + " " + "class=" + "xinxi" + ">" +
-                    "<div" + " " + "class=" + "tab" + ">" +
-                    "<table" + " " + "border=" + "1px" + ">" +
-                    "<tr" + " " + "class=" + "tr1" + ">" + "<td" + ">航空公司</td>" +
-                    "<td>航班</td>" +
-                    "<td>机型</td>" +
-                    "<td>出发时间</td>" +
-                    "<td>抵达时间</td>" +
-                    "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
-                    "<tr" + " " + "class=" + "tr2" + "><td>" + brr5[i][1] + "</td>" +
-                    "<td>" + brr5[i][2] + "</td>" +
-                    "<td>" + brr5[i][3] + "</td>" +
-                    "<td>" + brr5[i][4] + "</td>" +
-                    "<td>" + brr5[i][5] + "</td>" +
-                    "<td>" + brr5[i][10] + "</td>" +
-                    "<td>" + brr5[i][9] + `<input type="radio" name="b" class="radio2" value="${str}">` + "</td>" +
-                    "<td>" + brr5[i][8] + `<input type="radio" name="b" class="radio2" value="${str2}">` + "</td>" +
-                    "</div>" +
-                    "</div>"
+                out2 +=`<div class="xinxi">
+                <div class="tab">
+                <table border="1px">
+                <tr class="tr1"> <td>航空公司</td>
+                <td>航班</td>
+                <td>机型</td>
+                <td>出发时间</td>
+                <td>抵达时间</td>
+                <td>余票</td><td>公务舱</td><td>经济舱</td></tr>
+                <tr class="tr2"><td>${brr5[i][1]}</td>
+                <td> ${brr5[i][2]}</td>
+                <td> ${brr5[i][3]}</td>
+                <td> ${brr5[i][4]}</td>
+                <td> ${brr5[i][5]}</td>
+                <td> ${brr5[i][10]} </td>
+                <td> ${brr5[i][9]}<input type="radio" name="b" class="radio2" value="${str}"></td>
+                <td> ${brr5[i][8]}<input type="radio" name="b" class="radio2" value="${str2}"></td>
+                </div>
+                </div>`;
             }
             if (brr.length == 0) {
                 showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
@@ -399,7 +396,6 @@ for (let k = 0; k < btn_back.length; k++) {
         }
     })
 }
-
 //预订时判断用户是否已经勾选票
 var nav_tishi = document.getElementsByClassName('nav_tishi')[0];
 var nav_tishi3 = document.getElementsByClassName('nav_tishi3')[0];
