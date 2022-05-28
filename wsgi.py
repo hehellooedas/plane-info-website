@@ -378,7 +378,7 @@ def index_ajax3():
 def index_ajax32():
     num = session['num']
     session['num'] += 1
-    table = request.form.get('table')
+    table = json.loads(request.form.get('table'))
     session[f'table{num}'] = table
     adate = table[5]
     informations = session.get('informations')
@@ -425,6 +425,10 @@ def index_ajax4():
         session['st'] = st
         session['table'] = form.get('table')
         session['settlement'] = True  # 设置结算（settlement）页面为可进页面
+    else:
+        num = session['num']
+        table = form.get('table')
+        session[f'table{num}'] = table
     return url_for('settlement', _external=True)
 
 
