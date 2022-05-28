@@ -55,7 +55,7 @@ discover_btn.addEventListener('click', function () {
         alarm.innerHTML = '出发地和目的地相同啦';
         information.className = 'tishi2';
     }
-    else if(check())
+    else if(check()&&st==3)
     {
         alarm.innerHTML = '请把搜索信息填写完整';
     }
