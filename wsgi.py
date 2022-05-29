@@ -377,9 +377,9 @@ def index_ajax3():
 @app.post('/index_ajax32')  # 多程
 def index_ajax32():
     num = session['num']
-    session['num'] += 1
+    session['num'] += 1 # table索引加一
     table = json.loads(request.form.get('table'))
-    session[f'table{num}'] = table
+    session[f'table{num}'] = table # 将当前信息记录下来
     adate = table[5]
     informations = session.get('informations')
     if open is False:
