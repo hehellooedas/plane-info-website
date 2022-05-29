@@ -7,8 +7,8 @@ gobtn.addEventListener('click', function () {
     nav_second.className = "nav2";
     gobtn.style.backgroundColor = 'black';
     backbtn.style.backgroundColor = '';
-    showbodys.className = 'show-body2';
-    showbodyf.className = 'show-body0';
+    showbodyf.className="show-body0";
+    showbodys.className="show-body2";
 });
 var acity = document.getElementsByClassName('citySelect')[0];//出发地
 var bcity = document.getElementsByClassName('citySelect1')[0];//目的地
@@ -23,8 +23,8 @@ backbtn.addEventListener('click', function () {
     nav_first.className = "nav2";
     backbtn.style.backgroundColor = 'black';
     gobtn.style.backgroundColor = '';
-    showbodys.className = 'show-body0';
-    showbodyf.className = 'show-body2';
+    showbodyf.className="show-body2";
+    showbodys.className="show-body0";
 });
 function check(){
     for(let i=0;i<city_first.length;i++)
@@ -84,7 +84,7 @@ function refound() {
     }
     if (st == 2) {
         radio2 = document.getElementsByClassName('radio2');
-        for (let i = 0; i < radio.length - 1; i++) {
+        for (let i = 0; i < radio2.length - 1; i++) {
             radio2[i].addEventListener("click", function () {
                 order2 = 1;
             })
@@ -115,6 +115,7 @@ for (let k = 0; k < btn_go.length; k++) {
         for (let j = 0; j < btn_go.length; j++) {
             btn_go[j].style.backgroundColor = 'powderblue';
         }
+        console.log(k)
         this.style.backgroundColor = 'darkgray';
         if (k == 0) {
             for (let i = 0; i < arr2.length; i++) {
@@ -146,9 +147,8 @@ for (let k = 0; k < btn_go.length; k++) {
             }
             else {
                 showbodyf.innerHTML = out;
-                refound();//数据请求完成，添加事件
+                out = "";
             }
-            out = "";
         }
         if (k == 1) {
             for (let i = 0; i < arr3.length; i++) {
@@ -180,7 +180,6 @@ for (let k = 0; k < btn_go.length; k++) {
             }
             else {
                 showbodyf.innerHTML = out;
-                refound();//数据请求完成，添加事件
             }
             out = "";
         }
@@ -214,7 +213,6 @@ for (let k = 0; k < btn_go.length; k++) {
             }
             else {
                 showbodyf.innerHTML = out;
-                refound();//数据请求完成，添加事件
             }
             out = "";
         }
@@ -238,7 +236,7 @@ for (let k = 0; k < btn_go.length; k++) {
                     "<td>" + arr5[i][5] + "</td>" +
                     "<td>" + arr5[i][10] + "</td>" +
                     "<td>" + arr5[i][9] + `<input type="radio" name="a" class="radio" value="${str}">` + "</td>" +
-                    "<td>" + arr5[i][8] + `<input type="radio" name="a" class="radio" value="${str2}">` + "</td>" +
+                    "<td>" + arr5[i][8] + `<input type="radio" name="a" class="radio" value="${str2}">` + "</td>" +"</tr>"+
                     "</table>" +
                     "</div>" +
                     "</div>"
@@ -248,14 +246,13 @@ for (let k = 0; k < btn_go.length; k++) {
             }
             else {
                 showbodyf.innerHTML = out;
-                refound();//数据请求完成，添加事件
             }
             out = "";
         }
     })
 }
 // 返程条件排序
-for (let k = 0; k < btn_back.length; k++) {
+for (let k = 0; k < 4; k++) {
     btn_back[k].addEventListener('click', function () {
         for (let j = 0; j < btn_back.length; j++) {
             btn_back[j].style.backgroundColor = 'powderblue';
@@ -291,7 +288,6 @@ for (let k = 0; k < btn_back.length; k++) {
             }
             else {
                 showbodys.innerHTML = out2;
-                refound();//数据请求完成，添加事件
             }
             out2 = "";
         }
@@ -325,7 +321,6 @@ for (let k = 0; k < btn_back.length; k++) {
             }
             else {
                 showbodys.innerHTML = out2;
-                refound();//数据请求完成，添加事件
             }
             out2 = "";
         }
@@ -333,7 +328,7 @@ for (let k = 0; k < btn_back.length; k++) {
             for (let i = 0; i < brr4.length; i++) {
                 str = brr4[i] + ',g';
                 str2 = brr4[i] + ',j';
-                out2+= "<div" + " " + "class=" + "xinxi" + ">" +
+                out2 += "<div" + " " + "class=" + "xinxi" + ">" +
                     "<div" + " " + "class=" + "tab" + ">" +
                     "<table" + " " + "border=" + "1px" + ">" +
                     "<tr" + " " + "class=" + "tr1" + ">" + "<td" + ">航空公司</td>" +
@@ -359,7 +354,6 @@ for (let k = 0; k < btn_back.length; k++) {
             }
             else {
                 showbodys.innerHTML = out2;
-                refound();//数据请求完成，添加事件
             }
             out2 = "";
         }
@@ -367,38 +361,37 @@ for (let k = 0; k < btn_back.length; k++) {
             for (let i = 0; i < brr5.length; i++) {
                 str = brr5[i] + ',g';
                 str2 = brr5[i] + ',j'
-                out2 += "<div" + " " + "class=" + "xinxi" + ">" +
-                    "<div" + " " + "class=" + "tab" + ">" +
-                    "<table" + " " + "border=" + "1px" + ">" +
-                    "<tr" + " " + "class=" + "tr1" + ">" + "<td" + ">航空公司</td>" +
-                    "<td>航班</td>" +
-                    "<td>机型</td>" +
-                    "<td>出发时间</td>" +
-                    "<td>抵达时间</td>" +
-                    "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
-                    "<tr" + " " + "class=" + "tr2" + "><td>" + brr5[i][1] + "</td>" +
-                    "<td>" + brr5[i][2] + "</td>" +
-                    "<td>" + brr5[i][3] + "</td>" +
-                    "<td>" + brr5[i][4] + "</td>" +
-                    "<td>" + brr5[i][5] + "</td>" +
-                    "<td>" + brr5[i][10] + "</td>" +
-                    "<td>" + brr5[i][9] + `<input type="radio" name="b" class="radio2" value="${str}">` + "</td>" +
-                    "<td>" + brr5[i][8] + `<input type="radio" name="b" class="radio2" value="${str2}">` + "</td>" +
-                    "</div>" +
-                    "</div>"
+                out2+="<div" + " " + "class=" + "xinxi" + ">" +
+                "<div" + " " + "class=" + "tab" + ">" +
+                "<table" + " " + "border=" + "1px" + ">" +
+                "<tr" + " " + "class=" + "tr1" + ">" + "<td" + ">航空公司</td>" +
+                "<td>航班</td>" +
+                "<td>机型</td>" +
+                "<td>出发时间</td>" +
+                "<td>抵达时间</td>" +
+                "<td>余票</td>" + "<td>公务舱</td>" + "<td>经济舱</td>" + "</tr>" +
+                "<tr" + " " + "class=" + "tr2" + "><td>" + brr5[i][1] + "</td>" +
+                "<td>" + brr5[i][2] + "</td>" +
+                "<td>" + brr5[i][3] + "</td>" +
+                "<td>" + brr5[i][4] + "</td>" +
+                "<td>" + brr5[i][5] + "</td>" +
+                "<td>" + brr5[i][10] + "</td>" +
+                "<td>" + brr5[i][9] + `<input type="radio" name="b" class="radio2" value="${str}">` + "</td>" +
+                "<td>" + brr5[i][8] + `<input type="radio" name="b" class="radio2" value="${str2}">` + "</td>" +
+                "</table>" +
+                "</div>" +
+                "</div>"
             }
             if (brr.length == 0) {
                 showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
                 showbodys.innerHTML = out2;
-                refound();//数据请求完成，添加事件
             }
             out2 = "";
         }
     })
 }
-
 //预订时判断用户是否已经勾选票
 var nav_tishi = document.getElementsByClassName('nav_tishi')[0];
 var nav_tishi3 = document.getElementsByClassName('nav_tishi3')[0];
