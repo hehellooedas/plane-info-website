@@ -76,6 +76,18 @@ body{
     position: relative;
     height: 100px;
 }
+.update{
+    cursor: pointer;
+    width: 45px;
+    height: 25px;
+    background-color: antiquewhite;
+    box-shadow: 0 3px #999;
+    border-radius:5px;
+}
+.update:active{ 
+        box-shadow: 0 1px #666;
+        transform: translateY(4px);
+}
 .search_single {
     display: block;
 }
