@@ -147,8 +147,9 @@ for (let k = 0; k < btn_go.length; k++) {
             }
             else {
                 showbodyf.innerHTML = out;
-                out = "";
+                refound();//数据请求完成，添加事件
             }
+            out = "";
         }
         if (k == 1) {
             for (let i = 0; i < arr3.length; i++) {
@@ -180,6 +181,7 @@ for (let k = 0; k < btn_go.length; k++) {
             }
             else {
                 showbodyf.innerHTML = out;
+                refound();//数据请求完成，添加事件
             }
             out = "";
         }
@@ -213,6 +215,7 @@ for (let k = 0; k < btn_go.length; k++) {
             }
             else {
                 showbodyf.innerHTML = out;
+                refound();//数据请求完成，添加事件
             }
             out = "";
         }
@@ -246,6 +249,7 @@ for (let k = 0; k < btn_go.length; k++) {
             }
             else {
                 showbodyf.innerHTML = out;
+                refound();//数据请求完成，添加事件
             }
             out = "";
         }
@@ -288,6 +292,7 @@ for (let k = 0; k < 4; k++) {
             }
             else {
                 showbodys.innerHTML = out2;
+                refound();//数据请求完成，添加事件
             }
             out2 = "";
         }
@@ -321,6 +326,7 @@ for (let k = 0; k < 4; k++) {
             }
             else {
                 showbodys.innerHTML = out2;
+                refound();//数据请求完成，添加事件
             }
             out2 = "";
         }
@@ -354,6 +360,7 @@ for (let k = 0; k < 4; k++) {
             }
             else {
                 showbodys.innerHTML = out2;
+                refound();//数据请求完成，添加事件
             }
             out2 = "";
         }
@@ -387,6 +394,7 @@ for (let k = 0; k < 4; k++) {
             }
             else {
                 showbodys.innerHTML = out2;
+                refound();//数据请求完成，添加事件
             }
             out2 = "";
         }
