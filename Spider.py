@@ -1,5 +1,5 @@
 import requests, fake_useragent
-import json,  time, random,hashlib,openpyxl
+import json,  time, random,hashlib,openpyxl,multiprocessing
 
 ua = fake_useragent.UserAgent()
 city = {'深圳': 'SZX', '无锡': 'WUX', "北京": "BJS", "上海": "SHA", "广州": "CAN", "成都": "CTU", "杭州": "HGH", "武汉": "WUH",
@@ -62,7 +62,9 @@ def get_headers():
         'User-Agent': ua.random,  # 伪装User-Agent
         "Content-Type": "application/json",  # 数据传递格式（必填项）
         'referer': 'https://flights.ctrip.com',  # 前一个页面的url
-        'origin': 'https://flights.ctrip.com'  # 初始页面的url
+        'origin': 'https://flights.ctrip.com',  # 初始页面的url
+        #请求头携带cookie，反反爬措施
+        'cookie': 'ibulanguage=CN; ibulocale=zh_cn; cookiePricesDisplayed=CNY; _bfaStatusPVSend=1; _RGUID=68e6dd92-fdb4-4ad7-840f-1cce5e21d7df; _RDG=2807a66847097120f21473fc7947c619f8; _RSG=Nh4jzBPtcZ6VVT8UvC7FG8; MKT_CKID=1651225428174.8ekos.o2ra; _ga=GA1.2.794682685.1651225428; GUID=09031149216456163747; _abtest_userid=16f7372b-36a2-4584-bea3-b8953727348e; nfes_isSupportWebP=1; nfes_isSupportWebP=1; appFloatCnt=42; _RF1=223.93.45.130; Session=smartlinkcode=U1535&smartlinklanguage=zh&SmartLinkKeyWord=&SmartLinkQuary=&SmartLinkHost=; Union=OUID=index&AllianceID=4897&SID=155952&SourceID=&createtime=1654068743&Expires=1654673543400; MKT_OrderClick=ASID=4897155952&AID=4897&CSID=155952&OUID=index&CT=1654068743403&CURL=https%3A%2F%2Fwww.ctrip.com%2F%3Fsid%3D155952%26allianceid%3D4897%26ouid%3Dindex&VAL={}; MKT_CKID_LMT=1654068743500; __zpspc=9.28.1654068743.1654068743.1%232%7Cwww.baidu.com%7C%7C%7C%25E6%2590%25BA%25E7%25A8%258B%25E7%25BD%2591%7C%23; _jzqco=%7C%7C%7C%7C1654068744288%7C1.337765740.1651225428178.1653979293242.1654068743506.1653979293242.1654068743506.0.0.0.32.32; FlightIntl=Search=[%22BJS|%E5%8C%97%E4%BA%AC(BJS)|1|BJS|480%22%2C%22CDE|%E6%89%BF%E5%BE%B7(CDE)|562|CDE|480%22%2C%222022-06-02%22%2C%22%22%2C[[%22SHA|%E4%B8%8A%E6%B5%B7(SHA)|2|SHA|480%22%2C%22BJS|%E5%8C%97%E4%BA%AC(BJS)|1|BJS|480%22%2C%222022-06-05%22]]]; _bfs=1.4; _bfa=1.1651225425270.4aoid4.1.1654046510457.1654068743230.57.325.1; _ubtstatus=%7B%22vid%22%3A%221651225425270.4aoid4%22%2C%22sid%22%3A57%2C%22pvid%22%3A325%2C%22pid%22%3A10320673306%7D; _bfi=p1%3D10320673306%26p2%3D10320673306%26v1%3D325%26v2%3D324; _bfaStatus=success'
     }
     return headers
 
@@ -76,9 +78,8 @@ def spider(dcity, acity, date, sheet):
     :param sheet: excel表格数据
     :return: 数据sheet
     """
-    str = "{}{}{}duew&^%5d54nc'KH".format(dcity, acity, 'Oneway')
+    str = f"{dcity}{acity}Onewayduew&^%5d54nc'KH"
     #验证哈希加密
-    token = hashlib.md5(str.encode(encoding='UTF-8')).hexdigest()
     request_payload = {
         "flightWay": "Oneway",
         "army": "false",
@@ -87,7 +88,7 @@ def spider(dcity, acity, date, sheet):
         "hasBaby": 'false',
         "searchIndex": 1,
         "selectedInfos": None,
-        "token":token,
+        "token":hashlib.md5(str.encode(encoding='UTF-8')).hexdigest(),
         "portingToken": "3fec6a5a249a44faba1f245e61e2af88",
         "airportParams": [
             {
@@ -98,11 +99,10 @@ def spider(dcity, acity, date, sheet):
                 "date": date}
         ]
         }
-
-
-
+    # 发送post请求
     response = requests.post(url, headers=get_headers(), data=json.dumps(request_payload,ensure_ascii=False).encode('utf-8'),
-                             timeout=(9,15),proxies={'http': random.choice(ips)})  # 发送post请求
+                             timeout=(9,15),proxies={'http': random.choice(ips)})
+    #使用json解析数据反序列化为Python格式
     data = json.loads(response.text.encode('utf-8')).get('data')
     #如果数据是空的，则直接返回
     if data is None:
@@ -129,7 +129,7 @@ def spider(dcity, acity, date, sheet):
             fprice = random.randint(1500,4000)
         #写入到sheet中
         sheet.append([airlineName,flight_no,plane_type,departuredate,arrivaldate,dcity,acity,lowestPrice,fprice,400,400])
-        return sheet
+    return sheet
 
 
 def plane_work(city1,city2):
@@ -139,22 +139,42 @@ def plane_work(city1,city2):
     for i in range(6, 13):
         for j in range(1, 32):
             sheet = spider(city1, city2, f'2022-{i}-{j}', sheet)
-            time.sleep(3)
+            # 设置休眠时间，防止发送过量POST请求
+            time.sleep(random.randint(2,3))
     #2023上半年数据爬取
     for i in range(1, 6):
         for j in range(1, 32):
             sheet = spider(city1, city2, f'2023-{i}-{j}', sheet)
-            time.sleep(3)
+            time.sleep(random.randint(2,3))
     #保存文件
     excel.save(f'./citys/{city1}.xlsx')
 
 
+def Task1():
+    # 排列组合进行爬虫
+    for city1 in citylist1:
+        for city2 in citylist2:
+            plane_work(city1, city2)
+            print(city1, '到',city2, '已经爬取成功！')
+
+def Task2():
+    # 排列组合进行爬虫
+    for city1 in citylist1:
+        for city2 in citylist2:
+            plane_work(city1, city2)
+            print(city2, '到',city1, '已经爬取成功！')
 
 
 if __name__ == '__main__':
-    citylist = ['承德','长春','朝阳','常州','大同','义乌','烟台','扬州','西双版纳','佛山','合肥','九江',
+    # citylist1为热门城市
+    citylist1 = ['北京', '成都', '大连', '福州', '广州', '杭州', '济南', '昆明', '南京', '青岛', '三亚', '厦门', '上海', '深圳', '武汉', '西安', '长沙',
+                 '郑州', '重庆','天津']
+    # citylist2为常见城市
+    citylist2 = ['承德','长春','朝阳','常州','大同','义乌','烟台','扬州','西双版纳','佛山','合肥','九江',
                 '洛阳','宁波','南阳','南通','南宁','攀枝花','衢州','沈阳',
                 '温州','无锡','舟山','珠海','遵义']
-    for i in citylist:
-        plane_work('天津',i)
-        print(i, '已经爬取成功!')
+    # 多进程
+    task1 = multiprocessing.Process(target=Task1)
+    task2 = multiprocessing.Process(target=Task2)
+    task1.start()
+    task2.start()

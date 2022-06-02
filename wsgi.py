@@ -141,7 +141,7 @@ def login():
     else: # 不是移动端则判定为桌面端
         response.set_cookie(key='system', value='pc', httponly=True)
     # 进入登录（login）界面自动解除登录状态
-    #为保证数据安全，在login页面将主动清除购票信息
+    #为保证数据安全，在login页面将主动清除购票和登录信息
     session.clear()
     return response
 
@@ -542,14 +542,14 @@ def delete_log():
     # 执行日志删除函数
     Function.delete_log_byhand()
 
-
+# 定时任务出错函数
 def listen_error(event):
     if event.job_id == '1':
         logging.error('数据库更新时出现了错误!')
     else:
         logging.error('删除日志时出现了错误！')
 
-
+#定时任务完成函数
 def finished_task(event):
     if event.job_id == '1':
         logging.info('数据库已完成更新！')

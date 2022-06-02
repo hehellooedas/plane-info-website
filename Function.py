@@ -89,7 +89,7 @@ def get_content_multiply(num,tables,email,url):
 
 
 
-def create_String(n=6)->str:#生成随机字符串
+def create_String(n:int=6)->str:#生成随机字符串
     """
     Generate random string
     :param n:int
@@ -101,7 +101,7 @@ def create_String(n=6)->str:#生成随机字符串
 def set_task(arr: list):
     """
     设置任务函数，每成功购票一次，就会设置任务
-    :param arr: 购票的航班信息
+    :param arr: 购票的航班信息。例：[目标城市，目标索引，人数]
     :return: None
     """
     if os.path.exists('./files/tasks.pickle'):
@@ -219,6 +219,7 @@ def select_planes(info: tuple):
         return None
     z = a.iloc[index].values
     for i in range(len(z)):
+        # 把筛选后的结果变成Python列表追加到结果列表中
         result.append(numpy.insert(z[i], 0, index[i],axis=0).tolist())
     return result
 
@@ -253,7 +254,7 @@ class emails_db:
     def __init__(self):
         self.path = './files/emails.pickle'
 
-    def pickle_to_xlsx(self):
+    def _pickle_to_xlsx(self):
         pickle = pandas.read_pickle(self.path)
         pickle.to_xlsx('./files/emails.xlsx')
 
