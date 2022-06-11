@@ -7,11 +7,12 @@
             height: 100%;
         }
         body{
-          background-image: url(../s-other/1.png);
-          background-size: cover;       
-          background-repeat:no-repeat;
-          height: 100%;
-         }
+            background-image: url(../s-other/bg_plane.png);
+            background-size: cover;
+            background-repeat:no-repeat;
+            height: 100%;
+            width: 100%;
+           }
         .app {
             height: 100%;
         }

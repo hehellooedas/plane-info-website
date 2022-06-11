@@ -67,10 +67,10 @@ body{
     height: 650px;
 }
 .cover{
-    background: #000; position: absolute; left: 0px; top: 0px; width: 100%; filter: alpha(opacity=30); opacity: 0.3; display: none; z-index: 1000;
+    background-color: #222;position: absolute; left: 0px; top: 0px; width: 100%; filter: alpha(opacity=30); opacity: 0.3; display: none; z-index: 10000;
 }
 .cover2{
-    background: #000; position: absolute; left: 0px; top: 0px; width: 100%; filter: alpha(opacity=30); opacity: 0.3; display: block; z-index: 1000;
+    background-color: #222;position: absolute; left: 0px; top: 0px; width: 100%; filter: alpha(opacity=30); opacity: 0.3; display: block; z-index: 10000;
 }
 .search{
     position: relative;
@@ -89,98 +89,98 @@ body{
         transform: translateY(4px);
 }
 .search_single {
-    display: block;
-}
-.search_single2 {
-    display: none;
+    position: absolute;
+    width: 900px;
+    left: 0px;
+    top: 20px;
 }
 .search_many {
     position: absolute;
     width: 900px;
-    left: 0;
-    top: 20px;
+    left: 0px;
+    top: 40px;
     display: none;
     z-index: 100000;
-    background-color: aliceblue;
+    background-color: slategray;
 }
 .search_many2 {
     position: absolute;
     width: 900px;
     border-radius: 0px 5px 5px 5px;
-    left: 0;
-    top: 20px;
+    left: 0px;
+    top: 40px;
     display: block;
-    background-color: aliceblue;
+    background-color: slategray;
     z-index: 100;
 }
 .search_many3 {
     position: absolute;
     width: 900px;
     border-radius: 0px 5px 5px 5px;
-    left: 0;
-    top: 20px;
+    left: 0px;
+    top: 40px;
     display: block;
-    background-color: aliceblue;
+    background-color: slategray;
     z-index: 100;
     height: 82px;
     overflow: auto;
 }
 #tuichu {
     position: fixed;
-    right: 30px;
-    top: 40px;
+    top: 0px;
+    right: 15px;
     cursor: pointer;
+    color: deepskyblue;
     width: 60px;
     height: 50px;
     border: none;
-    background-color: blanchedalmond;
-    border-radius: 5px;
-    box-shadow: 0 3px #999;
+    background-color: #222;
 }
 #tuichu:active {
-    box-shadow: 0 1px #666;
-    transform: translateY(4px);
+
 }
 .hidden{
     visibility: hidden;
 }
 .xiaoxi {
-    color: red;
+    color: chocolate;
     font-size: 17px;
     width: 200px;
     height: 20px;
     position: absolute;
     top: 15px;
-    left: 960px;
+    left: 980px;
 }
 .tishi {
     position: absolute;
+    top: 35px;
     display: none;
     width: 900px;
-    height: 99px;
+    height: 85px;
     border: 2px solid red;
 }
 .tishi2 {
     position: absolute;
+    top: 35px;
     display: block;
     width: 900px;
-    height: 99px;
+    height: 85px;
     border: 2px solid red;
 }
 .nav_tishi {
     position: absolute;
     display: none;
-    color: red;
+    color: sienna;
     right: 700px;
-    top: -20px;
+    top: -32px;
     width: 200px;
     height: 30px;
 }
 .nav_tishi2 {
     position: absolute;
     display: block;
-    color: red;
-    top: -20px;
+    color: sienna;
+    top: -32px;
     right: 700px;
     width: 200px;
     height: 30px;
@@ -189,8 +189,8 @@ body{
     position: absolute;
     display: none;
     right: 1000px;
-    color: red;
-    top: -20px;
+    color: sienna;
+    top: -32px;
     width: 200px;
     height: 30px;
 }
@@ -198,8 +198,8 @@ body{
     position: absolute;
     display: block;
     right: 1000px;
-    color: red;
-    top: -20px;
+    color: sienna;
+    top: -32px;
     width: 200px;
     height: 30px;
 }
@@ -392,6 +392,7 @@ body{
     height: 50px;
 }
 .btn{
+    margin-top: 25px;
     cursor: pointer;
     font-family: 'icomoon';
     width: 100%;
@@ -433,14 +434,21 @@ body{
 .show-nav-span{
     z-index: 0;
     position: absolute;
-    top: 0px;
+    top: -12px;
     height: 50px;
     left: 0px;
 }
 .show-nav-span2{
     z-index: 1;
     position: absolute;
-    top: 0px;
+    top: -12px;
+    height: 50px;
+    left: 0px;
+}
+.show-nav-span3{
+    z-index: 0;
+    position: absolute;
+    top: -12px;
     height: 50px;
     left: 0px;
 }
@@ -453,6 +461,7 @@ body{
       height: 49px;
       border-radius: 1px;
       cursor: pointer;
+      background-color: darkcyan;
 }
 .show-nav .show-nav-span2 button:nth-child(1){
     pointer-events: none;
@@ -464,20 +473,50 @@ body{
     height: 49px;
     border-radius: 1px;
     cursor: pointer;
-    background-color: cadetblue;
+    background-color: darkcyan;
 }
 .show-nav .show-nav-span2 .tixing{
     float: left;
     width:300px;
     border:1px solid aliceblue;
-    color: white;
+    color: bisque;
     font-size: large;
     height: 49px;
     border-radius: 1px;
     cursor: pointer;
-    background-color: cadetblue;
+    background-color: darkcyan;
 }
 .show-nav .show-nav-span2 button:active{
+    background-color: azure;
+}
+.show-nav .show-nav-span button:hover{
+    background-color: darkgrey;
+}
+
+.show-nav .show-nav-span3 button:nth-child(1){
+    pointer-events: none;
+    float: left;
+    width:300px;
+    border:1px solid aliceblue;
+    color: black;
+    font-size: large;
+    height: 49px;
+    border-radius: 1px;
+    cursor: pointer;
+    background-color: darkcyan;
+}
+.show-nav .show-nav-span3 .tixing{
+    float: left;
+    width:300px;
+    border:1px solid aliceblue;
+    color: bisque;
+    font-size: large;
+    height: 49px;
+    border-radius: 1px;
+    cursor: pointer;
+    background-color: darkcyan;
+}
+.show-nav .show-nav-span3 button:active{
     background-color: azure;
 }
 .show-nav .show-nav-span button:hover{
@@ -490,16 +529,18 @@ body{
     display: none;
 }
 .show-nav-info{
+    transform-style: preserve-3d;
     position: absolute;
-    bottom: 0px;
-    height: 100px;
+    bottom: 31px;
+    height: 80px;
     width: 1200px;
-   background-color: aliceblue;
+    background-color: cadetblue;
+    transform: translateZ(-4px);
 }
 /* 两个ui li 的元素一起控制了 */
 .show-nav-info > ul >li{
   float: left;
-  padding: 30px 20px;
+  padding: 20px 20px;
 }
 .show-nav-info > ul >li >select{
    width: 90px;
@@ -515,7 +556,7 @@ body{
 }
 .show-body0{
     display: block;
-    width: 1200px;
+    width: 100%;
 }
 .show-body0 span{
      display: inline-block;
@@ -530,12 +571,13 @@ body{
     height: 200px;
 }
 .show-body0 span p img{
+    margin-left: -25px;
     width: 100%;
     height: 100%;
 }
 .show-body2{
     display: none;
-    width: 1200px;
+    width: 100%;
 }
 .show-body2 span{
     display: inline-block;
@@ -586,7 +628,7 @@ body{
     position: absolute;
     z-index: 100;
     right: 100px;
-    top: 80px;
+    top: 60px;
     cursor: pointer;
     width: 150px;
     height: 40px;
@@ -703,35 +745,52 @@ body{
     margin-right: 5px;
      height: 20px;
      width: 20px;
+     cursor: pointer;
 }
 .radio2{
     float: right;
     margin-right: 5px;
      height: 20px;
      width: 20px;
+       cursor: pointer;
+}
+.tr1{
+    height: 20px;
+   font-size: large;
+   background-color: lightslategray;
 }
 .tr1 td{
     text-align: center;
     width: 200px;
 }
 .tr1 td:nth-child(4){
-    width: 100px;
+    width: 150px;
     text-align: center;
 }
+
 .tr1 td:nth-child(5){
-    width: 100px;
+    width: 150px;
     text-align: center;
 }
+.tr2{
+    height: 45px;
+    background-color: dimgrey;
+    transition: all 0.2s;
+    transform-style: preserve-3d;
+ }
+ .tr2:hover{
+     transform:translateY(-2px);
+ }
 .tr2 td{
     text-align: center;
     width: 200px;
 }
 .tr2 td:nth-child(4){
-    width: 100px;
+    width: 150px;
     text-align: center;
 }
 .tr2 td:nth-child(5){
-    width: 100px;
+    width: 150px;
     text-align: center;
 }
 .tab{
@@ -742,8 +801,177 @@ body{
 table{
     width: 100%;
     height: 100%;
+    perspective: none;
 }
 .tiaojian{
     color: black;
     font-size: large;
+}
+.sider{
+    height: 100%;
+    width: 300px;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    background: #4d5b69;
+}
+.head-top{
+    position:fixed;
+    z-index: 1000000;
+    top: 0px;
+    height:60px;
+    width:1620px;
+    background-color: #222;
+    border-color: #080808;
+}
+.model{
+    background-color: lightslategrey;
+    box-sizing:border-box;
+    position:absolute;
+    border-left: 3px solid white;
+    top:60px;
+    right:0px;
+    height:965px;
+    width:1220px;
+}
+/* 分页
+ */
+ .container{
+    margin-left:38%;
+    margin-top: 10px;
+    display: flex;
+    cursor: pointer;
+    visibility: hidden;
+}
+.container2{
+    margin-left:38%;
+    margin-top: 10px;
+    display: flex;
+    cursor: pointer;
+    visibility: hidden;
+}
+.prev,.next{
+    font-family: 'icomoon';
+    display: block;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #999;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 30px;
+    color: black;
+    font-size: large;
+    text-decoration: none;
+    margin-right: 10px;
+    transition: all 0.2s ease;
+}
+.prev:hover{
+    color: #fff;
+    border-color: rgb(0, 183, 254);
+    background-color: rgb(0, 183, 254);
+}
+.next:hover{
+    color: #fff;
+    border-color: rgb(0, 183, 254);
+    background-color: rgb(0, 183, 254);
+}
+.page{
+    display: flex;
+}
+.page .page-item{
+    padding: 0px 10px;
+    list-style-type: none ;
+    display: block;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #999;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 30px;
+    color: black;
+    font-size: large;
+    text-decoration: none;
+    margin-right: 10px;
+    transition: all 0.2s ease;
+}
+.page .page-item:hover{
+    color: #fff;
+    border-color: rgb(0, 183, 254);
+    background-color: rgb(0, 183, 254);
+}
+.page .item-active{
+    color: #fff;
+    border-color: rgb(0, 183, 254);
+    background-color: rgb(0, 183, 254);
+}
+.container .clear-mr{
+    margin-right: 0;
+}
+.sider > ul >li{
+    box-sizing: border-box;
+    height: 80px;
+    line-height: 80px;
+    font-size: large;
+    cursor: pointer;
+    border-bottom: 3px solid black;
+}
+.sider > ul >li:hover{
+    background-color: darkgray;
+}
+.prev2,.next2{
+    font-family: 'icomoon';
+    display: block;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #999;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 30px;
+    color: black;
+    font-size: large;
+    text-decoration: none;
+    margin-right: 10px;
+    transition: all 0.2s ease;
+}
+.prev2:hover{
+    color: #fff;
+    border-color: rgb(0, 183, 254);
+    background-color: rgb(0, 183, 254);
+}
+.next2:hover{
+    color: #fff;
+    border-color: rgb(0, 183, 254);
+    background-color: rgb(0, 183, 254);
+}
+.page2{
+    display: flex;
+}
+.page2 .page-item2{
+    padding: 0px 10px;
+    list-style-type: none ;
+    display: block;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #999;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 30px;
+    color: black;
+    font-size: large;
+    text-decoration: none;
+    margin-right: 10px;
+    transition: all 0.2s ease;
+}
+.page2 .page-item2:hover{
+    color: #fff;
+    border-color: rgb(0, 183, 254);
+    background-color: rgb(0, 183, 254);
+}
+.page2 .item-active{
+    color: #fff;
+    border-color: rgb(0, 183, 254);
+    background-color: rgb(0, 183, 254);
+}
+.container2 .clear-mr{
+    margin-right: 0;
 }
