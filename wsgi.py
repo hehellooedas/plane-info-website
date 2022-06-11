@@ -132,7 +132,6 @@ def before_request():
     # 30分钟后刷新页面则自动退出登录
     app.permanent_session_lifetime = datetime.timedelta(minutes=30)
 
-
 @app.get('/login')#登录界面
 @cache.cached(timeout=3000, query_string=True)#设置缓存
 def login():

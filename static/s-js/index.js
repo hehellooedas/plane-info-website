@@ -2,10 +2,14 @@
 var gobtn = document.getElementById('gobtn');//去程选择按钮
 var nav_first = document.getElementsByClassName('nav0')[0];
 var nav_second = document.getElementsByClassName('nav2')[0];
+//状态码
+var end;
+var go_back;
 gobtn.addEventListener('click', function () {
+    go_back=1;
     nav_first.className = "nav0";
     nav_second.className = "nav2";
-    gobtn.style.backgroundColor = 'black';
+    gobtn.style.backgroundColor = 'gray';
     backbtn.style.backgroundColor = '';
     showbodyf.className="show-body0";
     showbodys.className="show-body2";
@@ -19,9 +23,10 @@ var backbtn = document.getElementById('backbtn');//返程选择按钮
 var showbodyf = document.getElementsByClassName('show-body0')[0];//去程的航班展示
 var showbodys = document.getElementsByClassName('show-body2')[0];//返程的航班展示
 backbtn.addEventListener('click', function () {
+    go_back=2;
     nav_second.className = "nav0";
     nav_first.className = "nav2";
-    backbtn.style.backgroundColor = 'black';
+    backbtn.style.backgroundColor = 'gray';
     gobtn.style.backgroundColor = '';
     showbodyf.className="show-body2";
     showbodys.className="show-body0";
@@ -95,8 +100,14 @@ function refound() {
 var hidden = document.getElementsByClassName('cha')[0];
 var alarm_buy = document.getElementsByClassName('jingbao')[0];
 var inform = document.getElementsByClassName('tixing')[0];
+var inform2 = document.getElementsByClassName('tixing')[1];
 var cover = document.getElementsByClassName('cover')[0];//遮罩层
 inform.addEventListener('click', function () {
+    alarm_buy.className = 'jingbao2';
+    cover.style.height = document.body.clientHeight + 'px';
+    cover.className = 'cover2';
+})
+inform2.addEventListener('click', function () {
     alarm_buy.className = 'jingbao2';
     cover.style.height = document.body.clientHeight + 'px';
     cover.className = 'cover2';
@@ -107,6 +118,7 @@ hidden.addEventListener('click', function () {
     cover.className = 'cover';
 })
 //优先条件排序
+var container=document.getElementsByClassName('container')[0];
 var btn_go = document.getElementsByClassName('but');//去程优先条件按钮数组
 var btn_back = document.getElementsByClassName('but2');//返程优先条件按钮数组
 //去程条件排序
@@ -115,7 +127,6 @@ for (let k = 0; k < btn_go.length; k++) {
         for (let j = 0; j < btn_go.length; j++) {
             btn_go[j].style.backgroundColor = 'powderblue';
         }
-        console.log(k)
         this.style.backgroundColor = 'darkgray';
         if (k == 0) {
             for (let i = 0; i < arr2.length; i++) {
@@ -141,15 +152,25 @@ for (let k = 0; k < btn_go.length; k++) {
                     "</table>" +
                     "</div>" +
                     "</div>"
+                    if((i+1)%5==0){
+                        add();
+                        num++;
+                    }
+                    end=i+1;
             }
             if (arr.length == 0) {
+                container.style.visibility="hidden";
                 showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
-                showbodyf.innerHTML = out;
+                if((end)%5!=0){
+                    add();
+                    num++;
+                }
+                num=0;
+                out = "";//清空out数据
                 refound();//数据请求完成，添加事件
             }
-            out = "";
         }
         if (k == 1) {
             for (let i = 0; i < arr3.length; i++) {
@@ -175,15 +196,25 @@ for (let k = 0; k < btn_go.length; k++) {
                     "</table>" +
                     "</div>" +
                     "</div>"
+                    if((i+1)%5==0){
+                        add();
+                        num++;
+                    }
+                    end=i+1;
             }
             if (arr.length == 0) {
+                container.style.visibility="hidden";
                 showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
-                showbodyf.innerHTML = out;
+                if((end)%5!=0){
+                    add();
+                    num++;
+                }
+                num=0;
+                out = "";//清空out数据
                 refound();//数据请求完成，添加事件
             }
-            out = "";
         }
         if (k == 2) {
             for (let i = 0; i < arr4.length; i++) {
@@ -209,15 +240,25 @@ for (let k = 0; k < btn_go.length; k++) {
                     "</table>" +
                     "</div>" +
                     "</div>"
+                    if((i+1)%5==0){
+                        add();
+                        num++;
+                    }
+                    end=i+1;
             }
             if (arr.length == 0) {
+                container.style.visibility="hidden";
                 showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
-                showbodyf.innerHTML = out;
+                if((end)%5!=0){
+                    add();
+                    num++;
+                }
+                num=0;
+                out = "";//清空out数据
                 refound();//数据请求完成，添加事件
             }
-            out = "";
         }
         if (k == 3) {
             for (let i = 0; i < arr5.length; i++) {
@@ -243,15 +284,25 @@ for (let k = 0; k < btn_go.length; k++) {
                     "</table>" +
                     "</div>" +
                     "</div>"
+                    if((i+1)%5==0){
+                        add();
+                        num++;
+                    }
+                    end=i+1;
             }
             if (arr.length == 0) {
+                container.style.visibility="hidden";
                 showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
-                showbodyf.innerHTML = out;
+                if((end)%5!=0){
+                    add();
+                    num++;
+                }
+                num=0;
+                out = "";//清空out数据
                 refound();//数据请求完成，添加事件
             }
-            out = "";
         }
     })
 }
@@ -286,15 +337,24 @@ for (let k = 0; k < 4; k++) {
                     "</table>" +
                     "</div>" +
                     "</div>"
+                    if((i+1)%5==0){
+                        add2();
+                        num++;
+                    }
+                    end=i+1;
             }
             if (brr.length == 0) {
                 showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
-                showbodys.innerHTML = out2;
+                if((end)%5!=0){
+                    add2();
+                    num++;
+                }
+                num=0;
+                out2 = "";//清空out数据
                 refound();//数据请求完成，添加事件
             }
-            out2 = "";
         }
         if (k == 1) {
             for (let i = 0; i < brr3.length; i++) {
@@ -320,15 +380,24 @@ for (let k = 0; k < 4; k++) {
                     "</table>" +
                     "</div>" +
                     "</div>"
+                    if((i+1)%5==0){
+                        add2();
+                        num++;
+                    }
+                    end=i+1;
             }
             if (brr.length == 0) {
                 showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
-                showbodys.innerHTML = out2;
+                if((end)%5!=0){
+                    add2();
+                    num++;
+                }
+                num=0;
+                out2 = "";//清空out数据
                 refound();//数据请求完成，添加事件
             }
-            out2 = "";
         }
         if (k == 2) {
             for (let i = 0; i < brr4.length; i++) {
@@ -354,15 +423,24 @@ for (let k = 0; k < 4; k++) {
                     "</table>" +
                     "</div>" +
                     "</div>"
+                    if((i+1)%5==0){
+                        add2();
+                        num++;
+                    }
+                    end=i+1;
             }
             if (brr.length == 0) {
                 showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
-                showbodys.innerHTML = out2;
+                if((end)%5!=0){
+                    add2();
+                    num++;
+                }
+                num=0;
+                out2 = "";//清空out数据
                 refound();//数据请求完成，添加事件
             }
-            out2 = "";
         }
         if (k == 3) {
             for (let i = 0; i < brr5.length; i++) {
@@ -388,15 +466,24 @@ for (let k = 0; k < 4; k++) {
                 "</table>" +
                 "</div>" +
                 "</div>"
+                if((i+1)%5==0){
+                    add2();
+                    num++;
+                }
+                end=i+1;
             }
             if (brr.length == 0) {
                 showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
-                showbodys.innerHTML = out2;
+                if((end)%5!=0){
+                    add2();
+                    num++;
+                }
+                num=0;
+                out2 = "";//清空out数据
                 refound();//数据请求完成，添加事件
             }
-            out2 = "";
         }
     })
 }
@@ -562,8 +649,17 @@ function settlement() {
                                     "</table>" +
                                     "</div>" +
                                     "</div>"
+                                    if((i+1)%5==0){
+                                        add();
+                                        num++;
+                                    }
+                                    end=i+1;
                             }
-                            showbodyf.innerHTML = out;
+                            if((end)%5!=0){
+                                add();
+                                num++;
+                            }
+                            num=0;
                             pay.value = "选为第" + (num + 2) + "程";
                             refound();
                             out = "";//清空out数据
@@ -590,11 +686,13 @@ var more = document.getElementById('duo');
 var time_back = document.getElementsByClassName('time-end')[0];//返程时间
 var show = document.getElementsByClassName('show-nav-span')[0];//往返与单程按钮切换
 var show2 = document.getElementsByClassName('show-nav-span2')[0];
+var show3 = document.getElementsByClassName('show-nav-span3')[0];
 more.addEventListener('click', function () {
     search_many.className = "search_many2";
     st = 3;
     time_back.className = "time-end";
-    show2.style.zIndex = 2
+    show3.style.zIndex=10;
+    show2.style.zIndex = 2;
     show.style.zIndex = 1;
     pay.value = "选为第1程";
 })
@@ -602,8 +700,9 @@ single.addEventListener('click', function () {
     time_back.className = "time-end";
     search_many.className = "search_many";
     st = 1;
-    show2.style.zIndex = 2
+    show2.style.zIndex = 2;
     show.style.zIndex = 1;
+    show3.style.zIndex=0;
     pay.value = "￥预订";
 })
 double.addEventListener('click', function () {
@@ -612,12 +711,13 @@ double.addEventListener('click', function () {
     st = 2;
     show.style.zIndex = 2;
     show2.style.zIndex = 1;
+    show3.style.zIndex= 0;
     pay.value = "￥预订";
 })
 //addition是添加按钮，再加一程
 addition.addEventListener('click', function () {
     search_many.appendChild(search_many.children[0].cloneNode(true));
-    up.value = "︿";
+    up.value = "收起";
     search_many.className = "search_many2";
     count += 1;
     time_first[count].value = "";
@@ -636,14 +736,18 @@ up.addEventListener('click', function () {
     counter++;
     if(counter%2==0)
     {
-        up.value = "︿";
+        up.value = "收起";
         search_many.className = "search_many2";
     }
     else{
-        up.value = "    ﹀";
+        up.value = "查看";
         search_many.className = "search_many3";
     }
 })
+// 回到顶部
+ function home(){
+      scrollTo(0,0);
+ }
 //ajax请求数据获取
 var arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//去程
 var brr = [], brr2 = [], brr3 = [], brr4 = [], brr5 = [];//返程
@@ -686,12 +790,15 @@ function reqfirst() {
                 if (data['string'] === "0") {
                     showbodyf.innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/error.png" + ">" + "</span>";
                     arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
+                    container.style.visibility="hidden";
                 }
                 if (data['string'] === "1") {
                     showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/error.png" + ">" + "</span>";
                     arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
+                    container.style.visibility="hidden";
                 }
                 if (data['string'] === "2") {
+                    container.style.visibility="visible";
                     arr = JSON.parse(data['common']);
                     arr2 = JSON.parse(data['go_sort']);
                     arr3 = JSON.parse(data['arrival_sort']);
@@ -720,8 +827,17 @@ function reqfirst() {
                             "</table>" +
                             "</div>" +
                             "</div>"
+                            if((i+1)%5==0){
+                                add();
+                                num++;
+                            }
+                            end=i+1;
                     }
-                    showbodyf.innerHTML = out;
+                    if((end)%5!=0){
+                        add();
+                        num++;
+                    }
+                    num=0;
                     out = "";//清空out数据
                 }
             }
@@ -745,14 +861,17 @@ function reqfirst() {
                     showbodys.innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/error.png" + ">" + "</span>";
                     arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
                     brr = [], brr2 = [], brr3 = [], brr4 = [], brr5 = [];
+                    container.style.visibility="hidden";
                 }
                 if (data['string'] === "1") {
                     showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/error.png" + ">" + "</span>";
                     showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/error.png" + ">" + "</span>";
                     arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
                     brr = [], brr2 = [], brr3 = [], brr4 = [], brr5 = [];
+                    container.style.visibility="hidden";
                 }
                 if (data['string'] === "2") {
+                    container.style.visibility="visible";
                     arr = JSON.parse(data['a_common']);
                     arr2 = JSON.parse(data['a_go_sort']);
                     arr3 = JSON.parse(data['a_arrival_sort']);
@@ -786,9 +905,18 @@ function reqfirst() {
                             "</table>" +
                             "</div>" +
                             "</div>"
+                            if((i+1)%5==0){
+                                add();
+                                num++;
+                            }
+                            end=i+1;
                     }
-                    showbodyf.innerHTML = out;
-                    out = "";
+                    if((end)%5!=0){
+                        add();
+                        num++;
+                    }
+                    num=0;
+                    out = "";//清空out数据
                     for (let i = 0; i < brr.length; i++) {
                         str = brr[i] + ',g';
                         str2 = brr[i] + ',j'
@@ -812,9 +940,18 @@ function reqfirst() {
                             "</table>" +
                             "</div>" +
                             "</div>"
+                            if((i+1)%5==0){
+                                add2();
+                                num++;
+                            }
+                            end=i+1;
                     }
-                    showbodys.innerHTML = out2;
-                    out2 = "";
+                    if((end)%5!=0){
+                        add2();
+                        num++;
+                    }
+                    num=0;
+                    out2 = "";//清空out数据
                 }
             }
         });
@@ -835,12 +972,15 @@ function reqfirst() {
                 if (data['string'] === "0") {
                     showbodyf.innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/error.png" + ">" + "</span>";
                     arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
+                    container.style.visibility="hidden";
                 }
                 if (data['string'] === "1") {
                     showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/error.png" + ">" + "</span>";
                     arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
+                    container.style.visibility="hidden";
                 }
                 if (data['string'] === "2") {
+                    container.style.visibility="visible";
                     arr = JSON.parse(data['common']);
                     arr2 = JSON.parse(data['go_sort']);
                     arr3 = JSON.parse(data['arrival_sort']);
@@ -869,11 +1009,136 @@ function reqfirst() {
                             "</table>" +
                             "</div>" +
                             "</div>"
+                            if((i+1)%5==0){
+                                add();
+                                num++;
+                            }
+                            end=i+1;
                     }
-                    showbodyf.innerHTML = out;
+                    if((end)%5!=0){
+                        add();
+                        num++;
+                    }
+                    num=0;
                     out = "";//清空out数据
                 }
             }
         });
     }
+}
+var num=0;
+var fold_pillow=document.getElementsByClassName('fold_pillow');
+var fold_pillow2=document.getElementsByClassName('fold_pillow2');
+function add(){
+    fold_pillow[num].innerHTML=out;
+    out="";
+}
+function add2(){
+    fold_pillow2[num].innerHTML=out2;
+    out2="";
+}
+function fold(x){
+   for(let i=0;i<5;i++){
+       fold_pillow[i].style.zIndex=0;
+   }
+   fold_pillow[x].style.zIndex=1000;
+}
+function fold2(x){
+    for(let i=0;i<5;i++){
+        fold_pillow2[i].style.zIndex=0;
+    }
+    fold_pillow2[x].style.zIndex=1000;
+ }
+var statement=0;
+var prevbtn = document.querySelector(".prev")
+var nextbtn = document.querySelector(".next")
+// 默认第一页是高亮的
+var firstpage = document.querySelector(".page-item")
+firstpage.classList.add("item-active")
+prevbtn.onclick = function(){
+    for(let j=0;j<page_items.length;j++){
+        page_items[j].classList.remove("item-active")
+       }
+       if(statement==0){
+           fold(0);
+           page_items[0].classList.add("item-active")
+       }
+       else{
+        statement= statement-1
+           page_items[statement].classList.add("item-active")
+           fold(statement);
+       }
+}
+nextbtn.onclick = function(){
+    for(let j=0;j<page_items.length;j++){
+        page_items[j].classList.remove("item-active")
+       }
+       if(statement==4){
+           page_items[4].classList.add("item-active")
+           fold(4);
+       }
+       else{
+         statement= statement+1
+           page_items[statement].classList.add("item-active")
+           fold(statement);
+       }
+}
+// 点击每一页都会又高亮效果
+var page_items=document.getElementsByClassName('page-item')
+for(let i=0;i<page_items.length;i++){
+    page_items[i].addEventListener('click',function(){
+           for(let j=0;j<page_items.length;j++){
+            page_items[j].classList.remove("item-active")
+           }
+           this.classList.add("item-active")
+           statement=i;
+           fold(statement);
+    })
+}
+
+var statement2=0;
+var prevbtn2 = document.querySelector(".prev2")
+var nextbtn2 = document.querySelector(".next2")
+// 默认第一页是高亮的
+var firstpage2 = document.querySelector(".page-item2")
+firstpage2.classList.add("item-active")
+prevbtn2.onclick = function(){
+    for(let j=0;j<page_items2.length;j++){
+        page_items2[j].classList.remove("item-active")
+       }
+       if(statement2==0){
+           fold2(0);
+           page_items2[0].classList.add("item-active")
+       }
+       else{
+        statement2= statement2-1
+           page_items2[statement2].classList.add("item-active")
+           fold2(statement2);
+       }
+}
+nextbtn2.onclick = function(){
+    for(let j=0;j<page_items2.length;j++){
+        page_items2[j].classList.remove("item-active")
+       }
+       if(statement2==4){
+           page_items2[4].classList.add("item-active")
+           fold2(4);
+       }
+       else{
+         statement2= statement2+1
+           page_items2[statement2].classList.add("item-active")
+           fold2(statement2);
+       }
+}
+// 点击每一页都会又高亮效果
+var page_items2=document.getElementsByClassName('page-item2')
+for(let i=0;i<page_items2.length;i++){
+    page_items2[i].addEventListener('click',function(){
+           for(let j=0;j<page_items2.length;j++){
+            page_items2[j].classList.remove("item-active")
+           }
+           this.classList.add("item-active")
+           statement2=i;
+           fold2(statement2);
+    })
 }
