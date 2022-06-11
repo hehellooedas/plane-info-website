@@ -30,13 +30,15 @@ file_log_handler.setFormatter(
 file_log_handler.setLevel(logging.WARNING)  # 记录warning级别的日志
 logging.getLogger().addHandler(file_log_handler)
 
+
 app = Flask(__name__)  # 创建app (Flask对象)
 limiter = Limiter(  # 设置网站访问上限
     app,
     key_func=get_remote_address,
-    default_limits=["200000 per day", "4000 per hour"]
-)  # 设置单ip访问上限：每天200000次，每小时4000次
+    default_limits=["100000 per day", "2000 per hour"]
+)  # 设置单ip访问上限：每天100000次，每小时2000次
 csrf = SeaSurf(app)  # csrf防护,只有携带特定请求头（含有正确的加密字符串）的post请求才能被视为合法请求
+
 
 # 定时任务初始化
 scheduler = APScheduler()
@@ -211,7 +213,7 @@ def register_ajax2():
 # index函数为航班推荐主页面
 @csrf.exempt
 @app.get('/')  # 主页面
-@limiter.limit("100/second", override_defaults=True, error_message='sorry you have too many requests')
+@limiter.limit("50/second", override_defaults=True, error_message='sorry you have too many requests')
 def index():
     # 只有登录后的用户才能访问机票查询界面（主界面）
     if g.login_status and g.email:
@@ -229,6 +231,8 @@ def index_ajax1():
         return jsonify({'string': '0'})
     form = request.form
     acity, bcity, date = form.get('acity'), form.get('bcity'), form.get('adate')
+    if not all([acity,bcity,date]):
+        return None
     a = Thread_Pool.submit(Function.select_planes, (acity, bcity, date))  # 搜索
     result = a.result()
     if result is False:
@@ -263,6 +267,8 @@ def index_ajax2():
         return jsonify({'string': '0'})
     form = request.form
     acity, bcity, adate, bdate = form.get('acity'), form.get('bcity'), form.get('adate'), form.get('bdate')
+    if not all([acity, bcity, adate, bdate]):
+        return None
     a_result, b_result = Thread_Pool.map(Function.select_planes, [(acity, bcity, adate), (bcity, acity, bdate)])
     if a_result is False or b_result is False:
         # 搜索过程出现错误时，提示服务器端错误信息
@@ -422,10 +428,10 @@ def index_ajax4():
     form = request.form
     # 将用户确定的信息暂时存储到加密的cookie（session）里
     st = form.get('st')
-    if st == '1' or st == '2':
+    if st == '1' or st == '2': #单程或往返
         session['st'] = st
         session['table'] = form.get('table')
-    else:
+    else: # 多程
         num = session['num']
         table = json.loads(form.get('table'))
         session[f'table{num}'] = table
