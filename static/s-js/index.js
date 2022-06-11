@@ -117,6 +117,7 @@ hidden.addEventListener('click', function () {
     cover.style.height = document.body.clientHeight + 'px';
     cover.className = 'cover';
 })
+
 //优先条件排序
 var container=document.getElementsByClassName('container')[0];
 var btn_go = document.getElementsByClassName('but');//去程优先条件按钮数组
@@ -129,6 +130,7 @@ for (let k = 0; k < btn_go.length; k++) {
         }
         this.style.backgroundColor = 'darkgray';
         if (k == 0) {
+            end=0;
             for (let i = 0; i < arr2.length; i++) {
                 str = arr2[i] + ',g';
                 str2 = arr2[i] + ',j';
@@ -160,7 +162,8 @@ for (let k = 0; k < btn_go.length; k++) {
             }
             if (arr.length == 0) {
                 container.style.visibility="hidden";
-                showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+                fold_pillow[0].style.zIndex=1000;
+                fold_pillow[0].innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
                 if((end)%5!=0){
@@ -197,18 +200,19 @@ for (let k = 0; k < btn_go.length; k++) {
                     "</div>" +
                     "</div>"
                     if((i+1)%5==0){
-                        add();
+                        add(out);
                         num++;
                     }
                     end=i+1;
             }
             if (arr.length == 0) {
                 container.style.visibility="hidden";
-                showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+                fold_pillow[0].style.zIndex=1000;
+                fold_pillow[0].innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
                 if((end)%5!=0){
-                    add();
+                    add(out);
                     num++;
                 }
                 num=0;
@@ -248,7 +252,8 @@ for (let k = 0; k < btn_go.length; k++) {
             }
             if (arr.length == 0) {
                 container.style.visibility="hidden";
-                showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+                fold_pillow[0].style.zIndex=1000;
+                fold_pillow[0].innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
                 if((end)%5!=0){
@@ -292,7 +297,8 @@ for (let k = 0; k < btn_go.length; k++) {
             }
             if (arr.length == 0) {
                 container.style.visibility="hidden";
-                showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+                fold_pillow[0].style.zIndex=1000;
+                fold_pillow[0].innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
                 if((end)%5!=0){
@@ -344,7 +350,9 @@ for (let k = 0; k < 4; k++) {
                     end=i+1;
             }
             if (brr.length == 0) {
-                showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+                container2.style.visibility="hidden";
+                fold_pillow2[0].style.zIndex=1000;
+                fold_pillow2[0].innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
                 if((end)%5!=0){
@@ -387,7 +395,9 @@ for (let k = 0; k < 4; k++) {
                     end=i+1;
             }
             if (brr.length == 0) {
-                showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+                container2.style.visibility="hidden";
+                fold_pillow2[0].style.zIndex=1000;
+                fold_pillow2[0].innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
                 if((end)%5!=0){
@@ -430,7 +440,9 @@ for (let k = 0; k < 4; k++) {
                     end=i+1;
             }
             if (brr.length == 0) {
-                showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+                container2.style.visibility="hidden";
+                fold_pillow2[0].style.zIndex=1000;
+                fold_pillow2[0].innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
                 if((end)%5!=0){
@@ -473,7 +485,9 @@ for (let k = 0; k < 4; k++) {
                 end=i+1;
             }
             if (brr.length == 0) {
-                showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+                container2.style.visibility="hidden";
+                fold_pillow2[0].style.zIndex=1000;
+                fold_pillow2[0].innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
             }
             else {
                 if((end)%5!=0){
@@ -613,14 +627,19 @@ function settlement() {
                     },
                     success: function (data) {
                         if (data['string'] === "0") {
-                            showbodyf.innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/error.png" + ">" + "</span>";
+                            container.style.visibility="hidden";
+                            fold_pillow[0].style.zIndex=1000;
+                            fold_pillow[0].innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
                             arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
                         }
                         if (data['string'] === "1") {
-                            showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/error.png" + ">" + "</span>";
+                            container.style.visibility="hidden";
+                            fold_pillow[0].style.zIndex=1000;
+                            fold_pillow[0].innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
                             arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
                         }
                         if (data['string'] === "2") {
+                            container.style.visibility="visible";
                             arr = JSON.parse(data['common']);
                             arr2 = JSON.parse(data['go_sort']);
                             arr3 = JSON.parse(data['arrival_sort']);
@@ -788,12 +807,15 @@ function reqfirst() {
             },
             success: function (data) {
                 if (data['string'] === "0") {
-                    showbodyf.innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/error.png" + ">" + "</span>";
-                    arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
                     container.style.visibility="hidden";
+                    fold_pillow[0].style.zIndex=1000;
+                    fold_pillow[0].innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+                    arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
                 }
                 if (data['string'] === "1") {
-                    showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/error.png" + ">" + "</span>";
+                    container.style.visibility="hidden";
+                    fold_pillow[0].style.zIndex=1000;
+                    fold_pillow[0].innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
                     arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
                     container.style.visibility="hidden";
                 }
@@ -857,21 +879,28 @@ function reqfirst() {
             },
             success: function (data) {
                 if (data['string'] === "0") {
-                    showbodyf.innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/error.png" + ">" + "</span>";
-                    showbodys.innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/error.png" + ">" + "</span>";
+                    container.style.visibility="hidden";
+                    fold_pillow[0].style.zIndex=1000;
+                    fold_pillow[0].innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+                    container2.style.visibility="hidden";
+                    fold_pillow2[0].style.zIndex=1000;
+                    fold_pillow2[0].innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
                     arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
                     brr = [], brr2 = [], brr3 = [], brr4 = [], brr5 = [];
-                    container.style.visibility="hidden";
                 }
                 if (data['string'] === "1") {
-                    showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/error.png" + ">" + "</span>";
-                    showbodys.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/error.png" + ">" + "</span>";
+                    container.style.visibility="hidden";
+                    fold_pillow[0].style.zIndex=1000;
+                    fold_pillow[0].innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+                    container2.style.visibility="hidden";
+                    fold_pillow2[0].style.zIndex=1000;
+                    fold_pillow2[0].innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
                     arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
                     brr = [], brr2 = [], brr3 = [], brr4 = [], brr5 = [];
-                    container.style.visibility="hidden";
                 }
                 if (data['string'] === "2") {
                     container.style.visibility="visible";
+                    container2.style.visibility="visible";
                     arr = JSON.parse(data['a_common']);
                     arr2 = JSON.parse(data['a_go_sort']);
                     arr3 = JSON.parse(data['a_arrival_sort']);
@@ -970,17 +999,20 @@ function reqfirst() {
             },
             success: function (data) {
                 if (data['string'] === "0") {
-                    showbodyf.innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/error.png" + ">" + "</span>";
-                    arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
                     container.style.visibility="hidden";
+                    fold_pillow[0].style.zIndex=1000;
+                    fold_pillow[0].innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+                    arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
                 }
                 if (data['string'] === "1") {
-                    showbodyf.innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/error.png" + ">" + "</span>";
+                    container2.style.visibility="hidden";
+                    fold_pillow2[0].style.zIndex=1000;
+                    fold_pillow2[0].innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
                     arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
-                    container.style.visibility="hidden";
                 }
                 if (data['string'] === "2") {
                     container.style.visibility="visible";
+                    container2.style.visibility="visible";
                     arr = JSON.parse(data['common']);
                     arr2 = JSON.parse(data['go_sort']);
                     arr3 = JSON.parse(data['arrival_sort']);
@@ -1026,6 +1058,7 @@ function reqfirst() {
         });
     }
 }
+//翻页
 var num=0;
 var fold_pillow=document.getElementsByClassName('fold_pillow');
 var fold_pillow2=document.getElementsByClassName('fold_pillow2');
@@ -1141,4 +1174,13 @@ for(let i=0;i<page_items2.length;i++){
            statement2=i;
            fold2(statement2);
     })
+}
+// 清空函数
+function clearfold(){
+    for(let i=0;i<fold_pillow.length;i++){
+        fold_pillow[i].innerHTML="";
+    }
+    for(let i=0;i<fold_pillow2.length;i++){
+        fold_pillow2[i].innerHTML="";
+    }
 }
