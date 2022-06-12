@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -13,13 +14,14 @@
     <link rel="stylesheet" href="../static/s-css/index.css">
     <link rel="stylesheet" href="../static/s-css/city.css">
     <script src="../static/s-js/jquery.min.js"></script>
+    <link rel="stylesheet" href="../static/s-css/bootstrap.css">
 </head>
+
 <body>
-    <input type="button" id="tuichu" value="退出登录" onclick="location.replace('{{ url }}');">
     <!-- 遮罩层 -->
     <div class="cover">
     </div>
-    <iframe src="/wait" frameborder="0" name="hello" scrolling="no" class="ifa"></iframe>
+    <iframe src="./wait" frameborder="0" name="hello" scrolling="no" class="ifa"></iframe>
     <div class="jingbao">
         <h1>购买须知</h1>
 
@@ -33,189 +35,281 @@
     </div>
     <div id="in_city" style="display: none"></div>
     <!-- 组件 -->
-    <div class="header ban">
-        <h1 class="logo">&nbsp&nbsp&nbsp中国民航</h1>
-        <div class="title">
-            <h1>欢迎使用中国民航旅行航班推荐系统！</h1>
-        </div>
+    <div class="sider">
+        <ul style="margin-top: 58px; text-align: center;">
+            <li><span class="glyphicon glyphicon-plane"style="padding:0px 5px;"></span>查询机票</li>
+            <li><span class="glyphicon glyphicon-shopping-cart"style="padding:0px 5px;"></span>订单详情</li>
+            <li><span class="glyphicon glyphicon-user"style="padding:0px 5px;"></span>个人信息</li>
+            <li><span class="glyphicon glyphicon-tasks"style="padding:0px 5px;"></span>关于我们</li>
+            <li><span class="glyphicon glyphicon-cog" style="padding:0px 5px;"></span>后台设置</li>
+        </ul>
     </div>
-
-    <div class="search ban">
-        <p class="ico"></p>
-        <div class="tishi">
+    <div class="head-top">
+        <div class="arch" style="position: fixed;top: 0px;left: 0px;cursor: pointer;">
+            <span onclick="home()" class="glyphicon glyphicon-home" style="font-size:30px;position:absolute;left:75px;top:17px;color:cornflowerblue;"></span>
+            <input type="button" value="首页" +
+                style="width:300px;height:60px;cursor: pointer;background-color: #222;border:none;color:cornflowerblue;font-size:30px;"
+                onclick="home()">
         </div>
-        <!-- 多程航班选择 -->
-        <div class="search_many">
-            <div class="trips" style="margin-bottom:5px;">
-                <span class="arrive-start"><span>出发点&nbsp&nbsp</span>
-                    <input type="text" value="城市名" class="city_first">
-                </span>
-                <span class="arrive-end"><span>目的地&nbsp&nbsp</span>
-                    <input type="text" value="城市名" class="city_second">
-                </span>
-                <span class="arrive-time">
-                    <span>出发时间&nbsp&nbsp</span>
-                    <input type="date" class="input time_first">
-                </span>
-                <span> <input type="button" value="第 1 程" class="decline" style="pointer-events: none;"></span>
-            </div>
-            <span><input class="up" type="button"
-                    style="position: absolute;right:5px;top:0px;border:none;font-size:large;width:50px;height:40px;background-color:aliceblue;cursor: pointer;"
-                    value=""></span>
-            <!-- 添加按钮 -->
-            <span style="position: absolute;right: 80px;top: 30px;"><input type="button" value="再加一程"
-                    class="addition"></span>
-             <!-- <span style="position: absolute;right: 15px;top: 50px;"><input type="button" value="刷新"
-                   class="update"></span> -->
-        </div>
-        <!-- 单程，往返 -->
-        <div class="search_single">
-            <div class="search-address">
-                <p class="xiaoxi"></p>
-
-                <div class="selcet"><label for="dan" style="margin-right:22px;"><input type="radio" name="trip" id="dan"
-                            checked="checked" style="display:inline-block;height:15px;width:15px;">单程</label>
-                    <label for="shuang" style="margin-right:22px;"><input type="radio" name="trip" id="shuang" style="display:inline-block;height:15px;width:15px;">往返</label>
-                    <label for="duo" style="margin-right:22px;"><input type="radio" name="trip" id="duo" style="display:inline-block;height:15px;width:15px;">多程</label>
-                </div>
-                <div class="address-start"><span>出发点&nbsp&nbsp</span>
-                    <input type="text" class="citySelect" value="城市名">
-                </div>
-                <div class="address-end"><span>目的地&nbsp&nbsp</span>
-                    <input type="text" class="citySelect1" value="城市名">
-                </div>
-            </div>
-            <!-- 选择时间 -->
-            <div class="search-time">
-                <div class="time-start"><span>出发时间&nbsp&nbsp</span>
-                    <input type="date" class="time0 input">
-                </div>
-                <div class="time-end"><span>返回时间&nbsp&nbsp</span>
-                    <input type="date" class="time2 input">
-                </div>
-            </div>
-        </div>
-        <!-- 查询 -->
-        <div class="chazhao">
-            <button class="btn">
-                <h2>&nbsp搜索</h2>
-            </button>
-        </div>
+        <span class="glyphicon glyphicon-log-out" style="color:cornflowerblue;position:absolute;right:176px;top:17px;cursor:pointer;z-index:100000;" onclick="location.replace('{{ url }}');"></span><input type="button" id="tuichu" value="退出登录" onclick="location.replace('{{ url }}');">
     </div>
-    <!-- 广告部分 -->
-    <div class="date ban" style="margin-top:10px;background-image: url('../static/s-other/adv.png');">
-        <p style="width:300px;height:120px;position: absolute;right: 100px;"><img src="../static/s-other/plane.png"
-                alt="" style="width:100%;height:100%;"></p>
-        <h1 style="line-height:100px;color: white;margin-left:100px;">关注航班动态，中国民航为您提供准确航班信息。</h1>
-    </div>
-    <!-- 航班展示部分 -->
-    <div class="show ban">
-        <div class="kuang">
-            <div class="show-nav">
-                <span class="show-nav-span">
-                    <button id="gobtn">
-                        <h2>&nbsp选择去程的航班</h2>
-                    </button>
-                    <button id="backbtn">
-                        <h2>&nbsp选择返程的航班</h2>
-                    </button>
-                </span>
-                <span class="show-nav-span2">
-                    <button>选择航班</button>
-                    <button class="tixing">购买须知</button>
-                </span>
-                <div class="nav0">
-                    <form class="show-nav-info">
-                        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-                        <ul>
-                            <li class="tiaojian">
-                                优先条件：
-                            </li>
-                            <li>
-                                <input type="button" value="起飞时间" class="but">
-                            </li>
-                            <li>
-                                <input type="button" value="抵达时间" class="but">
-                            </li>
-                            <li> <input type="button" value="公务舱低价" class="but"></li>
-                            <li><input type="button" value="经济舱低价" class="but"></li>
-                        </ul>
-                        <ul class="show-nav-sort">
-                            <!-- <li>
+    <!-- 搜索模块 -->
+    <div class="model">
+        <div class="search ban" style="width:100%;">
+            <!-- <p class="ico"></p> -->
+            <div class="tishi">
+            </div>
+            <div class="selcet" style="height:40px;"><label for="dan"
+                    style="margin-right:22px;cursor: pointer;font-size:25px;"><input type="radio" name="trip" id="dan"
+                        checked="checked"
+                        style="display:inline-block;height:25px;width:25px;cursor: pointer;">单程</label>
+                <label for="shuang" style="margin-right:22px;cursor: pointer;font-size:25px;"><input type="radio"
+                        name="trip" id="shuang"
+                        style="display:inline-block;height:25px;width:25px;cursor: pointer;">往返</label>
+                <label for="duo" style="margin-right:22px;cursor: pointer;font-size:25px;"><input type="radio"
+                        name="trip" id="duo"
+                        style="display:inline-block;height:25px;width:25px;cursor: pointer;">多程</label>
+            </div>
+            <!-- 多程航班选择 -->
+            <div class="search_many">
+                <div class="trips" style="margin-bottom:5px;">
+                    <span class="arrive-start"><span>出发点&nbsp&nbsp</span>
+                        <input type="text" value="城市名" class="city_first">
+                    </span>
+                    <span class="arrive-end"><span>目的地&nbsp&nbsp</span>
+                        <input type="text" value="城市名" class="city_second">
+                    </span>
+                    <span class="arrive-time">
+                        <span>出发时间&nbsp&nbsp</span>
+                        <input type="date" class="input time_first">
+                    </span>
+                    <span> <input type="button" value="第 1 程" class="decline" style="pointer-events: none;"></span>
+                </div>
+                <span><input class="up" type="button"
+                        style="position: absolute;right:5px;top:0px;border:none;font-size:large;width:50px;height:40px; background-color: slategray;cursor: pointer;"
+                        value=""></span>
+                <!-- 添加按钮 -->
+                <span style="position: absolute;right: 80px;top: 30px;"><input type="button" value="再加一程"
+                        class="addition"></span>
+                <!-- <span style="position: absolute;right: 15px;top: 50px;"><input type="button" value="刷新"
+                       class="update"></span> -->
+            </div>
+            <!-- 单程，往返 -->
+            <div class="search_single">
+                <div class="search-address">
+                    <p class="xiaoxi"></p>
+                    <div class="address-start"><span>出发点&nbsp&nbsp</span>
+                        <input type="text" class="citySelect" value="城市名">
+                    </div>
+                    <div class="address-end"><span>目的地&nbsp&nbsp</span>
+                        <input type="text" class="citySelect1" value="城市名">
+                    </div>
+                </div>
+                <!-- 选择时间 -->
+                <div class="search-time">
+                    <div class="time-start"><span>出发时间&nbsp&nbsp</span>
+                        <input type="date" class="time0 input">
+                    </div>
+                    <div class="time-end"><span>返回时间&nbsp&nbsp</span>
+                        <input type="date" class="time2 input">
+                    </div>
+                </div>
+            </div>
+            <!-- 查询 -->
+            <div class="chazhao">
+                <button class="btn">
+                    <h2>&nbsp搜索</h2>
+                </button>
+            </div>
+        </div>
+        <!-- 广告部分 -->
+        <div class="date ban" style="margin-top:30px;background-image: url('../static/s-other/adv.png');width:100%;">
+            <p style="width:300px;height:120px;position: absolute;right:0px;"><img src="../static/s-other/plane.png"
+                    alt="" style="width:100%;height:100%;"></p>
+            <h1 style="line-height:100px;color: white;margin-left:100px;">关注航班动态，中国民航为您提供准确航班信息。</h1>
+        </div>
+        <!-- 航班展示部分 -->
+        <div class="show ban" style="width:100%;">
+            <div class="kuang" style="width:100%;">
+                <div class="show-nav" style="width:100%;margin-top:30px;">
+                    <span class="show-nav-span">
+                        <button id="gobtn">
+                            <h2>&nbsp选择去程的航班</h2>
+                        </button>
+                        <button id="backbtn">
+                            <h2>&nbsp选择返程的航班</h2>
+                        </button>
+                    </span>
+                    <span class="show-nav-span2">
+                        <button>单程</button>
+                        <button class="tixing">购买须知</button>
+                    </span>
+                    <span class="show-nav-span3">
+                        <button>多程</button>
+                        <button class="tixing">购买须知</button>
+                    </span>
+                    <div class="nav0" style="width:100%;">
+                        <form class="show-nav-info" style="width:100%;">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                            <ul>
+                                <li class="tiaojian">
+                                    优先条件：
+                                </li>
+                                <li>
+                                    <input type="button" value="起飞时间" class="but">
+                                </li>
+                                <li>
+                                    <input type="button" value="抵达时间" class="but">
+                                </li>
+                                <li> <input type="button" value="公务舱低价" class="but"></li>
+                                <li><input type="button" value="经济舱低价" class="but"></li>
+                            </ul>
+                            <ul class="show-nav-sort">
+                                <!-- <li>
                                 <input type="button" class="pay" value="￥结算">
                             
                             </li> -->
-                        </ul>
-                    </form>
-                </div>
-                <input type="button" class="pay" value="￥预订">
-                <h4 class="nav_tishi"></h4>
-                <h4 class="nav_tishi3"></h4>
-                <div class="nav2">
-                    <!-- 2 -->
-                    <form class="show-nav-info">
-                        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-                        <ul>
-                            <li class="tiaojian">
-                                优先条件：
-                            </li>
-                            <li>
-                                <input type="button" value="起飞时间" class="but2">
-                            </li>
-                            <li>
-                                <input type="button" value="抵达时间" class="but2">
-                            </li>
-                            <li> <input type="button" value="公务舱低价" class="but2"></li>
-                            <li><input type="button" value="经济舱低价" class="but2"></li>
-                        </ul>
-                        <ul class="show-nav-sort">
-                            <!-- <li>
+                            </ul>
+                        </form>
+                    </div>
+                    <input type="button" class="pay" value="￥预订">
+                    <h4 class="nav_tishi"></h4>
+                    <h4 class="nav_tishi3"></h4>
+                    <div class="nav2">
+                        <!-- 2 -->
+                        <form class="show-nav-info" style="width:100%;">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                            <ul>
+                                <li class="tiaojian">
+                                    优先条件：
+                                </li>
+                                <li>
+                                    <input type="button" value="起飞时间" class="but2">
+                                </li>
+                                <li>
+                                    <input type="button" value="抵达时间" class="but2">
+                                </li>
+                                <li> <input type="button" value="公务舱低价" class="but2"></li>
+                                <li><input type="button" value="经济舱低价" class="but2"></li>
+                            </ul>
+                            <ul class="show-nav-sort">
+                                <!-- <li>
                                 <input type="button" class="pay2" value="￥结算">
                                 
                             </li> -->
-                        </ul>
-                    </form>
+                            </ul>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- 选择完成时航班的展示 -->
-        <div class="show-body0">
-            <span>
-                航班信息显示qwq
-                <p>
-                    <img src="../static/s-other/1(1).png" alt="">
-                </p>
-            </span>
-        </div>
-        <div class="show-body2">
-            <span>
-                航班信息显示qwq
-                <p>
-                    <img src="../static/s-other/1(1).png" alt="">
-                </p>
-            </span>
-        </div>
-    </div>
-    <!-- 展示部分 -->
-
-    <!-- 网页底板展示 -->
-    <div id="foot">
-        <div class="foot2">
-            <h3 style="margin: auto;width:100%;">中国民航提醒您航空旅行十大风险</h3>
-            <ol style="float: left;margin-left: 450px;">
-                <li>1.疫情防控政策严 出行要求需看全</li>
-                <li>2.国际航班数量减 黄牛售票有风险</li>
-                <li>3.廉价机票销售火 退改条件限制多</li>
-                <li>4.组合航班非联程 错失中转无保证</li>
-                <li>5.行李标准有差异 购票旅行要注意</li>
-            </ol>
-            <ol style="float: right;margin-right: 450px;">
-                <li>6.陌生号码须留神 转账汇款应谨慎</li>
-                <li>7.旅行套餐品类多 选择服务莫出错</li>
-                <li>8.身体有恙应说明 特殊需求要申请</li>
-                <li>9.推销办卡有陷阱 冲动消费不可行</li>
-                <li>10.航空安全要敬畏 旅客乘机应守规</li>
-            </ol>
+            <!-- 选择完成时航班的展示 -->
+            <div class="show-body0" style="width: 1217px;height:500px;position: relative;">
+                <div class="fold_pillow" style="position:absolute;top:0px;left:0px;width:100%;height:100%;background-color: aquamarine;z-index:5;">
+                    <span>
+                        航班信息显示qwq
+                        <p>
+                            <img src="../static/s-other/1(1).png" alt="">
+                        </p>
+                    </span>
+                </div>
+                <div class="fold_pillow" style="position:absolute;top:0px;left:0px;width:100%;height:100%;background-color: aquamarine;z-index:4;">
+                    <span>
+                        航班信息显示qwq
+                        <p>
+                            <img src="../static/s-other/1(1).png" alt="">
+                        </p>
+                    </span>
+               </div>
+               <div class="fold_pillow" style="position:absolute;top:0px;left:0px;width:100%;height:100%;background-color: aquamarine;z-index:3;">
+                <span>
+                    航班信息显示qwq
+                    <p>
+                        <img src="../static/s-other/1(1).png" alt="">
+                    </p>
+                </span>
+               </div>
+               <div class="fold_pillow" style="position:absolute;top:0px;left:0px;width:100%;height:100%;background-color: aquamarine;z-index:2;">
+                <span>
+                    航班信息显示qwq
+                    <p>
+                        <img src="../static/s-other/1(1).png" alt="">
+                    </p>
+                </span>
+               </div>
+               <div class="fold_pillow" style="position:absolute;top:0px;left:0px;width:100%;height:100%;background-color: aquamarine;z-index:1;">
+                <span>
+                    航班信息显示qwq
+                    <p>
+                        <img src="../static/s-other/1(1).png" alt="">
+                    </p>
+                </span>
+               </div>
+            </div>
+            <div class="show-body2" style="width: 1217px;height:500px;position: relative;">
+                 <div class="fold_pillow2" style="position:absolute;top:0px;left:0px;width:100%;height:100%;background-color: aquamarine;z-index:5;">
+                    <span>
+                        航班信息显示qwq
+                        <p>
+                            <img src="../static/s-other/1(1).png" alt="">
+                        </p>
+                    </span>
+                 </div>
+                 <div class="fold_pillow2" style="position:absolute;top:0px;left:0px;width:100%;height:100%;background-color: aquamarine;z-index:4;">
+                    <span>
+                        航班信息显示qwq
+                        <p>
+                            <img src="../static/s-other/1(1).png" alt="">
+                        </p>
+                    </span>
+                </div>
+                <div class="fold_pillow2" style="position:absolute;top:0px;left:0px;width:100%;height:100%;background-color: aquamarine;z-index:3;">
+                    <span>
+                        航班信息显示qwq
+                        <p>
+                            <img src="../static/s-other/1(1).png" alt="">
+                        </p>
+                    </span>
+                </div>
+                <div class="fold_pillow2" style="position:absolute;top:0px;left:0px;width:100%;height:100%;background-color: aquamarine;z-index:2;">
+                    <span>
+                        航班信息显示qwq
+                        <p>
+                            <img src="../static/s-other/1(1).png" alt="">
+                        </p>
+                    </span>
+                </div>
+                <div class="fold_pillow2" style="position:absolute;top:0px;left:0px;width:100%;height:100%;background-color: aquamarine;z-index:1;">
+                    <span>
+                        航班信息显示qwq
+                        <p>
+                            <img src="../static/s-other/1(1).png" alt="">
+                        </p>
+                    </span>
+                </div>
+            </div>
+            <!-- 分页 -->
+            <div class="container" style="margin-left: 400px;">
+                <div class="prev"></div>
+                <ul class="page">
+                    <li class="page-item">1</li>
+                    <li class="page-item">2</li>
+                    <li class="page-item">3</li>
+                    <li class="page-item">4</li>
+                    <li class="page-item">5</li>
+                </ul>
+                <div class="next"></div>
+            </div>
+            <div class="container2" style="position: absolute;left: -62px;top:650px;">
+                <div class="prev2"></div>
+                <ul class="page2">
+                    <li class="page-item2">1</li>
+                    <li class="page-item2">2</li>
+                    <li class="page-item2">3</li>
+                    <li class="page-item2">4</li>
+                    <li class="page-item2">5</li>
+                </ul>
+                <div class="next2"></div>
+            </div>
         </div>
     </div>
 </body>
