@@ -72,12 +72,12 @@
             </div>
             <!-- 多程航班选择 -->
             <div class="search_many">
-                <div class="trips" style="margin-bottom:5px;">
+                <div class="trips" style="margin-bottom:5px;display: block;">
                     <span class="arrive-start"><span>出发点&nbsp&nbsp</span>
-                        <input type="text" value="城市名" class="city_first">
+                        <input type="text" value="城市名" class="city_first" style="cursor: pointer">
                     </span>
                     <span class="arrive-end"><span>目的地&nbsp&nbsp</span>
-                        <input type="text" value="城市名" class="city_second">
+                        <input type="text" value="城市名" class="city_second" style="cursor: pointer">
                     </span>
                     <span class="arrive-time">
                         <span>出发时间&nbsp&nbsp</span>
@@ -88,21 +88,20 @@
                 <span><input class="up" type="button"
                         style="position: absolute;right:5px;top:0px;border:none;font-size:large;width:50px;height:40px; background-color: slategray;cursor: pointer;"
                         value=""></span>
-                <!-- 添加按钮 -->
-                <span style="position: absolute;right: 80px;top: 30px;"><input type="button" value="再加一程"
+                <span style="position: absolute;right: 100px;top: 28px;"><input type="button" value="再加一程"
                         class="addition"></span>
-                <!-- <span style="position: absolute;right: 15px;top: 50px;"><input type="button" value="刷新"
-                       class="update"></span> -->
+                <span style="position: absolute;right: 10px;top: 40px;width:80px;height:80px;"><input type="button" value="清空"
+                        class="update"></span>
             </div>
             <!-- 单程，往返 -->
             <div class="search_single">
                 <div class="search-address">
                     <p class="xiaoxi"></p>
                     <div class="address-start"><span>出发点&nbsp&nbsp</span>
-                        <input type="text" class="citySelect" value="城市名">
+                        <input type="text" class="citySelect" value="城市名" style="cursor: pointer">
                     </div>
                     <div class="address-end"><span>目的地&nbsp&nbsp</span>
-                        <input type="text" class="citySelect1" value="城市名">
+                        <input type="text" class="citySelect1" value="城市名" style="cursor: pointer">
                     </div>
                 </div>
                 <!-- 选择时间 -->
@@ -204,7 +203,7 @@
             </div>
             <!-- 选择完成时航班的展示 -->
             <div class="show-body0" style="width: 1217px;height:500px;position: relative;">
-                <div class="fold_pillow" style="position:absolute;top:0px;left:0px;width:100%;height:100%;background-color: aquamarine;z-index:5;">
+                <div class="fold_pillow" style="position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:5;">
                     <span>
                         航班信息显示qwq
                         <p>
@@ -212,79 +211,34 @@
                         </p>
                     </span>
                 </div>
-                <div class="fold_pillow" style="position:absolute;top:0px;left:0px;width:100%;height:100%;background-color: aquamarine;z-index:4;">
-                    <span>
-                        航班信息显示qwq
-                        <p>
-                            <img src="../static/s-other/1(1).png" alt="">
-                        </p>
-                    </span>
+                <div class="fold_pillow" style="position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:4;">
+
                </div>
-               <div class="fold_pillow" style="position:absolute;top:0px;left:0px;width:100%;height:100%;background-color: aquamarine;z-index:3;">
-                <span>
-                    航班信息显示qwq
-                    <p>
-                        <img src="../static/s-other/1(1).png" alt="">
-                    </p>
-                </span>
+               <div class="fold_pillow" style="position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:3;">
+
                </div>
-               <div class="fold_pillow" style="position:absolute;top:0px;left:0px;width:100%;height:100%;background-color: aquamarine;z-index:2;">
-                <span>
-                    航班信息显示qwq
-                    <p>
-                        <img src="../static/s-other/1(1).png" alt="">
-                    </p>
-                </span>
+               <div class="fold_pillow" style="position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:2;">
+
                </div>
-               <div class="fold_pillow" style="position:absolute;top:0px;left:0px;width:100%;height:100%;background-color: aquamarine;z-index:1;">
-                <span>
-                    航班信息显示qwq
-                    <p>
-                        <img src="../static/s-other/1(1).png" alt="">
-                    </p>
-                </span>
+               <div class="fold_pillow" style="position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:1;">
+
                </div>
             </div>
             <div class="show-body2" style="width: 1217px;height:500px;position: relative;">
-                 <div class="fold_pillow2" style="position:absolute;top:0px;left:0px;width:100%;height:100%;background-color: aquamarine;z-index:5;">
-                    <span>
-                        航班信息显示qwq
-                        <p>
-                            <img src="../static/s-other/1(1).png" alt="">
-                        </p>
-                    </span>
+                 <div class="fold_pillow2" style="position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:5;">
+
                  </div>
-                 <div class="fold_pillow2" style="position:absolute;top:0px;left:0px;width:100%;height:100%;background-color: aquamarine;z-index:4;">
-                    <span>
-                        航班信息显示qwq
-                        <p>
-                            <img src="../static/s-other/1(1).png" alt="">
-                        </p>
-                    </span>
+                 <div class="fold_pillow2" style="position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:4;">
+
                 </div>
-                <div class="fold_pillow2" style="position:absolute;top:0px;left:0px;width:100%;height:100%;background-color: aquamarine;z-index:3;">
-                    <span>
-                        航班信息显示qwq
-                        <p>
-                            <img src="../static/s-other/1(1).png" alt="">
-                        </p>
-                    </span>
+                <div class="fold_pillow2" style="position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:3;">
+
                 </div>
-                <div class="fold_pillow2" style="position:absolute;top:0px;left:0px;width:100%;height:100%;background-color: aquamarine;z-index:2;">
-                    <span>
-                        航班信息显示qwq
-                        <p>
-                            <img src="../static/s-other/1(1).png" alt="">
-                        </p>
-                    </span>
+                <div class="fold_pillow2" style="position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:2;">
+
                 </div>
-                <div class="fold_pillow2" style="position:absolute;top:0px;left:0px;width:100%;height:100%;background-color: aquamarine;z-index:1;">
-                    <span>
-                        航班信息显示qwq
-                        <p>
-                            <img src="../static/s-other/1(1).png" alt="">
-                        </p>
-                    </span>
+                <div class="fold_pillow2" style="position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:1;">
+
                 </div>
             </div>
             <!-- 分页 -->

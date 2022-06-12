@@ -31,8 +31,14 @@ ValueError: not enough values to unpack (expected 3, got 2)
 [2022-06-11 14:00:01,023]-[ERROR] [run_job - 131- Job "plane_update (trigger: interval[6:00:00], next run at: 2022-06-11 20:00:00 CST)" raised an exception]
 Traceback (most recent call last):
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+>>>>>>> gzt
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 2839a220f3475462d56f034263a95b10db0ec3ef
 >>>>>>> gzt
   File "D:\Python3.10.4\lib\site-packages\apscheduler\executors\base.py", line 125, in run_job
     retval = job.func(*job.args, **job.kwargs)
@@ -43,7 +49,10 @@ Traceback (most recent call last):
 ValueError: not enough values to unpack (expected 3, got 2)
 [2022-06-11 14:00:01,023]-[ERROR] [listen_error - 554- 数据库更新时出现了错误!]
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> gzt
 =======
   File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
     response = self.full_dispatch_request()
@@ -531,4 +540,39 @@ File "Function.py", line 92:[0m
 [0m            [1m^[0m[0m
 
 >>>>>>> 1ddb831b49a9d34d0b11c014abc114e5906e0f71
+<<<<<<< HEAD
 >>>>>>> gzt
+=======
+=======
+>>>>>>> 2839a220f3475462d56f034263a95b10db0ec3ef
+>>>>>>> gzt
+[2022-06-12 20:19:17,569]-[ERROR] [log_exception - 1455- Exception on /index_ajax31 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 352, in index_ajax3
+    informations = json.loads(request.form.get('informations'))
+  File "D:\Python3.10.4\lib\json\__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not NoneType
+[2022-06-12 20:21:56,692]-[ERROR] [log_exception - 1455- Exception on /index_ajax31 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 352, in index_ajax3
+    informations = json.loads(request.form.get('informations'))
+  File "D:\Python3.10.4\lib\json\__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+TypeError: the JSON object must be str, bytes or bytearray, not NoneType
