@@ -128,11 +128,20 @@ var st,table,email;
 //勾选保险购买后对订单总价刷新
 var reg=new RegExp("￥");//删除字符
 var str5;
+var on=0;
 var buyname=document.getElementsByClassName('buyname')[0];
      buyname.addEventListener('click',function(){
-         str5=zongjia.innerHTML.replace(reg,"");
+         on++;
+         if(on%2==0){
+                str5=zongjia.innerHTML.replace(reg,"");
+         str5=parseInt(str5)-100;
+         zongjia.innerHTML="￥"+str5+"";
+         }
+         else {
+             str5=zongjia.innerHTML.replace(reg,"");
          str5=parseInt(str5)+100;
          zongjia.innerHTML="￥"+str5+"";
+         }
      })
 //购票验证
 var pay=document.getElementsByClassName('pay')[0];

@@ -2,103 +2,120 @@
 <html lang="zh-CN">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="renderer" content="webkit">
-  <title>订单</title>
-  <link rel="shortcut " href="../static/s-other/logo.ico" />
-  <link href="../static/s-css/common.css" rel="stylesheet">
-  <link rel="stylesheet" href="../static/s-css/settle.css">
-  <script src="../static/s-js/jquery.min.js"></script>
-  <link rel="stylesheet" href="../static/s-css/bootstrap.min.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <title>订单</title>
+    <link rel="shortcut " href="../static/s-other/logo.ico" />
+    <link rel="stylesheet" href="../static/s-css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/s-css/common.css">
+    <link rel="stylesheet" href="../static/s-css/settle.css">
+    <script src="../static/s-js/jquery.min.js"></script>
 </head>
+
 <body>
-  <div class="head">
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-    <div class="user">
-      尊敬的用户您的订单如下
+    <div class="head">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+        <div class="user">
+            尊敬的用户您的订单如下
+        </div>
     </div>
-  </div>
-         <input type="button" value="返回" class="settle_back">
-  <div class="body0">
-    <div class="container bg-gray-eee box-shadow mar-bottom-30"
-      style="padding-right:0px; padding-left:0px; position:relative; margin-top:120px;">
-      <div class="col-sm-7 container bg-white  pad-bottom-20">
+    <input type="button" value="返回" class="settle_back">
+    <div class="body0">
+        <div class="container bg-gray-eee box-shadow mar-bottom-20"
+            style="padding-right:0px; padding-left:0px; position:relative; margin-top:120px;">
+            <div class="col-sm-7 container bg-white  pad-bottom-20">
 
-        <div style="overflow:hidden;">
-          <h3 class="mar-bottom-20" style=" display:block; float:left;">乘机人信息</h3>
+                <div style="overflow:hidden;">
+                    <h3 class="mar-bottom-20" style=" display:block; float:left;">乘机人信息</h3>
+                </div>
+              <div style="overflow-y: scroll;height:80px;width:480px;">
+                    <div>
+                        <input name="input" type="text" class="form-control input-sm w300" style=" display: inline-block;"
+                            placeholder="姓名，与登机所持证件中的姓名一致">
+                        <select name="select" class="form-control input-sm w150" style=" display: inline-block;">
+                            <option value="成人" selected="selected">成人</option>
+                            <option value="学生">学生(未满18岁)</option>
+                        </select>
+                    </div>
+                    <div class="mar-top-10">
+                        <select name="select" class="form-control input-sm w150" style=" display: inline-block;">
+                            <option value="身份证" selected="selected">身份证</option>
+                            <option>护照</option>
+                            <option>外国人永久居留身份证</option>
+                            <option>港澳台居民居住证</option>
+                        </select>
+                        <input name="input" type="text" class="form-control input-sm w300" style=" display: inline-block;"
+                            placeholder="证件号码">
+                    </div>
+                    <div class="mar-top-10">
+                        <input name="input" type="text" class="form-control input-sm w300" style=" display: inline-block;"
+                            placeholder="姓名，与登机所持证件中的姓名一致">
+                        <select name="select" class="form-control input-sm w150" style=" display: inline-block;">
+                            <option value="成人" selected="selected">成人</option>
+                            <option value="学生">学生(未满18岁)</option>
+                        </select>
+                    </div>
+                    <div class="mar-top-10">
+                        <select name="select" class="form-control input-sm w150" style=" display: inline-block;">
+                            <option value="身份证" selected="selected">身份证</option>
+                            <option>护照</option>
+                            <option>外国人永久居留身份证</option>
+                            <option>港澳台居民居住证</option>
+                        </select>
+                        <input name="input" type="text" class="form-control input-sm w300" style=" display: inline-block;"
+                            placeholder="证件号码">
+                    </div>
+                </div>
+                <div class=" mar-top-10">
+                    <input type="button" value="添加乘机人" class="btn btn-danger zw2">
+                </div>
+                <!-- 保险 -->
+                <div style="position:relative;">
+                    <h3>保险</h3>
+                    <span>航意险：</span>
+                    <label for="a"><input id="a" type="checkbox" value="buy" class="buyname">&nbsp&nbsp购买</label>
+                    <!--航意险说明-->
+                    <div style="width:460px; border:1px solid #C4C4C4; padding:5px; position:absolute; left:0px; top:75px; background-color:#eee;"
+                        class="explain">
+                        <h5>航意险说明</h5>
+                        <p>1.保险费：<i class="rmb">¥</i>100/份。保险金额及保险责任：<i class="rmb">¥</i>300万/份。航空意外保险金额由我们中国民航公司全权负责
+                        </p>
+                        <p>2.保险购买即生效，不可单独退保。机票退款后，自动退保。机票改签后，保险责任保护到改签后航班。提供保险定额发票作为报销凭证。</p>
+                    </div>
+                </div>
+                <div class="ban"></div>
+                <!-- 报销 -->
+                <h3>报销</h3>
+                <label for="b"><input id="b" type="checkbox" name="choice">&nbsp;需要报销凭证</label><span
+                    style=" color:#999;">（含：行程单和差额发票，快递费发票）</span>
+
+            </div>
+            <!-- 订单左边 -->
+            <!-- 订单右边 -->
+            <div class="col-sm-5 bg-gray-eee">
+                <!-- <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}"> -->
+                <div id="list_hang" style="overflow:auto;height: 450px;width: 500px;">
+                </div>
+                <div style="width:100%;height: 40px;">
+                    <h4>订单总价</h4>
+                    <h3 class="zongjia" style="width:77px;float:right;color: coral;margin-top: -30px;"></h3>
+                </div>
+                <!-- n内容 -->
+            </div>
+
         </div>
-
-        <div>
-          <input name="input" type="text" class="form-control input-sm w300" style=" display: inline-block;"
-            placeholder="姓名，必须与登机所持证件中的姓名一致">
-          <select name="select" class="form-control input-sm w150" style=" display: inline-block;">
-            <option value="成人" selected="selected">成人</option>
-            <option value="学生">学生</option>
-            <option value="儿童">儿童</option>
-          </select>
-        </div>
-
-        <div class="mar-top-10">
-          <select name="select" class="form-control input-sm w150" style=" display: inline-block;">
-            <option value="身份证" selected="selected">身份证</option>
-            <option>护照</option>
-            <option>外国人永久居留身份证</option>
-            <option>港澳台居民居住证</option>
-          </select>
-          <input name="input" type="text" class="form-control input-sm w300" style=" display: inline-block;"
-            placeholder="证件号码">
-        </div>
-
-        <!-- 保险 -->
-        <div style="position:relative;">
-
-          <h3 class="mar-bottom-20">保险</h3>
-          <span>航意险：</span>
-          <label for="a"><input id="a" type="checkbox" value="buy" class="buyname">&nbsp&nbsp购买</label>
-          <!--航意险说明-->
-          <div
-            style="width:460px; border:1px solid #C4C4C4; padding:5px; position:absolute; left:0px; top:75px; background-color:#eee;"
-            class="explain">
-            <h5>航意险说明</h5>
-            <p>1.保险费：<i class="rmb">¥</i>100/份。保险金额及保险责任：<i class="rmb">¥</i>300万/份。航空意外保险金额由我们中国民航公司全权负责</p>
-            <p>2.保险购买即生效，不可单独退保。机票退款后，自动退保。机票改签后，保险责任保护到改签后航班。提供保险定额发票作为报销凭证。</p>
-          </div>
-
-        </div>
-
-        <div class="ban"></div>
-
-        <!-- 报销 -->
-        <h3 class="mar-bottom-20">报销</h3>
-        <label for="b"><input id="b" type="checkbox" name="choice">&nbsp;需要报销凭证</label><span
-          style=" color:#999;">（含：行程单和差额发票，快递费发票）</span>
-
-      </div>
-      <!-- 订单左边 -->
-      <!-- 订单右边 -->
-      <div class="col-sm-5 bg-gray-eee">
-        <!-- <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}"> -->
-        <div id="list_hang" style="overflow:auto;height: 450px;width: 500px;">
-        </div>
-        <div style="width:100%;height: 40px;">
-          <h4>订单总价</h4>
-          <h3 class="zongjia" style="width:77px;float:right;color: coral;margin-top: -30px;"></h3>
-        </div>
-        <!-- n内容 -->
-      </div>
-
     </div>
-  </div>
-  <div class="foot">
-    <span style="font-size:25px ;"><label for="input"><input type="checkbox" id="input"
-          style="width: 20px;height:20px;display:inline-block;">同意相关协议</label>
-    </span>
-    <input type="button" value="支付" class="pay" style="font-size: 17px;">
-  </div>
+    <div class="foot">
+        <span style="font-size:25px ;"><label for="input"><input type="checkbox" id="input"
+                    style="width: 20px;height:20px;display:inline-block;">同意相关协议</label>
+        </span>
+        <input type="button" value="支付" class="pay" style="font-size: 17px;">
+    </div>
 </body>
 
 <script src="../static/s-js/settle.js">
 </script>
+
 </html>

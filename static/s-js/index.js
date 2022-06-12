@@ -2,11 +2,52 @@
 var gobtn = document.getElementById('gobtn');//去程选择按钮
 var nav_first = document.getElementsByClassName('nav0')[0];
 var nav_second = document.getElementsByClassName('nav2')[0];
+//获取多程数据的数组
+var city_first = document.getElementsByClassName('city_first');
+var city_second = document.getElementsByClassName('city_second');
+var time_first = document.getElementsByClassName('time_first');
+//打包多程航班数据
+var update=document.getElementsByClassName('update')[0];
+var trips=document.getElementsByClassName('trips');
+var count=0;
+update.addEventListener('click',function (){
+     num2=-1;
+     count=0;
+     addition.className="addition";
+     pay.value='选为第1程';
+               for (let i=1;i<trips.length;i++)
+     {
+          city_first[i].value="0";
+     }
+          for (let i=1;i<trips.length;i++)
+     {
+          trips[i].style.display='none';
+     }
+})
+var send_data = [];//count 计算用户选了几程 ，send_data数组里的元素是 航班数据json对象
+function package() {
+    // for (let i = 0; i < city_first.length; i++) {
+    //     send_data[i] = {
+    //         "acity": city_first[i].value, "bcity": city_second[i].value, "adate": time_first[i].value
+    //     }
+    // }
+    for (let i = 0; i < city_first.length; i++) {
+        if(city_first[i].value!="0"){
+            send_data[i] = [
+            city_first[i].value, city_second[i].value, time_first[i].value
+        ]
+        }
+    }
+    console.log(send_data)
+}
 //状态码
 var end;
 var go_back;
+var fold_pillow=document.getElementsByClassName('fold_pillow');
+var fold_pillow2=document.getElementsByClassName('fold_pillow2');
 gobtn.addEventListener('click', function () {
-    go_back=1;
+    container.style.visibility="visible";
+    container2.style.visibility="hidden";
     nav_first.className = "nav0";
     nav_second.className = "nav2";
     gobtn.style.backgroundColor = 'gray';
@@ -24,6 +65,8 @@ var showbodyf = document.getElementsByClassName('show-body0')[0];//去程的航�
 var showbodys = document.getElementsByClassName('show-body2')[0];//返程的航班展示
 backbtn.addEventListener('click', function () {
     go_back=2;
+    container.style.visibility="hidden";
+    container2.style.visibility="visible";
     nav_second.className = "nav0";
     nav_first.className = "nav2";
     backbtn.style.backgroundColor = 'gray';
@@ -34,9 +77,11 @@ backbtn.addEventListener('click', function () {
 function check(){
     for(let i=0;i<city_first.length;i++)
     {
-        if(city_first[i].value=="城市名"||city_second[i].value=="城市名"||time_first[i].value=="")
+        if(city_first[i].value!="0"){
+            if(city_first[i].value=="城市名"||city_second[i].value=="城市名"||time_first[i].value=="")
         {
             return 1;
+        }
         }
     }
     return 0;
@@ -70,6 +115,8 @@ discover_btn.addEventListener('click', function () {
         cover.style.height = document.body.clientHeight + 'px';
         cover.className = 'cover2';
         search_animation.className = 'ifa2';
+        clearfold();
+        console.log(send_data)
         setTimeout(function () {
             cover.className = 'cover';
             search_animation.className = 'ifa';//计算动画时间，时间到将其关闭
@@ -120,9 +167,11 @@ hidden.addEventListener('click', function () {
 
 //优先条件排序
 var container=document.getElementsByClassName('container')[0];
+var container2=document.getElementsByClassName('container2')[0];
 var btn_go = document.getElementsByClassName('but');//去程优先条件按钮数组
 var btn_back = document.getElementsByClassName('but2');//返程优先条件按钮数组
 //去程条件排序
+var out="",out2="";
 for (let k = 0; k < btn_go.length; k++) {
     btn_go[k].addEventListener('click', function () {
         for (let j = 0; j < btn_go.length; j++) {
@@ -130,8 +179,7 @@ for (let k = 0; k < btn_go.length; k++) {
         }
         this.style.backgroundColor = 'darkgray';
         if (k == 0) {
-            end=0;
-            for (let i = 0; i < arr2.length; i++) {
+            for (let i = 0; i < arr2.length&&i<25; i++) {
                 str = arr2[i] + ',g';
                 str2 = arr2[i] + ',j';
                 out += "<div" + " " + "class=" + "xinxi" + ">" +
@@ -176,7 +224,7 @@ for (let k = 0; k < btn_go.length; k++) {
             }
         }
         if (k == 1) {
-            for (let i = 0; i < arr3.length; i++) {
+            for (let i = 0; i < arr3.length&&i<25; i++) {
                 str = arr3[i] + ',g';
                 str2 = arr3[i] + ',j';
                 out += "<div" + " " + "class=" + "xinxi" + ">" +
@@ -221,7 +269,7 @@ for (let k = 0; k < btn_go.length; k++) {
             }
         }
         if (k == 2) {
-            for (let i = 0; i < arr4.length; i++) {
+            for (let i = 0; i < arr4.length&&i<25; i++) {
                 str = arr4[i] + ',g';
                 str2 = arr4[i] + ',j';
                 out += "<div" + " " + "class=" + "xinxi" + ">" +
@@ -266,7 +314,7 @@ for (let k = 0; k < btn_go.length; k++) {
             }
         }
         if (k == 3) {
-            for (let i = 0; i < arr5.length; i++) {
+            for (let i = 0; i < arr5.length&&i<25; i++) {
                 str = arr5[i] + ',g';
                 str2 = arr5[i] + ',j';
                 out += "<div" + " " + "class=" + "xinxi" + ">" +
@@ -320,7 +368,7 @@ for (let k = 0; k < 4; k++) {
         }
         this.style.backgroundColor = 'darkgray';
         if (k == 0) {
-            for (let i = 0; i < brr2.length; i++) {
+            for (let i = 0; i < brr2.length&&i<25; i++) {
                 str = brr2[i] + ',g';
                 str2 = brr2[i] + ',j';
                 out2 += "<div" + " " + "class=" + "xinxi" + ">" +
@@ -365,7 +413,7 @@ for (let k = 0; k < 4; k++) {
             }
         }
         if (k == 1) {
-            for (let i = 0; i < brr3.length; i++) {
+            for (let i = 0; i < brr3.length&&i<25; i++) {
                 str = brr3[i] + ',g';
                 str2 = brr3[i] + ',j';
                 out2 += "<div" + " " + "class=" + "xinxi" + ">" +
@@ -410,7 +458,7 @@ for (let k = 0; k < 4; k++) {
             }
         }
         if (k == 2) {
-            for (let i = 0; i < brr4.length; i++) {
+            for (let i = 0; i < brr4.length&&i<25; i++) {
                 str = brr4[i] + ',g';
                 str2 = brr4[i] + ',j';
                 out2 += "<div" + " " + "class=" + "xinxi" + ">" +
@@ -455,7 +503,7 @@ for (let k = 0; k < 4; k++) {
             }
         }
         if (k == 3) {
-            for (let i = 0; i < brr5.length; i++) {
+            for (let i = 0; i < brr5.length&&i<25; i++) {
                 str = brr5[i] + ',g';
                 str2 = brr5[i] + ',j'
                 out2+="<div" + " " + "class=" + "xinxi" + ">" +
@@ -529,7 +577,7 @@ pay.addEventListener('click', function () {
     }
 });
 //发送用户选择的航班数据ajax
-var cang, num = -1, go_data, back_data, go_radio, back_radio, send = [100];
+var cang, num2 = -1, go_data, back_data, go_radio, back_radio, send = [100];
 function settlement() {
     go_radio = document.getElementsByName('a');
     back_radio = document.getElementsByName('b');
@@ -590,7 +638,7 @@ function settlement() {
         )
     }
     if (st == 3) {
-        num++;//记录选啦几次
+        num2++;//记录选啦几次
         for (let i = 0; i < go_radio.length; i++) {
             if (go_radio[i].checked) {
                 go_data = go_radio[i].value;
@@ -600,7 +648,7 @@ function settlement() {
         go_data = go_data.split(',');
         send = go_data;
         ////选的次数与预选航班数一致
-        if (num == count) {
+        if (num2 == count) {
             $.ajax(
                 {
                     url: '/index_ajax4',
@@ -645,7 +693,7 @@ function settlement() {
                             arr3 = JSON.parse(data['arrival_sort']);
                             arr4 = JSON.parse(data['First_class']);
                             arr5 = JSON.parse(data['economy_class']);
-                            for (let i = 0; i < arr.length; i++) {
+                            for (let i = 0; i < arr.length&&i<25; i++) {
                                 str = arr[i] + ',g';
                                 str2 = arr[i] + ',j';
                                 out += "<div" + " " + "class=" + "xinxi" + ">" +
@@ -678,8 +726,8 @@ function settlement() {
                                 add();
                                 num++;
                             }
-                            num=0;
-                            pay.value = "选为第" + (num + 2) + "程";
+                            num2=0;
+                            pay.value = "选为第" + (num2 + 2) + "程";
                             refound();
                             out = "";//清空out数据
                         }
@@ -734,17 +782,19 @@ double.addEventListener('click', function () {
     pay.value = "￥预订";
 })
 //addition是添加按钮，再加一程
+var countter=0;
 addition.addEventListener('click', function () {
+    countter++;
     search_many.appendChild(search_many.children[0].cloneNode(true));
     up.value = "收起";
     search_many.className = "search_many2";
     count += 1;
-    time_first[count].value = "";
-    city_first[count].value = "城市名";
-    city_second[count].value = "城市名";
-    var test = new Vcity.CitySelector({ input: 'city_first', site: count });
-    var test = new Vcity.CitySelector({ input: 'city_second', site: count });
-    decline[count].value = "第 " + (count + 1) + " 程";
+    time_first[countter].value = "";
+    city_first[countter].value = "城市名";
+    city_second[countter].value = "城市名";
+    var test = new Vcity.CitySelector({ input: 'city_first', site: countter });
+    var test = new Vcity.CitySelector({ input: 'city_second', site: countter });
+    decline[countter].value = "第 " + (count + 1) + " 程";
     if(count==5){
         addition.className="hidden";
     }
@@ -773,25 +823,6 @@ var brr = [], brr2 = [], brr3 = [], brr4 = [], brr5 = [];//返程
 var out = "", out2 = "", st = 1;// 规定单程已经勾选 out展示去程，out2展示返程，模板字符串
 var str, str2;//用于添加g,j;
 // 针对单程和往返
-
-//获取多程数据的数组
-var city_first = document.getElementsByClassName('city_first');
-var city_second = document.getElementsByClassName('city_second');
-var time_first = document.getElementsByClassName('time_first');
-//打包多程航班数据
-var send_data = [], count = 0;//count 计算用户选了几程 ，send_data数组里的元素是 航班数据json对象
-function package() {
-    // for (let i = 0; i < city_first.length; i++) {
-    //     send_data[i] = {
-    //         "acity": city_first[i].value, "bcity": city_second[i].value, "adate": time_first[i].value
-    //     }
-    // }
-    for (let i = 0; i < city_first.length; i++) {
-        send_data[i] = [
-            city_first[i].value, city_second[i].value, time_first[i].value
-        ]
-    }
-}
 // ajax请求数据
 function reqfirst() {
     // 单程数据ajax
@@ -817,7 +848,6 @@ function reqfirst() {
                     fold_pillow[0].style.zIndex=1000;
                     fold_pillow[0].innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
                     arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
-                    container.style.visibility="hidden";
                 }
                 if (data['string'] === "2") {
                     container.style.visibility="visible";
@@ -826,7 +856,7 @@ function reqfirst() {
                     arr3 = JSON.parse(data['arrival_sort']);
                     arr4 = JSON.parse(data['First_class']);
                     arr5 = JSON.parse(data['economy_class']);
-                    for (let i = 0; i < arr.length; i++) {
+                    for (let i = 0; i < arr.length&&i<25; i++) {
                         str = arr[i] + ',g';
                         str2 = arr[i] + ',j';
                         out += "<div" + " " + "class=" + "xinxi" + ">" +
@@ -900,7 +930,6 @@ function reqfirst() {
                 }
                 if (data['string'] === "2") {
                     container.style.visibility="visible";
-                    container2.style.visibility="visible";
                     arr = JSON.parse(data['a_common']);
                     arr2 = JSON.parse(data['a_go_sort']);
                     arr3 = JSON.parse(data['a_arrival_sort']);
@@ -911,7 +940,7 @@ function reqfirst() {
                     brr3 = JSON.parse(data['b_arrival_sort']);
                     brr4 = JSON.parse(data['b_First_class']);
                     brr5 = JSON.parse(data['b_economy_class']);
-                    for (let i = 0; i < arr.length; i++) {
+                    for (let i = 0; i < arr.length&&i<25; i++) {
                         str = arr[i] + ',g';
                         str2 = arr[i] + ',j';
                         out += "<div" + " " + "class=" + "xinxi" + ">" +
@@ -946,7 +975,7 @@ function reqfirst() {
                     }
                     num=0;
                     out = "";//清空out数据
-                    for (let i = 0; i < brr.length; i++) {
+                    for (let i = 0; i < brr.length&&i<25; i++) {
                         str = brr[i] + ',g';
                         str2 = brr[i] + ',j'
                         out2 += "<div" + " " + "class=" + "xinxi" + ">" +
@@ -989,13 +1018,13 @@ function reqfirst() {
     if (st == 3) {
         $.ajax({
             type: 'post',
-            url: '/index_ajax3',
+            url: '/index_ajax31',
             contentType: "application/json",
             data: JSON.stringify(send_data),
             dataType: 'json',
-            async: false,
+            // async: false,
             error: function (request) {
-                alert('cuowu');
+                alert(send_data);
             },
             success: function (data) {
                 if (data['string'] === "0") {
@@ -1005,20 +1034,19 @@ function reqfirst() {
                     arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
                 }
                 if (data['string'] === "1") {
-                    container2.style.visibility="hidden";
-                    fold_pillow2[0].style.zIndex=1000;
-                    fold_pillow2[0].innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+                    container.style.visibility="hidden";
+                    fold_pillow[0].style.zIndex=1000;
+                    fold_pillow[0].innerHTML = "<span>" + "没有航班了呦" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
                     arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
                 }
                 if (data['string'] === "2") {
                     container.style.visibility="visible";
-                    container2.style.visibility="visible";
                     arr = JSON.parse(data['common']);
                     arr2 = JSON.parse(data['go_sort']);
                     arr3 = JSON.parse(data['arrival_sort']);
                     arr4 = JSON.parse(data['First_class']);
                     arr5 = JSON.parse(data['economy_class']);
-                    for (let i = 0; i < arr.length; i++) {
+                    for (let i = 0; i < arr.length&&i<25; i++) {
                         str = arr[i] + ',g';
                         str2 = arr[i] + ',j';
                         out += "<div" + " " + "class=" + "xinxi" + ">" +
@@ -1058,10 +1086,7 @@ function reqfirst() {
         });
     }
 }
-//翻页
 var num=0;
-var fold_pillow=document.getElementsByClassName('fold_pillow');
-var fold_pillow2=document.getElementsByClassName('fold_pillow2');
 function add(){
     fold_pillow[num].innerHTML=out;
     out="";
