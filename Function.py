@@ -4,6 +4,7 @@ import pandas, pickle, os, random, time, copy,numpy,numba,json
 def delete_log_byhand():#删除日志
     os.remove('./files/logs/flask.log')
 
+
 def get_date(date_time:str)->str:#解析日期
     return date_time.split(' ')[0]
 
@@ -98,6 +99,7 @@ def create_String(n:int=6)->str:#生成随机字符串
     return ''.join(random.sample('abcdefghijklmnopqrstuvwxyz0123456789', n))
 
 
+
 def set_task(arr: list):
     """
     设置任务函数，每成功购票一次，就会设置任务
@@ -135,12 +137,13 @@ def planes_Update_Function():
             f.truncate()  # 完成所有task之后，清空这个写有任务的pickle文件
 
 
+
 @numba.jit(nopython=True,cache=True,nogil=True)#采用numba的LLVM编译器编译优化排序算法
 def sort_planes_cost(result)->tuple:#按价格升序
     """
     航班信息按照价格排序
     :param result: 航班信息
-    :return:元组，第一项是按照经济舱价格升序，第二项时按照公务舱价格升序
+    :return:元组，第一项是按照经济舱价格升序，第二项是按照公务舱价格升序
     """
     for i in range(len(result) - 1):
         index = i
@@ -172,7 +175,7 @@ def sort_planes_time(result: list) -> tuple:#按时间排序
     """
     航班信息按照时间排序
     :param result: 二维数组：航班信息
-    :return: 元组，第一项是按照出发时间排序，第二项时按照到达时间排序
+    :return: 元组，第一项是按照出发时间排序，第二项是按照到达时间排序
     """
     t = [(lambda x:[int(x[0]),int(x[1])])(i[4].split(' ')[1].split(':')[0:2]) for i in result]#建立时间的映像
     for i in range(len(result) - 1):#选择排序
@@ -197,8 +200,6 @@ def sort_planes_time(result: list) -> tuple:#按时间排序
 
 
 
-
-
 def select_planes(info: tuple):
     """
     :param info:出发城市，到达城市，出发日期
@@ -207,10 +208,13 @@ def select_planes(info: tuple):
     acity,bcity, date = info
     result = []
     try:
+        # 试图打开城市航班信息文件
         city_excel = pandas.read_pickle('./files/citys/' + acity + '.pickle')
     except:
+        # 若打开失败则直接返回
         return False
     a = city_excel.query("到达城市==@bcity")  # 第一轮（城市）筛选后
+    # 若未能查找出相关信息，则返回None
     if len(a) == 0:
         return None
     b = [i.split(' ')[0] for i in a['出发时间'].values]
@@ -222,6 +226,7 @@ def select_planes(info: tuple):
         # 把筛选后的结果变成Python列表追加到结果列表中
         result.append(numpy.insert(z[i], 0, index[i],axis=0).tolist())
     return result
+
 
 
 def judgeDate(adate:str,bdate:str)->bool:
@@ -245,8 +250,6 @@ def judgeDate(adate:str,bdate:str)->bool:
             new = str(hour) + other
             if b[1] >= new:
                 return True
-
-
 
 
 
@@ -283,6 +286,8 @@ class emails_db:
     def __repr__(self):
         emails = pandas.read_pickle(self.path)
         return (emails.values)
+
+
 
 def delete_email_account(account):
     path = './files/emails.pickle'

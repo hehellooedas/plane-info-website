@@ -67,10 +67,10 @@ body{
     height: 650px;
 }
 .cover{
-    background-color: #222;position: absolute; left: 0px; top: 0px; width: 100%; filter: alpha(opacity=30); opacity: 0.3; display: none; z-index: 10000;
+    background: rgba(0, 0, 0, 0.3);position: absolute; left: 0px; top: 0px; width: 100%; filter: alpha(opacity=30); opacity: 0.3; display: none; z-index: 10000;
 }
 .cover2{
-    background-color: #222;position: absolute; left: 0px; top: 0px; width: 100%; filter: alpha(opacity=30); opacity: 0.3; display: block; z-index: 10000;
+    background: rgba(0, 0, 0, 0.3);position: absolute; left: 0px; top: 0px; width: 100%; filter: alpha(opacity=30); opacity: 0.3; display: block; z-index: 10000;
 }
 .search{
     position: relative;
@@ -80,7 +80,7 @@ body{
     cursor: pointer;
     width: 45px;
     height: 25px;
-    background-color: antiquewhite;
+    background-color: #5bc0de;
     box-shadow: 0 3px #999;
     border-radius:5px;
 }
@@ -338,12 +338,7 @@ body{
     height: 40px;
     border-radius: 5px;
     background-color: #999;
-    box-shadow: 0 3px #999;
     margin-left: 30px;
-}
-.decline:active{    
-        box-shadow: 0 1px #666;
-        transform: translateY(4px);
 }
 .time-start{
     border: 2px solid black;
