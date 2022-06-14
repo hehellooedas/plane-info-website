@@ -63,9 +63,30 @@
     width: 80px;
     padding-top: 15px;
   }
-
   .show-bot2 {
     height: 80px;
     width: 80px;
     padding-top: 15px;
   }
+.passengersl{
+    overflow-y: scroll;
+    height:80px;
+    width:480px;
+}
+.jia{
+    display: none;
+    overflow-y: scroll;
+    height:80px;
+    width:480px;
+}
+.passengersl2{
+    background-color: #4d5b69;
+    z-index: 1000;
+    height: 350px;
+    width:480px;
+    position: absolute;
+    top: 50px;
+    border-radius: 5px;
+}
+
+

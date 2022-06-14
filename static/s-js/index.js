@@ -15,6 +15,9 @@ update.addEventListener('click',function (){
      count=0;
      addition.className="addition";
      pay.value='选为第1程';
+     city_first[0].value="";
+     city_second[0].value="";
+     time_first[0].value="";
                for (let i=1;i<trips.length;i++)
      {
           city_first[i].value="0";
@@ -26,11 +29,6 @@ update.addEventListener('click',function (){
 })
 var send_data = [];//count 计算用户选了几程 ，send_data数组里的元素是 航班数据json对象
 function package() {
-    // for (let i = 0; i < city_first.length; i++) {
-    //     send_data[i] = {
-    //         "acity": city_first[i].value, "bcity": city_second[i].value, "adate": time_first[i].value
-    //     }
-    // }
     for (let i = 0; i < city_first.length; i++) {
         if(city_first[i].value!="0"){
             send_data[i] = [
@@ -38,11 +36,9 @@ function package() {
         ]
         }
     }
-    console.log(send_data)
 }
 //状态码
-var end;
-var go_back;
+var end,go_back;
 var fold_pillow=document.getElementsByClassName('fold_pillow');
 var fold_pillow2=document.getElementsByClassName('fold_pillow2');
 gobtn.addEventListener('click', function () {
@@ -74,6 +70,7 @@ backbtn.addEventListener('click', function () {
     showbodyf.className="show-body2";
     showbodys.className="show-body0";
 });
+// 检查是否信息完整
 function check(){
     for(let i=0;i<city_first.length;i++)
     {
@@ -675,15 +672,19 @@ function settlement() {
                     },
                     success: function (data) {
                         if (data['string'] === "0") {
+                            clearfold();
+                            pay.value = "选为第" + (num2 + 2) + "程";
                             container.style.visibility="hidden";
                             fold_pillow[0].style.zIndex=1000;
                             fold_pillow[0].innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
                             arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
                         }
                         if (data['string'] === "1") {
+                            clearfold();
+                            pay.value = "选为第" + (num2 + 2) + "程";
                             container.style.visibility="hidden";
                             fold_pillow[0].style.zIndex=1000;
-                            fold_pillow[0].innerHTML = "<span>" + "服务器正在更新" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
+                            fold_pillow[0].innerHTML = "<span>" + "没有航班了哟" + "<p>" + "<img" + " " + "src=" + "../static/s-other/1(1).png" + ">" + "</span>";
                             arr = [], arr2 = [], arr3 = [], arr4 = [], arr5 = [];//清空数据
                         }
                         if (data['string'] === "2") {
@@ -726,7 +727,7 @@ function settlement() {
                                 add();
                                 num++;
                             }
-                            num2=0;
+                            num=0;
                             pay.value = "选为第" + (num2 + 2) + "程";
                             refound();
                             out = "";//清空out数据
@@ -1021,7 +1022,7 @@ function reqfirst() {
             url: '/index_ajax31',
             data: {'informations':JSON.stringify(send_data)},
             dataType: 'json',
-            // async: false,
+            async: false,
             error: function (request) {
                 alert(send_data);
             },
