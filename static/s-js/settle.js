@@ -6,6 +6,29 @@ var str=" ",cang,money,date,date2;
 var sum=0;//计算总价
 var cang2=[10];//对多个航程的舱位储存
 var money2=[10];//对多个航程的价格储存
+//添加乘客
+var jia=document.getElementsByClassName('jia')[0];
+var input=document.getElementsByName('input');
+var pass=[];
+function pack(){
+    for (let i=0;i<input.length;i++){
+        pass[i]=input[i].value;
+    }
+    console.log(pass);
+}
+var up =document.getElementsByClassName('up')[0];
+    var passengersl=document.getElementsByClassName('passengersl')[0];
+    var addl=document.getElementById('addl');
+    addl.addEventListener('click',function (){
+        passengersl.className='passengersl2';
+        up.style.display='block';
+        jia.style.display="flex";
+    })
+up.addEventListener('click',function (){
+     passengersl.className='passengersl';
+     up.style.display='none';
+     jia.style.display="none";
+})
 function pan(){
     if(table[12]=="g")
             {
@@ -120,6 +143,8 @@ var st,table,email;
           st = data['st'];
           table = JSON.parse(data['table']);
           email = data['email'];
+          var namepass=document.getElementsByClassName('namepass')[0];
+          namepass.innerHTML='您本人:'+email;
           add();
         }
       }
@@ -133,7 +158,7 @@ var buyname=document.getElementsByClassName('buyname')[0];
      buyname.addEventListener('click',function(){
          on++;
          if(on%2==0){
-                str5=zongjia.innerHTML.replace(reg,"");
+             str5=zongjia.innerHTML.replace(reg,"");
          str5=parseInt(str5)-100;
          zongjia.innerHTML="￥"+str5+"";
          }
@@ -144,11 +169,20 @@ var buyname=document.getElementsByClassName('buyname')[0];
          }
      })
 //购票验证
+var obj;
 var pay=document.getElementsByClassName('pay')[0];
     pay.addEventListener('click',function(){
+        pack();
+        if(pass.length>0){
+            obj={"emails":JSON.stringify(pass)};
+        }
+        else{
+            obj={};
+        }
       $.ajax({
         type: 'POST',
         url: '/settlement',
+          data:obj,
         dataType: 'text',
         async: false,
         headers: { "X-CSRFToken": csrf_token },
@@ -167,6 +201,7 @@ var pay=document.getElementsByClassName('pay')[0];
     $.ajax({
         type: 'DELETE',
         url: '/settlement_ajax',
+        data:{"emails":JSON.stringify(pass)},
         dataType: 'text',
         async: false,
         headers: { "X-CSRFToken": csrf_token },
