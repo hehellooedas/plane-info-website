@@ -1,5 +1,4 @@
-import requests, fake_useragent
-import json,  time, random,hashlib,openpyxl,multiprocessing
+import requests, fake_useragent,json,  time, random,hashlib,openpyxl,multiprocessing
 
 ua = fake_useragent.UserAgent()
 city = {'深圳': 'SZX', '无锡': 'WUX', "北京": "BJS", "上海": "SHA", "广州": "CAN", "成都": "CTU", "杭州": "HGH", "武汉": "WUH",

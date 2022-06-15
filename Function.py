@@ -26,7 +26,10 @@ def get_Szm(city: str) -> str:
     table = {
         '三亚': "SYX", '上海': "SHA", "北京": "BJS", "南京": "NKG", "厦门": "XMN", "大连": "DLC", "广州": "CAN", "成都": "CTU",
         "昆明": "KMG", "杭州": "HGH", "武汉": "WUH", "济南": "TNA", '深圳': 'SZX', "福州": "FOC", "郑州": "CGO", "西安": "SIA",
-        "重庆": "CKG", "长沙": "CSX", "青岛": "TAO"
+        "重庆": "CKG", "长沙": "CSX", "青岛": "TAO",'北海': 'BHY','承德': 'CDE','长春': 'CGQ', '朝阳': 'CHG','常州': 'CZX', '大同': 'DAT',
+        '义乌': 'YIW','烟台': 'YNT','扬州': 'YTY','西双版纳': 'JHG','佛山': 'FUO','合肥': 'HFE', '九江': 'JIU', '洛阳': 'LYA','宁波': 'NGB',
+        '南阳': 'NNY','南通': 'NTG','南宁': 'NNG', '攀枝花': 'PZI','衢州': 'JUZ','沈阳': 'SHE', '温州': 'WNZ',"天津": "TSN", '无锡': 'WUX',
+        '舟山': 'HSN','珠海': 'ZUH', '遵义(新舟)': 'ZYI'
     }
     return table.get(city)
 
@@ -83,10 +86,11 @@ def get_content_multiply(num,tables,email,url):
     :param url: 航班推荐网站网址
     :return: 邮件内容
     """
-    cabins = []
+    content = f'【民航行程信息】您的多程机票已于{get_Time()}支付成功。'
     for i in range(num):
-        cabins.append('经济舱' if tables[i][-1]=='j' else '公务舱')
-    ...
+        cabin = '经济舱' if tables[i][-1]=='j' else '公务舱'
+        content += f'第{i+1}程：{get_date(tables[i][0])}'
+
 
 
 

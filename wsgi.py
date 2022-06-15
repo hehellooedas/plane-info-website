@@ -466,19 +466,29 @@ def settlement():
     settlement = session.get('settlement')
     if g.email and g.login_status and settlement:
         email = g.email
-        if request.form.get('emails') is not None:
-            emails = json.loads(request.form.get('emails'))
         st = session.get('st')
         if request.method == 'POST':  # 支付按钮
+            if request.form.get('emails') is None: #用户没有添加乘客的行为
+                emails = None
+            else: #用户添加乘客，选择购买多张机票
+                emails = json.loads(request.form.get('emails')) #获取乘客邮箱地址列表
+                emails.append(email) #把当前登录用户的邮箱地址加入到列表中
             if st == '1':  # 单程
                 table = json.loads(session.get('table'))
                 cabin = '经济舱' if table[-1] == 'j' else '公务舱'  # 判断是经济舱还是公务舱
-                #设置任务
-                Function.set_task([table[6], table[0], 1])
-                #发送邮件
-                Thread_Pool.submit(send_email, (app, email, '购票通知', Function.get_content_single(
-                    table[1], table[2], table[6], table[7], table[4], table[5], cabin
-                ) + f'{email}。详细信息请访问{request.host_url}'))
+                if emails is None:
+                    # 设置任务
+                    Function.set_task([table[6], table[0], 1])
+                    #发送邮件
+                    Thread_Pool.submit(send_email, (app, email, '购票通知', Function.get_content_single(
+                        table[1], table[2], table[6], table[7], table[4], table[5], cabin
+                    ) + f'{email}。详细信息请访问{request.host_url}'))
+                else:
+                    Function.set_task([table[6], table[0], len(emails)])
+                    for each_email in emails:
+                        Thread_Pool.submit(send_email, (app, each_email, '购票通知', Function.get_content_single(
+                            table[1], table[2], table[6], table[7], table[4], table[5], cabin
+                        ) + f'{email}。详细信息请访问{request.host_url}'))
             elif st == '2':  # 往返
                 table = json.loads(session.get('table'))
                 Function.set_task([table[0][6], table[0][0], 1])
@@ -486,27 +496,44 @@ def settlement():
                 cabin1 = '经济舱' if table[0][-1] == 'j' else '公务舱'
                 cabin2 = '经济舱' if table[1][-1] == 'j' else '公务舱'
                 #设置任务
-                Function.set_task([table[0][6], table[0][0], 1])
-                Function.set_task([table[1][6], table[1][0], 1])
-                #发送邮件
-                Thread_Pool.submit(send_email, (app, email, '购票通知', Function.get_content_double(
-                    table[0][1], table[1][1], table[0][2], table[1][2], table[0][6], table[0][7], table[0][4],
-                    table[1][4], table[0][5], table[1][5], cabin1, cabin2
-                ) + f'{email}。详细信息请访问{request.host_url}'))
+                if emails is None:
+                    Function.set_task([table[0][6], table[0][0], 1])
+                    Function.set_task([table[1][6], table[1][0], 1])
+                    #发送邮件
+                    Thread_Pool.submit(send_email, (app, email, '购票通知', Function.get_content_double(
+                        table[0][1], table[1][1], table[0][2], table[1][2], table[0][6], table[0][7], table[0][4],
+                        table[1][4], table[0][5], table[1][5], cabin1, cabin2
+                    ) + f'{email}。详细信息请访问{request.host_url}'))
+                else:
+                    Function.set_task([table[0][6], table[0][0], len(emails)])
+                    for each_email in emails:
+                        Thread_Pool.submit(send_email, (app, each_email, '购票通知', Function.get_content_double(
+                            table[0][1], table[1][1], table[0][2], table[1][2], table[0][6], table[0][7], table[0][4],
+                            table[1][4], table[0][5], table[1][5], cabin1, cabin2
+                        ) + f'{email}。详细信息请访问{request.host_url}'))
             elif st == '3':  # 多程
                 num = session.get('num')
                 tables = session.get('tables')
-
-                Thread_Pool.submit(send_email, (app, email,'购票通知',Function.get_content_multiply(num,tables,email,request.host_url)))
+                if num != len(tables):
+                    return '0'
+                if emails is None:
+                    Function.set_task([tables[0][6],tables[0][0],1])
+                    Thread_Pool.submit(send_email, (app, email,'购票通知',Function.get_content_multiply(num,tables,email,request.host_url)))
+                else:
+                    Function.set_task([tables[0][6],tables[0][0],len(emails)])
+                    for each_email in emails:
+                        Thread_Pool.submit(send_email, (
+                            app, each_email, '购票通知', Function.get_content_multiply(num, tables, email, request.host_url)
+                        ))
             else:  # st被篡改,csrf防护被攻破
-                logging.warning('非法访问,外部发送了post请求！')
+                logging.warning('非法访问,外部(疑似爬虫或攻击)发送了post请求！')
                 abort(404)
-            # 回到login登录界面后，会主动退出登录并清除所有购票信息
+            # 回到login登录界面后，会主动退出登录并清除所有购票以及登录信息，及时清空所有缓存
             return url_for('login', _external=True)
         return render_template('settlement.html')
-    elif g.email and g.login_status:
+    elif g.email and g.login_status: #已登录，但是没有通过“预定”审核
         return redirect(url_for('index'))
-    else:
+    else: #用户未登录则直接跳回登录界面
         return redirect(url_for('login'))
 
 
