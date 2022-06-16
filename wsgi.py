@@ -366,8 +366,8 @@ def index_ajax3():
             'arrival_sort': result
         }
     else:
-        b = Thread_Pool.submit(Function.sort_planes_cost, numpy.array(result))  # 按价格排序
-        c = Thread_Pool.submit(Function.sort_planes_time, result)  # 按时间排序
+        b = Process_Pool.submit(Function.sort_planes_cost, numpy.array(result))  # 按价格排序
+        c = Process_Pool.submit(Function.sort_planes_time, result)  # 按时间排序
         economy_class, First_class = b.result()
         go_sort, arrival_sort = c.result()
         return jsonify({
@@ -408,8 +408,8 @@ def index_ajax32():
         for i in result:
             if Function.judgeDate(adate, i[4]):
                 results.append(i)
-        b = Thread_Pool.submit(Function.sort_planes_cost, numpy.array(results))  # 按价格排序
-        c = Thread_Pool.submit(Function.sort_planes_time, results)  # 按时间排序
+        b = Process_Pool.submit(Function.sort_planes_cost, numpy.array(results))  # 按价格排序
+        c = Process_Pool.submit(Function.sort_planes_time, results)  # 按时间排序
         economy_class, First_class = b.result()
         go_sort, arrival_sort = c.result()
         return jsonify({
