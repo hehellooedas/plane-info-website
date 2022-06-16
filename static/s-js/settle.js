@@ -169,20 +169,13 @@ var buyname=document.getElementsByClassName('buyname')[0];
          }
      })
 //购票验证
-var obj;
 var pay=document.getElementsByClassName('pay')[0];
     pay.addEventListener('click',function(){
         pack();
-        if(pass.length>0){
-            obj={"emails":JSON.stringify(pass)};
-        }
-        else{
-            obj={};
-        }
       $.ajax({
         type: 'POST',
         url: '/settlement',
-          data:obj,
+          data:{"emails":JSON.stringify(pass)},
         dataType: 'text',
         async: false,
         headers: { "X-CSRFToken": csrf_token },
