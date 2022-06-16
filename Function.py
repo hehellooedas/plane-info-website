@@ -315,5 +315,5 @@ def _check_tasks_pickle():
 
 
 if __name__ == '__main__':
-    delete_log_byhand()
+    ...
 
