@@ -421,6 +421,15 @@ def index_ajax32():
         })
 
 
+@csrf.exempt
+@app.delete('/index_ajax33')
+def index_ajax33():
+    email = session.get('email')
+    session.clear()
+    session['email'] = email
+    session['login_status'] = True
+
+
 
 @csrf.exempt
 @app.post('/index_ajax4')  # 结算按钮
@@ -468,63 +477,44 @@ def settlement():
         email = g.email
         st = session.get('st')
         if request.method == 'POST':  # 支付按钮
-            if request.form.get('emails') is None: #用户没有添加乘客的行为
-                emails = None
-            else: #用户添加乘客，选择购买多张机票
-                emails = json.loads(request.form.get('emails')) #获取乘客邮箱地址列表
-                emails.append(email) #把当前登录用户的邮箱地址加入到列表中
+            emails = json.loads(request.form.get('emails')) #获取乘客邮箱地址列表
+            emails.append(email) #把当前登录用户的邮箱地址加入到列表中
+            people = 0 #人数
             if st == '1':  # 单程
                 table = json.loads(session.get('table'))
                 cabin = '经济舱' if table[-1] == 'j' else '公务舱'  # 判断是经济舱还是公务舱
-                if emails is None:
-                    # 设置任务
-                    Function.set_task([table[6], table[0], 1])
-                    #发送邮件
-                    Thread_Pool.submit(send_email, (app, email, '购票通知', Function.get_content_single(
-                        table[1], table[2], table[6], table[7], table[4], table[5], cabin
-                    ) + f'{email}。详细信息请访问{request.host_url}'))
-                else:
-                    Function.set_task([table[6], table[0], len(emails)])
-                    for each_email in emails:
+                for each_email in emails:
+                    if each_email != '':
+                        people += 1
                         Thread_Pool.submit(send_email, (app, each_email, '购票通知', Function.get_content_single(
                             table[1], table[2], table[6], table[7], table[4], table[5], cabin
                         ) + f'{email}。详细信息请访问{request.host_url}'))
+                Function.set_task([table[6], table[0], people])
             elif st == '2':  # 往返
                 table = json.loads(session.get('table'))
-                Function.set_task([table[0][6], table[0][0], 1])
-                Function.set_task([table[1][6], table[1][0], 1])
                 cabin1 = '经济舱' if table[0][-1] == 'j' else '公务舱'
                 cabin2 = '经济舱' if table[1][-1] == 'j' else '公务舱'
                 #设置任务
-                if emails is None:
-                    Function.set_task([table[0][6], table[0][0], 1])
-                    Function.set_task([table[1][6], table[1][0], 1])
-                    #发送邮件
-                    Thread_Pool.submit(send_email, (app, email, '购票通知', Function.get_content_double(
-                        table[0][1], table[1][1], table[0][2], table[1][2], table[0][6], table[0][7], table[0][4],
-                        table[1][4], table[0][5], table[1][5], cabin1, cabin2
-                    ) + f'{email}。详细信息请访问{request.host_url}'))
-                else:
-                    Function.set_task([table[0][6], table[0][0], len(emails)])
-                    for each_email in emails:
+                for each_email in emails:
+                    if each_email != '':
+                        people += 1
                         Thread_Pool.submit(send_email, (app, each_email, '购票通知', Function.get_content_double(
                             table[0][1], table[1][1], table[0][2], table[1][2], table[0][6], table[0][7], table[0][4],
                             table[1][4], table[0][5], table[1][5], cabin1, cabin2
                         ) + f'{email}。详细信息请访问{request.host_url}'))
+                Function.set_task([table[0][6], table[0][0], people])
+                Function.set_task([table[1][6], table[1][0], people])
             elif st == '3':  # 多程
-                num = session.get('num')
                 tables = session.get('tables')
-                if num != len(tables):
-                    return '0'
-                if emails is None:
-                    Function.set_task([tables[0][6],tables[0][0],1])
-                    Thread_Pool.submit(send_email, (app, email,'购票通知',Function.get_content_multiply(num,tables,email,request.host_url)))
-                else:
-                    Function.set_task([tables[0][6],tables[0][0],len(emails)])
-                    for each_email in emails:
+                num = len(tables)
+                for each_email in emails:
+                    if each_email != '':
+                        people += 1
                         Thread_Pool.submit(send_email, (
                             app, each_email, '购票通知', Function.get_content_multiply(num, tables, email, request.host_url)
                         ))
+                for table in tables:
+                    Function.set_task([table[6], table[0], people])
             else:  # st被篡改,csrf防护被攻破
                 logging.warning('非法访问,外部(疑似爬虫或攻击)发送了post请求！')
                 abort(404)
@@ -565,7 +555,7 @@ def plane_update():
     global open
     open = False  # 更新数据库时暂停搜索服务
     logging.info('数据库开始更新~')
-    time.sleep(1)  # 缓一缓
+    time.sleep(1)  # 缓一缓(阻塞线程)
     Function.planes_Update_Function()  # 执行数据库更新函数
     open = True  # 更新结束后重新开启搜索服务
 

@@ -86,10 +86,15 @@ def get_content_multiply(num,tables,email,url):
     :param url: 航班推荐网站网址
     :return: 邮件内容
     """
-    content = f'【民航行程信息】您的多程机票已于{get_Time()}支付成功。'
+    content = f'【民航行程信息】您的多程机票已于{get_Time()}支付成功。\n'
     for i in range(num):
         cabin = '经济舱' if tables[i][-1]=='j' else '公务舱'
-        content += f'第{i+1}程：{get_date(tables[i][0])}'
+        table = tables[i]
+        content += f'第{i+1}程：{get_date(tables[i][0])} {table[1]} {table[2]}航班 {cabin},{table[6]}（{get_Szm(table[6])}）{get_time(table[4])} - ' \
+                   f'{table[7]}（{get_Szm(table[7])}）{get_time(table[5])}\n'
+    content += f'航班将于起飞前45分钟截止办理乘机手续，为避免耽误您的行程，请您预留足够的时间办理乘机手续' \
+           f'并提前20分钟抵达登机口。乘机人{email}。详细信息请访问{url}'
+    return content
 
 
 
@@ -114,14 +119,16 @@ def set_task(arr: list):
         if os.path.getsize('./files/tasks.pickle'):
             with open('./files/tasks.pickle', 'rb+') as f:
                 a = pickle.load(f)
+                f.truncate()
+            with open('./files/tasks.pickle', 'rb+') as f:
                 a.append(arr)
                 pickle.dump(a, f)
         else:
             with open('./files/tasks.pickle', 'rb+') as f:
-                pickle.dump(arr, f)
+                pickle.dump([arr], f)
     else:
         with open('./files/tasks.pickle', 'wb+') as f:
-            pickle.dump(arr, f)
+            pickle.dump([arr], f)
 
 
 
@@ -133,8 +140,8 @@ def planes_Update_Function():
     if os.path.exists('./files/tasks.pickle') and os.path.getsize('./files/tasks.pickle') != 0:
         with open('./files/tasks.pickle', 'rb+') as f:
             tasks = pickle.load(f)
-            for i in tasks:
-                city, index, numbers = i
+            for task in tasks:
+                city, index, numbers = task
                 information = pandas.read_pickle(f'./files/citys/{city}.pickle')
                 information['余座'].values[index] -= numbers#航班余座减少
                 pandas.to_pickle(f'./files/citys/{city}.pickle')
@@ -284,6 +291,7 @@ class emails_db:
         a.to_pickle(self.path)
 
 
+
     def __str__(self):
         emails = pandas.read_pickle(self.path)
         return (emails)
@@ -293,13 +301,19 @@ class emails_db:
 
 
 
-def delete_email_account(account):
+def _delete_email_account(account):
     path = './files/emails.pickle'
     a = pandas.read_pickle(path)
     a.drop(a.query("email==@account").index, inplace=True)
     a.to_pickle(path)
 
 
+
+def _check_tasks_pickle():
+    with open('./files/tasks.pickle','rb+') as f:
+        print(pickle.load(f))
+
+
 if __name__ == '__main__':
-    pass
+    delete_log_byhand()
 
