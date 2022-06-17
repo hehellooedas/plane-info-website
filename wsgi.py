@@ -357,8 +357,8 @@ def index_ajax2():
             'a_go_sort': a_go_sort,
             'a_arrival_sort': a_arrival_sort,
             'b_common': json.dumps(b_result, ensure_ascii=False),
-            'b_economy_class': json.dumps(b_economy_class.tolist(), ensure_ascii=False),
-            'b_First_class': json.dumps(b_First_class.tolist(), ensure_ascii=False),
+            'b_economy_class': json.dumps(b_economy_class, ensure_ascii=False),
+            'b_First_class': json.dumps(b_First_class, ensure_ascii=False),
             'b_go_sort': b_go_sort,
             'b_arrival_sort': b_arrival_sort
         })
