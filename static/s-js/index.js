@@ -1042,7 +1042,7 @@ function reqfirst() {
             dataType: 'json',
             async: false,
             error: function (request) {
-                alert(send_data);
+                alert('error');
             },
             success: function (data) {
                 if (data['string'] === "0") {

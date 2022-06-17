@@ -33,3 +33,88 @@ IndexError: only integers, slices (`:`), ellipsis (`...`), numpy.newaxis (`None`
 [2022-06-16 20:25:08,959]-[WARNING] [index_ajax1 - 230- 数据库更新时试图访问数据!]
 [2022-06-16 20:25:43,327]-[WARNING] [index_ajax1 - 230- 数据库更新时试图访问数据!]
 [2022-06-16 20:26:25,269]-[WARNING] [index_ajax1 - 230- 数据库更新时试图访问数据!]
+[2022-06-17 11:31:16,916]-[ERROR] [log_exception - 1455- Exception on /index_ajax33 [DELETE]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1545, in finalize_request
+    response = self.make_response(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1701, in make_response
+    raise TypeError(
+TypeError: The view function for 'index_ajax33' did not return a valid response. The function either returned None or ended without a return statement.
+[2022-06-17 11:32:34,891]-[ERROR] [log_exception - 1455- Exception on /index_ajax33 [DELETE]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1545, in finalize_request
+    response = self.make_response(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1701, in make_response
+    raise TypeError(
+TypeError: The view function for 'index_ajax33' did not return a valid response. The function either returned None or ended without a return statement.
+[2022-06-17 11:34:30,396]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:34:30,396]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:34:30,556]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:34:30,556]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:34:31,036]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:34:31,036]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:34:31,172]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:34:31,172]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:34:31,741]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:34:31,742]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:34:31,884]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:34:31,885]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:34:32,485]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:34:32,485]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:34:32,629]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:34:32,629]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:34:33,212]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:34:33,212]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:34:33,356]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:34:33,356]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:34:33,508]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:34:33,508]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:34:33,660]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:34:33,660]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:34:34,764]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:34:34,764]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:34:34,916]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:34:34,916]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:34:35,067]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:34:35,067]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:34:44,803]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:34:44,804]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:34:44,948]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:34:44,948]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:34:45,107]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:34:45,107]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:36:08,046]-[ERROR] [log_exception - 1455- Exception on /index_ajax33 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1526, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1545, in finalize_request
+    response = self.make_response(rv)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1701, in make_response
+    raise TypeError(
+TypeError: The view function for 'index_ajax33' did not return a valid response. The function either returned None or ended without a return statement.
+[2022-06-17 11:37:01,781]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:37:01,782]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:37:01,943]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:37:01,943]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:37:02,069]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:37:02,070]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:37:23,027]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:37:23,027]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:37:23,167]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:37:23,167]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:37:23,317]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax33]
+[2022-06-17 11:37:23,317]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:39:02,408]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax31]
+[2022-06-17 11:39:02,408]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 11:39:10,781]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax31]
+[2022-06-17 11:39:10,781]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]

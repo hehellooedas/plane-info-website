@@ -57,7 +57,7 @@ open = True  # 确认当前数据库中数据是否能对外开放
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 
-# 设置cookie的加密密钥
+# 设置session的加密密钥
 app.secret_key = os.getenv('SECRET_KEY', secrets.token_urlsafe(16))
 
 # 页面缓存初始化
@@ -210,7 +210,6 @@ def register_ajax2():
 
 
 # index函数为航班推荐主页面
-@csrf.exempt
 @app.get('/')  # 主页面
 @limiter.limit("50/second", override_defaults=True, error_message='sorry you have too many requests')
 def index():
@@ -222,7 +221,7 @@ def index():
         return redirect(url_for('login'))
 
 
-@csrf.exempt
+
 @app.post('/index_ajax1')  # 单程
 def index_ajax1():
     if open is False:
@@ -263,7 +262,7 @@ def index_ajax1():
         })
 
 
-@csrf.exempt
+
 @app.post('/index_ajax2')  # 往返
 def index_ajax2():
     if open is False:
@@ -360,14 +359,14 @@ def index_ajax2():
         })
 
 
-@csrf.exempt
+
 @app.post('/index_ajax31')  # ajax3系列为多程
 def index_ajax3():
     if open is False:
         logging.warning('数据库更新时试图访问数据!')
         return jsonify({'string': '0'})
     informations = json.loads(request.form.get('informations'))
-    session['informations'] = informations  # 将多程的城市和时间信息记录在cookies里
+    session['informations'] = informations  # 将多程的城市和时间信息记录在session里
     session['st'] = '3'
     session['num'] = 1  # num记录当前是第几程
     a = Thread_Pool.submit(Function.select_planes, informations[0])
@@ -400,7 +399,7 @@ def index_ajax3():
         })
 
 
-@csrf.exempt
+
 @app.post('/index_ajax32')  # 多程
 def index_ajax32():
     num = session['num']
@@ -446,20 +445,29 @@ def index_ajax32():
         })
 
 
-@csrf.exempt
+
 @app.delete('/index_ajax33')
-def index_ajax33():
-    email = session.get('email')
-    session.clear()
-    session['email'] = email
-    session['login_status'] = True
+def index_ajax33(): #清空存储在session的缓存数据
+    if session.get('num'):
+        # 清空多程的session缓存
+        num = session.get('num')
+        for i in range(1,num+1):
+            if session.get(f'table{num}'):
+                session.pop(f'table{num}')
+    if session.get('tables'):
+        #清空整合后多程的session缓存
+        session.pop('tables')
+    if session.get('table'):
+        #清空单程或往返的缓存
+        session.pop('table')
+    return 'success'
 
 
-@csrf.exempt
+
 @app.post('/index_ajax4')  # 结算按钮
 def index_ajax4():
     form = request.form
-    # 将用户确定的信息暂时存储到加密的cookie（session）里
+    # 将用户确定的信息暂时存储到session里
     st = form.get('st')
     if st == '1' or st == '2':  # 单程或往返
         session['st'] = st
