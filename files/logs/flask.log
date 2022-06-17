@@ -118,3 +118,16 @@ TypeError: The view function for 'index_ajax33' did not return a valid response.
 [2022-06-17 11:39:02,408]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
 [2022-06-17 11:39:10,781]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /index_ajax31]
 [2022-06-17 11:39:10,781]-[WARNING] [encounter_403 - 113- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-17 14:01:08,308]-[ERROR] [log_exception - 1455- Exception on /index_ajax1 [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 258, in index_ajax1
+    'economy_class': json.dumps(economy_class.tolist(), ensure_ascii=False),
+AttributeError: 'list' object has no attribute 'tolist'

@@ -249,14 +249,15 @@ def index_ajax1():
         try:
             b = Thread_Pool.submit(Function.sort_planes_cost, numpy.array(result))  # 按价格排序
             economy_class, First_class = b.result()
+            economy_class, First_class = economy_class.tolist(), First_class.tolist()
         except:
             b = Thread_Pool.submit(Function.sort_planes_cost_replace,result)
             economy_class, First_class = b.result()
         go_sort, arrival_sort = c.result()
         return jsonify({
             'string': '2', 'common': json.dumps(result, ensure_ascii=False),
-            'economy_class': json.dumps(economy_class.tolist(), ensure_ascii=False),
-            'First_class': json.dumps(First_class.tolist(), ensure_ascii=False),
+            'economy_class': json.dumps(economy_class, ensure_ascii=False),
+            'First_class': json.dumps(First_class, ensure_ascii=False),
             'go_sort': go_sort,
             'arrival_sort': arrival_sort
         })
@@ -299,6 +300,7 @@ def index_ajax2():
         try:
             a = Thread_Pool.submit(Function.sort_planes_cost, numpy.array(b_result))
             b_economy_class, b_First_class = a.result()
+            b_economy_class, b_First_class = b_economy_class.tolist(), b_First_class.tolist()
         except:
             a = Thread_Pool.submit(Function.sort_planes_cost_replace, b_result)
             b_economy_class, b_First_class = a.result()
@@ -307,8 +309,8 @@ def index_ajax2():
         return jsonify({
             'string': '2', 'a_common': a_result, 'a_economy_class': a_result,
             'a_First_class': a_result, 'a_go_sort': a_result, 'a_arrival_sort': a_result, 'b_common': b_result,
-            'b_economy_class': json.dumps(b_economy_class.tolist(), ensure_ascii=False),
-            'b_First_class': json.dumps(b_First_class.tplist(), ensure_ascii=False),
+            'b_economy_class': json.dumps(b_economy_class, ensure_ascii=False),
+            'b_First_class': json.dumps(b_First_class, ensure_ascii=False),
             'b_go_sort': b_go_sort,
             'b_arrival_sort': b_arrival_sort
         })
@@ -318,6 +320,7 @@ def index_ajax2():
         try:
             a = Thread_Pool.submit(Function.sort_planes_cost, numpy.array(a_result))
             a_economy_class, a_First_class = a.result()
+            a_economy_class, a_First_class = a_economy_class.tolist(), a_First_class.tolist()
         except:
             a = Thread_Pool.submit(Function.sort_planes_cost_replace, a_result)
             a_economy_class, a_First_class = a.result()
@@ -325,8 +328,8 @@ def index_ajax2():
         a_result, b_result = json.dumps(a_result, ensure_ascii=False), json.dumps(b_result, ensure_ascii=False)
         return jsonify({
             'string': '2', 'a_common': a_result,
-            'a_economy_class': json.dumps(a_economy_class.tolist(), ensure_ascii=False),
-            'a_First_class': json.dumps(a_First_class.tolist(), ensure_ascii=False),
+            'a_economy_class': json.dumps(a_economy_class, ensure_ascii=False),
+            'a_First_class': json.dumps(a_First_class, ensure_ascii=False),
             'a_go_sort': a_go_sort,
             'a_arrival_sort': a_arrival_sort,
             'b_common': b_result, 'b_economy_class': b_result, 'b_First_class': b_result, 'b_go_sort': b_result,
@@ -339,6 +342,8 @@ def index_ajax2():
             a, b = Process_Pool.map(Function.sort_planes_cost, [numpy.array(a_result), numpy.array(b_result)])
             a_economy_class, a_First_class = a
             b_economy_class, b_First_class = b
+            a_economy_class, a_First_class = a_economy_class.tolist(), a_First_class.tolist()
+            b_economy_class, b_First_class = b_economy_class.tolist(), b_First_class.tolist()
         except:
             a, b = Process_Pool.map(Function.sort_planes_cost_replace, [a_result, b_result])
             a_economy_class, a_First_class = a
@@ -347,8 +352,8 @@ def index_ajax2():
         b_go_sort, b_arrival_sort = d
         return jsonify({
             'string': '2', 'a_common': json.dumps(a_result, ensure_ascii=False),
-            'a_economy_class': json.dumps(a_economy_class.tolist(), ensure_ascii=False),
-            'a_First_class': json.dumps(a_First_class.tolist(), ensure_ascii=False),
+            'a_economy_class': json.dumps(a_economy_class, ensure_ascii=False),
+            'a_First_class': json.dumps(a_First_class, ensure_ascii=False),
             'a_go_sort': a_go_sort,
             'a_arrival_sort': a_arrival_sort,
             'b_common': json.dumps(b_result, ensure_ascii=False),
@@ -386,14 +391,15 @@ def index_ajax3():
         try:
             b = Process_Pool.submit(Function.sort_planes_cost, numpy.array(result))  # 按价格排序
             economy_class, First_class = b.result()
+            economy_class, First_class = economy_class.tolist(), First_class.tolist()
         except:
             b = Process_Pool.submit(Function.sort_planes_cost_replace, result)  # 按价格排序
             economy_class, First_class = b.result()
         go_sort, arrival_sort = c.result()
         return jsonify({
             'string': '2', 'common': json.dumps(result, ensure_ascii=False),
-            'economy_class': json.dumps(economy_class.tolist(), ensure_ascii=False),
-            'First_class': json.dumps(First_class.tolist(), ensure_ascii=False),
+            'economy_class': json.dumps(economy_class, ensure_ascii=False),
+            'First_class': json.dumps(First_class, ensure_ascii=False),
             'go_sort': go_sort,
             'arrival_sort': arrival_sort
         })
@@ -432,14 +438,15 @@ def index_ajax32():
         try:
             b = Process_Pool.submit(Function.sort_planes_cost, numpy.array(results))  # 按价格排序
             economy_class, First_class = b.result()
+            economy_class, First_class = economy_class.tolist(), First_class.tolist()
         except:
             b = Process_Pool.submit(Function.sort_planes_cost_replace, results)  # 按价格排序
             economy_class, First_class = b.result()
         go_sort, arrival_sort = c.result()
         return jsonify({
             'string': '2', 'common': json.dumps(results, ensure_ascii=False),
-            'economy_class': json.dumps(economy_class.tolist(), ensure_ascii=False),
-            'First_class': json.dumps(First_class.tolist(), ensure_ascii=False),
+            'economy_class': json.dumps(economy_class, ensure_ascii=False),
+            'First_class': json.dumps(First_class, ensure_ascii=False),
             'go_sort': go_sort,
             'arrival_sort': arrival_sort
         })
