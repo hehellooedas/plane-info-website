@@ -1,2 +1,35 @@
 [2022-06-16 09:20:37,564]-[WARNING] [validate - 344- Forbidden (CSRF token missing or incorrect.): /login_ajax1]
 [2022-06-16 09:20:37,565]-[WARNING] [encounter_403 - 114- 出现了403,可能是遇到了爬虫或是csrf令牌错误!]
+[2022-06-16 14:00:01,108]-[ERROR] [run_job - 131- Job "plane_update (trigger: interval[6:00:00], next run at: 2022-06-16 20:00:00 CST)" raised an exception]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\apscheduler\executors\base.py", line 125, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "D:\民航行程推荐\wsgi.py", line 559, in plane_update
+    Function.planes_Update_Function()  # 执行数据库更新函数
+  File "D:\民航行程推荐\Function.py", line 146, in planes_Update_Function
+    information['余座'].values[index] -= numbers#航班余座减少
+IndexError: only integers, slices (`:`), ellipsis (`...`), numpy.newaxis (`None`) and integer or boolean arrays are valid indices
+[2022-06-16 14:00:01,115]-[ERROR] [listen_error - 571- 数据库更新时出现了错误!]
+[2022-06-16 20:00:01,134]-[ERROR] [run_job - 131- Job "plane_update (trigger: interval[6:00:00], next run at: 2022-06-17 02:00:00 CST)" raised an exception]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\apscheduler\executors\base.py", line 125, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "D:\民航行程推荐\wsgi.py", line 559, in plane_update
+    time.sleep(1)  # 缓一缓(阻塞线程)
+  File "D:\民航行程推荐\Function.py", line 146, in planes_Update_Function
+IndexError: only integers, slices (`:`), ellipsis (`...`), numpy.newaxis (`None`) and integer or boolean arrays are valid indices
+[2022-06-16 20:00:01,144]-[ERROR] [listen_error - 571- 数据库更新时出现了错误!]
+[2022-06-16 20:21:57,382]-[WARNING] [index_ajax1 - 230- 数据库更新时试图访问数据!]
+[2022-06-16 20:22:02,139]-[WARNING] [index_ajax1 - 230- 数据库更新时试图访问数据!]
+[2022-06-16 20:22:09,140]-[WARNING] [index_ajax1 - 230- 数据库更新时试图访问数据!]
+[2022-06-16 20:22:21,643]-[WARNING] [index_ajax1 - 230- 数据库更新时试图访问数据!]
+[2022-06-16 20:22:24,031]-[WARNING] [index_ajax1 - 230- 数据库更新时试图访问数据!]
+[2022-06-16 20:22:25,917]-[WARNING] [index_ajax1 - 230- 数据库更新时试图访问数据!]
+[2022-06-16 20:22:26,082]-[WARNING] [index_ajax1 - 230- 数据库更新时试图访问数据!]
+[2022-06-16 20:22:26,257]-[WARNING] [index_ajax1 - 230- 数据库更新时试图访问数据!]
+[2022-06-16 20:22:26,416]-[WARNING] [index_ajax1 - 230- 数据库更新时试图访问数据!]
+[2022-06-16 20:22:53,649]-[WARNING] [index_ajax1 - 230- 数据库更新时试图访问数据!]
+[2022-06-16 20:22:58,860]-[WARNING] [index_ajax1 - 230- 数据库更新时试图访问数据!]
+[2022-06-16 20:25:08,959]-[WARNING] [index_ajax1 - 230- 数据库更新时试图访问数据!]
+[2022-06-16 20:25:43,327]-[WARNING] [index_ajax1 - 230- 数据库更新时试图访问数据!]
+[2022-06-16 20:26:25,269]-[WARNING] [index_ajax1 - 230- 数据库更新时试图访问数据!]

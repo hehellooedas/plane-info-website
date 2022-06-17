@@ -1,8 +1,11 @@
 import pandas, pickle, os, random, time, copy,numpy,numba,json
 
 
-def delete_log_byhand():#删除日志
-    os.remove('./files/logs/flask.log')
+def delete_log_byhand(keep_file=False):#删除日志
+    if keep_file == True:
+        open('./files/logs/flask.log','w').close()
+    else:
+        os.remove('./files/logs/flask.log')
 
 
 def get_date(date_time:str)->str:#解析日期
@@ -29,9 +32,22 @@ def get_Szm(city: str) -> str:
         "重庆": "CKG", "长沙": "CSX", "青岛": "TAO",'北海': 'BHY','承德': 'CDE','长春': 'CGQ', '朝阳': 'CHG','常州': 'CZX', '大同': 'DAT',
         '义乌': 'YIW','烟台': 'YNT','扬州': 'YTY','西双版纳': 'JHG','佛山': 'FUO','合肥': 'HFE', '九江': 'JIU', '洛阳': 'LYA','宁波': 'NGB',
         '南阳': 'NNY','南通': 'NTG','南宁': 'NNG', '攀枝花': 'PZI','衢州': 'JUZ','沈阳': 'SHE', '温州': 'WNZ',"天津": "TSN", '无锡': 'WUX',
-        '舟山': 'HSN','珠海': 'ZUH', '遵义(新舟)': 'ZYI'
+        '舟山': 'HSN','珠海': 'ZUH', '哈尔滨': 'HRB','乌鲁木齐': 'URC','唐山': 'TVS','襄阳': 'XFN','宜宾': 'YBP'
     }
     return table.get(city)
+
+
+def judgeCity(city:str):
+    """
+    判断城市是否有对应文件（在搜索范围内）
+    :param city: 要搜索的城市（出发城市）
+    :return: 如果不在城市列表中，则返回True
+    """
+    citylist = ('北京', '成都', '大连', '福州', '广州', '杭州', '济南', '昆明', '南京', '青岛', '三亚', '厦门', '上海', '深圳', '武汉', '西安', '长沙',
+               '郑州', '重庆', '天津','北海', '承德', '长春', '朝阳', '常州', '大同', '义乌', '烟台', '扬州', '西双版纳', '佛山', '合肥', '九江',
+               '洛阳', '宁波', '南阳', '南通', '南宁', '攀枝花', '衢州', '沈阳', '温州', '无锡', '舟山', '珠海', '哈尔滨', '乌鲁木齐', '唐山', '襄阳','宜宾'
+                )
+    return city not in citylist
 
 
 def get_content_single(company, flight_number, acity, bcity, adate, bdate,cabin)->str:
@@ -180,6 +196,31 @@ def sort_planes_cost(result)->tuple:#按价格升序
     return cost_sort_Economics,result
 
 
+def sort_planes_cost_replace(result):
+    """
+        航班信息按照价格排序(若LLVM编译器报错，则使用Python原生代码运行)
+        :param result: 航班信息
+        :return:元组，第一项是按照经济舱价格升序，第二项是按照公务舱价格升序
+        """
+    length = len(result)
+    for i in range(length-1):
+        index = i
+        for j in range(i+1,length):
+            if result[index][8] > result[j][8]:
+                index = j
+        if index != i:
+            result[index],result[i] = result[i],result[index]
+    cost_sort_Economics = copy.deepcopy(result)
+    for i in range(length-1):
+        index = i
+        for j in range(i+1,length):
+            if result[index][9] > result[j][9]:
+                index = j
+        if index != i:
+            result[index],result[i] = result[i],result[index]
+    return cost_sort_Economics,result
+
+
 
 
 def sort_planes_time(result: list) -> tuple:#按时间排序
@@ -315,5 +356,5 @@ def _check_tasks_pickle():
 
 
 if __name__ == '__main__':
-    ...
+    print(judgeCity('北京'))
 
