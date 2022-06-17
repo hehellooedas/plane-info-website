@@ -1,4 +1,5 @@
 //选择去程航班时的展示
+var csrf_token = $("[name='_csrf_token']").val();
 var gobtn = document.getElementById('gobtn');//去程选择按钮
 var nav_first = document.getElementsByClassName('nav0')[0];
 var nav_second = document.getElementsByClassName('nav2')[0];
@@ -15,8 +16,8 @@ update.addEventListener('click',function (){
      count=0;
      addition.className="addition";
      pay.value='选为第1程';
-     city_first[0].value="";
-     city_second[0].value="";
+     city_first[0].value="城市名";
+     city_second[0].value="城市名";
      time_first[0].value="";
                for (let i=1;i<trips.length;i++)
      {
@@ -26,6 +27,17 @@ update.addEventListener('click',function (){
      {
           trips[i].style.display='none';
      }
+     $.ajax({
+        type: 'DELETE',
+        url: '/index_ajax33',
+        async: false,
+        headers: { "X-CSRFToken": csrf_token },
+        error: function (request) {
+          alert("Connection error");
+        },
+        success: function (data) {
+        }
+    })
 })
 var send_data = [];//count 计算用户选了几程 ，send_data数组里的元素是 航班数据json对象
 function package() {
@@ -591,6 +603,7 @@ function settlement() {
             {
                 url: '/index_ajax4',
                 type: 'POST',
+                headers: { "X-CSRFToken": csrf_token },
                 data: { "table": JSON.stringify(send), "st": "1" },
                 async: false,
                 error: function (request) {
@@ -623,6 +636,7 @@ function settlement() {
             {
                 url: '/index_ajax4',
                 type: 'POST',
+                headers: { "X-CSRFToken": csrf_token },
                 data: { "table": JSON.stringify(send), "st": "2" },
                 async: false,
                 error: function (request) {
@@ -650,6 +664,7 @@ function settlement() {
                 {
                     url: '/index_ajax4',
                     type: 'POST',
+                    headers: { "X-CSRFToken": csrf_token },
                     data: { "table": JSON.stringify(send),"st": "3"},
                     async: false,
                     error: function (request) {
@@ -665,6 +680,7 @@ function settlement() {
                 {
                     url: '/index_ajax32',
                     type: 'POST',
+                    headers: { "X-CSRFToken": csrf_token },
                     data: { "table": JSON.stringify(send) },
                     async: false,
                     error: function (request) {
@@ -831,6 +847,7 @@ function reqfirst() {
         $.ajax({
             type: 'post',
             url: '/index_ajax1',
+            headers: { "X-CSRFToken": csrf_token },
             data: { "acity": acity.value, "bcity": bcity.value, "adate": time0.value },
             dataType: 'json',
             async: false,
@@ -899,9 +916,9 @@ function reqfirst() {
     //往返数据ajax
     if (st == 2) {
         $.ajax({
-            // headers: {"X-CSRFToken", csrf_token},
             type: 'post',
             url: '/index_ajax2',
+            headers: { "X-CSRFToken": csrf_token },
             data: { "acity": acity.value, "bcity": bcity.value, "adate": time0.value, 'bdate': time2.value },
             dataType: 'json',
             async: false,
@@ -1020,6 +1037,7 @@ function reqfirst() {
         $.ajax({
             type: 'post',
             url: '/index_ajax31',
+            headers: { "X-CSRFToken": csrf_token },
             data: {'informations':JSON.stringify(send_data)},
             dataType: 'json',
             async: false,
