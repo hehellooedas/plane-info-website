@@ -95,7 +95,8 @@ uwsgi --ini wsgi.ini
 
 #### 使用说明
 
-1.  xxxx
+1.  复制网址并在浏览器打开，会进入到登录页面
+
 2.  xxxx
 3.  xxxx
 
