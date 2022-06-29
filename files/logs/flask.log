@@ -200,3 +200,48 @@ Traceback (most recent call last):
   File "D:\民航行程推荐\wsgi.py", line 420, in index_ajax32
     a = Thread_Pool.submit(Function.select_planes, informations[num])
 IndexError: list index out of range
+[2022-06-30 05:35:24,135]-[ERROR] [log_exception - 1455- Exception on /settlement_ajax [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 502, in settlement_ajax
+    session.pop('informations')  # 弹出城市和时间信息
+  File "D:\Python3.10.4\lib\site-packages\werkzeug\datastructures.py", line 216, in pop
+    rv = super().pop(key)
+KeyError: 'informations'
+[2022-06-30 05:35:30,326]-[ERROR] [log_exception - 1455- Exception on /settlement_ajax [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 502, in settlement_ajax
+    session.pop('informations')  # 弹出城市和时间信息
+  File "D:\Python3.10.4\lib\site-packages\werkzeug\datastructures.py", line 216, in pop
+    rv = super().pop(key)
+KeyError: 'informations'
+[2022-06-30 05:36:14,439]-[ERROR] [log_exception - 1455- Exception on /settlement_ajax [POST]]
+Traceback (most recent call last):
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 2077, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1525, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1523, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Python3.10.4\lib\site-packages\flask\app.py", line 1509, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "D:\民航行程推荐\wsgi.py", line 502, in settlement_ajax
+    session.pop('informations')  # 弹出城市和时间信息
+  File "D:\Python3.10.4\lib\site-packages\werkzeug\datastructures.py", line 216, in pop
+    rv = super().pop(key)
+KeyError: 'informations'
