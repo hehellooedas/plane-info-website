@@ -356,5 +356,5 @@ def _check_tasks_pickle():
 
 
 if __name__ == '__main__':
-    print(judgeCity('北京'))
+    ...
 
