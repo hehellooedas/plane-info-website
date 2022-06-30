@@ -66,13 +66,13 @@ function add(){
             </h4>
             <div style="position: relative;">
               <div class="show-bot">
-                <p style="text-align: center;font-style: italic;">${date.toLocaleTimeString()}</p>
-                <p style="text-align: center;font-size:large;">${table[6]}</p>
+                <p style="text-align: center;font-style: italic;">${date2.toLocaleTimeString()}</p>
+                <p style="text-align: center;font-size:large;">${table[7]}</p>
               </div>
               <div class="show-bot2">
 
-                <p style="text-align: center;font-style: italic;">${date2.toLocaleTimeString()}</p>
-                <p style="text-align: center;font-size:large;">${table[7]}</p>
+                <p style="text-align: center;font-style: italic;">${date.toLocaleTimeString()}</p>
+                <p style="text-align: center;font-size:large;">${table[6]}</p>
               </div>
               <div style="position:absolute;left:215px;top:10px;width: auto;height: auto;">
                 <p style="margin-left:-65px;font-size: 18px;">${table[1]} ${table[2]}</p>
@@ -103,13 +103,13 @@ function add(){
             </h4>
             <div style="position: relative;">
               <div class="show-bot">
-                <p style="text-align: center;font-style: italic;">${date.toLocaleTimeString()}</p>
-                <p style="text-align: center;font-size:large;">${table[i][6]}</p>
+                <p style="text-align: center;font-style: italic;">${date2.toLocaleTimeString()}</p>
+                <p style="text-align: center;font-size:large;">${table[i][7]}</p>
               </div>
               <div class="show-bot2">
 
-                <p style="text-align: center;font-style: italic;">${date2.toLocaleTimeString()}</p>
-                <p style="text-align: center;font-size:large;">${table[i][7]}</p>
+                <p style="text-align: center;font-style: italic;">${date.toLocaleTimeString()}</p>
+                <p style="text-align: center;font-size:large;">${table[i][6]}</p>
               </div>
               <div style="position:absolute;left:215px;top:10px;width: auto;height: auto;">
                 <p style="margin-left:-65px;font-size: 18px;">${table[i][1]} ${table[i][2]}</p>
