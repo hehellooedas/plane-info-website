@@ -126,8 +126,8 @@ def before_request():
     g.login_status = session.get('login_status')
     # 设置session的过期时间
     session.permanent = True
-    # 30分钟后刷新页面则自动退出登录
-    app.permanent_session_lifetime = datetime.timedelta(minutes=30)
+    # 20分钟后刷新页面则自动退出登录
+    app.permanent_session_lifetime = datetime.timedelta(minutes=20)
 
 
 @app.get('/login')  # 登录界面
@@ -337,15 +337,15 @@ def index_ajax2():
         })
     else:
         # 往返程都有多条记录，二者使用进程池同时排序
-        c, d = Process_Pool.map(Function.sort_planes_time, [a_result, b_result])
+        c, d = Thread_Pool.map(Function.sort_planes_time, [a_result, b_result])
         try:
-            a, b = Process_Pool.map(Function.sort_planes_cost, [numpy.array(a_result), numpy.array(b_result)])
+            a, b = Thread_Pool.map(Function.sort_planes_cost, [numpy.array(a_result), numpy.array(b_result)])
             a_economy_class, a_First_class = a
             b_economy_class, b_First_class = b
             a_economy_class, a_First_class = a_economy_class.tolist(), a_First_class.tolist()
             b_economy_class, b_First_class = b_economy_class.tolist(), b_First_class.tolist()
         except:
-            a, b = Process_Pool.map(Function.sort_planes_cost_replace, [a_result, b_result])
+            a, b = Thread_Pool.map(Function.sort_planes_cost_replace, [a_result, b_result])
             a_economy_class, a_First_class = a
             b_economy_class, b_First_class = b
         a_go_sort, a_arrival_sort = c
