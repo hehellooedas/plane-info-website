@@ -618,6 +618,8 @@ def delete_log():
 # 定时任务出错函数
 def listen_error(event):
     if event.job_id == '1':
+        global open
+        open = True
         logging.error('数据库更新时出现了错误!')
     else:
         logging.error('删除日志时出现了错误！')
