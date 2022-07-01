@@ -199,10 +199,14 @@ ps aux | grep wsgi
 ![输入图片说明](files/pictures/apscheduler.png)<br>
 设置定时任务。
 
+6、前后端交互
+![输入图片说明](files/pictures/ajax.png)<br>
+前后端使用ajax交互，前端将用户的需求传给后端，后端处理之后，将数据返回给前端展示
+
 
 #### 参与贡献
 
-1、队长：赵飞扬
+1、队长：赵飞扬<br>
 2、队员：谷泽铜
 <br>
 
