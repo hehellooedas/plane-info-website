@@ -153,16 +153,16 @@ ps aux | grep wsgi
 ### 阅读源代码指南
 项目目录如下<br>
 ![输入图片说明](files/pictures/%E7%9B%AE%E5%BD%95.png)
-1、Spider.py是机票爬虫程序；
-2、wsgi.py是项目的Python后端源码，前后端交互相关代码在此文件中；
-3、Function.py是外置的函数库，将部分函数和类外置，避免wsgi.py过于臃肿；
-4、requirements.txt是项目需要和依赖的Python第三方模块；
-5、wsgi.ini是uwsgi独立容器的配置文件
-6、flask文件是nginx的配置文件；
-7、.env是后端外置的环境变量；
-8、templates目录下是前端模板，所有的html文件都在这个目录下；
-9、static是前端所需资源。其中，s-css目录中包含所有的css文件；s-js目录中包含所有的js文件；
-10、files目录下是项目需要的
+1、Spider.py是机票爬虫程序；<br>
+2、wsgi.py是项目的Python后端源码，前后端交互相关代码在此文件中；<br>
+3、Function.py是外置的函数库，将部分函数和类外置，避免wsgi.py过于臃肿；<br>
+4、requirements.txt是项目需要和依赖的Python第三方模块；<br>
+5、wsgi.ini是uwsgi独立容器的配置文件;<br>
+6、flask文件是nginx的配置文件；<br>
+7、.env是后端外置的环境变量；<br>
+8、templates目录下是前端模板，所有的html文件都在这个目录下；<br>
+9、static是前端所需资源。其中，s-css目录中包含所有的css文件；s-js目录中包含所有的js文件；<br>
+10、files目录下是项目需要的资源。其中，citys目录下是二进制机票信息；logs是项目的日志（仅记录报错信息排查错误用）emails.pickle文件记录网站的用户信息；tasks.pickle记录定时任务信息。test/test_citys是机票信息的文本版。<br><br>
 
 
 ### 实现原理和技术细节
