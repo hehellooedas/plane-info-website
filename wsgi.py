@@ -599,7 +599,10 @@ def plane_update():
     open = False  # 更新数据库时暂停搜索服务
     logging.info('数据库开始更新~')
     time.sleep(1)  # 缓一缓(阻塞线程)
-    Function.planes_Update_Function()  # 执行数据库更新函数
+    try:
+        Function.planes_Update_Function()  # 执行数据库更新函数
+    except:
+        logging.warning('机票信息更新出现错误！')
     open = True  # 更新结束后重新开启搜索服务
 
 
