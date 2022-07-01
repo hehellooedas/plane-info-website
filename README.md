@@ -150,6 +150,20 @@ ps aux | grep wsgi
 <br>
 <br>
 
+### 阅读源代码指南
+项目目录如下<br>
+![输入图片说明](files/pictures/%E7%9B%AE%E5%BD%95.png)
+1、Spider.py是机票爬虫程序；
+2、wsgi.py是项目的Python后端源码，前后端交互相关代码在此文件中；
+3、Function.py是外置的函数库，将部分函数和类外置，避免wsgi.py过于臃肿；
+4、requirements.txt是项目需要和依赖的Python第三方模块；
+5、wsgi.ini是uwsgi独立容器的配置文件
+6、flask文件是nginx的配置文件；
+7、.env是后端外置的环境变量；
+8、templates目录下是前端模板，所有的html文件都在这个目录下；
+9、static是前端所需资源。其中，s-css目录中包含所有的css文件；s-js目录中包含所有的js文件；
+10、files目录下是项目需要的
+
 
 ### 实现原理和技术细节
 
@@ -157,7 +171,7 @@ ps aux | grep wsgi
 
 1、航班信息获取
 ![输入图片说明](files/pictures/Spider.png)
-使用爬虫从携程网爬取常见城市一年的机票数据（从2022年6月到2023年5月） <br><br>
+使用爬虫从携程网爬取常见城市一年的机票数据（从2022年6月到2023年5月）。由于要爬取的机票的信息量较大，因此有 <br><br>
 
 2、航班信息存储 <br>
 航班信息最终以二进制形式存储，在./files/citys/目录下 <br>
@@ -182,7 +196,7 @@ ps aux | grep wsgi
 然后每隔6个小时会对数据库里的机票余座信息进行更新。
 ![输入图片说明](files/pictures/update.png)
 根据任务里的出发城市打开对应文件，通过目标索引找出索引对应的那条记录，余座减去人数。<br>
-![输入图片说明](files/pictures/apscheduler.png)
+![输入图片说明](files/pictures/apscheduler.png)<br>
 设置定时任务。
 
 
