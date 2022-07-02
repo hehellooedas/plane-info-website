@@ -1,6 +1,6 @@
 # 民航行程推荐
-网址：[输入链接说明](http://www.planeinfo.top) <br>
-仓库地址：[输入链接说明](https://gitee.com/April_Zhao/web)
+[网址：点击进入](http://www.planeinfo.top) http://www.planeinfo.top<br>
+[仓库地址：点击进入](https://gitee.com/April_Zhao/web) https://gitee.com/April_Zhao/web <br>
 
 
 #### 介绍
