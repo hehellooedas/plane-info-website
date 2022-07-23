@@ -74,7 +74,7 @@ app.config.update(dict(
     MAIL_SERVER='smtp.qq.com',  # 用于发送邮件的SMTP服务
     MAIL_PORT=465,  # 发信端口
     MAIL_USE_SSL=True,  # 是否使用SSL
-    MAIL_USERNAME='928309386@qq.com',  # 发信服务器的用户名
+    MAIL_USERNAME='xxxxxxxxx@qq.com',  # 发信服务器的用户名/把邮箱地址填到此处
     MAIL_PASSWORD='uhnufypshcmhbejf',  # 发信服务器的密码
     MAIL_DEFAULT_SENDER=('April Zhao', '928309386@qq.com'),  # 默认的发信人
     JSON_AS_ASCII=False
