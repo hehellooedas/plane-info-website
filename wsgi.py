@@ -133,6 +133,7 @@ def before_request():
 @app.get('/login')  # 登录界面
 @cache.cached(timeout=3000, query_string=True)  # 设置缓存
 def login():
+    #a test
     response = make_response(render_template('login.html'))
     agent = parse(request.user_agent.string)
     if agent.is_bot:
